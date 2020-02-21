@@ -1,15 +1,19 @@
 package io.out;
 
 import contract.Gui;
+import contract.menu.Menu;
 import core.DualityGUI;
 import error.ErrorLogger;
 import main.Meta;
+import main.Session;
 import resources.DualityContext;
 import resources.DualityMode;
 import resources.glyph.image.GlyphString;
 import resources.glyph.image.ImageManager;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -61,6 +65,22 @@ public class GUIManager {
         } catch (IOException e) {
             ErrorLogger.logFatalException(e);
         }
+        GUI.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                //nothing to do
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                Session.getModeManager().handleKeyPress(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //nothing to do
+            }
+        });
         //todo - add a keylistener. from ACE: Display.setKeyListener(new ACEListener());
         GUI.setIcon(FRAME_ICON_FILE_NAME);
         GUI.setTitle(Meta.gameTitle() + " - " + Meta.version());
@@ -97,7 +117,14 @@ public class GUIManager {
     public void printCenteredLine(double percentFromTop, String text, Color foreground, Color background) {
         printCenteredLine(GUI.rowAtPercent(percentFromTop), text, foreground, background);
     }
-    public void printCenteredLine(int row, String text, Color foreground, Color background) {
+    private void printCenteredLine(int row, String text, Color foreground, Color background) {
         GUI.printCentered(row, new GlyphString(text, foreground, background));
     }
+    public void printMenu(double percentFromTop, Menu menu, Color foreground, Color background) {
+        printMenu(GUI.rowAtPercent(percentFromTop), menu, foreground, background);
+    }
+    private void printMenu(int row, Menu menu, Color foreground, Color background) {
+        GUI.printMenu(row, menu, foreground, background);
+    }
+
 }

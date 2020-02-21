@@ -1,8 +1,12 @@
 package main.modes;
 
+import contract.menu.Menu;
+import contract.menu.MenuBuilder;
+import contract.menu.MenuOption;
 import io.out.GUIManager;
 import main.Meta;
 import main.Session;
+import menu.MenuDefinitions;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -28,7 +32,7 @@ public class BottomMode implements Mode {
             //todo - check the file system for a player profile. if extant, go directly to the main menu.
             // otherwise, switch to a special mode which will prompt the player for unique information and create
             // the profile. This mode should then switch to the main menu.
-            // Note that we ought to use Session.getInstance.getModeManager() and use the methods provided to do so.
+            Session.getModeManager().transitionTo(new MainMenuMode(MenuDefinitions.getMainMenu()));
             isNewSession = false;
         } else {
             Session.getModeManager().revert();

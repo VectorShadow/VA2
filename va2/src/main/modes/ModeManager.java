@@ -1,5 +1,6 @@
 package main.modes;
 
+import java.awt.event.KeyEvent;
 import java.util.Stack;
 
 /**
@@ -10,6 +11,9 @@ public class ModeManager {
 
     public ModeManager() {
         transitionTo(new BottomMode());
+    }
+    public void handleKeyPress(KeyEvent ke) {
+        modeStack.peek().in(ke);
     }
 
     public void revert() {
