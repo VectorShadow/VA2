@@ -4,7 +4,7 @@ import contract.Gui;
 import contract.menu.Menu;
 import core.DualityGUI;
 import error.ErrorLogger;
-import main.Meta;
+import main.MetaData;
 import main.Session;
 import resources.DualityContext;
 import resources.DualityMode;
@@ -83,7 +83,7 @@ public class GUIManager {
         });
         //todo - add a keylistener. from ACE: Display.setKeyListener(new ACEListener());
         GUI.setIcon(FRAME_ICON_FILE_NAME);
-        GUI.setTitle(Meta.gameTitle() + " - " + Meta.version());
+        GUI.setTitle(MetaData.gameTitle() + " - " + MetaData.version());
         setupChannels();
         //todo - additional setup?
         new ScreenRefresherDaemon().start();

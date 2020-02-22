@@ -1,7 +1,7 @@
 package main.modes;
 
 import io.out.GUIManager;
-import main.Meta;
+import main.MetaData;
 import main.Session;
 import menu.MenuDefinitions;
 
@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 /**
  * The startup/shutdown operating mode.
  */
-public class BottomMode implements Mode {
+public class BottomMode implements OperatingMode {
 
     private boolean isNewSession = true;
 
@@ -41,9 +41,9 @@ public class BottomMode implements Mode {
         gm.clearScreen();
         if (isNewSession) {
             gm.printCenteredBlock(0.2, new String[] {
-                    Meta.gameTitle(),
-                    "by " + Meta.studio(),
-                    "Version: " + Meta.version()
+                    MetaData.gameTitle(),
+                    "by " + MetaData.studio(),
+                    "Version: " + MetaData.version()
             }, Color.BLACK, Color.GREEN);
             gm.printCenteredLine(0.85, "[Press any key to continue.]", Color.BLACK, Color.GREEN);
         } else {

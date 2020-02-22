@@ -1,6 +1,6 @@
 package main;
 
-public class Meta {
+public class MetaData {
     public static String gameTitle() {
         return "Abyssal Chronicles of Earth";
     }

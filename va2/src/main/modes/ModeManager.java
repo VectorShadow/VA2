@@ -7,21 +7,21 @@ import java.util.Stack;
  * Primary agent for operating mode transition handling.
  */
 public class ModeManager {
-    private static Stack<Mode> modeStack = new Stack<>();
+    private static Stack<OperatingMode> operatingModeStack = new Stack<>();
 
     public ModeManager() {
         transitionTo(new BottomMode());
     }
     public void handleKeyPress(KeyEvent ke) {
-        modeStack.peek().in(ke);
+        operatingModeStack.peek().in(ke);
     }
 
     public void revert() {
-        modeStack.pop().from();
-        modeStack.peek().to();
+        operatingModeStack.pop().from();
+        operatingModeStack.peek().to();
     }
-    public void transitionTo(Mode mode) {
-        modeStack.push(mode);
-        mode.to();
+    public void transitionTo(OperatingMode operatingMode) {
+        operatingModeStack.push(operatingMode);
+        operatingMode.to();
     }
 }

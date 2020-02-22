@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 /**
  * This interface specifies the behavior for the mode the program is operating in.
  */
-public interface Mode {
+public interface OperatingMode {
     /**
      * Handle transition to this mode.
      */

@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 import static java.awt.event.KeyEvent.*;
 
-public class MainMenuMode implements Mode {
+public class MainMenuMode implements OperatingMode {
 
     private Menu menu;
 
