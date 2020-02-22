@@ -5,6 +5,12 @@ import contract.menu.MenuBuilder;
 import contract.menu.MenuOption;
 
 public class MenuDefinitions {
+
+    public static final int MAIN_MENU_NEW_GAME = 0;
+    public static final int MAIN_MENU_LOAD_GAME = 1;
+    public static final int MAIN_MENU_VIEW_PROFILE = 2;
+    public static final int MAIN_MENU_EXIT = 3;
+
     public static Menu getMainMenu() {
         //todo - determine which game option should be enabled based on whether a savefile exists.
         // Session.getFileManager() should provide this information.

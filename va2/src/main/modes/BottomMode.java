@@ -1,8 +1,5 @@
 package main.modes;
 
-import contract.menu.Menu;
-import contract.menu.MenuBuilder;
-import contract.menu.MenuOption;
 import io.out.GUIManager;
 import main.Meta;
 import main.Session;
@@ -22,7 +19,6 @@ public class BottomMode implements Mode {
     public void to() {
         GUIManager gm = Session.getGuiManager();
         gm.changeChannelToFullscreenText();
-        gm.clearScreen();
         out();
     }
 
@@ -42,6 +38,7 @@ public class BottomMode implements Mode {
     @Override
     public void out() {
         GUIManager gm = Session.getGuiManager();
+        gm.clearScreen();
         if (isNewSession) {
             gm.printCenteredBlock(0.2, new String[] {
                     Meta.gameTitle(),
@@ -50,6 +47,7 @@ public class BottomMode implements Mode {
             }, Color.BLACK, Color.GREEN);
             gm.printCenteredLine(0.85, "[Press any key to continue.]", Color.BLACK, Color.GREEN);
         } else {
+            System.out.println("Printing quit message.");
             gm.printCenteredLine(0.45, "Thanks for playing ACE. Press any key to quit.", Color.BLACK, Color.GREEN);
         }
     }

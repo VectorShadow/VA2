@@ -3,9 +3,12 @@ package main.modes;
 import contract.menu.Menu;
 import io.out.GUIManager;
 import main.Session;
+import menu.MenuDefinitions;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+
+import static java.awt.event.KeyEvent.*;
 
 public class MainMenuMode implements Mode {
 
@@ -19,22 +22,42 @@ public class MainMenuMode implements Mode {
     public void to() {
         GUIManager gm = Session.getGuiManager();
         gm.changeChannelToFullscreenText();
-        gm.clearScreen();
         out();
     }
 
     @Override
     public void in(KeyEvent ke) {
-        //todo - map ke to menu functions
-        // on up, regress
-        // on down, advance
-        // on enter, check menu.getSelectedOptionIndex against MenuDefinitions constants and handle accordingly
-        // on exit, Session.getModeManager().revert();
+        switch (ke.getKeyCode()) {
+            case VK_UP: case VK_NUMPAD8:
+                menu.regress();
+                break;
+            case VK_DOWN: case VK_NUMPAD2:
+                menu.advance();
+                break;
+            case VK_ENTER:
+                switch (menu.getSelectedOptionIndex()) {
+                    case MenuDefinitions.MAIN_MENU_NEW_GAME:
+                        //todo
+                        break;
+                    case MenuDefinitions.MAIN_MENU_LOAD_GAME:
+                        //todo
+                        break;
+                    case MenuDefinitions.MAIN_MENU_VIEW_PROFILE:
+                        //todo
+                        break;
+                    case MenuDefinitions.MAIN_MENU_EXIT:
+                        Session.getModeManager().revert();
+                        return;
+                }
+                break;
+        }
+        out();
     }
 
     @Override
     public void out() {
         GUIManager gm = Session.getGuiManager();
+        gm.clearScreen();
         gm.printMenu(0.35, menu, Color.BLACK, Color.GREEN);
     }
 
