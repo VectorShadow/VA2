@@ -7,6 +7,7 @@ import menu.MenuDefinitions;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.*;
 
 /**
  * The startup/shutdown operating mode.
@@ -24,6 +25,7 @@ public class BottomMode implements OperatingMode {
 
     @Override
     public void in(KeyEvent ke) {
+        if (OperatingMode.overrideHandleInput(ke) || (ke.getModifiersEx() == ALT_DOWN_MASK)) return;
         if (isNewSession) {
             //todo - check the file system for a player profile. if extant, go directly to the main menu.
             // otherwise, switch to a special mode which will prompt the player for unique information and create
@@ -47,7 +49,6 @@ public class BottomMode implements OperatingMode {
             }, Color.BLACK, Color.GREEN);
             gm.printCenteredLine(0.85, "[Press any key to continue.]", Color.BLACK, Color.GREEN);
         } else {
-            System.out.println("Printing quit message.");
             gm.printCenteredLine(0.45, "Thanks for playing ACE. Press any key to quit.", Color.BLACK, Color.GREEN);
         }
     }

@@ -1,6 +1,9 @@
 package main.modes;
 
+import main.Session;
+
 import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.*;
 
 /**
  * This interface specifies the behavior for the mode the program is operating in.
@@ -27,4 +30,17 @@ public interface OperatingMode {
      * Handle reversion from this mode.
      */
     void from();
+
+    static boolean overrideHandleInput(KeyEvent ke) {
+        switch (ke.getKeyCode()) {
+            case VK_ENTER:
+                if (ke.getModifiersEx() == ALT_DOWN_MASK) {
+                    Session.getGuiManager().toggleFullScreenMode();
+                    return true;
+                }
+                break;
+            //todo - other override cases?
+        }
+        return false;
+    }
 }

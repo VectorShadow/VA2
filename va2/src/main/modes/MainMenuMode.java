@@ -27,6 +27,7 @@ public class MainMenuMode implements OperatingMode {
 
     @Override
     public void in(KeyEvent ke) {
+        if (OperatingMode.overrideHandleInput(ke)) return;
         switch (ke.getKeyCode()) {
             case VK_UP: case VK_NUMPAD8:
                 menu.regress();

@@ -8,6 +8,7 @@ import main.MetaData;
 import main.Session;
 import resources.DualityContext;
 import resources.DualityMode;
+import resources.glyph.Glyph;
 import resources.glyph.image.GlyphString;
 import resources.glyph.image.ImageManager;
 
@@ -109,6 +110,9 @@ public class GUIManager {
     public void clearZone(int zone) {
         GUI.clear(zone);
     }
+    public void printGlyph(int row, int column, Glyph g) {
+        GUI.print(row, column, g);
+    }
     public void printCenteredBlock(double percentFromTop, String[] text, Color foreground, Color background) {
         int row = GUI.rowAtPercent(percentFromTop);
         for (int i = 0; i < text.length; ++i)
@@ -125,6 +129,14 @@ public class GUIManager {
     }
     private void printMenu(int row, Menu menu, Color foreground, Color background) {
         GUI.printMenu(row, menu, foreground, background);
+    }
+
+    public void toggleFullScreenMode() {
+        GUI.toggleFullScreen();
+    }
+
+    Dimension getScreenDimension() {
+        return new Dimension(GUI.countColumns(), GUI.countRows());
     }
 
 }
