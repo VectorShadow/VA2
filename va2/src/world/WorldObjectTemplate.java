@@ -1,6 +1,10 @@
 package world;
 
 import io.out.GlyphSource;
+import resources.DualityMode;
+import resources.chroma.Chroma;
+import resources.glyph.Glyph;
+import resources.glyph.GlyphBuilder;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -45,5 +49,13 @@ public abstract class WorldObjectTemplate implements GlyphSource {
     @Override
     public ArrayList<Color> listAdditionalForegroundColors() {
         return new ArrayList<>(foregroundColors.subList(1, foregroundColors.size()));
+    }
+
+    @Override
+    public Glyph memoryImage() {
+        return GlyphBuilder
+                .buildGlyph()
+                .setDefaults(Color.DARK_GRAY, Chroma.dark(getBaseForegroundColor()), getBaseSymbol())
+                .build(DualityMode.TILE);
     }
 }

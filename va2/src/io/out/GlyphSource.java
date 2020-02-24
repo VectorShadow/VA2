@@ -1,5 +1,7 @@
 package io.out;
 
+import resources.glyph.Glyph;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -13,4 +15,5 @@ public interface GlyphSource {
     ArrayList<Color> listAdditionalBackgroundColors();
     Color getBaseForegroundColor();
     ArrayList<Color> listAdditionalForegroundColors();
+    Glyph memoryImage();
 }

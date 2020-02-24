@@ -15,11 +15,37 @@ public class Floor {
         ROWS = rows;
         COLS = cols;
         floorTiles = new FloorTile[ROWS][COLS];
+        initializeTiles();
         //hack - test display - todo - initialize with EMPTY:
         for (FloorTile[] ft : floorTiles) {
             for (FloorTile f : ft) {
                 f.setTerrain(new Terrain(TerrainDefinitions.SIMPLE_FLOOR));
             }
         }
+    }
+    private void initializeTiles() {
+        floorTiles = new FloorTile[ROWS][COLS];
+        for (int i = 0; i < ROWS; ++i) {
+            for (int j = 0; j < COLS; ++j) {
+                FloorTile ft = new FloorTile();
+                ft.setTerrain(new Terrain(TerrainDefinitions.EMPTY));
+                //todo - initialize other necessary fields as required
+                floorTiles[i][j] = ft;
+            }
+        }
+    }
+
+    public int getRows() {
+        return ROWS;
+    }
+
+    public int getCols() {
+        return COLS;
+    }
+    public boolean inFloor(int row, int col) {
+        return row >= 0 && row < ROWS && col >= 0 && col < COLS;
+    }
+    public FloorTile tileAt(int row, int col) {
+        return floorTiles[row][col];
     }
 }

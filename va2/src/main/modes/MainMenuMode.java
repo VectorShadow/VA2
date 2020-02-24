@@ -38,8 +38,9 @@ public class MainMenuMode implements OperatingMode {
             case VK_ENTER:
                 switch (menu.getSelectedOptionIndex()) {
                     case MenuDefinitions.MAIN_MENU_NEW_GAME:
-                        //todo
-                        break;
+                        //todo - hack: for now, transition to mainGameViewMode
+                        Session.getModeManager().transitionTo(new MainGameViewMode());
+                        return;
                     case MenuDefinitions.MAIN_MENU_LOAD_GAME:
                         //todo
                         break;

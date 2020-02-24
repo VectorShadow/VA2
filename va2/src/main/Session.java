@@ -1,5 +1,6 @@
 package main;
 
+import floor.Floor;
 import io.file.FileManager;
 import io.out.GUIManager;
 import main.modes.ModeManager;
@@ -11,14 +12,26 @@ import main.modes.ModeManager;
  */
 public class Session {
 
+    private static Camera camera;
+    private static Floor currentFloor;
     private static FileManager fileManager;
     private static GUIManager guiManager;
     private static ModeManager modeManager;
 
     static void start() {
+        camera = new Camera();
+        currentFloor = null;
         fileManager = new FileManager();
         guiManager = new GUIManager();
         modeManager = new ModeManager();
+    }
+
+    public static Camera getCamera() {
+        return camera;
+    }
+
+    public static Floor getCurrentFloor() {
+        return currentFloor;
     }
 
     public static FileManager getFileManager() {
@@ -31,5 +44,9 @@ public class Session {
 
     public static ModeManager getModeManager() {
         return modeManager;
+    }
+
+    public static void setCurrentFloor(Floor f) {
+        currentFloor = f;
     }
 }
