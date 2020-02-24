@@ -1,5 +1,6 @@
 package world;
 
+import world.actor.ActorTemplate;
 import world.terrain.TerrainTemplate;
 
 import java.awt.*;
@@ -65,6 +66,10 @@ public class WorldObjectTemplateFactory {
         if (symbols.isEmpty()) symbols.add(DEFAULT_SYMBOL);
         if (backgroundColors.isEmpty()) backgroundColors.add(DEFAULT_BACKGROUND_COLOR);
         if (foregroundColors.isEmpty()) foregroundColors.add(DEFAULT_FOREGROUND_COLOR);
+    }
+    public ActorTemplate manufactureActorTemplate(int energyPerTurn) {
+        forceNonEmptyLists();
+        return new ActorTemplate(symbols, backgroundColors, foregroundColors, energyPerTurn);
     }
     public TerrainTemplate manufactureTerrainTemplate() {
         forceNonEmptyLists();

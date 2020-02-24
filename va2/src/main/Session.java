@@ -1,5 +1,6 @@
 package main;
 
+import engine.Engine;
 import floor.Floor;
 import io.file.FileManager;
 import io.out.GUIManager;
@@ -14,6 +15,7 @@ public class Session {
 
     private static Camera camera;
     private static Floor currentFloor;
+    private static Engine engine;
     private static FileManager fileManager;
     private static GUIManager guiManager;
     private static ModeManager modeManager;
@@ -21,6 +23,7 @@ public class Session {
     static void start() {
         camera = new Camera();
         currentFloor = null;
+        engine = new Engine();
         fileManager = new FileManager();
         guiManager = new GUIManager();
         modeManager = new ModeManager();
@@ -32,6 +35,10 @@ public class Session {
 
     public static Floor getCurrentFloor() {
         return currentFloor;
+    }
+
+    public static Engine getEngine() {
+        return engine;
     }
 
     public static FileManager getFileManager() {
