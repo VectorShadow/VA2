@@ -1,6 +1,6 @@
 package io.out;
 
-import floor.Coordinate;
+import util.Coordinate;
 import floor.Floor;
 import floor.FloorTile;
 import main.Session;
@@ -55,7 +55,11 @@ public class FloorRenderer {
                     if (ft.isSeen())
                         g = wot.memoryImage();
 
-                    //hack - show the terrain here regardless
+                    //hack - draw all actors without qualification
+                    if (ft.getActor() != null) {
+                        wot = ft.getActor().getTemplate();
+                    }
+                    //hack - show the terrain (or actor) here regardless
                     g = GlyphBuilder.buildGlyph().setDefaults(wot.getBaseBackgroundColor(), wot.getBaseForegroundColor(), wot.getBaseSymbol()).build(DualityMode.TILE);
                 }
                 //todo -  generate a list of coordinates corresponding to the player's vision, using the method from ACE, and

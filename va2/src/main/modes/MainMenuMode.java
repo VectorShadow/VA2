@@ -4,6 +4,8 @@ import contract.menu.Menu;
 import io.out.GUIManager;
 import main.Session;
 import menu.MenuDefinitions;
+import world.actor.Actor;
+import world.actor.ActorDefinitions;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -38,7 +40,10 @@ public class MainMenuMode implements OperatingMode {
             case VK_ENTER:
                 switch (menu.getSelectedOptionIndex()) {
                     case MenuDefinitions.MAIN_MENU_NEW_GAME:
-                        //todo - hack: for now, transition to mainGameViewMode
+                        //todo - hack: for now, create a new player and transition to mainGameViewMode
+                        Session.setPlayerActor(
+                                new Actor(ActorDefinitions.PLAYER_TEMPLATE)
+                        );
                         Session.getModeManager().transitionTo(new MainGameViewMode());
                         return;
                     case MenuDefinitions.MAIN_MENU_LOAD_GAME:

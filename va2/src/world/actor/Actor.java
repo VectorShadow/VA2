@@ -1,6 +1,8 @@
 package world.actor;
 
-import engine.Action;
+import engine.action.Action;
+import engine.action.ActionDefinitions;
+import util.Coordinate;
 import world.WorldObject;
 
 import java.util.LinkedList;
@@ -11,14 +13,18 @@ import java.util.LinkedList;
  */
 public class Actor extends WorldObject {
 
-    public static final int MAXIMUM_ENERGY = 1_024;
-
+    private Coordinate location;
+    private int currentEnergy = ActionDefinitions.MAXIMUM_ACTION_ENERGY;
     private int energyGainPerTurn;
-    private int currentEnergy = MAXIMUM_ENERGY;
     private LinkedList<Action> queuedActions = new LinkedList<>();
+
+
     public Actor(ActorTemplate t) {
         super(t);
         energyGainPerTurn = t.getEnergyGainPerTurn();
+    }
+    public void clearQueuedActions() {
+        queuedActions = new LinkedList<>();
     }
     public void consumeEnergy(int cost) {
         if (!hasEnoughEnergy(cost))
@@ -28,12 +34,23 @@ public class Actor extends WorldObject {
     }
     public void gainEnergy() {
         currentEnergy += energyGainPerTurn;
-        if (currentEnergy > MAXIMUM_ENERGY) currentEnergy = MAXIMUM_ENERGY;
+        if (currentEnergy > ActionDefinitions.MAXIMUM_ACTION_ENERGY)
+            currentEnergy = ActionDefinitions.MAXIMUM_ACTION_ENERGY;
     }
     public boolean hasQueuedAction() {
         return !queuedActions.isEmpty();
     }
-    public Action getQueuedAction() {
+
+    public Coordinate getLocation() {
+        return location;
+    }
+
+    public Action checkQueuedAction() {
+        if (!hasQueuedAction())
+            throw new IllegalStateException("No Actions are queued.");
+        return queuedActions.peekFirst();
+    }
+    public Action removeQueuedAction() {
         if (!hasQueuedAction())
             throw new IllegalStateException("No Actions are queued.");
         return queuedActions.removeFirst();
@@ -44,5 +61,9 @@ public class Actor extends WorldObject {
     }
     public void queueAction(Action a) {
         queuedActions.addLast(a);
+    }
+
+    public void setLocation(Coordinate location) {
+        this.location = location;
     }
 }

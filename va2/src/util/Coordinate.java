@@ -1,4 +1,4 @@
-package floor;
+package util;
 
 public class Coordinate {
     private final int ROW;

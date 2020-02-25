@@ -7,5 +7,5 @@ import world.WorldObjectTemplateFactory;
  */
 public class ActorDefinitions {
     public static final ActorTemplate PLAYER_TEMPLATE =
-            WorldObjectTemplateFactory.initialize().manufactureActorTemplate(25);
+            WorldObjectTemplateFactory.initialize().setSymbols('@').manufactureActorTemplate(25);
 }

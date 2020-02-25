@@ -1,5 +1,7 @@
 package floor;
 
+import util.Coordinate;
+import world.actor.Actor;
 import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
 
@@ -47,5 +49,20 @@ public class Floor {
     }
     public FloorTile tileAt(int row, int col) {
         return floorTiles[row][col];
+    }
+    public void placeActor(Actor actor, Coordinate coordinate) {
+        Coordinate currentLocation = actor.getLocation();
+        int currentRow, currentCol;
+        if (currentLocation != null) {
+            currentRow = currentLocation.getRow();
+            currentCol = currentLocation.getColumn();
+            if (inFloor(currentRow, currentCol)) {
+                floorTiles[currentRow][currentCol].setActor(null);
+            }
+        }
+        actor.setLocation(coordinate);
+        currentRow = coordinate.getRow();
+        currentCol = coordinate.getColumn();
+        floorTiles[currentRow][currentCol].setActor(actor);
     }
 }

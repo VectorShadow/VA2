@@ -1,5 +1,10 @@
 package engine;
 
+import engine.action.Action;
+import engine.action.AdjacentMovementAction;
+import floor.Floor;
+import main.Session;
+import util.Coordinate;
 import world.actor.Actor;
 
 import java.util.ArrayList;
@@ -20,7 +25,9 @@ public class Engine {
 
     public void resetActors() {
         actors = new ArrayList<>();
-        //todo - automatically add the player when we have the means to do so
+        Actor player = Session.getPlayerActor();
+        if (player != null)
+            actors.add(Session.getPlayerActor());
     }
 
     /**
@@ -45,18 +52,16 @@ public class Engine {
                     if (i == 0) return; //if the player has no queued action, we are done
                     //else use the AI to queue an action
                 }
-                action = actor.getQueuedAction();
-                //todo - ensure the queued action is still valid - if not, ask the AI for a new valid action
-                //todo - if the player action is invalid, wipe the player's action queue and return
-                //todo - use similar check as above:
-                // if (!action.isValid()){
-                //  //wipe queue
-                //  if (i == 0) return;
-                //  //ask AI to queue new action
-                //  action = actor.getQueuedAction();
-                // }
+                action = actor.checkQueuedAction();
+                if (!validate(actor, action)) {
+                    actor.clearQueuedActions();
+                    if (i == 0) return;
+                    //todo - ask AI to queue a new action
+                    action = actor.checkQueuedAction();
+                }
                 energyCost = action.getEnergyCost();
                 if (actor.hasEnoughEnergy(energyCost)) {
+                    actor.removeQueuedAction();
                     actor.consumeEnergy(energyCost);
                     handle(actor, action);
                 }
@@ -64,7 +69,40 @@ public class Engine {
             ++gameTurn;
         }
     }
+    private boolean validate(Actor actor, Action action) {
+        Floor f = Session.getCurrentFloor();
+        Coordinate origin= actor.getLocation();
+        Coordinate destination;
+        int origRow = origin.getRow();
+        int origCol = origin.getColumn();
+        int destRow, destCol;
+        if (action instanceof AdjacentMovementAction) {
+            AdjacentMovementAction ama = (AdjacentMovementAction)action;
+            destination = ama.getDirection().shift(actor.getLocation());
+            destRow = destination.getRow();
+            destCol = destination.getColumn();
+            return f.inFloor(destRow, destCol) && f.tileAt(destRow, destCol).getActor() == null; //todo - also check that the terrain here is passable
+        }
+        //todo - other cases
+        return false;
+    }
+
+    /**
+     * validate() is always called before handle() otherwise undefined behavior can occur
+     */
     private void handle(Actor actor, Action action) {
-        //todo
+        Floor f = Session.getCurrentFloor();
+        Coordinate origin= actor.getLocation();
+        Coordinate destination;
+        int origRow = origin.getRow();
+        int origCol = origin.getColumn();
+        int destRow, destCol;
+        if (action instanceof AdjacentMovementAction) {
+            AdjacentMovementAction ama = (AdjacentMovementAction) action;
+            destination = ama.getDirection().shift(actor.getLocation());
+            destRow = destination.getRow();
+            destCol = destination.getColumn();
+            f.placeActor(actor, destination);
+        } //todo - else {} all other cases
     }
 }

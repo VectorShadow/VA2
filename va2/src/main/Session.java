@@ -5,6 +5,8 @@ import floor.Floor;
 import io.file.FileManager;
 import io.out.GUIManager;
 import main.modes.ModeManager;
+import util.Coordinate;
+import world.actor.Actor;
 
 
 /**
@@ -19,6 +21,7 @@ public class Session {
     private static FileManager fileManager;
     private static GUIManager guiManager;
     private static ModeManager modeManager;
+    private static Actor playerActor;
 
     static void start() {
         camera = new Camera();
@@ -27,6 +30,7 @@ public class Session {
         fileManager = new FileManager();
         guiManager = new GUIManager();
         modeManager = new ModeManager();
+        playerActor = null;
     }
 
     public static Camera getCamera() {
@@ -52,8 +56,17 @@ public class Session {
     public static ModeManager getModeManager() {
         return modeManager;
     }
+    public static Actor getPlayerActor() {
+        return playerActor;
+    }
 
     public static void setCurrentFloor(Floor f) {
         currentFloor = f;
+        //todo - hack - place the player on the new floor
+        f.placeActor(playerActor, new Coordinate(0,0));
+        engine.resetActors();
+    }
+    public static void setPlayerActor(Actor a) {
+        playerActor = a;
     }
 }

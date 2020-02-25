@@ -1,5 +1,6 @@
 package floor;
 
+import world.actor.Actor;
 import world.terrain.Terrain;
 
 /**
@@ -7,9 +8,17 @@ import world.terrain.Terrain;
  * as well as pointers to other world objects at its location.
  */
 public class FloorTile {
+    private Actor actor = null;
     private boolean seen = false;
-    private Terrain terrain;
+    private Terrain terrain = null;
 
+    public Actor getActor() {
+        return actor;
+    }
+
+    public void setActor(Actor actor) {
+        this.actor = actor;
+    }
 
     public boolean isSeen() {
         return seen;
