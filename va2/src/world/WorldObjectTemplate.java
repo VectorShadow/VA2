@@ -9,6 +9,9 @@ import resources.glyph.GlyphBuilder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * The base class for all WorldObjectTemplates. Templates for objects which extend WorldObject must extend this class.
+ */
 public abstract class WorldObjectTemplate implements GlyphSource {
     private final boolean reflectLight;
     private final ArrayList<Character> symbols;

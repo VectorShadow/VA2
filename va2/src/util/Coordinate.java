@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * A pair of integers specifying row and column. Used for accessing tiles within a floor.
+ */
 public class Coordinate {
     private final int ROW;
     private final int COL;

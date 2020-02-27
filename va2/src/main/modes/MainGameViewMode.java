@@ -6,11 +6,17 @@ import floor.Floor;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
 import main.Session;
+import util.Coordinate;
 import util.Direction;
+import world.actor.Actor;
+import world.actor.ActorDefinitions;
 
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
 
+/**
+ * The primary game display mode.
+ */
 public class MainGameViewMode implements OperatingMode {
 
     FloorRenderer floorRenderer;
@@ -21,6 +27,9 @@ public class MainGameViewMode implements OperatingMode {
     @Override
     public void to() {
         Session.setCurrentFloor(new Floor(16, 16)); //todo - hack to test floorRenderer
+        //hack - test ai
+        Actor aiTest = new Actor(ActorDefinitions.PLAYER_TEMPLATE);
+        Session.addActor(aiTest, new Coordinate(8,8));
         GUIManager gm = Session.getGuiManager();
         gm.changeChannelToGameDisplay();
         floorRenderer = new FloorRenderer();

@@ -1,5 +1,6 @@
 package world.actor;
 
+import ai.RandomAI;
 import engine.action.Action;
 import engine.action.ActionDefinitions;
 import util.Coordinate;
@@ -58,6 +59,10 @@ public class Actor extends WorldObject {
 
     public boolean hasEnoughEnergy(int cost) {
         return currentEnergy > cost;
+    }
+    public void plan() {
+        //todo - hack! call the template's AI and use it to generate an action or set of actions
+        queueAction(new RandomAI().decide(this));
     }
     public void queueAction(Action a) {
         queuedActions.addLast(a);

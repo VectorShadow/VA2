@@ -6,6 +6,7 @@ import io.file.FileManager;
 import io.out.GUIManager;
 import main.modes.ModeManager;
 import util.Coordinate;
+import world.actor.Actor;
 
 
 /**
@@ -61,8 +62,12 @@ public class Session {
 
     public static void setCurrentFloor(Floor f) {
         currentFloor = f;
-        //todo - hack - place the player on the new floor
-        f.placeActor(player.getActor(), new Coordinate(1,1));
         engine.resetActors();
+        //todo - hack - place the player on the new floor
+        addActor(player.getActor(), new Coordinate(1, 1));
+    }
+    public static void addActor(Actor a, Coordinate c) {
+        Session.currentFloor.placeActor(a, c);
+        engine.addActor(a);
     }
 }

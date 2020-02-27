@@ -1,5 +1,8 @@
 package engine.action;
 
+/**
+ * Defines constants for actions.
+ */
 public class ActionDefinitions {
     public static final int MAXIMUM_ACTION_ENERGY = 1_024;
 

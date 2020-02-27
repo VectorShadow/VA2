@@ -4,7 +4,6 @@ import engine.action.Action;
 import engine.action.AdjacentMovementAction;
 import floor.Floor;
 import floor.FloorTile;
-import main.Player;
 import main.Session;
 import util.Coordinate;
 import world.actor.Actor;
@@ -28,9 +27,6 @@ public class Engine {
 
     public void resetActors() {
         actors = new ArrayList<>();
-        Player player = Session.getPlayer();
-        if (player != null)
-            actors.add(Session.getPlayer().getActor());
     }
 
     /**
@@ -53,13 +49,13 @@ public class Engine {
                 actor.gainEnergy(); //gain this turn's energy
                 if (!actor.hasQueuedAction()) {
                     if (i == 0) return; //if the player has no queued action, we are done
-                    //else use the AI to queue an action
+                    actor.plan(); //else use the plan method to invoke the AI and queue an action
                 }
                 action = actor.checkQueuedAction();
-                if (!validate(actor, action)) {
+                while (!validate(actor, action)) {
                     actor.clearQueuedActions();
-                    if (i == 0) return;
-                    //todo - ask AI to queue a new action
+                    if (i == 0) return; //if the player has no queued action, we are done
+                    actor.plan(); //else use the plan method to invoke the AI and queue an action
                     action = actor.checkQueuedAction();
                 }
                 energyCost = action.getEnergyCost();
@@ -72,7 +68,7 @@ public class Engine {
             ++gameTurn;
         }
     }
-    private boolean validate(Actor actor, Action action) {
+    public boolean validate(Actor actor, Action action) {
         Floor f = Session.getCurrentFloor();
         FloorTile ft;
         Coordinate origin= actor.getLocation();

@@ -3,6 +3,9 @@ package main;
 import world.actor.Actor;
 import world.light.Light;
 
+/**
+ * Contains all relevant information about the player character.
+ */
 public class Player {
     private Actor actor = null;
 

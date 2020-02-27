@@ -2,6 +2,13 @@ package world.light;
 
 import java.awt.*;
 
+/**
+ * Define lights for illuminating the game world.
+ * Enumeration is in ascending order of precedence - higher ordinal lights display over lower ones,
+ * so ordering by brightness should be maintained.
+ * Brightness determines radius for radial lights.
+ * Color applies to all reflective WorldObjects.
+ */
 public enum Light {
     UNLIGHTED(0, Color.BLACK),
     BIOLUM(1, Color.GREEN.darker().darker().darker()),

@@ -6,6 +6,9 @@ import world.terrain.TerrainTemplate;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Generates Templates for all types of WorldObjects on demand.
+ */
 public class WorldObjectTemplateFactory {
 
     private static final char DEFAULT_SYMBOL = ' ';
