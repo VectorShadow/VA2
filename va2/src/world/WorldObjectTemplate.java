@@ -10,16 +10,21 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class WorldObjectTemplate implements GlyphSource {
+    private final boolean reflectLight;
     private final ArrayList<Character> symbols;
     private final ArrayList<Color> backgroundColors;
     private final ArrayList<Color> foregroundColors;
 
-    public WorldObjectTemplate(ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f) {
+    public WorldObjectTemplate(boolean reflect, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f) {
+        reflectLight = reflect;
         symbols = s;
         backgroundColors = b;
         foregroundColors = f;
     }
 
+    public boolean reflectsLight() {
+        return reflectLight;
+    }
 
     @Override
     public Character getBaseSymbol() {

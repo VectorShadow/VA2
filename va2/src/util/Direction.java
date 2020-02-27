@@ -51,7 +51,7 @@ public enum Direction {
             case WEST: return NORTH_WEST;
             case NORTH_WEST: return NORTH;
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException("" + this);
         }
     }
     public Direction rotateCountClockwise() {
@@ -65,7 +65,7 @@ public enum Direction {
             case WEST: return SOUTH_WEST;
             case NORTH_WEST: return WEST;
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException("" + this);
         }
     }
 }

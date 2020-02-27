@@ -3,9 +3,12 @@ package engine;
 import engine.action.Action;
 import engine.action.AdjacentMovementAction;
 import floor.Floor;
+import floor.FloorTile;
+import main.Player;
 import main.Session;
 import util.Coordinate;
 import world.actor.Actor;
+import world.terrain.TerrainTemplate;
 
 import java.util.ArrayList;
 
@@ -25,9 +28,9 @@ public class Engine {
 
     public void resetActors() {
         actors = new ArrayList<>();
-        Actor player = Session.getPlayerActor();
+        Player player = Session.getPlayer();
         if (player != null)
-            actors.add(Session.getPlayerActor());
+            actors.add(Session.getPlayer().getActor());
     }
 
     /**
@@ -71,6 +74,7 @@ public class Engine {
     }
     private boolean validate(Actor actor, Action action) {
         Floor f = Session.getCurrentFloor();
+        FloorTile ft;
         Coordinate origin= actor.getLocation();
         Coordinate destination;
         int origRow = origin.getRow();
@@ -81,7 +85,9 @@ public class Engine {
             destination = ama.getDirection().shift(actor.getLocation());
             destRow = destination.getRow();
             destCol = destination.getColumn();
-            return f.inFloor(destRow, destCol) && f.tileAt(destRow, destCol).getActor() == null; //todo - also check that the terrain here is passable
+            ft = f.tileAt(destRow, destCol);
+            return f.inFloor(destRow, destCol) && ft.getActor() == null &&
+                    ((TerrainTemplate)ft.getTerrain().getTemplate()).permitsMovement();
         }
         //todo - other cases
         return false;

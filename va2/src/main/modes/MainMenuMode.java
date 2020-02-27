@@ -41,7 +41,7 @@ public class MainMenuMode implements OperatingMode {
                 switch (menu.getSelectedOptionIndex()) {
                     case MenuDefinitions.MAIN_MENU_NEW_GAME:
                         //todo - hack: for now, create a new player and transition to mainGameViewMode
-                        Session.setPlayerActor(
+                        Session.getPlayer().setActor(
                                 new Actor(ActorDefinitions.PLAYER_TEMPLATE)
                         );
                         Session.getModeManager().transitionTo(new MainGameViewMode());

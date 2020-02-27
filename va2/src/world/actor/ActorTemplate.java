@@ -10,8 +10,8 @@ import java.util.ArrayList;
  */
 public class ActorTemplate extends WorldObjectTemplate {
     private final int energyGainPerTurn;
-    public ActorTemplate(ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f, int e) {
-        super(s, b, f);
+    public ActorTemplate(boolean r, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f, int e) {
+        super(r, s, b, f);
         energyGainPerTurn = e;
     }
 

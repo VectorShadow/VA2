@@ -12,10 +12,11 @@ public class WorldObjectTemplateFactory {
     private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
     private static final Color DEFAULT_FOREGROUND_COLOR = Color.WHITE;
 
+    private boolean reflectLight = false;
 
-    private static ArrayList<Character> symbols;
-    private static ArrayList<Color> backgroundColors;
-    private static ArrayList<Color> foregroundColors;
+    private ArrayList<Character> symbols;
+    private ArrayList<Color> backgroundColors;
+    private ArrayList<Color> foregroundColors;
 
     private WorldObjectTemplateFactory(){
         symbols = new ArrayList<>();
@@ -25,6 +26,11 @@ public class WorldObjectTemplateFactory {
 
     public static WorldObjectTemplateFactory initialize() {
         return new WorldObjectTemplateFactory();
+    }
+    public static WorldObjectTemplateFactory initialize(boolean reflectLight) {
+        WorldObjectTemplateFactory wotf = initialize();
+        wotf.reflectLight = reflectLight;
+        return wotf;
     }
     public WorldObjectTemplateFactory setSymbols(char c) {
         symbols.add(c);
@@ -69,10 +75,10 @@ public class WorldObjectTemplateFactory {
     }
     public ActorTemplate manufactureActorTemplate(int energyPerTurn) {
         forceNonEmptyLists();
-        return new ActorTemplate(symbols, backgroundColors, foregroundColors, energyPerTurn);
+        return new ActorTemplate(reflectLight, symbols, backgroundColors, foregroundColors, energyPerTurn);
     }
-    public TerrainTemplate manufactureTerrainTemplate() {
+    public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement) {
         forceNonEmptyLists();
-        return new TerrainTemplate(symbols, backgroundColors, foregroundColors);
+        return new TerrainTemplate(reflectLight, symbols, backgroundColors, foregroundColors, permitLight, permitMovement);
     }
 }

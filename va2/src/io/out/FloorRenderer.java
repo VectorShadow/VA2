@@ -9,9 +9,13 @@ import resources.glyph.Glyph;
 import resources.glyph.GlyphBuilder;
 import resources.glyph.GlyphMap;
 import resources.glyph.ascii.SimpleGlyph;
+import util.Direction;
 import world.WorldObjectTemplate;
+import world.light.Light;
+import world.terrain.TerrainTemplate;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class FloorRenderer {
     private GlyphMap glyphMap;
@@ -54,28 +58,80 @@ public class FloorRenderer {
                     wot = ft.getTerrain().getTemplate();
                     if (ft.isSeen())
                         g = wot.memoryImage();
-
-                    //hack - draw all actors without qualification
-                    if (ft.getActor() != null) {
-                        wot = ft.getActor().getTemplate();
-                    }
-                    //hack - show the terrain (or actor) here regardless
-                    g = GlyphBuilder.buildGlyph().setDefaults(wot.getBaseBackgroundColor(), wot.getBaseForegroundColor(), wot.getBaseSymbol()).build(DualityMode.TILE);
                 }
-                //todo -  generate a list of coordinates corresponding to the player's vision, using the method from ACE, and
-                // lists of coordinates corresponding to tiles brightly lit and dimly lit by the player's light source. Finally,
-                // we'll iterate through every map coordinate in the list of visible tiles, marking the map as seen for each,
-                // then determining the brightest light on the tile, evaluating the player's bright light if the tile is in that
-                // list, or the player's dim light if in that list, against the ambient light of the map, or simply using the
-                // ambient light of the map if neither list contains the tile.
-                //todo - Now, if there is an actor here, we'll apply the light to the actor image to generate the foreground.
-                // Then we'll check the temporary effect, applying light if necessary, and using it's foreground image if
-                // applicable, and its background image regardless. Finally, if no foreground image is set, we'll apply light
-                // to the terrain's image and use that for the foreground. We'll generate a glyph from this information and
-                // write it to the glyph array at the appropriate location.
                 glyphMap.setGlyph(i, j, g);
             }
         }
+        ArrayList<VisibleCoordinate> playerVision = listVisibleCoordinates();
+        Light playerLight = Session.getPlayer().getLight();
+        Light lightAtTile;
+        for (VisibleCoordinate vc : playerVision) {
+            floorRow = vc.getCoordinate().getRow();
+            floorCol = vc.getCoordinate().getColumn();
+            ft = f.tileAt(floorRow, floorCol);
+            wot = ft.getTerrain().getTemplate();
+            lightAtTile = vc.getDistance() <= playerLight.getBrightness()
+                    ? Light.brighter(playerLight, ft.getLight())
+                    : ft.getLight();
+            if (lightAtTile.compareTo(Light.UNLIGHTED) > 0) {
+                ft.setSeen(true);
+                if (ft.getActor() != null) {
+                    wot = ft.getActor().getTemplate();
+                }
+                g = GlyphBuilder.buildGlyph().setDefaults(
+                        wot.getBaseBackgroundColor(),
+                        wot.reflectsLight() ? lightAtTile.getColor() : wot.getBaseForegroundColor(),
+                        wot.getBaseSymbol()
+                ).build(DualityMode.TILE);
+                glyphMap.setGlyph(floorRow - ROW_OFFSET, floorCol - COL_OFFSET, g);
+            }
+        }
+    }
+    private boolean continuePropogation(Coordinate c, double d, Floor f) {
+        return d < Session.getPlayer().getSightRadius() &&
+                ((TerrainTemplate)f.tileAt(c.getRow(), c.getColumn()).getTerrain().getTemplate()).permitsLight();
+    }
+    private void addAtNearestDistance(VisibleCoordinate check, ArrayList<VisibleCoordinate> existing) {
+        boolean needToAdd = true;
+        for (VisibleCoordinate vc : existing) {
+            if (vc.getCoordinate().equals(check.getCoordinate())) {
+                if (check.getDistance() < vc.getDistance())
+                    existing.remove(vc);
+                else
+                    needToAdd = false;
+                break;
+            }
+        }
+        if (needToAdd) existing.add(check);
+    }
+    private void checkCoordinate(double currentDistance, Floor f, Coordinate from, Direction ray, Direction spread, ArrayList<VisibleCoordinate> vision) {
+        double nextDistance = currentDistance + (spread.isDiagonal() ? 1.5 : 1.0);
+        Coordinate to = spread.shift(from);
+        if (!f.inFloor(from.getRow(), from.getColumn())) return;
+        VisibleCoordinate vc = new VisibleCoordinate(to, nextDistance);
+        addAtNearestDistance(vc, vision);
+        if (continuePropogation(to, nextDistance, f))
+            propogate(f, to, ray, nextDistance, vision);
+    }
+    private void propogate(Floor f, Coordinate from, Direction ray, double distance, ArrayList<VisibleCoordinate> vision) {
+        checkCoordinate(distance, f, from, ray, ray.rotateCountClockwise(), vision);
+        checkCoordinate(distance, f, from, ray, ray, vision);
+        checkCoordinate(distance, f, from, ray, ray.rotateClockwise(), vision);
+    }
+
+    private ArrayList<VisibleCoordinate> listVisibleCoordinates() {
+        Floor floor = Session.getCurrentFloor();
+        ArrayList<VisibleCoordinate> vision = new ArrayList<>();
+        VisibleCoordinate origin = new VisibleCoordinate(Session.getPlayer().getActor().getLocation(), 0.0);
+        vision.add(origin);
+        for (Direction direction : Direction.values()) {
+            if (direction == Direction.SELF) continue;
+            Coordinate c = direction.shift(origin.getCoordinate());
+                vision.add(new VisibleCoordinate(c, 0.0));
+                if (continuePropogation(c, 1.0, floor))
+                    propogate(floor, c, direction, 1.0, vision);
+            }
+        return vision;
     }
 
     public int countRows() {

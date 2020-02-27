@@ -16,4 +16,14 @@ public class Coordinate {
     public int getColumn() {
         return COL;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Coordinate && ((Coordinate) obj).ROW == ROW && ((Coordinate) obj).COL == COL;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + ROW + "," + COL + ")";
+    }
 }

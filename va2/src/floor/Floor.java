@@ -2,6 +2,7 @@ package floor;
 
 import util.Coordinate;
 import world.actor.Actor;
+import world.light.Light;
 import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
 
@@ -18,10 +19,17 @@ public class Floor {
         COLS = cols;
         floorTiles = new FloorTile[ROWS][COLS];
         initializeTiles();
-        //hack - test display - todo - initialize with EMPTY:
-        for (FloorTile[] ft : floorTiles) {
-            for (FloorTile f : ft) {
-                f.setTerrain(new Terrain(TerrainDefinitions.SIMPLE_FLOOR));
+        //hack - test display
+        for (int i = 0; i < ROWS; ++i) {
+            for (int j = 0; j < COLS; ++j) {
+                FloorTile ft = floorTiles[i][j];
+                ft.setLight(Light.BIOLUM);
+                if (i == 0 || i == ROWS - 1 || j == 0 || j == COLS - 1)
+                    ft.setTerrain(new Terrain(TerrainDefinitions.SIMPLE_WALL));
+                else if (i % 3 == 0 || j % 5 == 0)
+                    ft.setTerrain(new Terrain(TerrainDefinitions.GRASSY_FLOOR));
+                else
+                    ft.setTerrain(new Terrain(TerrainDefinitions.SIMPLE_FLOOR));
             }
         }
     }

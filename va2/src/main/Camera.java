@@ -14,7 +14,7 @@ public class Camera {
     }
 
     public Coordinate getAt() {
-        return trackPlayer ? Session.getPlayerActor().getLocation() : at;
+        return trackPlayer ? Session.getPlayer().getActor().getLocation() : at;
     }
 
     public void setAt(Coordinate at) {
