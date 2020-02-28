@@ -1,8 +1,8 @@
 package io.out;
 
 import util.Coordinate;
-import floor.Floor;
-import floor.FloorTile;
+import world.dungeon.floor.Floor;
+import world.dungeon.floor.FloorTile;
 import main.Session;
 import resources.DualityMode;
 import resources.glyph.Glyph;
@@ -80,7 +80,7 @@ public class FloorRenderer {
                 }
                 g = GlyphBuilder.buildGlyph().setDefaults(
                         wot.getBaseBackgroundColor(),
-                        wot.reflectsLight() ? lightAtTile.getColor() : wot.getBaseForegroundColor(),
+                        lightAtTile.getBrightness() > wot.getReflectThreshold() ? lightAtTile.getColor() : wot.getBaseForegroundColor(),
                         wot.getBaseSymbol()
                 ).build(DualityMode.TILE);
                 glyphMap.setGlyph(floorRow - ROW_OFFSET, floorCol - COL_OFFSET, g);
@@ -107,7 +107,7 @@ public class FloorRenderer {
     private void checkCoordinate(double currentDistance, Floor f, Coordinate from, Direction ray, Direction spread, ArrayList<VisibleCoordinate> vision) {
         double nextDistance = currentDistance + (spread.isDiagonal() ? 1.5 : 1.0);
         Coordinate to = spread.shift(from);
-        if (!f.inFloor(from.getRow(), from.getColumn())) return;
+        if (!f.inFloor(to.getRow(), to.getColumn())) return;
         VisibleCoordinate vc = new VisibleCoordinate(to, nextDistance);
         addAtNearestDistance(vc, vision);
         if (continuePropogation(to, nextDistance, f))

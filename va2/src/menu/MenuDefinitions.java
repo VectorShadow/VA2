@@ -3,7 +3,9 @@ package menu;
 import contract.menu.Menu;
 import contract.menu.MenuBuilder;
 import contract.menu.MenuOption;
-
+/**
+ * Contains the definitions for each Menu which exists in the game.
+ */
 public class MenuDefinitions {
 
     public static final int MAIN_MENU_NEW_GAME = 0;

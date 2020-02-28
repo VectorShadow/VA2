@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/../ACE/dualgui/dualgui.iml" filepath="$PROJECT_DIR$/../ACE/dualgui/dualgui.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ACE/guilib/guilib.iml" filepath="$PROJECT_DIR$/../ACE/guilib/guilib.iml" />
       <module fileurl="file://$PROJECT_DIR$/va2/va2.iml" filepath="$PROJECT_DIR$/va2/va2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/world/world.iml" filepath="$PROJECT_DIR$/world/world.iml" />
     </modules>
   </component>
 </project>

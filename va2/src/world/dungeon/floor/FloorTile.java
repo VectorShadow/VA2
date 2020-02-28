@@ -1,18 +1,19 @@
-package floor;
+package world.dungeon.floor;
 
 import world.actor.Actor;
 import world.light.Light;
 import world.terrain.Terrain;
+import world.terrain.TerrainDefinitions;
 
 /**
- * Building blocks for a floor. Contains a flag to indicate whether the player has ever seen it,
+ * Building blocks for a world.dungeon.floor. Contains a flag to indicate whether the player has ever seen it,
  * as well as pointers to other world objects at its location.
  */
 public class FloorTile {
     private Actor actor = null;
     private Light light = Light.UNLIGHTED;
     private boolean seen = false;
-    private Terrain terrain = null;
+    private Terrain terrain = new Terrain(TerrainDefinitions.EMPTY);
 
     public Actor getActor() {
         return actor;

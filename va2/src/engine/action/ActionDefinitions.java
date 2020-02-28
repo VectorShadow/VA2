@@ -8,4 +8,6 @@ public class ActionDefinitions {
 
     static final int ADJACENT_MOVEMENT_ACTION_ENERGY_COST = 512;
 
+    static final int PAUSE_ACTION_ENERGY_COST = 128;
+
 }

@@ -1,7 +1,7 @@
 package util;
 
 /**
- * A pair of integers specifying row and column. Used for accessing tiles within a floor.
+ * A pair of integers specifying row and column. Used for accessing tiles within a world.dungeon.floor.
  */
 public class Coordinate {
     private final int ROW;

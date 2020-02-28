@@ -2,7 +2,8 @@ package main.modes;
 
 import engine.action.Action;
 import engine.action.AdjacentMovementAction;
-import floor.Floor;
+import engine.action.PauseAction;
+import world.dungeon.floor.Floor;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
 import main.Session;
@@ -10,6 +11,8 @@ import util.Coordinate;
 import util.Direction;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
+import world.dungeon.generate.PredefinedLevelGenerator;
+import world.dungeon.theme.ThemeDefinitions;
 
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
@@ -26,8 +29,9 @@ public class MainGameViewMode implements OperatingMode {
 
     @Override
     public void to() {
-        Session.setCurrentFloor(new Floor(16, 16)); //todo - hack to test floorRenderer
-        //hack - test ai
+        //hack - generate the player estate
+        Session.setCurrentFloor(new PredefinedLevelGenerator().generate(ThemeDefinitions.YSIAN_ESTATE, 0));
+        //hack - generate a test ai
         Actor aiTest = new Actor(ActorDefinitions.PLAYER_TEMPLATE);
         Session.addActor(aiTest, new Coordinate(8,8));
         GUIManager gm = Session.getGuiManager();
@@ -65,6 +69,8 @@ public class MainGameViewMode implements OperatingMode {
             case VK_NUMPAD7:
                 action = new AdjacentMovementAction(Direction.NORTH_WEST);
                 break;
+            case VK_NUMPAD5:
+                action = new PauseAction();
             //todo - lots. breaks when we want to redraw the screen, returns if not
         }
         if (action != null)
@@ -75,7 +81,7 @@ public class MainGameViewMode implements OperatingMode {
     @Override
     public void out() {
         GUIManager gm = Session.getGuiManager();
-        //update the renderer's glyphMap from the current floor before drawing it to the screen
+        //update the renderer's glyphMap from the current world.dungeon.floor before drawing it to the screen
         floorRenderer.update(Session.getCurrentFloor());
         for (int r = 0; r < floorRenderer.countRows(); ++r) {
             for (int c = 0; c < floorRenderer.countColumns(); ++c) {

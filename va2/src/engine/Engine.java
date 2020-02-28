@@ -2,8 +2,9 @@ package engine;
 
 import engine.action.Action;
 import engine.action.AdjacentMovementAction;
-import floor.Floor;
-import floor.FloorTile;
+import engine.action.PauseAction;
+import world.dungeon.floor.Floor;
+import world.dungeon.floor.FloorTile;
 import main.Session;
 import util.Coordinate;
 import world.actor.Actor;
@@ -76,7 +77,9 @@ public class Engine {
         int origRow = origin.getRow();
         int origCol = origin.getColumn();
         int destRow, destCol;
-        if (action instanceof AdjacentMovementAction) {
+        if (action instanceof PauseAction) {
+          return true;
+        } else if (action instanceof AdjacentMovementAction) {
             AdjacentMovementAction ama = (AdjacentMovementAction)action;
             destination = ama.getDirection().shift(actor.getLocation());
             destRow = destination.getRow();

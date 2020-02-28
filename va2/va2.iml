@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="dualgui" exported="" />
     <orderEntry type="module" module-name="guilib" exported="" />
+    <orderEntry type="module" module-name="world" exported="" />
   </component>
 </module>

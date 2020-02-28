@@ -2,7 +2,7 @@ package main;
 
 public class MetaData {
     public static String gameTitle() {
-        return "Abyssal Chronicles of Earth";
+        return "Chronicles of the Abyss";
     }
     public static String studio() {
         return "Vector Shadow Digital Labs";

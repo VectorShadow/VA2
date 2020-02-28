@@ -1,12 +1,14 @@
 package main;
 
 import engine.Engine;
-import floor.Floor;
+import world.dungeon.floor.Floor;
 import io.file.FileManager;
 import io.out.GUIManager;
 import main.modes.ModeManager;
 import util.Coordinate;
 import world.actor.Actor;
+
+import java.util.Random;
 
 
 /**
@@ -14,6 +16,8 @@ import world.actor.Actor;
  * Operates as a singleton class, so all other single instance tools need not.
  */
 public class Session {
+
+    private static final Random RNG = new Random();
 
     private static Camera camera;
     private static Floor currentFloor;
@@ -31,6 +35,10 @@ public class Session {
         guiManager = new GUIManager();
         modeManager = new ModeManager();
         player = new Player();
+    }
+
+    public static Random getRNG() {
+        return RNG;
     }
 
     public static Camera getCamera() {
@@ -64,7 +72,7 @@ public class Session {
         currentFloor = f;
         engine.resetActors();
         //todo - hack - place the player on the new floor
-        addActor(player.getActor(), new Coordinate(1, 1));
+        addActor(player.getActor(), new Coordinate(1, 12));
     }
     public static void addActor(Actor a, Coordinate c) {
         Session.currentFloor.placeActor(a, c);

@@ -12,7 +12,8 @@ import java.awt.*;
 public enum Light {
     UNLIGHTED(0, Color.BLACK),
     BIOLUM(1, Color.GREEN.darker().darker().darker()),
-    TORCH(5, Color.ORANGE),
+    MOONLIGHT(3, Color.LIGHT_GRAY),
+    TORCH(6, Color.ORANGE),
     SUN(15, Color.WHITE);
 
     int brightness;
