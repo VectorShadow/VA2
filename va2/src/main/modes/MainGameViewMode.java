@@ -3,7 +3,6 @@ package main.modes;
 import engine.action.Action;
 import engine.action.AdjacentMovementAction;
 import engine.action.PauseAction;
-import world.dungeon.floor.Floor;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
 import main.Session;
@@ -11,7 +10,6 @@ import util.Coordinate;
 import util.Direction;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
-import world.dungeon.generate.PredefinedLevelGenerator;
 import world.dungeon.theme.ThemeDefinitions;
 
 import java.awt.event.KeyEvent;
@@ -30,7 +28,7 @@ public class MainGameViewMode implements OperatingMode {
     @Override
     public void to() {
         //hack - generate the player estate
-        Session.setCurrentFloor(new PredefinedLevelGenerator().generate(ThemeDefinitions.YSIAN_ESTATE, 0));
+        Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
         //hack - generate a test ai
         Actor aiTest = new Actor(ActorDefinitions.PLAYER_TEMPLATE);
         Session.addActor(aiTest, new Coordinate(8,5));

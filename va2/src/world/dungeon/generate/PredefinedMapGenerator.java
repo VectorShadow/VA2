@@ -10,7 +10,7 @@ import world.terrain.TerrainTemplate;
 /**
  * The generator for predefined levels, such as the player estate.
  */
-public class PredefinedLevelGenerator extends AbstractGenerator {
+public class PredefinedMapGenerator extends FloorGenerator {
     @Override
     public Floor generate(DungeonTheme dungeonTheme, int floorDepth) {
         String[] definition;
