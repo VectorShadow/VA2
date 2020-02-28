@@ -12,12 +12,12 @@ public class TerrainDefinitions {
             WorldObjectTemplateFactory.initialize().manufactureTerrainTemplate(true, false);
     public static TerrainTemplate SIMPLE_FLOOR =
             WorldObjectTemplateFactory
-                    .initialize(8)
+                    .initialize(true)
                     .setSymbols('.')
                     .manufactureTerrainTemplate(true, true);
     public static TerrainTemplate SIMPLE_WALL =
             WorldObjectTemplateFactory
-                    .initialize(5)
+                    .initialize(true)
                     .setSymbols('#')
                     .setForegroundColors(Color.LIGHT_GRAY.darker())
                     .manufactureTerrainTemplate(false, false);
@@ -107,7 +107,7 @@ public class TerrainDefinitions {
                     .manufactureTerrainTemplate(true, true);
     public static TerrainTemplate CLEAR_GLASS_WINDOW =
             WorldObjectTemplateFactory
-                    .initialize(2)
+                    .initialize(true)
                     .setSymbols('=')
                     .setForegroundColors(Color.CYAN.brighter())
                     .manufactureTerrainTemplate(true, false);

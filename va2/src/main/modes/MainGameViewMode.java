@@ -33,7 +33,7 @@ public class MainGameViewMode implements OperatingMode {
         Session.setCurrentFloor(new PredefinedLevelGenerator().generate(ThemeDefinitions.YSIAN_ESTATE, 0));
         //hack - generate a test ai
         Actor aiTest = new Actor(ActorDefinitions.PLAYER_TEMPLATE);
-        Session.addActor(aiTest, new Coordinate(8,8));
+        Session.addActor(aiTest, new Coordinate(8,5));
         GUIManager gm = Session.getGuiManager();
         gm.changeChannelToGameDisplay();
         floorRenderer = new FloorRenderer();

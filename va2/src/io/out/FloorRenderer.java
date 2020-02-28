@@ -1,5 +1,6 @@
 package io.out;
 
+import resources.continuum.Pair;
 import util.Coordinate;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
@@ -71,18 +72,27 @@ public class FloorRenderer {
             ft = f.tileAt(floorRow, floorCol);
             wot = ft.getTerrain().getTemplate();
             lightAtTile = vc.getDistance() <= playerLight.getBrightness()
-                    ? Light.brighter(playerLight, ft.getLight())
+                    ? Light.brighterOf(playerLight, ft.getLight())
                     : ft.getLight();
             if (lightAtTile.compareTo(Light.UNLIGHTED) > 0) {
                 ft.setSeen(true);
                 if (ft.getActor() != null) {
                     wot = ft.getActor().getTemplate();
                 }
-                g = GlyphBuilder.buildGlyph().setDefaults(
+                GlyphBuilder gb = GlyphBuilder.buildGlyph().setDefaults(
                         wot.getBaseBackgroundColor(),
-                        lightAtTile.getBrightness() > wot.getReflectThreshold() ? lightAtTile.getColor() : wot.getBaseForegroundColor(),
+                        wot.getBaseForegroundColor(),
                         wot.getBaseSymbol()
-                ).build(DualityMode.TILE);
+                );
+                if (wot.reflectsLight() && lightAtTile.doesFlicker()) {
+                    gb.addForegroundColor(
+                        new Pair<>(
+                                lightAtTile.getFlicker(),
+                                lightAtTile.getColor()
+                        )
+                    );
+                }
+                g = gb.build(DualityMode.TILE);
                 glyphMap.setGlyph(floorRow - ROW_OFFSET, floorCol - COL_OFFSET, g);
             }
         }

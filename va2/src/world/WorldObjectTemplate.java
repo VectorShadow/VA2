@@ -13,20 +13,20 @@ import java.util.ArrayList;
  * The base class for all WorldObjectTemplates. Templates for objects which extend WorldObject must extend this class.
  */
 public abstract class WorldObjectTemplate implements GlyphSource {
-    private final int reflectThreshold;
+    private final boolean reflectLight;
     private final ArrayList<Character> symbols;
     private final ArrayList<Color> backgroundColors;
     private final ArrayList<Color> foregroundColors;
 
-    public WorldObjectTemplate(int reflect, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f) {
-        reflectThreshold = reflect;
+    public WorldObjectTemplate(boolean reflect, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f) {
+        reflectLight = reflect;
         symbols = s;
         backgroundColors = b;
         foregroundColors = f;
     }
 
-    public int getReflectThreshold() {
-        return reflectThreshold;
+    public boolean reflectsLight() {
+        return reflectLight;
     }
 
     @Override

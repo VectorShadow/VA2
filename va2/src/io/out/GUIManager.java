@@ -35,7 +35,7 @@ public class GUIManager {
      * Loops to redraw the screen.
      */
     private class ScreenRefresherDaemon extends Thread {
-        private static final int FRAMES_PER_SECOND = 40;
+        private static final int FRAMES_PER_SECOND = 4;
         private static final int ONE_SECOND = 1000;
 
         public void run() {

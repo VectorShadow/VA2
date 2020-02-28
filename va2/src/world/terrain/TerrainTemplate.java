@@ -12,7 +12,7 @@ public class TerrainTemplate extends WorldObjectTemplate {
     private final boolean permitLight;
     private final boolean permitMovement;
     public TerrainTemplate(
-            int r,
+            boolean r,
             ArrayList<Character> s,
             ArrayList<Color> b,
             ArrayList<Color> f,
