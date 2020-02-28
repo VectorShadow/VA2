@@ -1,5 +1,7 @@
 package util;
 
+import main.Session;
+
 public enum Direction {
     NORTH(-1, 0),
     NORTH_EAST(-1, 1),
@@ -67,5 +69,15 @@ public enum Direction {
             default:
                 throw new IllegalStateException("" + this);
         }
+    }
+    public static Direction random(boolean permitSelf) {
+        Direction target = SELF;
+        do {
+            int r = Session.getRNG().nextInt(Direction.values().length);
+            for (Direction direction : Direction.values()) {
+                if (direction.ordinal() == r) target = direction;
+            }
+        } while (!permitSelf && target == SELF);
+        return target;
     }
 }

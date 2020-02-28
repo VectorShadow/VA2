@@ -1,5 +1,6 @@
 package world.dungeon.generate;
 
+import util.Coordinate;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.ThemeDefinitions;
@@ -14,7 +15,7 @@ public class PredefinedMapGenerator extends FloorGenerator {
     @Override
     public Floor generate(DungeonTheme dungeonTheme, int floorDepth) {
         String[] definition;
-        Floor f = new Floor(dungeonTheme);
+        floor = new Floor(dungeonTheme);
         if (dungeonTheme == ThemeDefinitions.YSIAN_ESTATE) {
             definition = new String[] {
                     "*************************",
@@ -39,15 +40,21 @@ public class PredefinedMapGenerator extends FloorGenerator {
                     "####3###4###5###6###7####",
                     "#########################",
             };
+            floor.setPlayerSpawn(new Coordinate(1, 12));
+            for (int i = 0; i < floor.getRows(); ++i) {
+                for (int j = 0; j < floor.getCols(); ++j) {
+                    floor.tileAt(i, j).setSeen(true); //the player remembers his own house
+                }
+            }
         } /*todo else if - other predefined levels? */ else {
             throw new IllegalArgumentException("Unknown theme.");
         }
-        copy(f, definition, dungeonTheme);
-        return f;
+        copy(definition, dungeonTheme);
+        return floor;
     }
-    private void copy(Floor f, String[] s, DungeonTheme t) {
-        for (int i = 0; i < f.getRows(); ++i) {
-            for (int j = 0; j < f.getCols(); ++j) {
+    private void copy(String[] s, DungeonTheme t) {
+        for (int i = 0; i < floor.getRows(); ++i) {
+            for (int j = 0; j < floor.getCols(); ++j) {
                 char c = s[i].charAt(j);
                 //todo - themes should map chars to terrain definitions.
                 TerrainTemplate tt;
@@ -106,7 +113,7 @@ public class PredefinedMapGenerator extends FloorGenerator {
                     default:
                         throw new IllegalArgumentException("Unexpected symbol " + c);
                 }
-                f.tileAt(i, j).setTerrain(new Terrain(tt));
+                floor.tileAt(i, j).setTerrain(new Terrain(tt));
             }
         }
     }

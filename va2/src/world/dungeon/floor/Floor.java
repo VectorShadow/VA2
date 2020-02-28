@@ -12,6 +12,7 @@ public class Floor {
     final int ROWS;
     final int COLS;
     FloorTile[][] floorTiles;
+    private Coordinate playerSpawn;
 
     public Floor(DungeonTheme dt) {
         ROWS = dt.randomizeRows();
@@ -38,8 +39,17 @@ public class Floor {
     public int getCols() {
         return COLS;
     }
+
+    public int getSize() {
+        return ROWS * COLS;
+    }
+    //exists in the floor
     public boolean inFloor(int row, int col) {
         return row >= 0 && row < ROWS && col >= 0 && col < COLS;
+    }
+    //exists within the floor inside the outer edges
+    public boolean isInteriorCoordinate(int row, int col) {
+        return row > 0 && row < ROWS - 1 && col > 0 && col < COLS - 1;
     }
     public FloorTile tileAt(int row, int col) {
         return floorTiles[row][col];
@@ -58,5 +68,12 @@ public class Floor {
         currentRow = coordinate.getRow();
         currentCol = coordinate.getColumn();
         floorTiles[currentRow][currentCol].setActor(actor);
+    }
+    public Coordinate getPlayerSpawn() {
+        return playerSpawn;
+    }
+
+    public void setPlayerSpawn(Coordinate playerSpawn) {
+        this.playerSpawn = playerSpawn;
     }
 }

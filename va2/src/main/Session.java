@@ -71,8 +71,7 @@ public class Session {
     public static void setCurrentFloor(Floor f) {
         currentFloor = f;
         engine.resetActors();
-        //todo - hack - place the player on the new floor
-        addActor(player.getActor(), new Coordinate(1, 12));
+        addActor(player.getActor(), currentFloor.getPlayerSpawn());
     }
     public static void addActor(Actor a, Coordinate c) {
         Session.currentFloor.placeActor(a, c);

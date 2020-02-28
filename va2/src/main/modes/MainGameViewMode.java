@@ -11,6 +11,8 @@ import util.Direction;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
 import world.dungeon.theme.ThemeDefinitions;
+import world.terrain.TerrainDefinitions;
+import world.terrain.TerrainTemplate;
 
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
@@ -42,6 +44,8 @@ public class MainGameViewMode implements OperatingMode {
     public void in(KeyEvent ke) {
         if (OperatingMode.overrideHandleInput(ke)) return;
         Action action = null;
+        Coordinate here;
+        TerrainTemplate tt;
         switch (ke.getKeyCode()) {
             case VK_UP: case VK_NUMPAD8:
                 action = new AdjacentMovementAction(Direction.NORTH);
@@ -69,6 +73,23 @@ public class MainGameViewMode implements OperatingMode {
                 break;
             case VK_NUMPAD5:
                 action = new PauseAction();
+                break;
+            case VK_COMMA:
+                //todo - hack: transition to the YSIAN_ESTATE
+                here = Session.getPlayer().getActor().getLocation();
+                tt = (TerrainTemplate)
+                        Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK && tt.equals(TerrainDefinitions.FLIGHT_STAIR) || tt.equals(TerrainDefinitions.REWARD_STAIR))
+                    Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
+                break;
+            case VK_PERIOD:
+                //todo - hack: transition to the DARK_GROVE
+                here = Session.getPlayer().getActor().getLocation();
+                tt = (TerrainTemplate)
+                        Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK && tt.equals(TerrainDefinitions.FOREST_GATE))
+                    Session.setCurrentFloor(ThemeDefinitions.DARK_GROVE.generateFloor(1));
+                break;
             //todo - lots. breaks when we want to redraw the screen, returns if not
         }
         if (action != null)

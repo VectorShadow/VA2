@@ -2,6 +2,7 @@ package world.dungeon.theme;
 
 import resources.continuum.Continuum;
 import world.dungeon.generate.PredefinedMapGenerator;
+import world.dungeon.generate.WarrenGenerator;
 import world.light.Light;
 
 import java.util.ArrayList;
@@ -19,6 +20,18 @@ public class ThemeDefinitions {
                     1,
                     new Continuum<>(
                             new PredefinedMapGenerator(),
+                            new ArrayList<>()
+                    )
+            );
+    public static final DungeonTheme DARK_GROVE =
+            new DungeonTheme(
+                    Light.MOONLIGHT,
+                    87,
+                    72,
+                    24,
+                    33,
+                    new Continuum<>(
+                            new WarrenGenerator(),
                             new ArrayList<>()
                     )
             );

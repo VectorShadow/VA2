@@ -29,4 +29,10 @@ public class Coordinate {
     public String toString() {
         return "(" + ROW + "," + COL + ")";
     }
+
+    public double distanceTo(Coordinate c) {
+        int dr = Math.abs(c.ROW - ROW);
+        int dc = Math.abs(c.COL - COL);
+        return Math.sqrt((dr * dr) + (dc * dc));
+    }
 }

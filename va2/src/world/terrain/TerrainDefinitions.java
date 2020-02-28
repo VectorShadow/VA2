@@ -111,4 +111,28 @@ public class TerrainDefinitions {
                     .setSymbols('=')
                     .setForegroundColors(Color.CYAN.brighter())
                     .manufactureTerrainTemplate(true, false);
+    public static TerrainTemplate SHALLOW_WATER =
+            WorldObjectTemplateFactory
+                    .initialize(true)
+                    .setSymbols('~')
+                    .setForegroundColors(Color.BLUE.darker())
+                    .manufactureTerrainTemplate(true, true);
+    public static TerrainTemplate FLIGHT_STAIR =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setSymbols('<')
+                    .setForegroundColors(Color.YELLOW)
+                    .manufactureTerrainTemplate(true, true);
+    public static TerrainTemplate REWARD_STAIR =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setSymbols('<')
+                    .setForegroundColors(Color.BLUE)
+                    .manufactureTerrainTemplate(true, true);
+    public static TerrainTemplate NEXT_FLOOR_STAIR =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setSymbols('>')
+                    .setForegroundColors(Color.ORANGE)
+                    .manufactureTerrainTemplate(true, true);
 }
