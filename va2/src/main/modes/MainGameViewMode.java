@@ -24,9 +24,6 @@ public class MainGameViewMode implements OperatingMode {
 
     FloorRenderer floorRenderer;
 
-    public MainGameViewMode() {
-    }
-
     @Override
     public void to() {
         //hack - generate a test ai
