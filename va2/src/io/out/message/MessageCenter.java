@@ -16,6 +16,10 @@ public class MessageCenter {
             this(DisplayStandards.MESSAGE_DEFAULT_BACKGROUND, DisplayStandards.MESSAGE_DEFAULT_FOREGROUND, "");
         }
 
+        Message(MessageType mt) {
+            this(mt.background, mt.foreground, "");
+        }
+
         Message(Color b, Color f, String t) {
             background = b;
             foreground = f;
@@ -38,7 +42,7 @@ public class MessageCenter {
             return text.length();
         }
         void concatenate(Message m) {
-            text += m.text + "  ";
+            text = "  " + m.text + text;
         }
         void setText(String t) {
             text = t;
@@ -46,7 +50,7 @@ public class MessageCenter {
     }
 
     private ArrayList<Message> messageHistory = new ArrayList<>();
-    private Message onScreenMessages = new Message();
+    private Message onScreenMessages = new Message(MessageType.OLD);
     private Message lastMessage = new Message();
 
     public void sendMessage(String text, MessageType type) {

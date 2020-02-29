@@ -89,8 +89,8 @@ public abstract class FloorGenerator {
         do {
             i = r.nextInt(dimension);
         } while (
-                (i > 0.06 * dimension && i > 0 && i < 0.14 * dimension) ||
-                        (i > 0.86 * dimension && i < 0.94 * dimension && i < dimension - 1)
+                !(i > 0.06 * dimension && i > 0 && i < 0.14 * dimension) &&
+                        !(i > 0.86 * dimension && i < 0.94 * dimension && i < dimension - 1)
         );
         return i;
     }

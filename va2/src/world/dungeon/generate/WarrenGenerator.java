@@ -66,7 +66,7 @@ public class WarrenGenerator extends FloorGenerator{
         openClearing(currentClearingCenter);
         crossTerrain();
         placeEntryStair(mostDistantClearings.getC1());
-        placeEndStairs(mostDistantClearings.getC2());
+        placeEndStairs(currentClearingCenter);
         return floor;
     }
 
@@ -105,12 +105,12 @@ public class WarrenGenerator extends FloorGenerator{
     private void crossTerrain() {
         Random r = Session.getRNG();
         FloorTile ft;
-        for (int i = 0; i < r.nextInt(5); ++i) {
+        for (int i = 0; i < r.nextInt(4); ++i) {
             Coordinate origin, target;
             do {
                 origin = nearEdge();
                 target = nearEdge();
-            } while (origin.distanceTo(target) > Math.sqrt(floor.getSize()));
+            } while (origin.distanceTo(target) < 0.66 * Math.sqrt(floor.getSize()));
             Coordinate at = origin;
             Coordinate next;
             do {
@@ -119,11 +119,13 @@ public class WarrenGenerator extends FloorGenerator{
                     next = meander.shift(at);
                     //try to move closer to the target, but occasionally allow deviation - just not off the edge
                 } while (!floor.isInteriorCoordinate(next.getRow(), next.getColumn()) ||
-                        (next.distanceTo(target) >= at.distanceTo(target) || Session.getRNG().nextDouble() < 0.2));
+                        (next.distanceTo(target) >= at.distanceTo(target) || Session.getRNG().nextDouble() < 0.33));
                 at = next;
                 ft = floor.tileAt(at.getRow(), at.getColumn());
                 ft.setTerrain(new Terrain(crossTemplate));
-                next = Direction.random(false).shift(at);
+                do {
+                    next = Direction.random(false).shift(at);
+                } while (!floor.isInteriorCoordinate(next.getRow(), next.getColumn()));
                 //also add terrain to a random adjacent tile, to increase total size
                 ft = floor.tileAt(next.getRow(), next.getColumn());
                 ft.setTerrain(new Terrain(crossTemplate));

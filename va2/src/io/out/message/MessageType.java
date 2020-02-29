@@ -10,7 +10,7 @@ public enum MessageType {
     FAILURE(Chroma.RED),
     GAME(Chroma.AQUA),
     INFO(Chroma.GREY),
-    OLD(Chroma.dark(Chroma.GREY)),
+    OLD(Chroma.dim(Chroma.GREY)),
     SUCCESS(Chroma.GREEN),
     WARNING(Chroma.YELLOW),
     ;

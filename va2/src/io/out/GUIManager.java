@@ -9,9 +9,7 @@ import main.MetaData;
 import main.Session;
 import resources.DualityContext;
 import resources.DualityMode;
-import resources.chroma.Chroma;
 import resources.glyph.Glyph;
-import resources.glyph.GlyphBuilder;
 import resources.glyph.image.GlyphString;
 import resources.glyph.image.ImageManager;
 
@@ -25,6 +23,31 @@ import java.io.IOException;
  * Primary agent for GUI Management.
  */
 public class GUIManager {
+    /**
+     * a key listener that throttles player input, preventing handling overload
+     */
+    private class ThrottledKeyListener implements KeyListener {
+        private static final int MINIMUM_INPUT_INTERVAL = 100;
+        private long lastValidInput = 0;
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            //nothing to do
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            long now = System.currentTimeMillis();
+            if (now - lastValidInput < MINIMUM_INPUT_INTERVAL) return;
+            lastValidInput = now;
+            Session.getModeManager().handleKeyPress(e);
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //nothing to do
+        }
+    }
     private static final String GFX_DIR = "./gfx";
     private static final String FRAME_ICON_FILE_NAME = GFX_DIR + "/Icon.png";
     private static final File FULLSCREEN_GFX_FILE= new File(GFX_DIR + "/32.png");
@@ -43,7 +66,7 @@ public class GUIManager {
      * Loops to redraw the screen.
      */
     private class ScreenRefresherDaemon extends Thread {
-        private static final int FRAMES_PER_SECOND = 4;
+        private static final int FRAMES_PER_SECOND = 8;
         private static final int ONE_SECOND = 1000;
 
         public void run() {
@@ -74,22 +97,7 @@ public class GUIManager {
         } catch (IOException e) {
             ErrorLogger.logFatalException(e);
         }
-        GUI.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                //nothing to do
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                Session.getModeManager().handleKeyPress(e);
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                //nothing to do
-            }
-        });
+        GUI.addKeyListener(new ThrottledKeyListener());
         //todo - add a keylistener. from ACE: Display.setKeyListener(new ACEListener());
         GUI.setIcon(FRAME_ICON_FILE_NAME);
         GUI.setTitle(MetaData.gameTitle() + " - " + MetaData.version());
@@ -159,19 +167,19 @@ public class GUIManager {
     }
     public void printMessages() {
         GUI.clear(ZONE_MESSAGE_CENTER);
+        MessageCenter.Message last = Session.getMessageCenter().getLastMessage();
         MessageCenter.Message onScreen = Session.getMessageCenter().getOnScreenMessages();
-        Point lastGlyph = GUI.print(
+        Point lastGlyph =         GUI.print(
                 ZONE_MESSAGE_CENTER,
                 1,
                 1,
-                new GlyphString(onScreen.getText(), onScreen.getBackground(), onScreen.getForeground())
+                new GlyphString(last.getText(), last.getBackground(), last.getForeground())
         );
-        MessageCenter.Message last = Session.getMessageCenter().getLastMessage();
         GUI.print(
-            ZONE_MESSAGE_CENTER,
+                ZONE_MESSAGE_CENTER,
                 lastGlyph.y,
                 lastGlyph.x,
-                new GlyphString(last.getText(), last.getBackground(), last.getForeground())
+                new GlyphString(onScreen.getText(), onScreen.getBackground(), onScreen.getForeground())
         );
     }
 
