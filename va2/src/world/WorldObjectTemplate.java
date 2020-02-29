@@ -1,5 +1,6 @@
 package world;
 
+import io.out.DisplayStandards;
 import io.out.GlyphSource;
 import resources.DualityMode;
 import resources.chroma.Chroma;
@@ -69,7 +70,7 @@ public abstract class WorldObjectTemplate implements GlyphSource {
     public Glyph memoryImage() {
         return GlyphBuilder
                 .buildGlyph()
-                .setDefaults(Color.DARK_GRAY, Chroma.dark(getBaseForegroundColor()), getBaseSymbol())
+                .setDefaults(DisplayStandards.GAME_DEFAULT_BACKGROUND, Chroma.dim(getBaseForegroundColor()), getBaseSymbol())
                 .build(DualityMode.TILE);
     }
 }

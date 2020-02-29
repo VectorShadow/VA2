@@ -14,6 +14,7 @@ public class DisplayStandards {
                     .setDefaults(Chroma.TURQUOISE, Chroma.BLACK, ' ')
                     .build(DualityMode.TEXT);
 
-    public static final Color MESSAGE_DEFAULT_BACKGROUND = Chroma.BLACK;
+    public static final Color GAME_DEFAULT_BACKGROUND = Chroma.BLACK;
+    public static final Color MESSAGE_DEFAULT_BACKGROUND = GAME_DEFAULT_BACKGROUND;
     public static final Color MESSAGE_DEFAULT_FOREGROUND = Chroma.WHITE;
 }

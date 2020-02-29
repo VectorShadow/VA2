@@ -105,7 +105,7 @@ public class WarrenGenerator extends FloorGenerator{
     private void crossTerrain() {
         Random r = Session.getRNG();
         FloorTile ft;
-        for (int i = 0; i < r.nextInt(3); ++i) {
+        for (int i = 0; i < r.nextInt(5); ++i) {
             Coordinate origin, target;
             do {
                 origin = nearEdge();
