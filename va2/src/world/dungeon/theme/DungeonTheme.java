@@ -46,6 +46,6 @@ public class DungeonTheme {
         return GENERATORS.getValue(Session.getRNG());
     }
     public Floor generateFloor(int depth) {
-        return randomizeFloorGenerator().generate(this, depth);
+        return randomizeFloorGenerator().generate(depth, this);
     }
 }

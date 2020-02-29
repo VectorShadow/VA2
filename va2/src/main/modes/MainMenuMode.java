@@ -40,10 +40,11 @@ public class MainMenuMode implements OperatingMode {
             case VK_ENTER:
                 switch (menu.getSelectedOptionIndex()) {
                     case MenuDefinitions.MAIN_MENU_NEW_GAME:
-                        //todo - hack: for now, create a new player and transition to mainGameViewMode
+                        //todo - hack: for now, create a new player, enter the estate, and transition to mainGameViewMode
                         Session.getPlayer().setActor(
                                 new Actor(ActorDefinitions.PLAYER_TEMPLATE)
                         );
+                        Session.getCurrentDungeon().exitDungeon(false);
                         Session.getModeManager().transitionTo(new MainGameViewMode());
                         return;
                     case MenuDefinitions.MAIN_MENU_LOAD_GAME:

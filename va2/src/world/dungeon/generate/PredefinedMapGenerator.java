@@ -13,9 +13,10 @@ import world.terrain.TerrainTemplate;
  */
 public class PredefinedMapGenerator extends FloorGenerator {
     @Override
-    public Floor generate(DungeonTheme dungeonTheme, int floorDepth) {
+    public Floor generate(int depth, DungeonTheme dungeonTheme) {
         String[] definition;
-        floor = new Floor(dungeonTheme);
+        floorDepth = depth;
+        floor = new Floor(floorDepth, dungeonTheme);
         if (dungeonTheme == ThemeDefinitions.YSIAN_ESTATE) {
             definition = new String[] {
                     "*************************",
@@ -41,8 +42,8 @@ public class PredefinedMapGenerator extends FloorGenerator {
                     "#########################",
             };
             floor.setPlayerSpawn(new Coordinate(1, 12));
-            for (int i = 0; i < floor.getRows(); ++i) {
-                for (int j = 0; j < floor.getCols(); ++j) {
+            for (int i = 0; i < floor.ROWS; ++i) {
+                for (int j = 0; j < floor.COLS; ++j) {
                     floor.tileAt(i, j).setSeen(true); //the player remembers his own house
                 }
             }
@@ -53,8 +54,8 @@ public class PredefinedMapGenerator extends FloorGenerator {
         return floor;
     }
     private void copy(String[] s, DungeonTheme t) {
-        for (int i = 0; i < floor.getRows(); ++i) {
-            for (int j = 0; j < floor.getCols(); ++j) {
+        for (int i = 0; i < floor.ROWS; ++i) {
+            for (int j = 0; j < floor.COLS; ++j) {
                 char c = s[i].charAt(j);
                 //todo - themes should map chars to terrain definitions.
                 TerrainTemplate tt;

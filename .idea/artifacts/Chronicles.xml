@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Chronicles">
+    <output-path>$PROJECT_DIR$/out/artifacts/Chronicles</output-path>
+    <root id="archive" name="Chronicles.jar">
+      <element id="module-output" name="va2" />
+      <element id="module-output" name="dualgui" />
+      <element id="module-output" name="guilib" />
+    </root>
+  </artifact>
+</component>

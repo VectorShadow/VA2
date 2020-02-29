@@ -9,12 +9,15 @@ import world.light.Light;
  * Represents a game level map.
  */
 public class Floor {
-    final int ROWS;
-    final int COLS;
+
+    public final int DEPTH;
+    public final int ROWS;
+    public final int COLS;
     FloorTile[][] floorTiles;
     private Coordinate playerSpawn;
 
-    public Floor(DungeonTheme dt) {
+    public Floor(int depth, DungeonTheme dt) {
+        DEPTH = depth;
         ROWS = dt.randomizeRows();
         COLS = dt.randomizeCols();
         floorTiles = new FloorTile[ROWS][COLS];
@@ -32,14 +35,6 @@ public class Floor {
         }
     }
 
-    public int getRows() {
-        return ROWS;
-    }
-
-    public int getCols() {
-        return COLS;
-    }
-
     public int getSize() {
         return ROWS * COLS;
     }
@@ -55,11 +50,10 @@ public class Floor {
         return floorTiles[row][col];
     }
     public void placeActor(Actor actor, Coordinate coordinate) {
-        Coordinate currentLocation = actor.getLocation();
         int currentRow, currentCol;
-        if (currentLocation != null) {
-            currentRow = currentLocation.getRow();
-            currentCol = currentLocation.getColumn();
+        if (actor.getLocation() != null) {
+            currentRow = actor.getLocation().getRow();
+            currentCol = actor.getLocation().getColumn();
             if (inFloor(currentRow, currentCol)) {
                 floorTiles[currentRow][currentCol].setActor(null);
             }

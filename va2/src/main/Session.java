@@ -1,12 +1,15 @@
 package main;
 
 import engine.Engine;
+import world.dungeon.Dungeon;
+import world.dungeon.DungeonDefinitions;
 import world.dungeon.floor.Floor;
 import io.file.FileManager;
 import io.out.GUIManager;
 import main.modes.ModeManager;
 import util.Coordinate;
 import world.actor.Actor;
+import world.dungeon.theme.ThemeDefinitions;
 
 import java.util.Random;
 
@@ -20,6 +23,7 @@ public class Session {
     private static final Random RNG = new Random();
 
     private static Camera camera;
+    private static Dungeon currentDungeon;
     private static Floor currentFloor;
     private static Engine engine;
     private static FileManager fileManager;
@@ -29,7 +33,7 @@ public class Session {
 
     static void start() {
         camera = new Camera();
-        currentFloor = null;
+        currentDungeon = new Dungeon(DungeonDefinitions.THE_DARK_GROVE);
         engine = new Engine();
         fileManager = new FileManager();
         guiManager = new GUIManager();
@@ -43,6 +47,10 @@ public class Session {
 
     public static Camera getCamera() {
         return camera;
+    }
+
+    public static Dungeon getCurrentDungeon() {
+        return currentDungeon;
     }
 
     public static Floor getCurrentFloor() {
@@ -67,14 +75,17 @@ public class Session {
     public static Player getPlayer() {
         return player;
     }
-
     public static void setCurrentFloor(Floor f) {
         currentFloor = f;
         engine.resetActors();
         addActor(player.getActor(), currentFloor.getPlayerSpawn());
     }
+    public static void setCurrentDungeon(Dungeon d) {
+        currentDungeon = d;
+        currentDungeon.nextFloor();
+    }
     public static void addActor(Actor a, Coordinate c) {
-        Session.currentFloor.placeActor(a, c);
+        currentFloor.placeActor(a, c);
         engine.addActor(a);
     }
 }

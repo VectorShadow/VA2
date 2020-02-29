@@ -10,7 +10,6 @@ import util.Coordinate;
 import util.Direction;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
-import world.dungeon.theme.ThemeDefinitions;
 import world.terrain.TerrainDefinitions;
 import world.terrain.TerrainTemplate;
 
@@ -29,8 +28,6 @@ public class MainGameViewMode implements OperatingMode {
 
     @Override
     public void to() {
-        //hack - generate the player estate
-        Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
         //hack - generate a test ai
         Actor aiTest = new Actor(ActorDefinitions.PLAYER_TEMPLATE);
         Session.addActor(aiTest, new Coordinate(8,5));
@@ -74,21 +71,26 @@ public class MainGameViewMode implements OperatingMode {
             case VK_NUMPAD5:
                 action = new PauseAction();
                 break;
-            case VK_COMMA:
-                //todo - hack: transition to the YSIAN_ESTATE
-                here = Session.getPlayer().getActor().getLocation();
-                tt = (TerrainTemplate)
-                        Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
-                if (ke.getModifiersEx() == SHIFT_DOWN_MASK && tt.equals(TerrainDefinitions.FLIGHT_STAIR) || tt.equals(TerrainDefinitions.REWARD_STAIR))
-                    Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
+            case VK_COMMA: //attempt to leave the current dungeon, or enter an estate room
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                    here = Session.getPlayer().getActor().getLocation();
+                    tt = (TerrainTemplate)
+                            Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
+                    if (tt.equals(TerrainDefinitions.FLIGHT_STAIR)) {
+                        Session.getCurrentDungeon().exitDungeon(false);
+                    } else if (tt.equals(TerrainDefinitions.REWARD_STAIR)) {
+                        Session.getCurrentDungeon().exitDungeon(true);
+                    } //todo - else if [any of the estate room portals]
+                }
                 break;
-            case VK_PERIOD:
-                //todo - hack: transition to the DARK_GROVE
-                here = Session.getPlayer().getActor().getLocation();
-                tt = (TerrainTemplate)
-                        Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
-                if (ke.getModifiersEx() == SHIFT_DOWN_MASK && tt.equals(TerrainDefinitions.FOREST_GATE))
-                    Session.setCurrentFloor(ThemeDefinitions.DARK_GROVE.generateFloor(1));
+            case VK_PERIOD: //attempt to progress the current dungeon
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                    here = Session.getPlayer().getActor().getLocation();
+                    tt = (TerrainTemplate)
+                            Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
+                    if (tt.equals(TerrainDefinitions.FOREST_GATE))
+                        Session.getCurrentDungeon().nextFloor();
+                }
                 break;
             //todo - lots. breaks when we want to redraw the screen, returns if not
         }

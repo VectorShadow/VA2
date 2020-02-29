@@ -23,8 +23,9 @@ public class WarrenGenerator extends FloorGenerator{
     TerrainTemplate crossTemplate;
 
     @Override
-    public Floor generate(DungeonTheme dungeonTheme, int floorDepth) {
-        floor = new Floor(dungeonTheme);
+    public Floor generate(int depth, DungeonTheme dungeonTheme) {
+        floorDepth = depth;
+        floor = new Floor(floorDepth, dungeonTheme);
         Random r = Session.getRNG();
         //todo - derive these from the DungeonTheme:
         wallTemplate = TerrainDefinitions.ANCIENT_OAK;
@@ -37,8 +38,8 @@ public class WarrenGenerator extends FloorGenerator{
         ArrayList<Coordinate> clearingCenters = new ArrayList<>();
         for (int i = 0; i < clearingCount; ++i) {
             //randomly generate coordinates away from the edges of the floor
-            int randomRow = r.nextInt((int)(floor.getRows() * 0.85)) + (int)(floor.getRows() * 0.075);
-            int randomCol = r.nextInt((int)(floor.getCols() * 0.85)) + (int)(floor.getCols() * 0.075);
+            int randomRow = r.nextInt((int)(floor.ROWS * 0.85)) + (int)(floor.ROWS * 0.075);
+            int randomCol = r.nextInt((int)(floor.COLS * 0.85)) + (int)(floor.COLS * 0.075);
             Coordinate c = new Coordinate(randomRow, randomCol);
             if (!clearingCenters.contains(c)) //don't duplicate random coordinates by accident
                 clearingCenters.add(c);
@@ -101,25 +102,14 @@ public class WarrenGenerator extends FloorGenerator{
             ft.setTerrain(new Terrain(floorTemplate));
         } while (!at.equals(c2));
     }
-    private int nearEdge(int dimension) {
-        Random r = Session.getRNG();
-        int i;
-        do {
-            i = r.nextInt(dimension);
-        } while (
-                (i > 0.06 * dimension && i > 0 && i < 0.14 * dimension) ||
-                        (i > 0.86 * dimension && i < 0.94 * dimension && i < dimension - 1)
-        );
-        return i;
-    }
     private void crossTerrain() {
         Random r = Session.getRNG();
         FloorTile ft;
         for (int i = 0; i < r.nextInt(3); ++i) {
             Coordinate origin, target;
             do {
-                origin = new Coordinate(nearEdge(floor.getRows()), nearEdge(floor.getCols()));
-                target = new Coordinate(nearEdge(floor.getRows()), nearEdge(floor.getCols()));
+                origin = nearEdge();
+                target = nearEdge();
             } while (origin.distanceTo(target) > Math.sqrt(floor.getSize()));
             Coordinate at = origin;
             Coordinate next;

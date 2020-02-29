@@ -1,5 +1,6 @@
 package world.dungeon.generate;
 
+import main.Session;
 import util.Coordinate;
 import util.Direction;
 import world.dungeon.floor.Floor;
@@ -9,6 +10,7 @@ import world.terrain.TerrainDefinitions;
 import world.terrain.TerrainTemplate;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The base class for Floor Generators.
@@ -35,12 +37,12 @@ public abstract class FloorGenerator {
             return c2;
         }
     }
-    public abstract Floor generate(DungeonTheme dungeonTheme, int floorDepth);
+    public abstract Floor generate(int depth, DungeonTheme dungeonTheme);
 
     //fill the floor with terrain based on the provided template
     protected void fill(TerrainTemplate tt) {
-        for (int i = 0; i < floor.getRows(); ++i) {
-            for (int j = 0; j < floor.getCols(); ++j) {
+        for (int i = 0; i < floor.ROWS; ++i) {
+            for (int j = 0; j < floor.COLS; ++j) {
                 floor.tileAt(i, j).setTerrain(new Terrain(tt));
             }
         }
@@ -80,7 +82,21 @@ public abstract class FloorGenerator {
         }
         return best;
     }
-
+    private int nearEdge(boolean byRow) {
+        int dimension = byRow ? floor.ROWS : floor.COLS;
+        Random r = Session.getRNG();
+        int i;
+        do {
+            i = r.nextInt(dimension);
+        } while (
+                (i > 0.06 * dimension && i > 0 && i < 0.14 * dimension) ||
+                        (i > 0.86 * dimension && i < 0.94 * dimension && i < dimension - 1)
+        );
+        return i;
+    }
+    protected Coordinate nearEdge() {
+        return new Coordinate(nearEdge(true), nearEdge(false));
+    }
     protected CoordinatePair mostDistantPair(ArrayList<Coordinate> cList) {
         return evaluateDistance(cList, true);
     }
