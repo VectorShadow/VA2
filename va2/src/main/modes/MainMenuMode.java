@@ -2,10 +2,12 @@ package main.modes;
 
 import contract.menu.Menu;
 import io.out.GUIManager;
+import io.out.message.MessageType;
 import main.Session;
 import menu.MenuDefinitions;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
+import world.dungeon.theme.ThemeDefinitions;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -40,11 +42,12 @@ public class MainMenuMode implements OperatingMode {
             case VK_ENTER:
                 switch (menu.getSelectedOptionIndex()) {
                     case MenuDefinitions.MAIN_MENU_NEW_GAME:
-                        //todo - hack: for now, create a new player, enter the estate, and transition to mainGameViewMode
+                        //todo - hack: for now, welcome the player, create a new player object, enter the estate, and transition to mainGameViewMode
                         Session.getPlayer().setActor(
                                 new Actor(ActorDefinitions.PLAYER_TEMPLATE)
                         );
-                        Session.getCurrentDungeon().exitDungeon(false);
+                        Session.getMessageCenter().sendMessage("Welcome to Chronicles of the Abyss!", MessageType.GAME);
+                        Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
                         Session.getModeManager().transitionTo(new MainGameViewMode());
                         return;
                     case MenuDefinitions.MAIN_MENU_LOAD_GAME:

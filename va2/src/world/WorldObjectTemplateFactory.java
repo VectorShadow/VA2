@@ -15,6 +15,7 @@ public class WorldObjectTemplateFactory {
     private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
     private static final Color DEFAULT_FOREGROUND_COLOR = Color.WHITE;
 
+    private String description = "";
     private boolean reflectLight = false;
 
     private ArrayList<Character> symbols;
@@ -34,6 +35,10 @@ public class WorldObjectTemplateFactory {
         WorldObjectTemplateFactory wotf = initialize();
         wotf.reflectLight = reflectLight;
         return wotf;
+    }
+    public WorldObjectTemplateFactory setDescription(String d) {
+        description = d;
+        return this;
     }
     public WorldObjectTemplateFactory setSymbols(char c) {
         symbols.add(c);
@@ -78,10 +83,10 @@ public class WorldObjectTemplateFactory {
     }
     public ActorTemplate manufactureActorTemplate(int energyPerTurn) {
         forceNonEmptyLists();
-        return new ActorTemplate(reflectLight, symbols, backgroundColors, foregroundColors, energyPerTurn);
+        return new ActorTemplate(description, reflectLight, symbols, backgroundColors, foregroundColors, energyPerTurn);
     }
-    public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement) {
+    public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {
         forceNonEmptyLists();
-        return new TerrainTemplate(reflectLight, symbols, backgroundColors, foregroundColors, permitLight, permitMovement);
+        return new TerrainTemplate(description, reflectLight, symbols, backgroundColors, foregroundColors, permitLight, permitMovement, messageOnMove);
     }
 }

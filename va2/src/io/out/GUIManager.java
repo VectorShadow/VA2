@@ -4,11 +4,14 @@ import contract.Gui;
 import contract.menu.Menu;
 import core.DualityGUI;
 import error.ErrorLogger;
+import io.out.message.MessageCenter;
 import main.MetaData;
 import main.Session;
 import resources.DualityContext;
 import resources.DualityMode;
+import resources.chroma.Chroma;
 import resources.glyph.Glyph;
+import resources.glyph.GlyphBuilder;
 import resources.glyph.image.GlyphString;
 import resources.glyph.image.ImageManager;
 
@@ -30,7 +33,12 @@ public class GUIManager {
     public static final int CHANNEL_GAME = 0;
     public static final int CHANNEL_FULLSCREEN_TEXT = 1;
 
+    public static final int ZONE_MESSAGE_CENTER = 0;
+
     private final Gui GUI = new DualityGUI();
+
+    private int messageWindowRows = 0;
+    private int messageWindowCols = 0;
     /**
      * Loops to redraw the screen.
      */
@@ -90,11 +98,30 @@ public class GUIManager {
         new ScreenRefresherDaemon().start();
     }
     private void setupChannels() {
+        final double TEXT_WINDOW_START = 0.75;
+        int messageZone =
+                GUI.addZone(
+                        CHANNEL_GAME,
+                        TEXT_WINDOW_START,
+                        1.0 - TEXT_WINDOW_START,
+                        0.0,
+                        1.0,
+                        DualityMode.MESSAGES
+                );
+        GUI.setBorder(CHANNEL_GAME, messageZone, DisplayStandards.MESSAGE_WINDOW_BORDER);
+        //calculate the number of rows and columns available to display messages:
+        messageWindowRows = GUI.countRows() - GUI.rowAtPercent(TEXT_WINDOW_START);
+        messageWindowCols = GUI.colAtPercent(1.0);
         //todo - game channel setup here
         int fsText = GUI.addChannel(DualityMode.TEXT);
+        //paranoia - these checks can be removed once we stop adding GUI channels/zones:
+        if (ZONE_MESSAGE_CENTER != messageZone)
+            throw new IllegalStateException("Invalid zone index for Message Center - expected " +
+                    ZONE_MESSAGE_CENTER + " but was " + messageZone);
         if (CHANNEL_FULLSCREEN_TEXT != fsText)
             throw new IllegalStateException("Invalid channel index for Fullscreen Text - expected " +
                     CHANNEL_FULLSCREEN_TEXT + " but was " + fsText);
+        changeChannelToFullscreenText(); //ensure we start in text mode
     }
 
     public void changeChannelToGameDisplay() {
@@ -130,6 +157,23 @@ public class GUIManager {
     private void printMenu(int row, Menu menu, Color foreground, Color background) {
         GUI.printMenu(row, menu, foreground, background);
     }
+    public void printMessages() {
+        GUI.clear(ZONE_MESSAGE_CENTER);
+        MessageCenter.Message onScreen = Session.getMessageCenter().getOnScreenMessages();
+        Point lastGlyph = GUI.print(
+                ZONE_MESSAGE_CENTER,
+                1,
+                1,
+                new GlyphString(onScreen.getText(), onScreen.getBackground(), onScreen.getForeground())
+        );
+        MessageCenter.Message last = Session.getMessageCenter().getLastMessage();
+        GUI.print(
+            ZONE_MESSAGE_CENTER,
+                lastGlyph.y,
+                lastGlyph.x,
+                new GlyphString(last.getText(), last.getBackground(), last.getForeground())
+        );
+    }
 
     public void toggleFullScreenMode() {
         GUI.toggleFullScreen();
@@ -139,4 +183,11 @@ public class GUIManager {
         return new Dimension(GUI.countColumns(), GUI.countRows());
     }
 
+    public int getMessageWindowRows() {
+        return messageWindowRows;
+    }
+
+    public int getMessageWindowCols() {
+        return messageWindowCols;
+    }
 }

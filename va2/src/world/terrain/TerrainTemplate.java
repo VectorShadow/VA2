@@ -11,16 +11,20 @@ import java.util.ArrayList;
 public class TerrainTemplate extends WorldObjectTemplate {
     private final boolean permitLight;
     private final boolean permitMovement;
+    private final boolean messageOnMove;
     public TerrainTemplate(
+            String d,
             boolean r,
             ArrayList<Character> s,
             ArrayList<Color> b,
             ArrayList<Color> f,
             boolean permitLight,
-            boolean permitMovement) {
-        super(r, s, b, f);
+            boolean permitMovement,
+            boolean messageOnMove) {
+        super(d, r, s, b, f);
         this.permitLight = permitLight;
         this.permitMovement = permitMovement;
+        this.messageOnMove = messageOnMove;
     }
 
     public boolean permitsLight() {
@@ -29,5 +33,9 @@ public class TerrainTemplate extends WorldObjectTemplate {
 
     public boolean permitsMovement() {
         return permitMovement;
+    }
+
+    public boolean isMessageOnMove() {
+        return messageOnMove;
     }
 }

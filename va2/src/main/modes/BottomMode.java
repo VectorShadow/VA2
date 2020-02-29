@@ -18,8 +18,6 @@ public class BottomMode implements OperatingMode {
 
     @Override
     public void to() {
-        GUIManager gm = Session.getGuiManager();
-        gm.changeChannelToFullscreenText();
         out();
     }
 

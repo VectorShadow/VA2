@@ -13,16 +13,22 @@ import java.util.ArrayList;
  * The base class for all WorldObjectTemplates. Templates for objects which extend WorldObject must extend this class.
  */
 public abstract class WorldObjectTemplate implements GlyphSource {
+    private final String description;
     private final boolean reflectLight;
     private final ArrayList<Character> symbols;
     private final ArrayList<Color> backgroundColors;
     private final ArrayList<Color> foregroundColors;
 
-    public WorldObjectTemplate(boolean reflect, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f) {
+    public WorldObjectTemplate(String desc, boolean reflect, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f) {
+        description = desc;
         reflectLight = reflect;
         symbols = s;
         backgroundColors = b;
         foregroundColors = f;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public boolean reflectsLight() {

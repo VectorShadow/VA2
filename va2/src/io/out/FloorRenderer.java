@@ -41,7 +41,7 @@ public class FloorRenderer {
         //todo - access the camera position and calculate row and column offsets such that the camera location
         // corresponds to the center of the glyphMap.
         Coordinate camera = Session.getCamera().getAt();
-        final int SCREEN_CENTER_ROW = glyphMap.getRows() / 2;
+        final int SCREEN_CENTER_ROW = (glyphMap.getRows() - Session.getGuiManager().getMessageWindowRows()) / 2;
         final int SCREEN_CENTER_COL = glyphMap.getCols() / 2;
         final int ROW_OFFSET = camera.getRow() - SCREEN_CENTER_ROW;
         final int COL_OFFSET = camera.getColumn() - SCREEN_CENTER_COL;

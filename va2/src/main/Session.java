@@ -1,6 +1,7 @@
 package main;
 
 import engine.Engine;
+import io.out.message.MessageCenter;
 import world.dungeon.Dungeon;
 import world.dungeon.DungeonDefinitions;
 import world.dungeon.floor.Floor;
@@ -28,6 +29,7 @@ public class Session {
     private static Engine engine;
     private static FileManager fileManager;
     private static GUIManager guiManager;
+    private static MessageCenter messageCenter;
     private static ModeManager modeManager;
     private static Player player;
 
@@ -37,6 +39,7 @@ public class Session {
         engine = new Engine();
         fileManager = new FileManager();
         guiManager = new GUIManager();
+        messageCenter = new MessageCenter();
         modeManager = new ModeManager();
         player = new Player();
     }
@@ -67,6 +70,10 @@ public class Session {
 
     public static GUIManager getGuiManager() {
         return guiManager;
+    }
+
+    public static MessageCenter getMessageCenter() {
+        return messageCenter;
     }
 
     public static ModeManager getModeManager() {

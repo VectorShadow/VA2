@@ -1,9 +1,12 @@
 package world.dungeon.floor;
 
+import io.out.message.MessageType;
+import main.Session;
 import util.Coordinate;
 import world.actor.Actor;
 import world.dungeon.theme.DungeonTheme;
 import world.light.Light;
+import world.terrain.TerrainTemplate;
 
 /**
  * Represents a game level map.
@@ -51,17 +54,28 @@ public class Floor {
     }
     public void placeActor(Actor actor, Coordinate coordinate) {
         int currentRow, currentCol;
+        FloorTile floorTile;
         if (actor.getLocation() != null) {
             currentRow = actor.getLocation().getRow();
             currentCol = actor.getLocation().getColumn();
             if (inFloor(currentRow, currentCol)) {
-                floorTiles[currentRow][currentCol].setActor(null);
+                floorTile = floorTiles[currentRow][currentCol];
+                floorTile.setActor(null);
             }
         }
         actor.setLocation(coordinate);
         currentRow = coordinate.getRow();
         currentCol = coordinate.getColumn();
-        floorTiles[currentRow][currentCol].setActor(actor);
+        floorTile = floorTiles[currentRow][currentCol];
+        floorTile.setActor(actor);
+        if (actor == Session.getPlayer().getActor()) {
+            TerrainTemplate tt = (TerrainTemplate)floorTile.getTerrain().getTemplate();
+            if (tt.isMessageOnMove())
+                Session.getMessageCenter().sendMessage(
+                        "You see " + tt.getDescription() + " here."
+                        , MessageType.INFO
+                );
+        }
     }
     public Coordinate getPlayerSpawn() {
         return playerSpawn;

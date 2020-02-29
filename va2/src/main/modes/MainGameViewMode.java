@@ -5,6 +5,7 @@ import engine.action.AdjacentMovementAction;
 import engine.action.PauseAction;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
+import io.out.message.MessageType;
 import main.Session;
 import util.Coordinate;
 import util.Direction;
@@ -109,6 +110,7 @@ public class MainGameViewMode implements OperatingMode {
                 gm.printGlyph(r, c, floorRenderer.getGlyphAt(r, c));
             }
         }
+        gm.printMessages();
     }
 
     @Override
