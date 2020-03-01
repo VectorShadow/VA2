@@ -47,7 +47,7 @@ public class Floor {
     }
     //exists within the floor inside the outer edges
     public boolean isInteriorCoordinate(int row, int col) {
-        return row > 0 && row < ROWS - 1 && col > 0 && col < COLS - 1;
+        return row > 1 && row < ROWS - 2 && col > 1 && col < COLS - 2;
     }
     public FloorTile tileAt(int row, int col) {
         return floorTiles[row][col];

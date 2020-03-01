@@ -19,10 +19,19 @@ public class DungeonTheme {
     private final int COL_VARIANCE;
 
     private final Continuum<FloorGenerator> GENERATORS;
+    private final TerrainSet TERRAIN_SET;
     //todo - roomSet, which includes a list of room patterns and a mapping of chars to terrainTemplates
     //todo - roomPatternDefinitions, which contains all defined room patterns to be referenced by roomSets
 
-    DungeonTheme(Light light, int maxRows, int maxCols, int rowVar, int colVar, Continuum<FloorGenerator> floorGen) {
+    DungeonTheme(
+            Light light,
+            int maxRows,
+            int maxCols,
+            int rowVar,
+            int colVar,
+            Continuum<FloorGenerator> floorGen,
+            TerrainSet terrainSet
+    ) {
         if (maxRows - 2 * rowVar < 0 || maxCols - 2 * colVar < 0)
             throw new IllegalArgumentException("Size parameters out of range.");
         AMBIENT_LIGHT = light;
@@ -31,6 +40,7 @@ public class DungeonTheme {
         ROW_VARIANCE = rowVar;
         COL_VARIANCE = colVar;
         GENERATORS = floorGen;
+        TERRAIN_SET = terrainSet;
     }
 
     public Light getAmbientLight() {
@@ -45,6 +55,11 @@ public class DungeonTheme {
     private FloorGenerator randomizeFloorGenerator() {
         return GENERATORS.getValue(Session.getRNG());
     }
+
+    public TerrainSet getTerrainSet() {
+        return TERRAIN_SET;
+    }
+
     public Floor generateFloor(int depth) {
         return randomizeFloorGenerator().generate(depth, this);
     }

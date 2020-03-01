@@ -1,5 +1,6 @@
 package world.terrain;
 
+import resources.chroma.Chroma;
 import world.WorldObjectTemplateFactory;
 
 import java.awt.*;
@@ -10,6 +11,14 @@ import java.awt.*;
 public class TerrainDefinitions {
     public static TerrainTemplate EMPTY =
             WorldObjectTemplateFactory.initialize().manufactureTerrainTemplate(true, false, false);
+    public static TerrainTemplate PERMANENT_WALL =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setDescription("an impenetrable wall")
+                    .setSymbols('#')
+                    .setBackgroundColors(Chroma.dark(Chroma.GREY))
+                    .setForegroundColors(Chroma.BLACK)
+                    .manufactureTerrainTemplate(false, false, false);
     public static TerrainTemplate SIMPLE_FLOOR =
             WorldObjectTemplateFactory
                     .initialize(true)
@@ -29,6 +38,13 @@ public class TerrainDefinitions {
                     .setDescription("grass covered ground")
                     .setSymbols('.')
                     .setForegroundColors(Color.GREEN)
+                    .manufactureTerrainTemplate(true, true, false);
+    public static TerrainTemplate TOADSTOOLS =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setDescription("a cluster of toadstools")
+                    .setSymbols(',')
+                    .setForegroundColors(Chroma.BEIGE)
                     .manufactureTerrainTemplate(true, true, false);
     public static TerrainTemplate ANCIENT_OAK =
             WorldObjectTemplateFactory

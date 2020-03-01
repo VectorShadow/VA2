@@ -27,7 +27,7 @@ public class GUIManager {
      * a key listener that throttles player input, preventing handling overload
      */
     private class ThrottledKeyListener implements KeyListener {
-        private static final int MINIMUM_INPUT_INTERVAL = 100;
+        private static final int MINIMUM_INPUT_INTERVAL = 25;
         private long lastValidInput = 0;
 
         @Override

@@ -5,6 +5,7 @@ import util.Coordinate;
 import util.Direction;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.DungeonTheme;
+import world.dungeon.theme.TerrainSet;
 import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
 import world.terrain.TerrainTemplate;
@@ -17,6 +18,7 @@ import java.util.Random;
  */
 public abstract class FloorGenerator {
 
+    protected DungeonTheme dungeonTheme;
     protected Floor floor;
     protected int floorDepth;
 
@@ -37,13 +39,22 @@ public abstract class FloorGenerator {
             return c2;
         }
     }
-    public abstract Floor generate(int depth, DungeonTheme dungeonTheme);
+    public abstract Floor generate(int depth, DungeonTheme theme);
 
-    //fill the floor with terrain based on the provided template
-    protected void fill(TerrainTemplate tt) {
+    /**
+     * Fill the floor with randomly selected terrain from the provided TerrainSet.
+     * @param ts the TerrainSet to use.
+     * @param open whether to fill with primary floors or primary walls
+     */
+    protected void fill(TerrainSet ts, boolean open) {
         for (int i = 0; i < floor.ROWS; ++i) {
             for (int j = 0; j < floor.COLS; ++j) {
-                floor.tileAt(i, j).setTerrain(new Terrain(tt));
+                if (i == 0 || i == floor.ROWS - 1 || j == 0 || j == floor.COLS - 1)
+                    floor.tileAt(i, j).setTerrain(new Terrain(TerrainDefinitions.PERMANENT_WALL));
+                else
+                    floor.tileAt(i, j).setTerrain(
+                            new Terrain(open ? ts.getRandomPrimaryFloor() : ts.getRandomPrimaryWall())
+                    );
             }
         }
     }
@@ -110,7 +121,7 @@ public abstract class FloorGenerator {
         return evaluateDistance(c, cList, false);
     }
     protected void placeEntryStair(Coordinate c) {
-        floor.tileAt(c.getRow(), c.getColumn()).setTerrain(new Terrain(TerrainDefinitions.FLIGHT_STAIR));
+        floor.tileAt(c.getRow(), c.getColumn()).setTerrain(new Terrain(dungeonTheme.getTerrainSet().getSpawnTerrain()));
         floor.setPlayerSpawn(c);
     }
     protected void placeEndStairs(Coordinate c) {

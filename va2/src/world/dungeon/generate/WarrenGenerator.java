@@ -6,8 +6,8 @@ import util.Direction;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.DungeonTheme;
+import world.dungeon.theme.TerrainSet;
 import world.terrain.Terrain;
-import world.terrain.TerrainDefinitions;
 import world.terrain.TerrainTemplate;
 
 import java.util.ArrayList;
@@ -18,20 +18,13 @@ import java.util.Random;
  */
 public class WarrenGenerator extends FloorGenerator{
 
-    TerrainTemplate wallTemplate;
-    TerrainTemplate floorTemplate;
-    TerrainTemplate crossTemplate;
-
     @Override
-    public Floor generate(int depth, DungeonTheme dungeonTheme) {
+    public Floor generate(int depth, DungeonTheme theme) {
+        dungeonTheme = theme;
         floorDepth = depth;
         floor = new Floor(floorDepth, dungeonTheme);
         Random r = Session.getRNG();
-        //todo - derive these from the DungeonTheme:
-        wallTemplate = TerrainDefinitions.ANCIENT_OAK;
-        floorTemplate = TerrainDefinitions.GRASSY_FLOOR;
-        crossTemplate = TerrainDefinitions.SHALLOW_WATER;
-        fill(wallTemplate);
+        fill(dungeonTheme.getTerrainSet(), false);
         int size = floor.getSize();
         //calculate the number of clearings to generate based on the size of the floor
         int clearingCount = size / 64 - r.nextInt(size / 256);
@@ -64,30 +57,35 @@ public class WarrenGenerator extends FloorGenerator{
         } while (clearingCenters.size() > 1);
         //open up the final clearing
         openClearing(currentClearingCenter);
-        crossTerrain();
+        addStreams();
         placeEntryStair(mostDistantClearings.getC1());
         placeEndStairs(currentClearingCenter);
         return floor;
     }
 
     private void openClearing(Coordinate c) {
+        TerrainSet ts = dungeonTheme.getTerrainSet();
         FloorTile ft = floor.tileAt(c.getRow(), c.getColumn());
-        ft.setTerrain(new Terrain(floorTemplate));
+        //use the base floor at the center
+        ft.setTerrain(new Terrain(ts.getBasePrimaryFloor()));
         for (int i = 0; i < 16; ++i) { //make multiple attempts at radiating
             Coordinate at = c;
             Coordinate next;
-            for (int j = 0; j < 7; ++j) { //attempt to progress this ray path multiple times
+            for (int j = 0; j < 5; ++j) { //attempt to progress this ray path multiple times
                 next = Direction.random(false).shift(at); //shift randomly
                 if (!floor.isInteriorCoordinate(next.getRow(), next.getColumn())) continue; //don't clear floor edges
                 at = next;
                 ft = floor.tileAt(at.getRow(), at.getColumn());
-                ft.setTerrain(new Terrain(floorTemplate));
+                //randomize the floor throughout the rest of the clearing, if applicable
+                ft.setTerrain(new Terrain(dungeonTheme.getTerrainSet().getRandomPrimaryFloor()));
             }
         }
     }
     private void meanderingPath(Coordinate c1, Coordinate c2) {
         FloorTile ft = floor.tileAt(c1.getRow(), c1.getColumn());
-        ft.setTerrain(new Terrain(floorTemplate));
+        //use the base floor for all paths between clearings
+        TerrainTemplate pathTemplate = dungeonTheme.getTerrainSet().getBasePrimaryFloor();
+        ft.setTerrain(new Terrain(pathTemplate));
         Coordinate at = c1;
         Coordinate next;
         do {
@@ -99,11 +97,13 @@ public class WarrenGenerator extends FloorGenerator{
                     (next.distanceTo(c2) >= at.distanceTo(c2) || Session.getRNG().nextDouble() < 0.1));
             at = next;
             ft = floor.tileAt(at.getRow(), at.getColumn());
-            ft.setTerrain(new Terrain(floorTemplate));
+            ft.setTerrain(new Terrain(pathTemplate));
         } while (!at.equals(c2));
     }
-    private void crossTerrain() {
+    private void addStreams() {
         Random r = Session.getRNG();
+        //randomly select one of the possible alternate floors to build the streams
+        TerrainTemplate streamTemplate = dungeonTheme.getTerrainSet().getRandomAlternateFloor();
         FloorTile ft;
         for (int i = 0; i < r.nextInt(4); ++i) {
             Coordinate origin, target;
@@ -122,13 +122,13 @@ public class WarrenGenerator extends FloorGenerator{
                         (next.distanceTo(target) >= at.distanceTo(target) || Session.getRNG().nextDouble() < 0.33));
                 at = next;
                 ft = floor.tileAt(at.getRow(), at.getColumn());
-                ft.setTerrain(new Terrain(crossTemplate));
+                ft.setTerrain(new Terrain(streamTemplate));
                 do {
                     next = Direction.random(false).shift(at);
                 } while (!floor.isInteriorCoordinate(next.getRow(), next.getColumn()));
                 //also add terrain to a random adjacent tile, to increase total size
                 ft = floor.tileAt(next.getRow(), next.getColumn());
-                ft.setTerrain(new Terrain(crossTemplate));
+                ft.setTerrain(new Terrain(streamTemplate));
             } while (!at.equals(target));
         }
     }

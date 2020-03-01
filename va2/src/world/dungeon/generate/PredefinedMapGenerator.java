@@ -3,6 +3,7 @@ package world.dungeon.generate;
 import util.Coordinate;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.DungeonTheme;
+import world.dungeon.theme.TerrainSet;
 import world.dungeon.theme.ThemeDefinitions;
 import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
@@ -13,35 +14,37 @@ import world.terrain.TerrainTemplate;
  */
 public class PredefinedMapGenerator extends FloorGenerator {
     @Override
-    public Floor generate(int depth, DungeonTheme dungeonTheme) {
+    public Floor generate(int depth, DungeonTheme theme) {
         String[] definition;
+        dungeonTheme = theme;
         floorDepth = depth;
         floor = new Floor(floorDepth, dungeonTheme);
         if (dungeonTheme == ThemeDefinitions.YSIAN_ESTATE) {
             definition = new String[] {
-                    "*************************",
-                    "**;*;;;*;;;*>**;*;;;**;**",
-                    "*;;;*;;;;*;;;*;;;;;;*;;;*",
-                    "**;;;;;;;*;;;;;;;;*;;;;;*",
-                    "*;;;;*;;;;;*;;;;;;;;;;***",
-                    "##==##==#*;;;;;*#==##==##",
-                    "##......#**;;;**#......##",
-                    "##......#*;;;;;*#......##",
-                    "#`......#*;;;;;*#......0#",
-                    "##......#*;;;;;*#......##",
-                    "##......#***;***#......##",
-                    "##......####;####......##",
-                    "#1.....................9#",
-                    "##.....................##",
-                    "##.....................##",
-                    "##.....................##",
-                    "#2.....................8#",
-                    "##.....................##",
-                    "##.....................##",
-                    "####3###4###5###6###7####",
-                    "#########################",
+                    "!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+                    "!*************************!",
+                    "!**;*;;;*;;;*>**;*;;;**;**!",
+                    "!*;;;*;;;;*;;;*;;;;;;*;;;*!",
+                    "!**;;;;;;;*;;;;;;;;*;;;;;*!",
+                    "!*;;;;*;;;;;*;;;;;;;;;;***!",
+                    "!##==##==#*;;;;;*#==##==##!",
+                    "!##......#**;;;**#......##!",
+                    "!##......#*;;;;;*#......##!",
+                    "!#`......#*;;;;;*#......0#!",
+                    "!##......#*;;;;;*#......##!",
+                    "!##......#***;***#......##!",
+                    "!##......####;####......##!",
+                    "!#1.....................9#!",
+                    "!##.....................##!",
+                    "!##.....................##!",
+                    "!##.....................##!",
+                    "!#2.....................8#!",
+                    "!##.....................##!",
+                    "!##.....................##!",
+                    "!####3###4###5###6###7####!",
+                    "!#########################!",
+                    "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
             };
-            floor.setPlayerSpawn(new Coordinate(1, 12));
             for (int i = 0; i < floor.ROWS; ++i) {
                 for (int j = 0; j < floor.COLS; ++j) {
                     floor.tileAt(i, j).setSeen(true); //the player remembers his own house
@@ -50,30 +53,34 @@ public class PredefinedMapGenerator extends FloorGenerator {
         } /*todo else if - other predefined levels? */ else {
             throw new IllegalArgumentException("Unknown theme.");
         }
-        copy(definition, dungeonTheme);
+        copy(definition);
         return floor;
     }
-    private void copy(String[] s, DungeonTheme t) {
+    private void copy(String[] s) {
         for (int i = 0; i < floor.ROWS; ++i) {
             for (int j = 0; j < floor.COLS; ++j) {
                 char c = s[i].charAt(j);
                 //todo - themes should map chars to terrain definitions.
+                TerrainSet ts = dungeonTheme.getTerrainSet();
                 TerrainTemplate tt;
                 switch (c) {
+                    case '!':
+                        tt = TerrainDefinitions.PERMANENT_WALL;
                     case '#':
-                        tt = TerrainDefinitions.SIMPLE_WALL;
+                        tt = ts.getBasePrimaryWall();
                         break;
                     case '.':
-                        tt = TerrainDefinitions.SIMPLE_FLOOR;
+                        tt = ts.getBasePrimaryFloor();
                         break;
                     case ';':
-                        tt = TerrainDefinitions.GRASSY_FLOOR;
+                        tt = ts.getBaseAlternateFloor();
                         break;
                     case '*':
-                        tt = TerrainDefinitions.ANCIENT_OAK;
+                        tt = ts.getBaseAlternateWall();
                         break;
-                    case '>':
-                        tt = TerrainDefinitions.FOREST_GATE;
+                    case '>': case '<':
+                        tt = ts.getSpawnTerrain();
+                        floor.setPlayerSpawn(new Coordinate(i, j));
                         break;
                     case '`':
                         tt = TerrainDefinitions.LIBRARY_PORTAL;
