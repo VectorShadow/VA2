@@ -43,7 +43,7 @@ public class ThemeDefinitions {
                                     TerrainDefinitions.GRASSY_FLOOR,
                                     new ArrayList<>()
                             ),
-                            TerrainDefinitions.FOREST_GATE
+                            TerrainDefinitions.LIBRARY_PORTAL
                     )
             );
     public static final DungeonTheme DARK_GROVE =

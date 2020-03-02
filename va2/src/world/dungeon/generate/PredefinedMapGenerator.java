@@ -30,7 +30,7 @@ public class PredefinedMapGenerator extends FloorGenerator {
                     "!##==##==#*;;;;;*#==##==##!",
                     "!##......#**;;;**#......##!",
                     "!##......#*;;;;;*#......##!",
-                    "!#`......#*;;;;;*#......0#!",
+                    "!#<......#*;;;;;*#......0#!",
                     "!##......#*;;;;;*#......##!",
                     "!##......#***;***#......##!",
                     "!##......####;####......##!",
@@ -78,12 +78,12 @@ public class PredefinedMapGenerator extends FloorGenerator {
                     case '*':
                         tt = ts.getBaseAlternateWall();
                         break;
-                    case '>': case '<':
+                    case '<':
                         tt = ts.getSpawnTerrain();
                         floor.setPlayerSpawn(new Coordinate(i, j));
                         break;
-                    case '`':
-                        tt = TerrainDefinitions.LIBRARY_PORTAL;
+                    case '>':
+                        tt = TerrainDefinitions.FOREST_GATE;
                         break;
                     case '1':
                         tt = TerrainDefinitions.HALL_OF_ARMS_PORTAL;

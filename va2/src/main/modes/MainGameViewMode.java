@@ -9,8 +9,6 @@ import io.out.message.MessageType;
 import main.Session;
 import util.Coordinate;
 import util.Direction;
-import world.actor.Actor;
-import world.actor.ActorDefinitions;
 import world.terrain.TerrainDefinitions;
 import world.terrain.TerrainTemplate;
 

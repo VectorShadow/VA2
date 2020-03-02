@@ -3,7 +3,7 @@ package main.modes;
 import io.out.GUIManager;
 import main.MetaData;
 import main.Session;
-import menu.MenuDefinitions;
+import main.modes.menuModes.MainMenuMode;
 import world.Lore;
 
 import java.awt.event.KeyEvent;
@@ -59,7 +59,7 @@ public class BottomMode implements OperatingMode {
             });
             gm.printCenteredLine(0.85, "[Press any key to continue.]");
         } else {
-            gm.printCenteredLine(0.45, "Thanks for playing ACE. Press any key to quit.");
+            gm.printCenteredLine(0.45, "Thanks for playing Chronicles of the Abyss.");
         }
     }
 
