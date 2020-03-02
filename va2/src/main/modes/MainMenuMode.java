@@ -5,11 +5,12 @@ import io.out.GUIManager;
 import io.out.message.MessageType;
 import main.Session;
 import menu.MenuDefinitions;
+import util.Coordinate;
+import world.Lore;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
 import world.dungeon.theme.ThemeDefinitions;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import static java.awt.event.KeyEvent.*;
@@ -18,12 +19,9 @@ public class MainMenuMode implements OperatingMode {
 
     private Menu menu;
 
-    public MainMenuMode(Menu menu) {
-        this.menu = menu;
-    }
-
     @Override
     public void to() {
+        menu = MenuDefinitions.getMainMenu();
         GUIManager gm = Session.getGuiManager();
         gm.changeChannelToFullscreenText();
         out();
@@ -42,17 +40,27 @@ public class MainMenuMode implements OperatingMode {
             case VK_ENTER:
                 switch (menu.getSelectedOptionIndex()) {
                     case MenuDefinitions.MAIN_MENU_NEW_GAME:
-                        //todo - hack: for now, welcome the player, create a new player object, enter the estate, and transition to mainGameViewMode
-                        Session.getPlayer().setActor(
-                                new Actor(ActorDefinitions.PLAYER_TEMPLATE)
-                        );
+                        Session.getPlayer().setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
                         Session.getMessageCenter().sendMessage("Welcome to Chronicles of the Abyss!", MessageType.GAME);
                         Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
-                        Session.getModeManager().transitionTo(new MainGameViewMode());
+                        OperatingMode targetMode = new MainGameViewMode();
+                        if (!Session.getLore().isUnlocked(Lore.GENERAL, Lore.GENERAL_NEW_GAME)) {
+                            Session.getModeManager().transitionTo(
+                                    new TransitiveTextMode(
+                                            Session.getLore().lore(Lore.GENERAL, Lore.GENERAL_NEW_GAME), targetMode));
+                        } else
+                            Session.getModeManager().transitionTo(targetMode);
+                        //hack - generate a test ai
+                        Actor aiTest = new Actor(ActorDefinitions.PLAYER_TEMPLATE);
+                        Session.addActor(aiTest, new Coordinate(8,5));
                         return;
                     case MenuDefinitions.MAIN_MENU_LOAD_GAME:
-                        //todo
-                        break;
+                        Session.getMessageCenter().sendMessage("Welcome back.", MessageType.GAME);
+                        Session.getModeManager().transitionTo(new MainGameViewMode());
+                        return;
+                    case MenuDefinitions.MAIN_MENU_DELETE_GAME:
+                        Session.getModeManager().transitionTo(new ConfirmLastInputMode());
+                        return;
                     case MenuDefinitions.MAIN_MENU_VIEW_PROFILE:
                         //todo
                         break;
@@ -69,7 +77,7 @@ public class MainMenuMode implements OperatingMode {
     public void out() {
         GUIManager gm = Session.getGuiManager();
         gm.clearScreen();
-        gm.printMenu(0.35, menu, Color.BLACK, Color.GREEN);
+        gm.printMenu(0.35, menu);
     }
 
     @Override

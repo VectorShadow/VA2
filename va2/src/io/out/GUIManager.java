@@ -98,7 +98,7 @@ public class GUIManager {
             ErrorLogger.logFatalException(e);
         }
         GUI.addKeyListener(new ThrottledKeyListener());
-        //todo - add a keylistener. from ACE: Display.setKeyListener(new ACEListener());
+        GUI.addWindowListener(new AutoSaveWindowListener());
         GUI.setIcon(FRAME_ICON_FILE_NAME);
         GUI.setTitle(MetaData.gameTitle() + " - " + MetaData.version());
         setupChannels();
@@ -119,9 +119,9 @@ public class GUIManager {
         GUI.setBorder(CHANNEL_GAME, messageZone, DisplayStandards.MESSAGE_WINDOW_BORDER);
         //calculate the number of rows and columns available to display messages:
         messageWindowRows = GUI.countRows() - GUI.rowAtPercent(TEXT_WINDOW_START);
-        messageWindowCols = GUI.colAtPercent(1.0);
+        messageWindowCols = GUI.colAtPercent(ZONE_MESSAGE_CENTER, 1.0);
         //todo - game channel setup here
-        int fsText = GUI.addChannel(DualityMode.TEXT);
+        int fsText = GUI.addChannel(DualityMode.LONG_TEXT);
         //paranoia - these checks can be removed once we stop adding GUI channels/zones:
         if (ZONE_MESSAGE_CENTER != messageZone)
             throw new IllegalStateException("Invalid zone index for Message Center - expected " +
@@ -134,9 +134,11 @@ public class GUIManager {
 
     public void changeChannelToGameDisplay() {
         GUI.changeChannel(CHANNEL_GAME);
+        GUI.clear();
     }
     public void changeChannelToFullscreenText() {
         GUI.changeChannel(CHANNEL_FULLSCREEN_TEXT);
+        GUI.clear();
     }
 
     public void clearScreen() {
@@ -148,22 +150,43 @@ public class GUIManager {
     public void printGlyph(int row, int column, Glyph g) {
         GUI.print(row, column, g);
     }
-    public void printCenteredBlock(double percentFromTop, String[] text, Color foreground, Color background) {
+    public void printGlyph(int zone, int row, int column, Glyph g) {
+        GUI.print(zone, row, column, g);
+    }
+    public void printGlyphString(int row, int column, GlyphString gs) {
+        GUI.print(row, column, gs);
+    }
+    public void printGlyphString(int zone, int row, int column, GlyphString gs) {
+        GUI.print(zone, row, column, gs);
+    }
+    public void printCenteredBlock(double percentFromTop, String[] text) {
         int row = GUI.rowAtPercent(percentFromTop);
         for (int i = 0; i < text.length; ++i)
-            printCenteredLine(row++, text[i], foreground, background);
+            printCenteredLine(
+                    row++,
+                    text[i]
+            );
     }
-    public void printCenteredLine(double percentFromTop, String text, Color foreground, Color background) {
-        printCenteredLine(GUI.rowAtPercent(percentFromTop), text, foreground, background);
+    public void printCenteredLine(double percentFromTop, String text) {
+        printCenteredLine(
+                GUI.rowAtPercent(percentFromTop),
+                text
+        );
     }
-    private void printCenteredLine(int row, String text, Color foreground, Color background) {
-        GUI.printCentered(row, new GlyphString(text, foreground, background));
+    private void printCenteredLine(int row, String text) {
+        GUI.printCentered(
+                row,
+                new GlyphString(text,
+                        DisplayStandards.TEXT_DEFAULT_BACKGROUND,
+                        DisplayStandards.TEXT_DEFAULT_FOREGROUND
+                )
+        );
     }
-    public void printMenu(double percentFromTop, Menu menu, Color foreground, Color background) {
-        printMenu(GUI.rowAtPercent(percentFromTop), menu, foreground, background);
+    public void printMenu(double percentFromTop, Menu menu) {
+        printMenu(GUI.rowAtPercent(percentFromTop), menu);
     }
-    private void printMenu(int row, Menu menu, Color foreground, Color background) {
-        GUI.printMenu(row, menu, foreground, background);
+    private void printMenu(int row, Menu menu) {
+        GUI.printMenu(row, menu, DisplayStandards.TEXT_DEFAULT_BACKGROUND, DisplayStandards.TEXT_DEFAULT_FOREGROUND);
     }
     public void printMessages() {
         GUI.clear(ZONE_MESSAGE_CENTER);

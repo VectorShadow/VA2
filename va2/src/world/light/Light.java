@@ -1,6 +1,7 @@
 package world.light;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Define lights for illuminating the game world.
@@ -9,7 +10,7 @@ import java.awt.*;
  * Brightness determines radius for radial lights.
  * Color applies to all reflective WorldObjects.
  */
-public enum Light {
+public enum Light implements Serializable {
     UNLIGHTED(0, Color.BLACK, 0.0),
     MOONLIGHT(3, Color.LIGHT_GRAY, 0.05),
     DIM_LAMP(4, Color.YELLOW.darker().darker(), 0.25),

@@ -10,12 +10,13 @@ import util.Coordinate;
 import world.actor.Actor;
 import world.terrain.TerrainTemplate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class is responsible for updating the game world based on player input.
  */
-public class Engine {
+public class Engine implements Serializable {
 
     public static final int MAXIMUM_ENERGY = 1024;
 
@@ -28,13 +29,6 @@ public class Engine {
 
     public void resetActors() {
         actors = new ArrayList<>();
-    }
-
-    /**
-     * Use this when loading a saved game.
-     */
-    public void loadGameTurn(long turn) {
-        gameTurn = turn;
     }
     public void addActor(Actor a) {
         actors.add(a);

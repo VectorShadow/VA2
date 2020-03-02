@@ -1,9 +1,11 @@
 package util;
 
+import java.io.Serializable;
+
 /**
  * A pair of integers specifying row and column. Used for accessing tiles within a world.dungeon.floor.
  */
-public class Coordinate {
+public class Coordinate implements Serializable {
     private final int ROW;
     private final int COL;
 

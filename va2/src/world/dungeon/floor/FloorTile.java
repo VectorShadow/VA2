@@ -5,11 +5,13 @@ import world.light.Light;
 import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
 
+import java.io.Serializable;
+
 /**
  * Building blocks for a world.dungeon.floor. Contains a flag to indicate whether the player has ever seen it,
  * as well as pointers to other world objects at its location.
  */
-public class FloorTile {
+public class FloorTile implements Serializable {
     private Actor actor = null;
     private Light light = Light.UNLIGHTED;
     private boolean seen = false;

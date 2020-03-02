@@ -8,10 +8,12 @@ import world.dungeon.theme.DungeonTheme;
 import world.light.Light;
 import world.terrain.TerrainTemplate;
 
+import java.io.Serializable;
+
 /**
  * Represents a game level map.
  */
-public class Floor {
+public class Floor implements Serializable {
 
     public final int DEPTH;
     public final int ROWS;

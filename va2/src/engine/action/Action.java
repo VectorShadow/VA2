@@ -1,9 +1,11 @@
 package engine.action;
 
+import java.io.Serializable;
+
 /**
  * Defines all properties of actions which affect the game state.
  */
-public abstract class Action {
+public abstract class Action implements Serializable {
     private final int energyCost;
 
     public Action(int energyCost){

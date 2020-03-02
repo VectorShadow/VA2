@@ -64,7 +64,7 @@ public class MessageCenter {
         int currentLength = onScreenMessages.length();
         int maxLength = maxLength() - lastMessage.length();
         if (currentLength < maxLength) return;
-        onScreenMessages.setText(onScreenMessages.text.substring(currentLength - maxLength));
+        onScreenMessages.setText(onScreenMessages.text.substring(0, maxLength));
     }
     private int maxLength() {
         int rows = Session.getGuiManager().getMessageWindowRows();

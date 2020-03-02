@@ -6,11 +6,13 @@ import world.dungeon.floor.Floor;
 import world.dungeon.generate.FloorGenerator;
 import world.light.Light;
 
+import java.io.Serializable;
+
 
 /**
  * Contains all necessary information to generate a thematic dungeon.
  */
-public class DungeonTheme {
+public class DungeonTheme implements Serializable {
 
     private final Light AMBIENT_LIGHT;
     private final int MAXIMUM_ROWS;

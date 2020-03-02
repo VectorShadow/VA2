@@ -10,13 +10,14 @@ import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
 import world.terrain.TerrainTemplate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * The base class for Floor Generators.
  */
-public abstract class FloorGenerator {
+public abstract class FloorGenerator implements Serializable {
 
     protected DungeonTheme dungeonTheme;
     protected Floor floor;

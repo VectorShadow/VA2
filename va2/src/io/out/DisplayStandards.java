@@ -12,9 +12,11 @@ public class DisplayStandards {
             GlyphBuilder
                     .buildGlyph()
                     .setDefaults(Chroma.TURQUOISE, Chroma.BLACK, ' ')
-                    .build(DualityMode.TEXT);
+                    .build(DualityMode.SHORT_TEXT);
 
     public static final Color GAME_DEFAULT_BACKGROUND = Chroma.BLACK;
     public static final Color MESSAGE_DEFAULT_BACKGROUND = GAME_DEFAULT_BACKGROUND;
     public static final Color MESSAGE_DEFAULT_FOREGROUND = Chroma.WHITE;
+    public static final Color TEXT_DEFAULT_BACKGROUND = GAME_DEFAULT_BACKGROUND;
+    public static final Color TEXT_DEFAULT_FOREGROUND = Chroma.GREEN;
 }

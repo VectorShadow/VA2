@@ -5,7 +5,9 @@ import resources.continuum.Continuum;
 import world.terrain.TerrainDefinitions;
 import world.terrain.TerrainTemplate;
 
-public class TerrainSet {
+import java.io.Serializable;
+
+public class TerrainSet implements Serializable {
     private final Continuum<TerrainTemplate> PRIMARY_WALL_SET;
     private final Continuum<TerrainTemplate> ALTERNATE_WALL_SET;
     private final Continuum<TerrainTemplate> PRIMARY_FLOOR_SET;

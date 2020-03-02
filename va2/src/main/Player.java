@@ -3,10 +3,12 @@ package main;
 import world.actor.Actor;
 import world.light.Light;
 
+import java.io.Serializable;
+
 /**
  * Contains all relevant information about the player character.
  */
-public class Player {
+public class Player implements Serializable {
     private Actor actor = null;
 
     public Actor getActor() {

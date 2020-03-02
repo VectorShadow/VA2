@@ -26,9 +26,6 @@ public class MainGameViewMode implements OperatingMode {
 
     @Override
     public void to() {
-        //hack - generate a test ai
-        Actor aiTest = new Actor(ActorDefinitions.PLAYER_TEMPLATE);
-        Session.addActor(aiTest, new Coordinate(8,5));
         GUIManager gm = Session.getGuiManager();
         gm.changeChannelToGameDisplay();
         floorRenderer = new FloorRenderer();
@@ -90,6 +87,22 @@ public class MainGameViewMode implements OperatingMode {
                         Session.getCurrentDungeon().nextFloor();
                 }
                 break;
+            case VK_S:
+                if (ke.getModifiersEx() == CTRL_DOWN_MASK) {
+                    Session.getFileManager().saveGameState();
+                    Session.getModeManager().revert();
+                }
+                return;
+            case VK_SLASH:
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                    Session.getMessageCenter().sendMessage("Ingame help is not yet implemented.", MessageType.ERROR);
+                }
+                break;
+            case VK_Q:
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                    Session.getModeManager().transitionTo(new ConfirmLastInputMode());
+                }
+                return;
             //todo - lots. breaks when we want to redraw the screen, returns if not
         }
         if (action != null)
@@ -112,6 +125,6 @@ public class MainGameViewMode implements OperatingMode {
 
     @Override
     public void from() {
-        //nothing to do
+        Session.resetMessageCenter();
     }
 }

@@ -12,6 +12,10 @@ public class ModeManager {
     public ModeManager() {
         transitionTo(new BottomMode());
     }
+
+    public OperatingMode getCurrentMode() {
+        return operatingModeStack.peek();
+    }
     public void handleKeyPress(KeyEvent ke) {
         operatingModeStack.peek().in(ke);
     }

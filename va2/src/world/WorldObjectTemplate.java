@@ -8,12 +8,13 @@ import resources.glyph.Glyph;
 import resources.glyph.GlyphBuilder;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * The base class for all WorldObjectTemplates. Templates for objects which extend WorldObject must extend this class.
  */
-public abstract class WorldObjectTemplate implements GlyphSource {
+public abstract class WorldObjectTemplate implements GlyphSource, Serializable {
     private final String description;
     private final boolean reflectLight;
     private final ArrayList<Character> symbols;
@@ -72,5 +73,10 @@ public abstract class WorldObjectTemplate implements GlyphSource {
                 .buildGlyph()
                 .setDefaults(DisplayStandards.GAME_DEFAULT_BACKGROUND, Chroma.dim(getBaseForegroundColor()), getBaseSymbol())
                 .build(DualityMode.TILE);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof WorldObjectTemplate && ((WorldObjectTemplate) o).description.equals(description);
     }
 }

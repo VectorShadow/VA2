@@ -10,4 +10,7 @@ public class MetaData {
     public static String version() {
         return "[pre-Alpha]";
     }
+    public static String contact() {
+        return "vectorshadowdigitallabs@gmail.com";
+    }
 }

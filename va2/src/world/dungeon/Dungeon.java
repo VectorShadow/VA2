@@ -3,12 +3,15 @@ package world.dungeon;
 import io.out.message.MessageType;
 import main.Session;
 import world.dungeon.floor.Floor;
+import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.ThemeDefinitions;
+
+import java.io.Serializable;
 
 /**
  * Keeps track of a specific instance of a dungeon.
  */
-public class Dungeon {
+public class Dungeon implements Serializable {
 
     private final int DEPTH;
     private final DungeonTemplate DUNGEON_TEMPLATE;
@@ -38,5 +41,8 @@ public class Dungeon {
                 fullRewards ? MessageType.INFO : MessageType.WARNING
         );
         Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
+    }
+    public DungeonTheme getTheme() {
+        return DUNGEON_TEMPLATE.DUNGEON_THEME;
     }
 }

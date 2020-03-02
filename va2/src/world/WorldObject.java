@@ -1,6 +1,8 @@
 package world;
 
-public abstract class WorldObject {
+import java.io.Serializable;
+
+public abstract class WorldObject implements Serializable {
     private final WorldObjectTemplate template;
 
     public WorldObject(WorldObjectTemplate wot) {

@@ -2,6 +2,7 @@ package main;
 
 import engine.Engine;
 import io.out.message.MessageCenter;
+import world.Lore;
 import world.dungeon.Dungeon;
 import world.dungeon.DungeonDefinitions;
 import world.dungeon.floor.Floor;
@@ -10,7 +11,6 @@ import io.out.GUIManager;
 import main.modes.ModeManager;
 import util.Coordinate;
 import world.actor.Actor;
-import world.dungeon.theme.ThemeDefinitions;
 
 import java.util.Random;
 
@@ -29,6 +29,7 @@ public class Session {
     private static Engine engine;
     private static FileManager fileManager;
     private static GUIManager guiManager;
+    private static Lore lore;
     private static MessageCenter messageCenter;
     private static ModeManager modeManager;
     private static Player player;
@@ -39,9 +40,20 @@ public class Session {
         engine = new Engine();
         fileManager = new FileManager();
         guiManager = new GUIManager();
+        lore = new Lore();
         messageCenter = new MessageCenter();
         modeManager = new ModeManager();
         player = new Player();
+    }
+    public static void loadProfile(boolean[][] unlockedLore) {
+        lore.setUnlocked(unlockedLore);
+    }
+    public static void loadSavedGame(Camera c, Dungeon d, Floor f, Engine e, Player p) {
+        camera = c;
+        currentDungeon = d;
+        currentFloor = f;
+        engine = e;
+        player = p;
     }
 
     public static Random getRNG() {
@@ -79,6 +91,9 @@ public class Session {
     public static ModeManager getModeManager() {
         return modeManager;
     }
+    public static Lore getLore() {
+        return lore;
+    }
     public static Player getPlayer() {
         return player;
     }
@@ -94,5 +109,8 @@ public class Session {
     public static void addActor(Actor a, Coordinate c) {
         currentFloor.placeActor(a, c);
         engine.addActor(a);
+    }
+    public static void resetMessageCenter() {
+        messageCenter = new MessageCenter();
     }
 }

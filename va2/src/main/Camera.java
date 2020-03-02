@@ -2,10 +2,12 @@ package main;
 
 import util.Coordinate;
 
+import java.io.Serializable;
+
 /**
  * Tracks the center of the screen for drawing purposes.
  */
-public class Camera {
+public class Camera implements Serializable {
     private Coordinate at;
     private boolean trackPlayer = true;
 

@@ -4,8 +4,8 @@ import io.out.GUIManager;
 import main.MetaData;
 import main.Session;
 import menu.MenuDefinitions;
+import world.Lore;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
 
@@ -18,17 +18,29 @@ public class BottomMode implements OperatingMode {
 
     @Override
     public void to() {
+        GUIManager gm = Session.getGuiManager();
+        gm.changeChannelToFullscreenText();
         out();
     }
 
     @Override
     public void in(KeyEvent ke) {
         if (OperatingMode.overrideHandleInput(ke) || (ke.getModifiersEx() == ALT_DOWN_MASK)) return;
+        OperatingMode targetMode = new MainMenuMode();
         if (isNewSession) {
-            //todo - check the file system for a player profile. if extant, go directly to the main menu.
-            // otherwise, switch to a special mode which will prompt the player for unique information and create
-            // the profile. This mode should then switch to the main menu.
-            Session.getModeManager().transitionTo(new MainMenuMode(MenuDefinitions.getMainMenu()));
+            if (Session.getFileManager().loadProfile()) {
+                Session.getModeManager().transitionTo(targetMode);
+            } else {
+                Session.getModeManager().transitionTo(
+                        new TransitiveTextMode(
+                                Session.getLore().lore(
+                                        Lore.GENERAL,
+                                        Lore.GENERAL_NEW_PLAYER
+                                )
+                                , targetMode
+                        )
+                );
+            }
             isNewSession = false;
         } else {
             Session.getModeManager().revert();
@@ -44,10 +56,10 @@ public class BottomMode implements OperatingMode {
                     MetaData.gameTitle(),
                     "by " + MetaData.studio(),
                     "Version: " + MetaData.version()
-            }, Color.BLACK, Color.GREEN);
-            gm.printCenteredLine(0.85, "[Press any key to continue.]", Color.BLACK, Color.GREEN);
+            });
+            gm.printCenteredLine(0.85, "[Press any key to continue.]");
         } else {
-            gm.printCenteredLine(0.45, "Thanks for playing ACE. Press any key to quit.", Color.BLACK, Color.GREEN);
+            gm.printCenteredLine(0.45, "Thanks for playing ACE. Press any key to quit.");
         }
     }
 
