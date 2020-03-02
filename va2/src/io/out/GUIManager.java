@@ -106,7 +106,7 @@ public class GUIManager {
         new ScreenRefresherDaemon().start();
     }
     private void setupChannels() {
-        final double TEXT_WINDOW_START = 0.75;
+        final double TEXT_WINDOW_START = 0.82;
         int messageZone =
                 GUI.addZone(
                         CHANNEL_GAME,
