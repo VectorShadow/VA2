@@ -25,11 +25,9 @@ public class TransitiveTextMode implements OperatingMode {
         this.targetMode = targetMode;
         ArrayList<String> breakByNewLine = new ArrayList<>();
         while (text.contains("\n")){
-            System.out.println("looping outer");
             int index = text.indexOf('\n');
             breakByNewLine.add(text.substring(0, index));
             do {
-                System.out.println("looping inner");
                 text = text.substring(text.indexOf('\n') + 1);
             } while (text.charAt(1) == '\n');
         }
