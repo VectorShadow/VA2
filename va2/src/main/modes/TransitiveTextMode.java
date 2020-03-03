@@ -65,9 +65,10 @@ public class TransitiveTextMode implements OperatingMode {
     public void out() {
         GUIManager gm = Session.getGuiManager();
         gm.clearScreen();
+        int pct = (int)(100 * (double)displayFromIndex / ((double)displayedText.size() - 1.0));
         gm.printCenteredLine(
                 4,
-                "[Press <Enter> to continue, or use the arrow keys to scroll]",
+                "[Press <Enter> to continue, or use the arrow keys to scroll (" + pct + "%)]",
                 DisplayStandards.TEXT_DEFAULT_BACKGROUND,
                 DisplayStandards.TEXT_SUBDUED_FOREGROUND
         );
