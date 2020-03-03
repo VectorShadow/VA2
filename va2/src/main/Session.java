@@ -2,7 +2,6 @@ package main;
 
 import engine.Engine;
 import io.out.message.MessageCenter;
-import world.Lore;
 import world.dungeon.Dungeon;
 import world.dungeon.DungeonDefinitions;
 import world.dungeon.floor.Floor;
@@ -11,6 +10,9 @@ import io.out.GUIManager;
 import main.modes.ModeManager;
 import util.Coordinate;
 import world.actor.Actor;
+import world.lore.LockLeaf;
+import world.lore.LoreDefinitions;
+import world.lore.LoreTree;
 
 import java.util.Random;
 
@@ -29,7 +31,7 @@ public class Session {
     private static Engine engine;
     private static FileManager fileManager;
     private static GUIManager guiManager;
-    private static Lore lore;
+    private static LoreTree lore;
     private static MessageCenter messageCenter;
     private static ModeManager modeManager;
     private static Player player;
@@ -40,13 +42,13 @@ public class Session {
         engine = new Engine();
         fileManager = new FileManager();
         guiManager = new GUIManager();
-        lore = new Lore();
+        lore = LoreDefinitions.LOCK_TREE;
         messageCenter = new MessageCenter();
         modeManager = new ModeManager();
         player = new Player();
     }
-    public static void loadProfile(boolean[][] unlockedLore) {
-        lore.setUnlocked(unlockedLore);
+    public static void loadProfile(LoreTree loreTree) {
+        lore = loreTree;
     }
     public static void loadSavedGame(Camera c, Dungeon d, Floor f, Engine e, Player p) {
         camera = c;
@@ -91,8 +93,12 @@ public class Session {
     public static ModeManager getModeManager() {
         return modeManager;
     }
-    public static Lore getLore() {
+    public static LoreTree getLore() {
         return lore;
+    }
+    public static String unlockLore(int themeIndex, int loreIndex) {
+        ((LockLeaf)lore.get(themeIndex, loreIndex)).unlock();
+        return LoreDefinitions.loreAt(themeIndex, loreIndex);
     }
     public static Player getPlayer() {
         return player;

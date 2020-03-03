@@ -9,10 +9,11 @@ import main.modes.OperatingMode;
 import main.modes.TransitiveTextMode;
 import menu.MenuDefinitions;
 import util.Coordinate;
-import world.Lore;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
 import world.dungeon.theme.ThemeDefinitions;
+import world.lore.LockLeaf;
+import world.lore.LoreDefinitions;
 
 public class MainMenuMode extends MenuMode {
 
@@ -31,16 +32,22 @@ public class MainMenuMode extends MenuMode {
 
     @Override
     protected void handleMenuOptionIndex(int index) {
+        String lore;
         switch (index) {
             case MenuDefinitions.MAIN_MENU_NEW_GAME:
             Session.getPlayer().setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
             Session.getMessageCenter().sendMessage("Welcome to Chronicles of the Abyss!", MessageType.GAME);
             Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
+            //hardcode - player should begin the game at the Library instead of the default spawn tile
+            Session.getCurrentFloor().placeActor(Session.getPlayer().getActor(), new Coordinate(9, 2));
             OperatingMode targetMode = new MainGameViewMode();
-            if (!Session.getLore().isUnlocked(Lore.GENERAL, Lore.GENERAL_NEW_GAME)) {
+            if (((LockLeaf)Session.getLore().get(
+                    LoreDefinitions.THEME_GENERAL,
+                    LoreDefinitions.GENERAL_NEW_CHARACTER
+            )).isLocked()) {
+                lore = Session.unlockLore(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_NEW_CHARACTER);
                 Session.getModeManager().transitionTo(
-                        new TransitiveTextMode(
-                                Session.getLore().lore(Lore.GENERAL, Lore.GENERAL_NEW_GAME), targetMode));
+                        new TransitiveTextMode(lore, targetMode));
             } else
                 Session.getModeManager().transitionTo(targetMode);
             //hack - generate a test ai

@@ -4,7 +4,7 @@ import io.out.GUIManager;
 import main.MetaData;
 import main.Session;
 import main.modes.menuModes.MainMenuMode;
-import world.Lore;
+import world.lore.LoreDefinitions;
 
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
@@ -33,9 +33,9 @@ public class BottomMode implements OperatingMode {
             } else {
                 Session.getModeManager().transitionTo(
                         new TransitiveTextMode(
-                                Session.getLore().lore(
-                                        Lore.GENERAL,
-                                        Lore.GENERAL_NEW_PLAYER
+                                Session.unlockLore(
+                                        LoreDefinitions.THEME_GENERAL,
+                                        LoreDefinitions.GENERAL_NEW_PLAYER
                                 )
                                 , targetMode
                         )
