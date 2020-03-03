@@ -31,7 +31,6 @@ public class MainMenuMode extends MenuMode {
 
     @Override
     protected void handleMenuOptionIndex(int index) {
-        System.out.println("Index: " + index);
         switch (index) {
             case MenuDefinitions.MAIN_MENU_NEW_GAME:
             Session.getPlayer().setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));

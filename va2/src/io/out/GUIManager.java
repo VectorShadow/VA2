@@ -169,16 +169,34 @@ public class GUIManager {
     }
     public void printCenteredLine(double percentFromTop, String text) {
         printCenteredLine(
-                GUI.rowAtPercent(percentFromTop),
-                text
+                percentFromTop,
+                text,
+                DisplayStandards.TEXT_DEFAULT_BACKGROUND,
+                DisplayStandards.TEXT_DEFAULT_FOREGROUND
         );
     }
-    private void printCenteredLine(int row, String text) {
+    public void printCenteredLine(double percentFromTop, String text, Color background, Color foreground) {
+        printCenteredLine(
+                GUI.rowAtPercent(percentFromTop),
+                text,
+                background,
+                foreground
+        );
+    }
+    public void printCenteredLine(int row, String text) {
+        printCenteredLine(
+                row,
+                text,
+                DisplayStandards.TEXT_DEFAULT_BACKGROUND,
+                DisplayStandards.TEXT_DEFAULT_FOREGROUND
+        );
+    }
+    public void printCenteredLine(int row, String text, Color background, Color foreground) {
         GUI.printCentered(
                 row,
                 new GlyphString(text,
-                        DisplayStandards.TEXT_DEFAULT_BACKGROUND,
-                        DisplayStandards.TEXT_DEFAULT_FOREGROUND
+                        background,
+                        foreground
                 )
         );
     }

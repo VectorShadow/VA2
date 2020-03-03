@@ -19,4 +19,5 @@ public class DisplayStandards {
     public static final Color MESSAGE_DEFAULT_FOREGROUND = Chroma.WHITE;
     public static final Color TEXT_DEFAULT_BACKGROUND = GAME_DEFAULT_BACKGROUND;
     public static final Color TEXT_DEFAULT_FOREGROUND = Chroma.GREEN;
+    public static final Color TEXT_SUBDUED_FOREGROUND = Chroma.dim(Chroma.GREEN);
 }

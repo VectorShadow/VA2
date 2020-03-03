@@ -57,7 +57,7 @@ public class BottomMode implements OperatingMode {
                     "by " + MetaData.studio(),
                     "Version: " + MetaData.version()
             });
-            gm.printCenteredLine(0.85, "[Press any key to continue.]");
+            gm.printCenteredLine(0.75, "[Press any key to continue.]");
         } else {
             gm.printCenteredLine(0.45, "Thanks for playing Chronicles of the Abyss.");
         }

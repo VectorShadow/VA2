@@ -12,7 +12,7 @@ public class Lore {
     private static final String[][] LORE = {
             { // 0 - GENERAL:
                 // 0 - NEW_PLAYER:
-                    "\t\tThis appears to be your first time playing Chronicles of the Abyss on this computer. " +
+                    "\tThis appears to be your first time playing Chronicles of the Abyss on this computer. " +
                             "\n\n\n\tChronicles is a roguelike dungeon crawler set in a fantasy/horror universe. You " +
                             "progress through the game by exploring various dungeons and collecting experience and " +
                             "items to increase your own power and delve ever deeper. You'll begin in your ancestral " +
