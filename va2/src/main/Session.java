@@ -1,6 +1,7 @@
 package main;
 
 import engine.Engine;
+import engine.action.ActionDefinitions;
 import io.out.message.MessageCenter;
 import world.dungeon.Dungeon;
 import world.dungeon.DungeonDefinitions;
@@ -111,7 +112,9 @@ public class Session {
     public static void setCurrentFloor(Floor f) {
         currentFloor = f;
         engine.resetActors();
-        addActor(player.getActor(), currentFloor.getPlayerSpawn());
+        Actor playerActor = player.getActor();
+        playerActor.consumeEnergy(0 - ActionDefinitions.MAXIMUM_ACTION_ENERGY); //give the player the initiative
+        addActor(playerActor, currentFloor.getPlayerSpawn());
     }
     public static void setCurrentDungeon(Dungeon d) {
         currentDungeon = d;

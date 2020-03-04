@@ -15,7 +15,7 @@ import java.util.LinkedList;
 public class Actor extends WorldObject {
 
     private Coordinate location;
-    private int currentEnergy = ActionDefinitions.MAXIMUM_ACTION_ENERGY;
+    private int currentEnergy = 0;
     private int energyGainPerTurn;
     private LinkedList<Action> queuedActions = new LinkedList<>();
 
@@ -32,6 +32,9 @@ public class Actor extends WorldObject {
             throw new IllegalArgumentException("Attempted to consume more energy than Actor had (" + cost + "/" +
                     currentEnergy + ").");
         currentEnergy -= cost;
+        //allow negative energy actions (for example, resting) without exceeding the cap
+        if (currentEnergy > ActionDefinitions.MAXIMUM_ACTION_ENERGY)
+            currentEnergy = ActionDefinitions.MAXIMUM_ACTION_ENERGY;
     }
     public void gainEnergy() {
         currentEnergy += energyGainPerTurn;

@@ -60,7 +60,8 @@ public class Engine implements Serializable {
                     handle(actor, action);
                 }
             }
-            ++gameTurn;
+            //increment the game turn and automatically save every so often
+            if (++gameTurn % 1_000 == 0) Session.getFileManager().saveGameState();
         }
     }
     public boolean validate(Actor actor, Action action) {
