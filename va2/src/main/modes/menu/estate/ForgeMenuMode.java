@@ -4,29 +4,28 @@ import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
 import main.modes.menu.MenuDefinitions;
 
-public class LibraryMenuMode extends EstateRoomMenuMode {
-
+public class ForgeMenuMode extends EstateRoomMenuMode {
     @Override
     protected void setEstateMenu() {
-        setMenu(MenuDefinitions.getLibraryOptions());
+        setMenu(MenuDefinitions.getForgeOptions());
     }
 
     @Override
     protected void handleMenuOptionIndex(int index) {
         switch (index) {
-            case MenuDefinitions.LIBRARY_OPTIONS_TEXTS:
+            case MenuDefinitions.FORGE_OPTIONS_REPAIR:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_LORE:
+            case MenuDefinitions.FORGE_OPTIONS_CONSTRUCT:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_LANGUAGES:
+            case MenuDefinitions.FORGE_OPTIONS_COAT:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_UPGRADE:
+            case MenuDefinitions.FORGE_OPTIONS_UPGRADE:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_EXIT:
+            case MenuDefinitions.FORGE_OPTIONS_EXIT:
                 Session.getModeManager().revert();
                 return;
             default:

@@ -4,29 +4,25 @@ import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
 import main.modes.menu.MenuDefinitions;
 
-public class LibraryMenuMode extends EstateRoomMenuMode {
-
+public class WarehouseMenuMode extends EstateRoomMenuMode {
     @Override
     protected void setEstateMenu() {
-        setMenu(MenuDefinitions.getLibraryOptions());
+        setMenu(MenuDefinitions.getWarehouseOptions());
     }
 
     @Override
     protected void handleMenuOptionIndex(int index) {
         switch (index) {
-            case MenuDefinitions.LIBRARY_OPTIONS_TEXTS:
+            case MenuDefinitions.WAREHOUSE_OPTIONS_LEGACY_STOCKPILES:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_LORE:
+            case MenuDefinitions.WAREHOUSE_OPTIONS_TRANSIENT_STOCKPILES:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_LANGUAGES:
+            case MenuDefinitions.WAREHOUSE_OPTIONS_UPGRADE:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_UPGRADE:
-                //todo
-                return;
-            case MenuDefinitions.LIBRARY_OPTIONS_EXIT:
+            case MenuDefinitions.WAREHOUSE_OPTIONS_EXIT:
                 Session.getModeManager().revert();
                 return;
             default:

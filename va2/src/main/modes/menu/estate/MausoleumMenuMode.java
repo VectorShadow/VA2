@@ -4,29 +4,25 @@ import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
 import main.modes.menu.MenuDefinitions;
 
-public class LibraryMenuMode extends EstateRoomMenuMode {
-
+public class MausoleumMenuMode extends EstateRoomMenuMode {
     @Override
     protected void setEstateMenu() {
-        setMenu(MenuDefinitions.getLibraryOptions());
+        setMenu(MenuDefinitions.getMausoleumOptions());
     }
 
     @Override
     protected void handleMenuOptionIndex(int index) {
         switch (index) {
-            case MenuDefinitions.LIBRARY_OPTIONS_TEXTS:
+            case MenuDefinitions.MAUSOLEUM_OPTIONS_HIGH_SCORES:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_LORE:
+            case MenuDefinitions.MAUSOLEUM_OPTIONS_CHALLENGE_MODES:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_LANGUAGES:
+            case MenuDefinitions.MAUSOLEUM_OPTIONS_DUNGEON_COMPLETION:
                 //todo
                 return;
-            case MenuDefinitions.LIBRARY_OPTIONS_UPGRADE:
-                //todo
-                return;
-            case MenuDefinitions.LIBRARY_OPTIONS_EXIT:
+            case MenuDefinitions.MAUSOLEUM_OPTIONS_EXIT:
                 Session.getModeManager().revert();
                 return;
             default:

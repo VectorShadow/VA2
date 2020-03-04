@@ -95,10 +95,10 @@ public class PredefinedMapGenerator extends FloorGenerator {
                         tt = TerrainDefinitions.LABORATORY_PORTAL;
                         break;
                     case '4':
-                        tt = TerrainDefinitions.MAUSOLEUM_PORTAL;
+                        tt = TerrainDefinitions.TROPHY_HALL_PORTAL;
                         break;
                     case '5':
-                        tt = TerrainDefinitions.TROPHY_HALL_PORTAL;
+                        tt = TerrainDefinitions.MAUSOLEUM_PORTAL;
                         break;
                     case '6':
                         tt = TerrainDefinitions.FORGE_PORTAL;

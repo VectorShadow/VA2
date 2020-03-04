@@ -88,19 +88,19 @@ public class TerrainDefinitions {
                     .setSymbols('<')
                     .setForegroundColors(Color.BLUE)
                     .manufactureTerrainTemplate(true, true, true);
-    public static TerrainTemplate MAUSOLEUM_PORTAL =
-            WorldObjectTemplateFactory
-                    .initialize()
-                    .setDescription("the door to your Mausoleum")
-                    .setSymbols('<')
-                    .setForegroundColors(Color.DARK_GRAY)
-                    .manufactureTerrainTemplate(true, true, true);
     public static TerrainTemplate TROPHY_HALL_PORTAL =
             WorldObjectTemplateFactory
                     .initialize()
                     .setDescription("the door to your Trophy Hall")
                     .setSymbols('<')
                     .setForegroundColors(Color.YELLOW)
+                    .manufactureTerrainTemplate(true, true, true);
+    public static TerrainTemplate MAUSOLEUM_PORTAL =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setDescription("the door to your Mausoleum")
+                    .setSymbols('<')
+                    .setForegroundColors(Color.DARK_GRAY)
                     .manufactureTerrainTemplate(true, true, true);
     public static TerrainTemplate FORGE_PORTAL =
             WorldObjectTemplateFactory
