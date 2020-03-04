@@ -1,4 +1,4 @@
-package main.modes.menuModes;
+package main.modes.menu;
 
 import contract.menu.Menu;
 import io.in.KeyCodeInterpreter;

@@ -3,7 +3,7 @@ package main.modes;
 import io.out.GUIManager;
 import main.MetaData;
 import main.Session;
-import main.modes.menuModes.MainMenuMode;
+import main.modes.menu.MainMenuMode;
 import world.lore.LoreDefinitions;
 
 import java.awt.event.KeyEvent;

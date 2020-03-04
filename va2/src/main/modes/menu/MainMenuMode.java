@@ -1,17 +1,15 @@
-package main.modes.menuModes;
+package main.modes.menu;
 
 import io.out.GUIManager;
 import io.out.message.MessageType;
 import main.Session;
-import main.modes.ConfirmLastInputMode;
+import main.modes.ConfirmDeleteGameMode;
 import main.modes.MainGameViewMode;
 import main.modes.OperatingMode;
 import main.modes.TransitiveTextMode;
-import menu.MenuDefinitions;
 import util.Coordinate;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
-import world.dungeon.theme.ThemeDefinitions;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 
@@ -37,9 +35,8 @@ public class MainMenuMode extends MenuMode {
             case MenuDefinitions.MAIN_MENU_NEW_GAME:
             Session.getPlayer().setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
             Session.getMessageCenter().sendMessage("Welcome to Chronicles of the Abyss!", MessageType.GAME);
-            Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
             //hardcode - player should begin the game at the Library instead of the default spawn tile
-            Session.getCurrentFloor().placeActor(Session.getPlayer().getActor(), new Coordinate(9, 2));
+            Session.addActor(Session.getPlayer().getActor(), new Coordinate(9, 2));
             OperatingMode targetMode = new MainGameViewMode();
             if (((LockLeaf)Session.getLore().get(
                     LoreDefinitions.THEME_GENERAL,
@@ -59,7 +56,7 @@ public class MainMenuMode extends MenuMode {
             Session.getModeManager().transitionTo(new MainGameViewMode());
             return;
         case MenuDefinitions.MAIN_MENU_DELETE_GAME:
-            Session.getModeManager().transitionTo(new ConfirmLastInputMode());
+            Session.getModeManager().transitionTo(new ConfirmDeleteGameMode());
             return;
         case MenuDefinitions.MAIN_MENU_VIEW_PROFILE:
             //todo

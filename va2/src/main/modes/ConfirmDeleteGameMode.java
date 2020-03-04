@@ -8,7 +8,7 @@ import static java.awt.event.KeyEvent.*;
 
 import static java.awt.event.InputEvent.ALT_DOWN_MASK;
 
-public class ConfirmLastInputMode implements OperatingMode {
+public class ConfirmDeleteGameMode implements OperatingMode {
     @Override
     public void to() {
         GUIManager gm = Session.getGuiManager();
@@ -21,12 +21,12 @@ public class ConfirmLastInputMode implements OperatingMode {
         if (OperatingMode.overrideHandleInput(ke) || (ke.getModifiersEx() == ALT_DOWN_MASK)) return;
         switch (ke.getKeyCode()) {
             case VK_ENTER:
-                //todo - we might need to rework this to support more inputs, but for now this is for deleting the game
                 Session.getFileManager().saveProfile();
                 Session.getFileManager().deleteSavedGame();
                 do {
                     Session.getModeManager().revert();
                 } while (Session.getModeManager().getCurrentMode() instanceof MainGameViewMode);
+                Session.reset();
                 break;
             case VK_ESCAPE:
                 Session.getModeManager().revert();

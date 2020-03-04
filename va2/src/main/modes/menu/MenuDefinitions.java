@@ -1,4 +1,4 @@
-package menu;
+package main.modes.menu;
 
 import contract.menu.Menu;
 import contract.menu.MenuBuilder;

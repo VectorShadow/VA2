@@ -98,7 +98,7 @@ public class MainGameViewMode implements OperatingMode {
                 break;
             case VK_Q:
                 if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
-                    Session.getModeManager().transitionTo(new ConfirmLastInputMode());
+                    Session.getModeManager().transitionTo(new ConfirmDeleteGameMode());
                 }
                 return;
             //todo - lots. breaks when we want to redraw the screen, returns if not
@@ -123,6 +123,6 @@ public class MainGameViewMode implements OperatingMode {
 
     @Override
     public void from() {
-        Session.resetMessageCenter();
+        Session.reset();
     }
 }

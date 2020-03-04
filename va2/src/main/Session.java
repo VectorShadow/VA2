@@ -10,6 +10,7 @@ import io.out.GUIManager;
 import main.modes.ModeManager;
 import util.Coordinate;
 import world.actor.Actor;
+import world.dungeon.theme.ThemeDefinitions;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 import world.lore.LoreTree;
@@ -37,14 +38,18 @@ public class Session {
     private static Player player;
 
     static void start() {
-        camera = new Camera();
-        currentDungeon = new Dungeon(DungeonDefinitions.THE_DARK_GROVE);
-        engine = new Engine();
         fileManager = new FileManager();
         guiManager = new GUIManager();
-        lore = LoreDefinitions.LOCK_TREE;
-        messageCenter = new MessageCenter();
         modeManager = new ModeManager();
+        lore = LoreDefinitions.LOCK_TREE;
+        reset();
+    }
+    public static void reset() {
+        camera = new Camera();
+        currentDungeon = new Dungeon(DungeonDefinitions.THE_DARK_GROVE);
+        currentFloor = ThemeDefinitions.YSIAN_ESTATE.generateFloor(0);
+        engine = new Engine();
+        messageCenter = new MessageCenter();
         player = new Player();
     }
     public static void loadProfile(LoreTree loreTree) {
@@ -115,8 +120,5 @@ public class Session {
     public static void addActor(Actor a, Coordinate c) {
         currentFloor.placeActor(a, c);
         engine.addActor(a);
-    }
-    public static void resetMessageCenter() {
-        messageCenter = new MessageCenter();
     }
 }
