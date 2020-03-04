@@ -40,7 +40,11 @@ public class GUIManager {
             long now = System.currentTimeMillis();
             if (now - lastValidInput < MINIMUM_INPUT_INTERVAL) return;
             lastValidInput = now;
-            Session.getModeManager().handleKeyPress(e);
+            try {
+                Session.getModeManager().handleKeyPress(e);
+            } catch (Exception ex) {
+                ErrorLogger.logFatalException(ex);
+            }
         }
 
         @Override

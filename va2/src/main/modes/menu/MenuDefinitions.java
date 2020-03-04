@@ -21,13 +21,37 @@ public class MenuDefinitions {
         MenuOption newGame = new MenuOption("Begin New Game", !saveFileExists);
         MenuOption loadGame = new MenuOption("Continue Existing Game", saveFileExists);
         MenuOption deleteGame = new MenuOption("Delete Existing Game", saveFileExists);
-        MenuOption viewProfile = new MenuOption("View Player Profile", false);
+        MenuOption viewProfile = new MenuOption("View Player Profile", true);
         MenuOption exit = new MenuOption("Exit");
         return MenuBuilder.newMenu("Main Menu")
                 .addOption(newGame)
                 .addOption(loadGame)
                 .addOption(deleteGame)
                 .addOption(viewProfile)
+                .addOption(exit)
+                .build();
+    }
+
+    static final int PROFILE_MENU_KNOWN_LANGUAGES = 0;
+    static final int PROFILE_MENU_KNOWN_RECIPES = 1;
+    static final int PROFILE_MENU_KILL_COUNT_AND_ENEMY_INFO = 2;
+    static final int PROFILE_MENU_FULL_SCORES = 3;
+    static final int PROFILE_MENU_RESOURCES_AND_UPGRADES = 4;
+    static final int PROFILE_MENU_EXIT = 5;
+
+    static Menu getProfileMenu() {
+        MenuOption languages = new MenuOption("Review Known Languages", false);
+        MenuOption recipes = new MenuOption("Review Known Formulae & Blueprints", false);
+        MenuOption kills = new MenuOption("Review Monster Kills & Info", false);
+        MenuOption scores = new MenuOption("Review Game Scores & Progress", false);
+        MenuOption legacy = new MenuOption("Review Legacy Resources & Room Upgrades", false);
+        MenuOption exit = new MenuOption("Exit");
+        return MenuBuilder.newMenu("Player Profile Menu")
+                .addOption(languages)
+                .addOption(recipes)
+                .addOption(kills)
+                .addOption(scores)
+                .addOption(legacy)
                 .addOption(exit)
                 .build();
     }
