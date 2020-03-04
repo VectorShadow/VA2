@@ -40,8 +40,11 @@ public abstract class MenuMode implements OperatingMode {
             case VK_C: case VK_D:
             case VK_E: case VK_F:
                 int menuIndex = KeyCodeInterpreter.toInt(kc) - 1;
-                if (menu.isEnabled(menuIndex))
+                if (menuIndex < menu.size() && menu.isEnabled(menuIndex))
                     handleMenuOptionIndex(menuIndex);
+                return;
+            case VK_ESCAPE:
+                Session.getModeManager().revert();
                 return;
         }
         out();
@@ -54,7 +57,7 @@ public abstract class MenuMode implements OperatingMode {
     }
 
     protected abstract void handleMenuOptionIndex(int index);
-    void setMenu(Menu m) {
+    protected void setMenu(Menu m) {
         menu = m;
     }
 }

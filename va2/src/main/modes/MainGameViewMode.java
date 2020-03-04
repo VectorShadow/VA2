@@ -7,6 +7,7 @@ import io.out.FloorRenderer;
 import io.out.GUIManager;
 import io.out.message.MessageType;
 import main.Session;
+import main.modes.menu.EstateRoomMenuMode;
 import util.Coordinate;
 import util.Direction;
 import world.terrain.TerrainDefinitions;
@@ -73,7 +74,11 @@ public class MainGameViewMode implements OperatingMode {
                         Session.getCurrentDungeon().exitDungeon(false);
                     } else if (tt.equals(TerrainDefinitions.REWARD_STAIR)) {
                         Session.getCurrentDungeon().exitDungeon(true);
-                    } //todo - else if [any of the estate room portals]
+                    } else {
+                        if (EstateRoomMenuMode.interpretTerrain(tt) == null) break;
+                        Session.getModeManager().transitionTo(EstateRoomMenuMode.interpretTerrain(tt));
+                        return;
+                    }
                 }
                 break;
             case VK_PERIOD: //attempt to progress the current dungeon
@@ -81,7 +86,7 @@ public class MainGameViewMode implements OperatingMode {
                     here = Session.getPlayer().getActor().getLocation();
                     tt = (TerrainTemplate)
                             Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
-                    if (tt.equals(TerrainDefinitions.FOREST_GATE))
+                    if (tt.equals(TerrainDefinitions.FOREST_GATE)) //todo - open a menu here once we have cleared Dark Grove
                         Session.getCurrentDungeon().nextFloor();
                 }
                 break;

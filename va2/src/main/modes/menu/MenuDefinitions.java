@@ -10,13 +10,13 @@ import main.Session;
  */
 public class MenuDefinitions {
 
-    public static final int MAIN_MENU_NEW_GAME = 0;
-    public static final int MAIN_MENU_LOAD_GAME = 1;
-    public static final int MAIN_MENU_DELETE_GAME = 2;
-    public static final int MAIN_MENU_VIEW_PROFILE = 3;
-    public static final int MAIN_MENU_EXIT = 4;
+    static final int MAIN_MENU_NEW_GAME = 0;
+    static final int MAIN_MENU_LOAD_GAME = 1;
+    static final int MAIN_MENU_DELETE_GAME = 2;
+    static final int MAIN_MENU_VIEW_PROFILE = 3;
+    static final int MAIN_MENU_EXIT = 4;
 
-    public static Menu getMainMenu() {
+    static Menu getMainMenu() {
         boolean saveFileExists = Session.getFileManager().loadSavedGame();
         MenuOption newGame = new MenuOption("Begin New Game", !saveFileExists);
         MenuOption loadGame = new MenuOption("Continue Existing Game", saveFileExists);
@@ -29,6 +29,24 @@ public class MenuDefinitions {
                 .addOption(deleteGame)
                 .addOption(viewProfile)
                 .addOption(exit)
+                .build();
+    }
+
+    public static final int LIBRARY_OPTIONS_TEXTS = 0;
+    public static final int LIBRARY_OPTIONS_LORE = 1;
+    public static final int LIBRARY_OPTIONS_LANGUAGES = 2;
+    public static final int LIBRARY_OPTIONS_EXIT = 3;
+
+    public static Menu getLibraryOptions() {
+        MenuOption studyTexts = new MenuOption("Study New Texts", false);
+        MenuOption browseLore = new MenuOption("Browse Known Lore", false);
+        MenuOption checkLanguages = new MenuOption("Show Language Collection", false);
+        MenuOption exitLibrary = new MenuOption("Exit Library", true);
+        return MenuBuilder.newMenu("Library Options")
+                .addOption(studyTexts)
+                .addOption(browseLore)
+                .addOption(checkLanguages)
+                .addOption(exitLibrary)
                 .build();
     }
 }
