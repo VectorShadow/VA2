@@ -16,8 +16,10 @@ public class AutoSaveWindowListener implements WindowListener {
      */
     @Override
     public void windowClosing(WindowEvent e) {
-        Session.getFileManager().saveGameState();
-        Session.getFileManager().saveProfile();
+        if (Session.isPlaying())//if we've begun a game, save it
+            Session.getFileManager().saveGameState();
+        else //otherwise just save the profile
+            Session.getFileManager().saveProfile();
     }
 
     @Override

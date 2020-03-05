@@ -6,6 +6,7 @@ import engine.action.PauseAction;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
 import io.out.message.MessageType;
+import main.MetaData;
 import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
 import util.Coordinate;
@@ -98,11 +99,11 @@ public class MainGameViewMode implements OperatingMode {
                 return;
             case VK_SLASH:
                 if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
-                    Session.getMessageCenter().sendMessage("Ingame help is not yet implemented.", MessageType.ERROR);
+                    Session.getModeManager().transitionTo(new NontransitiveTextMode(MetaData.inGameHelp()));
                 }
-                break;
+                return;
             case VK_Q:
-                if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                if (ke.getModifiersEx() == CTRL_DOWN_MASK) {
                     Session.getModeManager().transitionTo(new ConfirmDeleteGameMode());
                 }
                 return;

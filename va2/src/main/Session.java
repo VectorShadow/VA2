@@ -124,4 +124,7 @@ public class Session {
         currentFloor.placeActor(a, c);
         engine.addActor(a);
     }
+    public static boolean isPlaying() {
+        return player.getActor() != null;
+    }
 }

@@ -144,6 +144,7 @@ public class FileManager {
         return true;
     }
     public void saveProfile() {
+        ensureProfile();
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
         try {
@@ -157,6 +158,7 @@ public class FileManager {
         }
     }
     public void saveGameState() {
+        ensureSavedGame();
         saveProfile();
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
