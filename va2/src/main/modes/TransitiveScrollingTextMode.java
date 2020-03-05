@@ -6,6 +6,9 @@ import java.awt.event.KeyEvent;
 
 import static java.awt.event.KeyEvent.*;
 
+/**
+ * A ScrollingTextMode which does not remain on the ModeStack.
+ */
 public class TransitiveScrollingTextMode extends ScrollingTextMode {
 
     private final OperatingMode targetMode;

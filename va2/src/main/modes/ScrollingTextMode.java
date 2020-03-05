@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import static java.awt.event.InputEvent.ALT_DOWN_MASK;
 import static java.awt.event.KeyEvent.*;
 
+/**
+ * A mode for displaying text that may exceed the size of a single screen.
+ */
 public class ScrollingTextMode implements OperatingMode {
 
     private final String text;
