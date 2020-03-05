@@ -6,7 +6,7 @@ import main.Session;
 import main.modes.ConfirmDeleteGameMode;
 import main.modes.MainGameViewMode;
 import main.modes.OperatingMode;
-import main.modes.TransitiveTextMode;
+import main.modes.TransitiveScrollingTextMode;
 import util.Coordinate;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
@@ -44,7 +44,7 @@ public class MainMenuMode extends MenuMode {
                 )).isLocked()) {
                     lore = Session.unlockLore(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_NEW_CHARACTER);
                     Session.getModeManager().transitionTo(
-                            new TransitiveTextMode(lore, targetMode));
+                            new TransitiveScrollingTextMode(lore, targetMode));
                 } else
                     Session.getModeManager().transitionTo(targetMode);
                 //hack - generate a test ai

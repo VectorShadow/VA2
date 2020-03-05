@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static java.awt.event.InputEvent.ALT_DOWN_MASK;
 import static java.awt.event.KeyEvent.*;
 
-public abstract class TextMode implements OperatingMode {
+public class ScrollingTextMode implements OperatingMode {
 
     private final String text;
 
@@ -19,7 +19,7 @@ public abstract class TextMode implements OperatingMode {
 
     private int displayFromIndex = 0;
 
-    public TextMode(String text){
+    public ScrollingTextMode(String text){
         this.text = text;
         ArrayList<String> breakByNewLine = new ArrayList<>();
         while (text.contains("\n")){

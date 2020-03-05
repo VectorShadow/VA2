@@ -32,7 +32,7 @@ public class BottomMode implements OperatingMode {
                 Session.getModeManager().transitionTo(targetMode);
             } else {
                 Session.getModeManager().transitionTo(
-                        new TransitiveTextMode(
+                        new TransitiveScrollingTextMode(
                                 Session.unlockLore(
                                         LoreDefinitions.THEME_GENERAL,
                                         LoreDefinitions.GENERAL_NEW_PLAYER

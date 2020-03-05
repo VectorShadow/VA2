@@ -9,7 +9,7 @@ public abstract class Action implements Serializable {
     private final int energyCost;
 
     public Action(int energyCost){
-        if (energyCost < 0 || energyCost > ActionDefinitions.MAXIMUM_ACTION_ENERGY)
+        if (energyCost > ActionDefinitions.MAXIMUM_ACTION_ENERGY)
             throw new IllegalArgumentException("Invalid energy cost: " + energyCost);
         this.energyCost = energyCost;
     }

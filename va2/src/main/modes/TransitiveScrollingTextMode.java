@@ -6,11 +6,11 @@ import java.awt.event.KeyEvent;
 
 import static java.awt.event.KeyEvent.*;
 
-public class TransitiveTextMode extends TextMode {
+public class TransitiveScrollingTextMode extends ScrollingTextMode {
 
     private final OperatingMode targetMode;
 
-    public TransitiveTextMode(String text, OperatingMode targetMode){
+    public TransitiveScrollingTextMode(String text, OperatingMode targetMode){
         super(text);
         this.targetMode = targetMode;
     }

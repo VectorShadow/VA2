@@ -5,7 +5,6 @@ import engine.action.AdjacentMovementAction;
 import engine.action.PauseAction;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
-import io.out.message.MessageType;
 import main.MetaData;
 import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
@@ -99,7 +98,7 @@ public class MainGameViewMode implements OperatingMode {
                 return;
             case VK_SLASH:
                 if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
-                    Session.getModeManager().transitionTo(new NontransitiveTextMode(MetaData.inGameHelp()));
+                    Session.getModeManager().transitionTo(new ScrollingTextMode(MetaData.inGameHelp()));
                 }
                 return;
             case VK_Q:
