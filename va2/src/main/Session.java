@@ -124,6 +124,10 @@ public class Session {
         currentFloor.placeActor(a, c);
         engine.addActor(a);
     }
+    public static void killActor(Actor a) {
+        //todo - remove the actor from the currentFloor and the engine.
+        //todo - if this actor is the player, terminate the game appropriately.
+    }
     public static boolean isPlaying() {
         return player.getActor() != null;
     }
