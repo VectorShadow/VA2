@@ -27,6 +27,16 @@ public class Form {
         return meleeStyle == ms && weaponClass == wc;
     }
 
+    /**
+     * Use these to determine if this form permits a given tactic(else the player may not default to it)
+     */
+    public boolean contains(AttackTactic attackTactic) {
+        return attackTactics.contains(attackTactic);
+    }
+    public boolean contains(DefenseTactic defenseTactic) {
+        return defenseTactics.contains(defenseTactic);
+    }
+    
     public AttackTactic selectAttackTactic() {
         return attackTactics.getValue(Session.getRNG());
     }
