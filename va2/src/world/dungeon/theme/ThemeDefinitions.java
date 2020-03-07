@@ -3,6 +3,8 @@ package world.dungeon.theme;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;
 import util.ArrayListBuilder;
+import world.actor.ActorDefinitions;
+import world.actor.ActorTemplate;
 import world.dungeon.generate.PredefinedMapGenerator;
 import world.dungeon.generate.WarrenGenerator;
 import world.light.Light;
@@ -19,12 +21,15 @@ public class ThemeDefinitions {
                     Light.DIM_LAMP,
                     23,
                     27,
+                    0,
+                    1,
                     1,
                     1,
                     new Continuum<>(
                             new PredefinedMapGenerator(),
                             new ArrayList<>()
                     ),
+                    null,
                     new TerrainSet(
                             new Continuum<>(
                                     TerrainDefinitions.SIMPLE_WALL,
@@ -50,11 +55,40 @@ public class ThemeDefinitions {
                     Light.MOONLIGHT,
                     87,
                     72,
+                    21,
                     24,
                     33,
+                    7,
                     new Continuum<>(
                             new WarrenGenerator(),
                             new ArrayList<>()
+                    ),
+                    new ActorSet(
+                            new Continuum<>(
+                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    new ArrayList<>()
+                            ),
+                            new Continuum<>(
+                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    new ArrayList<>()
+                            ),
+                            new Continuum<>(
+                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    new ArrayList<>()
+                            ),
+                            new Continuum<>(
+                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    new ArrayList<>()
+                            ),
+                            new Continuum<>(
+                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    new ArrayList<>()
+                            ),
+                            new Continuum<>(
+                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    new ArrayList<>()
+                            ),
+                            new ActorTemplate[]{}
                     ),
                     new TerrainSet(
                             new Continuum<>(

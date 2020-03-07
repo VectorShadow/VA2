@@ -3,8 +3,10 @@ package world.dungeon.generate;
 import main.Session;
 import util.Coordinate;
 import util.Direction;
+import world.actor.Actor;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
+import world.dungeon.theme.ActorSet;
 import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.TerrainSet;
 import world.terrain.Terrain;
@@ -18,13 +20,15 @@ import java.util.Random;
  */
 public class WarrenGenerator extends FloorGenerator{
 
+    private static final double CLEARING_SPAWN_CHANCE = 0.01;
+    private static final double PATH_SPAWN_CHANCE = 0.0025;
+
     @Override
-    public Floor generate(int depth, DungeonTheme theme) {
-        dungeonTheme = theme;
-        floorDepth = depth;
-        floor = new Floor(floorDepth, dungeonTheme);
+    public Floor generate(Floor f) {
+        floor = f;
+        enemyPotential = floor.THEME.randomizeEnemies();
         Random r = Session.getRNG();
-        fill(dungeonTheme.getTerrainSet(), false);
+        fill(floor.THEME.getTerrainSet(), false);
         int size = floor.getSize();
         //calculate the number of clearings to generate based on the size of the floor
         int clearingCount = size / 64 - r.nextInt(size / 256);
@@ -64,7 +68,8 @@ public class WarrenGenerator extends FloorGenerator{
     }
 
     private void openClearing(Coordinate c) {
-        TerrainSet ts = dungeonTheme.getTerrainSet();
+        ActorSet as = floor.THEME.getActorSet();
+        TerrainSet ts = floor.THEME.getTerrainSet();
         FloorTile ft = floor.tileAt(c.getRow(), c.getColumn());
         //use the base floor at the center
         ft.setTerrain(new Terrain(ts.getBasePrimaryFloor()));
@@ -77,14 +82,19 @@ public class WarrenGenerator extends FloorGenerator{
                 at = next;
                 ft = floor.tileAt(at.getRow(), at.getColumn());
                 //randomize the floor throughout the rest of the clearing, if applicable
-                ft.setTerrain(new Terrain(dungeonTheme.getTerrainSet().getRandomPrimaryFloor()));
+                ft.setTerrain(new Terrain(ts.getRandomPrimaryFloor()));
+                if (Session.getRNG().nextDouble() < CLEARING_SPAWN_CHANCE && enemyPotential > 0) {
+                    --enemyPotential;
+                    Session.addActor(new Actor(as.randomizeEnemy(floor.DEPTH)), at);
+                }
             }
         }
     }
     private void meanderingPath(Coordinate c1, Coordinate c2) {
+        DungeonTheme dt = floor.THEME;
         FloorTile ft = floor.tileAt(c1.getRow(), c1.getColumn());
         //use the base floor for all paths between clearings
-        TerrainTemplate pathTemplate = dungeonTheme.getTerrainSet().getBasePrimaryFloor();
+        TerrainTemplate pathTemplate = dt.getTerrainSet().getBasePrimaryFloor();
         ft.setTerrain(new Terrain(pathTemplate));
         Coordinate at = c1;
         Coordinate next;
@@ -98,12 +108,16 @@ public class WarrenGenerator extends FloorGenerator{
             at = next;
             ft = floor.tileAt(at.getRow(), at.getColumn());
             ft.setTerrain(new Terrain(pathTemplate));
+            if (Session.getRNG().nextDouble() < PATH_SPAWN_CHANCE && enemyPotential > 0) {
+                --enemyPotential;
+                Session.addActor(new Actor(dt.getActorSet().randomizeEnemy(floor.DEPTH)), at);
+            }
         } while (!at.equals(c2));
     }
     private void addStreams() {
         Random r = Session.getRNG();
         //randomly select one of the possible alternate floors to build the streams
-        TerrainTemplate streamTemplate = dungeonTheme.getTerrainSet().getRandomAlternateFloor();
+        TerrainTemplate streamTemplate = floor.THEME.getTerrainSet().getRandomAlternateFloor();
         FloorTile ft;
         for (int i = 0; i < r.nextInt(4); ++i) {
             Coordinate origin, target;

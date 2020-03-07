@@ -16,6 +16,7 @@ import java.io.Serializable;
 public class Floor implements Serializable {
 
     public final int DEPTH;
+    public final DungeonTheme THEME;
     public final int ROWS;
     public final int COLS;
     FloorTile[][] floorTiles;
@@ -23,10 +24,11 @@ public class Floor implements Serializable {
 
     public Floor(int depth, DungeonTheme dt) {
         DEPTH = depth;
-        ROWS = dt.randomizeRows();
-        COLS = dt.randomizeCols();
+        THEME = dt;
+        ROWS = THEME.randomizeRows();
+        COLS = THEME.randomizeCols();
         floorTiles = new FloorTile[ROWS][COLS];
-        initializeTiles(dt.getAmbientLight());
+        initializeTiles(THEME.getAmbientLight());
     }
     private void initializeTiles(Light l) {
         floorTiles = new FloorTile[ROWS][COLS];
@@ -38,6 +40,9 @@ public class Floor implements Serializable {
                 floorTiles[i][j] = ft;
             }
         }
+    }
+    public void generate() {
+        THEME.randomizeFloorGenerator().generate(this);
     }
 
     public int getSize() {

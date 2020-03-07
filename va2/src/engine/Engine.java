@@ -1,5 +1,6 @@
 package engine;
 
+import combat.melee.MeleeResolver;
 import engine.action.*;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
@@ -29,7 +30,16 @@ public class Engine implements Serializable {
         actors = new ArrayList<>();
     }
     public void addActor(Actor a) {
-        actors.add(a);
+        addActor(a, false);
+    }
+    public void addActor(Actor a, boolean isPlayer) {
+        if (isPlayer)
+            actors.add(0, a);
+        else
+            actors.add(a);
+    }
+    public void removeActor(Actor a) {
+        actors.remove(a);
     }
     public void execute(Action playerAction) {
         actors.get(0).queueAction(playerAction);
@@ -46,6 +56,17 @@ public class Engine implements Serializable {
                 }
                 action = actor.checkQueuedAction();
                 while (!validate(actor, action)) {
+                    //make sure a change in actors at our destination isn't the problem
+                    if (action instanceof DirectedAction) {
+                        DirectedAction da = transform(actor, (DirectedAction)action);
+                        if (validate(actor, da)) {
+                            action = da; //if the other type of directed action is valid, reassign and break
+                            break;
+                        }
+                    }
+                    //if this doesn't fix the problem, crash and attempt to debug:
+                    //throw new IllegalStateException("Unable to validate action " + action + " for actor " + actor);
+                    //otherwise, attempt to resolve as follows:
                     actor.clearQueuedActions();
                     if (i == 0) return; //if the player has no queued action, we are done
                     actor.plan(); //else use the plan method to invoke the AI and queue an action
@@ -80,6 +101,13 @@ public class Engine implements Serializable {
             ft = f.tileAt(destRow, destCol);
             return f.inFloor(destRow, destCol) && ft.getActor() == null &&
                     ((TerrainTemplate)ft.getTerrain().getTemplate()).permitsMovement();
+        } else if (action instanceof AdjacentAttackAction) {
+            AdjacentAttackAction aaa = (AdjacentAttackAction)action;
+            destination = aaa.getDirection().shift(actor.getLocation());
+            destRow = destination.getRow();
+            destCol = destination.getColumn();
+            ft = f.tileAt(destRow, destCol);
+            return f.inFloor(destRow, destCol) && ft.getActor() != null; //todo - ensure target actor is hostile
         }
         //todo - other cases
         return false;
@@ -95,23 +123,34 @@ public class Engine implements Serializable {
         int origRow = origin.getRow();
         int origCol = origin.getColumn();
         int destRow, destCol;
+        Actor defender;
         if (action instanceof AdjacentMovementAction) {
             AdjacentMovementAction ama = (AdjacentMovementAction) action;
             destination = ama.getDirection().shift(actor.getLocation());
+            f.placeActor(actor, destination);
+        } else if (action instanceof AdjacentAttackAction) {
+            AdjacentAttackAction aaa = (AdjacentAttackAction) action;
+            destination = aaa.getDirection().shift(actor.getLocation());
             destRow = destination.getRow();
             destCol = destination.getColumn();
-            f.placeActor(actor, destination);
-        } //todo - else {} all other cases
+            defender = f.tileAt(destRow, destCol).getActor();
+            MeleeResolver.resolve(actor, aaa, defender);
+        }
+        //todo - else {} all other cases
     }
     /**
      * transform an adjacent attack to an adjacent move or vice versa
      */
     private DirectedAction transform(Actor actor, DirectedAction da) {
-        //todo - get proper energy multipliers from actor, and roll damage if necessary
-        if (da instanceof AdjacentMovementAction)
+        Floor f = Session.getCurrentFloor();
+        Coordinate destination = da.getDirection().shift(actor.getLocation());
+        int destRow = destination.getRow();
+        int destCol = destination.getColumn();
+        FloorTile ft = f.tileAt(destRow, destCol);
+        if (da instanceof AdjacentMovementAction && ft.getActor() != null) //if we try to move but there is an actor
             return new AdjacentAttackAction(da.getDirection(), actor.getAttackEnergyMultiplier(), actor.rollDamage());
-        if (da instanceof AdjacentAttackAction)
+        if (da instanceof AdjacentAttackAction && ft.getActor() == null) //if we try to attack but there is no actor
             return new AdjacentMovementAction(da.getDirection(), actor.getMoveEnergyMultiplier());
-        throw new IllegalArgumentException("Unknown DirectedAction subclass: " + da.getClass());
+        return da; //no problems were encountered
     }
 }

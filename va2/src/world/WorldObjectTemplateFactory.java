@@ -1,5 +1,6 @@
 package world;
 
+import combat.Combatant;
 import world.actor.ActorTemplate;
 import world.terrain.TerrainTemplate;
 
@@ -81,9 +82,9 @@ public class WorldObjectTemplateFactory {
         if (backgroundColors.isEmpty()) backgroundColors.add(DEFAULT_BACKGROUND_COLOR);
         if (foregroundColors.isEmpty()) foregroundColors.add(DEFAULT_FOREGROUND_COLOR);
     }
-    public ActorTemplate manufactureActorTemplate(int energyPerTurn) {
+    public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant) {
         forceNonEmptyLists();
-        return new ActorTemplate(description, reflectLight, symbols, backgroundColors, foregroundColors, energyPerTurn);
+        return new ActorTemplate(description, reflectLight, symbols, backgroundColors, foregroundColors, energyPerTurn, combatant);
     }
     public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {
         forceNonEmptyLists();

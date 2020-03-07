@@ -1,5 +1,6 @@
 package world.actor;
 
+import combat.Combatant;
 import world.WorldObjectTemplateFactory;
 
 /**
@@ -7,5 +8,33 @@ import world.WorldObjectTemplateFactory;
  */
 public class ActorDefinitions {
     public static final ActorTemplate PLAYER_TEMPLATE =
-            WorldObjectTemplateFactory.initialize().setSymbols('@').manufactureActorTemplate(25);
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setSymbols('@')
+                    .manufactureActorTemplate(
+                            25,
+                            new Combatant(
+                                    1_000,
+                                    128,
+                                    128,
+                                    128,
+                                    128,
+                                    128
+                            )
+                    );
+    public static final ActorTemplate FOREST_WOLF_TEMPLATE =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setSymbols('w')
+                    .manufactureActorTemplate(
+                            32,
+                            new Combatant(
+                                    256,
+                                    84,
+                                    155,
+                                    128,
+                                    72,
+                                    64
+                            )
+                    );
 }

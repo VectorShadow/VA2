@@ -3,12 +3,13 @@ package world.dungeon.generate;
 import main.Session;
 import util.Coordinate;
 import util.Direction;
+import world.actor.Actor;
 import world.dungeon.floor.Floor;
+import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.TerrainSet;
 import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
-import world.terrain.TerrainTemplate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,9 +20,8 @@ import java.util.Random;
  */
 public abstract class FloorGenerator implements Serializable {
 
-    protected DungeonTheme dungeonTheme;
     protected Floor floor;
-    protected int floorDepth;
+    protected int enemyPotential;
 
     protected class CoordinatePair {
         private final Coordinate c1;
@@ -40,7 +40,7 @@ public abstract class FloorGenerator implements Serializable {
             return c2;
         }
     }
-    public abstract Floor generate(int depth, DungeonTheme theme);
+    public abstract Floor generate(Floor f);
 
     /**
      * Fill the floor with randomly selected terrain from the provided TerrainSet.
@@ -122,7 +122,14 @@ public abstract class FloorGenerator implements Serializable {
         return evaluateDistance(c, cList, false);
     }
     protected void placeEntryStair(Coordinate c) {
-        floor.tileAt(c.getRow(), c.getColumn()).setTerrain(new Terrain(dungeonTheme.getTerrainSet().getSpawnTerrain()));
+        FloorTile ft = floor.tileAt(c.getRow(), c.getColumn());
+        ft.setTerrain(new Terrain(floor.THEME.getTerrainSet().getSpawnTerrain()));
+        //clear the stairs for the player:
+        if (ft.getActor() != null) {
+            Actor actor = ft.getActor();
+            Session.getEngine().removeActor(actor);
+            ft.setActor(null);
+        }
         floor.setPlayerSpawn(c);
     }
     protected void placeEndStairs(Coordinate c) {

@@ -19,6 +19,7 @@ public class TransitiveScrollingTextMode extends ScrollingTextMode {
     }
 
     public void in(KeyEvent e) {
+        if (OperatingMode.overrideHandleInput(e) || (e.getModifiersEx() == ALT_DOWN_MASK)) return;
         super.in(e);
         if (e.getKeyCode() == VK_ENTER)
             Session.getModeManager().transitionTo(targetMode); //transition to the target mode

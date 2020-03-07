@@ -2,7 +2,7 @@ package engine.action;
 
 import util.Direction;
 
-public class AdjacentAttackAction extends DirectedAction implements DamageCarryingAction {
+public class AdjacentAttackAction extends DirectedAction implements AttackAction {
 
     private int attackDamage;
 

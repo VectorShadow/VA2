@@ -13,24 +13,27 @@ import java.io.Serializable;
  */
 public class Dungeon implements Serializable {
 
-    private final int DEPTH;
     private final DungeonTemplate DUNGEON_TEMPLATE;
 
     public Dungeon(DungeonTemplate dt) {
-        DEPTH = dt.rollDepth();
         DUNGEON_TEMPLATE = dt;
     }
     public void nextFloor() {
         int currentDepth = Session.getCurrentFloor().DEPTH;
-        Floor f;
-        if (currentDepth >= DEPTH) {
+        if (currentDepth == DUNGEON_TEMPLATE.getDepth()) {
+            //todo - generate the final floor from the DUNGEON_TEMPLATE, using PredefinedFloorGenerator
+            //todo - populate from the template
+            //todo - send a special message
+            throw new UnsupportedOperationException("Boss floors not implemented!");
+        } else if (currentDepth > DUNGEON_TEMPLATE.getDepth()) {
             //todo - add a completion bonus in loot and xp
             Session.getMessageCenter().sendMessage("You have cleared the dungeon.", MessageType.SUCCESS);
             exitDungeon(true);
             return;
+        } else {
+            Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO);
+            Session.setCurrentFloor(new Floor(currentDepth + 1, DUNGEON_TEMPLATE.DUNGEON_THEME));
         }
-        Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO);
-        Session.setCurrentFloor(DUNGEON_TEMPLATE.DUNGEON_THEME.generateFloor(currentDepth + 1));
     }
     public void exitDungeon(boolean fullRewards) {
         //todo - award accumulated loot and xp, applying a penalty if not fullRewards, then zero them out
@@ -40,7 +43,7 @@ public class Dungeon implements Serializable {
                         "You flee the dungeon and escape to your estate.",
                 fullRewards ? MessageType.INFO : MessageType.WARNING
         );
-        Session.setCurrentFloor(ThemeDefinitions.YSIAN_ESTATE.generateFloor(0));
+        Session.setCurrentFloor(new Floor(0, ThemeDefinitions.YSIAN_ESTATE));
     }
     public DungeonTheme getTheme() {
         return DUNGEON_TEMPLATE.DUNGEON_THEME;

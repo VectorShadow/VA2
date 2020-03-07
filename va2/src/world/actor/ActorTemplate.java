@@ -1,5 +1,6 @@
 package world.actor;
 
+import combat.Combatant;
 import world.WorldObjectTemplate;
 
 import java.awt.*;
@@ -10,9 +11,11 @@ import java.util.ArrayList;
  */
 public class ActorTemplate extends WorldObjectTemplate {
     private final int energyGainPerTurn;
-    public ActorTemplate(String d, boolean r, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f, int e) {
+    private final Combatant combatant;
+    public ActorTemplate(String d, boolean r, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f, int e, Combatant c) {
         super(d, r, s, b, f);
         energyGainPerTurn = e;
+        combatant = c.clone();
     }
 
     public int getEnergyGainPerTurn() {

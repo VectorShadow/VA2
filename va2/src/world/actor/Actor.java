@@ -1,6 +1,7 @@
 package world.actor;
 
 import ai.RandomAI;
+import combat.Combatant;
 import engine.action.Action;
 import engine.action.ActionDefinitions;
 import util.Coordinate;
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 public class Actor extends WorldObject {
 
     private Coordinate location;
+    private Combatant combatant;
     private int currentEnergy = 0;
     private int energyGainPerTurn;
     private LinkedList<Action> queuedActions = new LinkedList<>();

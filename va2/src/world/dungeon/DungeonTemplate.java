@@ -1,6 +1,5 @@
 package world.dungeon;
 
-import main.Session;
 import world.dungeon.theme.DungeonTheme;
 
 import java.io.Serializable;
@@ -9,17 +8,16 @@ import java.io.Serializable;
  * Contains information required to build a specific dungeon.
  */
 public class DungeonTemplate implements Serializable {
-    private final int MINIMUM_FLOORS;
-    private final int FLOOR_VARIANCE;
+    private final int DEPTH;
     public final DungeonTheme DUNGEON_THEME;
+    //todo - String[] to build last floor map from - probably also want one for monsters
 
-    public DungeonTemplate(int minFloors, int floorVar, DungeonTheme dungeonTheme) {
-        MINIMUM_FLOORS = minFloors;
-        FLOOR_VARIANCE = floorVar;
+    public DungeonTemplate(int depth, DungeonTheme dungeonTheme) {
+        DEPTH = depth;
         DUNGEON_THEME = dungeonTheme;
     }
 
-    int rollDepth() {
-        return Session.getRNG().nextInt(FLOOR_VARIANCE) + MINIMUM_FLOORS;
+    int getDepth() {
+        return DEPTH;
     }
 }

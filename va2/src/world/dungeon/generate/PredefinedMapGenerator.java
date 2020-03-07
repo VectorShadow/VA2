@@ -12,14 +12,13 @@ import world.terrain.TerrainTemplate;
 /**
  * The generator for predefined levels, such as the player estate.
  */
+//todo - for themes other than YsianEstate, use definition = dungeonTheme.layout/placement definitions.
 public class PredefinedMapGenerator extends FloorGenerator {
     @Override
-    public Floor generate(int depth, DungeonTheme theme) {
+    public Floor generate(Floor f) {
         String[] definition;
-        dungeonTheme = theme;
-        floorDepth = depth;
-        floor = new Floor(floorDepth, dungeonTheme);
-        if (dungeonTheme == ThemeDefinitions.YSIAN_ESTATE) {
+        floor = f;
+        if (floor.THEME == ThemeDefinitions.YSIAN_ESTATE) {
             definition = new String[] {
                     "!!!!!!!!!!!!!!!!!!!!!!!!!!!",
                     "!*************************!",
@@ -61,7 +60,7 @@ public class PredefinedMapGenerator extends FloorGenerator {
             for (int j = 0; j < floor.COLS; ++j) {
                 char c = s[i].charAt(j);
                 //todo - themes should map chars to terrain definitions.
-                TerrainSet ts = dungeonTheme.getTerrainSet();
+                TerrainSet ts = floor.THEME.getTerrainSet();
                 TerrainTemplate tt;
                 switch (c) {
                     case '!':
