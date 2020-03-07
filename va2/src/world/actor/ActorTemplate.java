@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class ActorTemplate extends WorldObjectTemplate {
     private final int energyGainPerTurn;
     private final Combatant combatant;
+    private final int minimumDepth;
+
     public ActorTemplate(
             String n,
             String d,
@@ -20,14 +22,24 @@ public class ActorTemplate extends WorldObjectTemplate {
             ArrayList<Color> b,
             ArrayList<Color> f,
             int e,
-            Combatant c
+            Combatant c,
+            int depth
     ) {
         super(n, d, r, s, b, f);
         energyGainPerTurn = e;
         combatant = c.clone();
+        minimumDepth = depth;
     }
 
     public int getEnergyGainPerTurn() {
         return energyGainPerTurn;
+    }
+
+    public Combatant getCombatant() {
+        return combatant;
+    }
+
+    public int getMinimumDepth() {
+        return minimumDepth;
     }
 }

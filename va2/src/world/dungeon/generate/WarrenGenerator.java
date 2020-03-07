@@ -83,7 +83,10 @@ public class WarrenGenerator extends FloorGenerator{
                 ft = floor.tileAt(at.getRow(), at.getColumn());
                 //randomize the floor throughout the rest of the clearing, if applicable
                 ft.setTerrain(new Terrain(ts.getRandomPrimaryFloor()));
-                if (Session.getRNG().nextDouble() < CLEARING_SPAWN_CHANCE && enemyPotential > 0) {
+                if (enemyPotential > 0 &&
+                        ft.getActor() == null &&
+                        Session.getRNG().nextDouble() < CLEARING_SPAWN_CHANCE
+                ) {
                     --enemyPotential;
                     Session.addActor(new Actor(as.randomizeEnemy(floor.DEPTH)), at);
                 }
@@ -108,7 +111,10 @@ public class WarrenGenerator extends FloorGenerator{
             at = next;
             ft = floor.tileAt(at.getRow(), at.getColumn());
             ft.setTerrain(new Terrain(pathTemplate));
-            if (Session.getRNG().nextDouble() < PATH_SPAWN_CHANCE && enemyPotential > 0) {
+            if (enemyPotential > 0 &&
+                    ft.getActor() == null &&
+                    Session.getRNG().nextDouble() < PATH_SPAWN_CHANCE
+            ) {
                 --enemyPotential;
                 Session.addActor(new Actor(dt.getActorSet().randomizeEnemy(floor.DEPTH)), at);
             }

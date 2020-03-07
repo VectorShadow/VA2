@@ -90,6 +90,9 @@ public class WorldObjectTemplateFactory {
         if (foregroundColors.isEmpty()) foregroundColors.add(DEFAULT_FOREGROUND_COLOR);
     }
     public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant) {
+        return manufactureActorTemplate(energyPerTurn, combatant, 1);
+    }
+    public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant, int minimumDepth) {
         forceNonEmptyLists();
         return new ActorTemplate(
                 name,
@@ -99,7 +102,8 @@ public class WorldObjectTemplateFactory {
                 backgroundColors,
                 foregroundColors,
                 energyPerTurn,
-                combatant
+                combatant,
+                minimumDepth
         );
     }
     public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {

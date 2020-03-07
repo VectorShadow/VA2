@@ -39,25 +39,25 @@ public class ActorSet implements Serializable {
         Random rng = Session.getRNG();
         do {
             double random = rng.nextDouble();
-            if (random > 0.999 || (random > 0.92 && currentDepth > 8)) {
+            if (random < (1.0 / 4_096.0) || (random < (1.0 / 128.0) && currentDepth > 8)) {
                 at = ELITE_SET.getValue(rng);
-            } else if (random > 0.92 || (random > 0.84 && currentDepth > 4)) {
+            } else if (random < (1.0 / 256.0) || (random < (1.0 / 16.0) && currentDepth > 4)) {
                 at = CHAMPION_SET.getValue(rng);
-            } else if (random > 0.84 || (random > 0.68 && currentDepth > 2)) {
+            } else if (random < (1.0 / 32.0) || (random < (1.0 / 4.0) && currentDepth > 2)) {
                 at = REGULAR_SET.getValue(rng);
-            } else if (random > 0.64 || (random > 0.36 && currentDepth > 1)) {
+            } else if (random < (1.0 / 8.0) || (random < (1.0 / 2.0) && currentDepth > 1)) {
                 at = MINION_SET.getValue(rng);
             } else {
                 at = VERMIN_SET.getValue(rng);
             }
-        } while (false); //todo - reroll until our actor template is allowed at our current depth
+        } while (currentDepth < at.getMinimumDepth());
         return at;
     }
     public ActorTemplate randomizeFloorBoss(int currentDepth) {
         ActorTemplate at;
         do {
             at = FLOOR_BOSS_SET.getValue(Session.getRNG());
-        } while (false); //todo - reroll until our actor template is allowed at our current depth
+        } while (currentDepth < at.getMinimumDepth());
         return at;
     }
     public ActorTemplate[] getDungeonBossSet() {
