@@ -1,5 +1,8 @@
 package main;
 
+import engine.action.Action;
+import engine.action.AdjacentMovementAction;
+import util.Direction;
 import world.actor.Actor;
 import world.light.Light;
 
@@ -25,5 +28,9 @@ public class Player implements Serializable {
     public int getSightRadius() {
         //todo - hack!
         return 6;
+    }
+    public AdjacentMovementAction getMove(Direction d) {
+        //hack - todo: ask the player actor what it's move energy multiplier is
+        return new AdjacentMovementAction(d, actor.getMoveEnergyMultiplier());
     }
 }

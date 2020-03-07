@@ -6,6 +6,7 @@ import engine.action.PauseAction;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
 import main.MetaData;
+import main.Player;
 import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
 import util.Coordinate;
@@ -37,37 +38,38 @@ public class MainGameViewMode implements OperatingMode {
         Action action = null;
         Coordinate here;
         TerrainTemplate tt;
+        Player player = Session.getPlayer();
         switch (ke.getKeyCode()) {
             case VK_UP: case VK_NUMPAD8:
-                action = new AdjacentMovementAction(Direction.NORTH);
+                action = player.getMove(Direction.NORTH);
                 break;
             case VK_NUMPAD9:
-                action = new AdjacentMovementAction(Direction.NORTH_EAST);
+                action = player.getMove(Direction.NORTH_EAST);
                 break;
             case VK_RIGHT: case VK_NUMPAD6:
-                action = new AdjacentMovementAction(Direction.EAST);
+                action = player.getMove(Direction.EAST);
                 break;
             case VK_NUMPAD3:
-                action = new AdjacentMovementAction(Direction.SOUTH_EAST);
+                action = player.getMove(Direction.SOUTH_EAST);
                 break;
             case VK_DOWN: case VK_NUMPAD2:
-                action = new AdjacentMovementAction(Direction.SOUTH);
+                action = player.getMove(Direction.SOUTH);
                 break;
             case VK_NUMPAD1:
-                action = new AdjacentMovementAction(Direction.SOUTH_WEST);
+                action = player.getMove(Direction.SOUTH_WEST);
                 break;
             case VK_LEFT: case VK_NUMPAD4:
-                action = new AdjacentMovementAction(Direction.WEST);
+                action = player.getMove(Direction.WEST);
                 break;
             case VK_NUMPAD7:
-                action = new AdjacentMovementAction(Direction.NORTH_WEST);
+                action = player.getMove(Direction.NORTH_WEST);
                 break;
             case VK_NUMPAD5:
                 action = new PauseAction();
                 break;
             case VK_COMMA: //attempt to leave the current dungeon, or enter an estate room
                 if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
-                    here = Session.getPlayer().getActor().getLocation();
+                    here = player.getActor().getLocation();
                     tt = (TerrainTemplate)
                             Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
                     if (tt.equals(TerrainDefinitions.FLIGHT_STAIR)) {
@@ -83,7 +85,7 @@ public class MainGameViewMode implements OperatingMode {
                 break;
             case VK_PERIOD: //attempt to progress the current dungeon
                 if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
-                    here = Session.getPlayer().getActor().getLocation();
+                    here = player.getActor().getLocation();
                     tt = (TerrainTemplate)
                             Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
                     if (tt.equals(TerrainDefinitions.FOREST_GATE)) //todo - open a menu here once we have cleared Dark Grove

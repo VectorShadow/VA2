@@ -36,7 +36,7 @@ public class Form {
     public boolean contains(DefenseTactic defenseTactic) {
         return defenseTactics.contains(defenseTactic);
     }
-    
+
     public AttackTactic selectAttackTactic() {
         return attackTactics.getValue(Session.getRNG());
     }

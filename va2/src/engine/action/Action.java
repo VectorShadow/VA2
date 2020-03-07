@@ -8,13 +8,16 @@ import java.io.Serializable;
 public abstract class Action implements Serializable {
     private final int energyCost;
 
-    public Action(int energyCost){
-        if (energyCost > ActionDefinitions.MAXIMUM_ACTION_ENERGY)
-            throw new IllegalArgumentException("Invalid energy cost: " + energyCost);
-        this.energyCost = energyCost;
+    public Action(double energyMultiplier) {
+        int adjustedEnergyCost = (int)(energyMultiplier * (double)getDefaultEnergyCost());
+        if (adjustedEnergyCost > ActionDefinitions.MAXIMUM_ACTION_ENERGY)
+            throw new IllegalArgumentException("Invalid energy cost: " + adjustedEnergyCost);
+        energyCost = adjustedEnergyCost;
     }
 
     public int getEnergyCost() {
         return energyCost;
     }
+
+    protected abstract int getDefaultEnergyCost();
 }

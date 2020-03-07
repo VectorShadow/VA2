@@ -74,4 +74,21 @@ public class Actor extends WorldObject {
     public void setLocation(Coordinate location) {
         this.location = location;
     }
+
+    public double getMoveEnergyMultiplier() {
+        //hack - todo: implement an array of multipliers
+        //todo - check temporary effects
+        return 1.0;
+    }
+    public double getAttackEnergyMultiplier() {
+        //hack - todo: implement an array of multipliers
+        //todo - check temporary effects
+        return 1.0;
+    }
+    public int rollDamage() {
+        //todo - get this actor's weapon (when a player equips a weapon, it should also set its actor weapon)
+        //todo - roll that weapon's damage, providing the actor's strength including any temporary adjustments
+        //todo - check temporary effects for damage adjustments
+        return 0;
+    }
 }

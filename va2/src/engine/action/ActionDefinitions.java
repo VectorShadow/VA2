@@ -10,4 +10,8 @@ public class ActionDefinitions {
 
     static final int PAUSE_ACTION_ENERGY_COST = -32; //resting restores energy above the base rate
 
+    static final int ADJACENT_ATTACK_ACTION_ENERGY_COST = 128;
+
+    static final int REACT_TO_ATTACK_ENERGY_COST = ADJACENT_ATTACK_ACTION_ENERGY_COST / 8;
+
 }

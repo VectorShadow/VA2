@@ -1,8 +1,6 @@
 package engine;
 
-import engine.action.Action;
-import engine.action.AdjacentMovementAction;
-import engine.action.PauseAction;
+import engine.action.*;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
 import main.Session;
@@ -104,5 +102,16 @@ public class Engine implements Serializable {
             destCol = destination.getColumn();
             f.placeActor(actor, destination);
         } //todo - else {} all other cases
+    }
+    /**
+     * transform an adjacent attack to an adjacent move or vice versa
+     */
+    private DirectedAction transform(Actor actor, DirectedAction da) {
+        //todo - get proper energy multipliers from actor, and roll damage if necessary
+        if (da instanceof AdjacentMovementAction)
+            return new AdjacentAttackAction(da.getDirection(), actor.getAttackEnergyMultiplier(), actor.rollDamage());
+        if (da instanceof AdjacentAttackAction)
+            return new AdjacentMovementAction(da.getDirection(), actor.getMoveEnergyMultiplier());
+        throw new IllegalArgumentException("Unknown DirectedAction subclass: " + da.getClass());
     }
 }

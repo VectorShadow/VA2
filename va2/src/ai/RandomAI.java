@@ -16,7 +16,9 @@ public class RandomAI extends AbstractAI {
         Action action;
         do {
             Direction target = Direction.random(true);
-            action = target == Direction.SELF ? new PauseAction() : new AdjacentMovementAction(target);
+            action = target == Direction.SELF ?
+                    new PauseAction() :
+                    new AdjacentMovementAction(target, a.getMoveEnergyMultiplier());
         } while(!Session.getEngine().validate(a, action));
         return action;
     }
