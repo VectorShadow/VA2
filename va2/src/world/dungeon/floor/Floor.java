@@ -79,7 +79,7 @@ public class Floor implements Serializable {
             TerrainTemplate tt = (TerrainTemplate)floorTile.getTerrain().getTemplate();
             if (tt.isMessageOnMove())
                 Session.getMessageCenter().sendMessage(
-                        "You see " + tt.getDescription() + " here."
+                        "You see " + tt.getName() + " here."
                         , MessageType.INFO
                 );
         }

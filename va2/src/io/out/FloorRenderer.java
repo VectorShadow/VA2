@@ -79,11 +79,7 @@ public class FloorRenderer {
                 if (ft.getActor() != null) {
                     wot = ft.getActor().getTemplate();
                 }
-                GlyphBuilder gb = GlyphBuilder.buildGlyph().setDefaults(
-                        wot.getBaseBackgroundColor(),
-                        wot.getBaseForegroundColor(),
-                        wot.getBaseSymbol()
-                );
+                GlyphBuilder gb = wot.partialVisualImage();
                 if (wot.reflectsLight() && lightAtTile.doesFlicker()) {
                     gb.addForegroundColor(
                         new Pair<>(

@@ -12,8 +12,17 @@ import java.util.ArrayList;
 public class ActorTemplate extends WorldObjectTemplate {
     private final int energyGainPerTurn;
     private final Combatant combatant;
-    public ActorTemplate(String d, boolean r, ArrayList<Character> s, ArrayList<Color> b, ArrayList<Color> f, int e, Combatant c) {
-        super(d, r, s, b, f);
+    public ActorTemplate(
+            String n,
+            String d,
+            boolean r,
+            ArrayList<Character> s,
+            ArrayList<Color> b,
+            ArrayList<Color> f,
+            int e,
+            Combatant c
+    ) {
+        super(n, d, r, s, b, f);
         energyGainPerTurn = e;
         combatant = c.clone();
     }

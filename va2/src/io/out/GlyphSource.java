@@ -1,6 +1,7 @@
 package io.out;
 
 import resources.glyph.Glyph;
+import resources.glyph.GlyphBuilder;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,8 +9,6 @@ import java.util.ArrayList;
 /**
  * A set of methods for informing the construction of a glyph from an object which needs to be drawn to the screen.
  */
-
-//todo - make this actually return a glyph, and use continua to do so. Requires overhaul of all implementing classes.
 public interface GlyphSource {
     Character getBaseSymbol();
     ArrayList<Character> listAdditionalSymbols();
@@ -18,4 +17,5 @@ public interface GlyphSource {
     Color getBaseForegroundColor();
     ArrayList<Color> listAdditionalForegroundColors();
     Glyph memoryImage();
+    GlyphBuilder partialVisualImage();
 }

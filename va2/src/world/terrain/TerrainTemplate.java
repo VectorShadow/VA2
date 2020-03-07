@@ -13,6 +13,7 @@ public class TerrainTemplate extends WorldObjectTemplate {
     private final boolean permitMovement;
     private final boolean messageOnMove;
     public TerrainTemplate(
+            String n,
             String d,
             boolean r,
             ArrayList<Character> s,
@@ -21,7 +22,7 @@ public class TerrainTemplate extends WorldObjectTemplate {
             boolean permitLight,
             boolean permitMovement,
             boolean messageOnMove) {
-        super(d, r, s, b, f);
+        super(n, d, r, s, b, f);
         this.permitLight = permitLight;
         this.permitMovement = permitMovement;
         this.messageOnMove = messageOnMove;

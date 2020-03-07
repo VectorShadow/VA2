@@ -20,8 +20,8 @@ import java.util.Random;
  */
 public class WarrenGenerator extends FloorGenerator{
 
-    private static final double CLEARING_SPAWN_CHANCE = 0.01;
-    private static final double PATH_SPAWN_CHANCE = 0.0025;
+    private static final double CLEARING_SPAWN_CHANCE = 0.005;
+    private static final double PATH_SPAWN_CHANCE = 0.00125;
 
     @Override
     public Floor generate(Floor f) {

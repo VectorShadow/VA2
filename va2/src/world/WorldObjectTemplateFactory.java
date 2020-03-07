@@ -16,6 +16,7 @@ public class WorldObjectTemplateFactory {
     private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
     private static final Color DEFAULT_FOREGROUND_COLOR = Color.WHITE;
 
+    private String name = "";
     private String description = "";
     private boolean reflectLight = false;
 
@@ -36,6 +37,12 @@ public class WorldObjectTemplateFactory {
         WorldObjectTemplateFactory wotf = initialize();
         wotf.reflectLight = reflectLight;
         return wotf;
+    }
+    public WorldObjectTemplateFactory setName(String n) {
+        name = n;
+        if (description.equals(""))
+            description = name;
+        return this;
     }
     public WorldObjectTemplateFactory setDescription(String d) {
         description = d;
@@ -84,10 +91,29 @@ public class WorldObjectTemplateFactory {
     }
     public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant) {
         forceNonEmptyLists();
-        return new ActorTemplate(description, reflectLight, symbols, backgroundColors, foregroundColors, energyPerTurn, combatant);
+        return new ActorTemplate(
+                name,
+                description,
+                reflectLight,
+                symbols,
+                backgroundColors,
+                foregroundColors,
+                energyPerTurn,
+                combatant
+        );
     }
     public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {
         forceNonEmptyLists();
-        return new TerrainTemplate(description, reflectLight, symbols, backgroundColors, foregroundColors, permitLight, permitMovement, messageOnMove);
+        return new TerrainTemplate(
+                name,
+                description,
+                reflectLight,
+                symbols,
+                backgroundColors,
+                foregroundColors,
+                permitLight,
+                permitMovement,
+                messageOnMove
+        );
     }
 }
