@@ -2,7 +2,9 @@ package main;
 
 import engine.Engine;
 import engine.action.ActionDefinitions;
+import io.out.DisplayStandards;
 import io.out.message.MessageCenter;
+import resources.chroma.ChromaSet;
 import world.dungeon.Dungeon;
 import world.dungeon.DungeonDefinitions;
 import world.dungeon.floor.Floor;
@@ -28,6 +30,7 @@ public class Session {
     private static final Random RNG = new Random();
 
     private static Camera camera;
+    private static ChromaSet colorScheme;
     private static Dungeon currentDungeon;
     private static Floor currentFloor;
     private static Engine engine;
@@ -39,6 +42,7 @@ public class Session {
     private static Player player;
 
     static void start() {
+        colorScheme = DisplayStandards.THEME_THE_DARK_GROVE;
         fileManager = new FileManager();
         guiManager = new GUIManager();
         modeManager = new ModeManager();
@@ -70,6 +74,10 @@ public class Session {
 
     public static Camera getCamera() {
         return camera;
+    }
+
+    public static ChromaSet getColorScheme() {
+        return colorScheme;
     }
 
     public static Dungeon getCurrentDungeon() {
@@ -109,6 +117,11 @@ public class Session {
     public static Player getPlayer() {
         return player;
     }
+
+    public static void setColorScheme(ChromaSet colorScheme) {
+        Session.colorScheme = colorScheme;
+    }
+
     public static void setCurrentFloor(Floor f) {
         currentFloor = f;
         engine.resetActors();

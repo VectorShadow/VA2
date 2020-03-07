@@ -7,7 +7,6 @@ import world.dungeon.generate.PredefinedMapGenerator;
 import world.dungeon.generate.WarrenGenerator;
 import world.light.Light;
 import world.terrain.TerrainDefinitions;
-import world.terrain.TerrainTemplate;
 
 import java.util.ArrayList;
 

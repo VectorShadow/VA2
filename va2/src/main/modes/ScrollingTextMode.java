@@ -66,11 +66,10 @@ public class ScrollingTextMode implements OperatingMode {
         GUIManager gm = Session.getGuiManager();
         gm.clearScreen();
         int pct = (int)(100 * (double)displayFromIndex / ((double)displayedText.size() - 1.0));
-        gm.printCenteredLine(
+        gm.printHighlightedCenteredLine(
                 4,
                 "[Press <Enter> to continue, or use the arrow keys to scroll (" + pct + "%)]",
-                DisplayStandards.TEXT_DEFAULT_BACKGROUND,
-                DisplayStandards.TEXT_SUBDUED_FOREGROUND
+                Session.getColorScheme()
         );
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append('\n');
@@ -80,7 +79,11 @@ public class ScrollingTextMode implements OperatingMode {
         gm.printGlyphString(
                 4,
                 4,
-                new GlyphString(stringBuilder.toString(), DisplayStandards.TEXT_DEFAULT_BACKGROUND, DisplayStandards.TEXT_DEFAULT_FOREGROUND)
+                new GlyphString(
+                        stringBuilder.toString(),
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
         );
     }
 

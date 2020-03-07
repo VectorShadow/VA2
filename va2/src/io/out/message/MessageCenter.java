@@ -27,7 +27,9 @@ public class MessageCenter {
         }
 
         public Color getBackground() {
-            return background;
+            return background == DisplayStandards.MESSAGE_DEFAULT_BACKGROUND ?
+                    Session.getColorScheme().getBackground() :
+                    background;
         }
 
         public Color getForeground() {

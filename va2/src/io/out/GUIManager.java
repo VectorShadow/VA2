@@ -9,6 +9,7 @@ import main.MetaData;
 import main.Session;
 import resources.DualityContext;
 import resources.DualityMode;
+import resources.chroma.ChromaSet;
 import resources.glyph.Glyph;
 import resources.glyph.image.GlyphString;
 import resources.glyph.image.ImageManager;
@@ -120,7 +121,6 @@ public class GUIManager {
                         1.0,
                         DualityMode.MESSAGES
                 );
-        GUI.setBorder(CHANNEL_GAME, messageZone, DisplayStandards.MESSAGE_WINDOW_BORDER);
         //calculate the number of rows and columns available to display messages:
         messageWindowRows = GUI.countRows() - GUI.rowAtPercent(TEXT_WINDOW_START);
         messageWindowCols = GUI.colAtPercent(ZONE_MESSAGE_CENTER, 1.0);
@@ -133,7 +133,18 @@ public class GUIManager {
         if (CHANNEL_FULLSCREEN_TEXT != fsText)
             throw new IllegalStateException("Invalid channel index for Fullscreen Text - expected " +
                     CHANNEL_FULLSCREEN_TEXT + " but was " + fsText);
+        updateColorScheme();
         changeChannelToFullscreenText(); //ensure we start in text mode
+    }
+    public void updateColorScheme() {
+        Glyph g = Session.getColorScheme().emptyGlyph();
+        for (int c = 0; c < GUI.countChannels(); ++c) {
+            GUI.setBackground(c, g);
+            for (int z = 0; z < GUI.countZones(c); ++z) {
+                GUI.setBackground(c, z, g);
+            }
+        }
+        GUI.setBorder(CHANNEL_GAME, ZONE_MESSAGE_CENTER, DisplayStandards.getMessageWindowBorder());
     }
 
     public void changeChannelToGameDisplay() {
@@ -175,32 +186,38 @@ public class GUIManager {
         printCenteredLine(
                 percentFromTop,
                 text,
-                DisplayStandards.TEXT_DEFAULT_BACKGROUND,
-                DisplayStandards.TEXT_DEFAULT_FOREGROUND
+                Session.getColorScheme()
         );
     }
-    public void printCenteredLine(double percentFromTop, String text, Color background, Color foreground) {
+    public void printCenteredLine(double percentFromTop, String text, ChromaSet cs) {
         printCenteredLine(
                 GUI.rowAtPercent(percentFromTop),
                 text,
-                background,
-                foreground
+                cs
         );
     }
     public void printCenteredLine(int row, String text) {
         printCenteredLine(
                 row,
                 text,
-                DisplayStandards.TEXT_DEFAULT_BACKGROUND,
-                DisplayStandards.TEXT_DEFAULT_FOREGROUND
+                Session.getColorScheme()
         );
     }
-    public void printCenteredLine(int row, String text, Color background, Color foreground) {
+    public void printCenteredLine(int row, String text, ChromaSet cs) {
         GUI.printCentered(
                 row,
                 new GlyphString(text,
-                        background,
-                        foreground
+                        cs.getBackground(),
+                        cs.getForeground()
+                )
+        );
+    }
+    public void printHighlightedCenteredLine(int row, String text, ChromaSet cs) {
+        GUI.printCentered(
+                row,
+                new GlyphString(text,
+                        cs.getBackground(),
+                        cs.getHighlight()
                 )
         );
     }
@@ -208,7 +225,7 @@ public class GUIManager {
         printMenu(GUI.rowAtPercent(percentFromTop), menu);
     }
     private void printMenu(int row, Menu menu) {
-        GUI.printMenu(row, menu, DisplayStandards.TEXT_DEFAULT_BACKGROUND, DisplayStandards.TEXT_DEFAULT_FOREGROUND);
+        GUI.printMenu(row, menu, Session.getColorScheme());
     }
     public void printMessages() {
         GUI.clear(ZONE_MESSAGE_CENTER);

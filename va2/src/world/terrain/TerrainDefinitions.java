@@ -1,6 +1,7 @@
 package world.terrain;
 
 import resources.chroma.Chroma;
+import world.ColorStandards;
 import world.WorldObjectTemplateFactory;
 
 import java.awt.*;
@@ -37,7 +38,7 @@ public class TerrainDefinitions {
                     .initialize()
                     .setDescription("grass covered ground")
                     .setSymbols('.')
-                    .setForegroundColors(Color.GREEN)
+                    .setForegroundColors(ColorStandards.FOREST_UNDERGROWTH)
                     .manufactureTerrainTemplate(true, true, false);
     public static TerrainTemplate TOADSTOOLS =
             WorldObjectTemplateFactory
@@ -51,7 +52,7 @@ public class TerrainDefinitions {
                     .initialize()
                     .setDescription("an ancient oak tree")
                     .setSymbols('#')
-                    .setForegroundColors(Color.GREEN.darker().darker())
+                    .setForegroundColors(ColorStandards.ANCIENT_OAK)
                     .manufactureTerrainTemplate(true, false, false);
     public static TerrainTemplate FOREST_GATE =
             WorldObjectTemplateFactory
@@ -147,9 +148,9 @@ public class TerrainDefinitions {
     public static TerrainTemplate SHALLOW_WATER =
             WorldObjectTemplateFactory
                     .initialize(true)
-                    .setDescription("shallow water")
+                    .setDescription("a forest stream")
                     .setSymbols('~')
-                    .setForegroundColors(Color.BLUE.darker())
+                    .setForegroundColors(ColorStandards.FOREST_STREAM)
                     .manufactureTerrainTemplate(true, true, false);
     public static TerrainTemplate FLIGHT_STAIR =
             WorldObjectTemplateFactory
