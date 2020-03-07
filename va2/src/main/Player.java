@@ -1,6 +1,5 @@
 package main;
 
-import engine.action.Action;
 import engine.action.AdjacentMovementAction;
 import util.Direction;
 import world.actor.Actor;

@@ -1,6 +1,7 @@
 package world.actor;
 
 import combat.Combatant;
+import resources.chroma.Chroma;
 import world.WorldObjectTemplateFactory;
 
 /**
@@ -26,6 +27,7 @@ public class ActorDefinitions {
             WorldObjectTemplateFactory
                     .initialize()
                     .setSymbols('w')
+                    .setForegroundColors(Chroma.BROWN)
                     .manufactureActorTemplate(
                             32,
                             new Combatant(
