@@ -6,6 +6,7 @@ public class LoreDefinitions {
     public static final int THEME_GENERAL = 0;
     public static final int GENERAL_NEW_PLAYER = 0;
     public static final int GENERAL_NEW_CHARACTER = 1;
+    public static final int GENERAL_ESTATE_MESSAGE = 2;
     public static final int THEME_DARK_GROVE = 1;
 
     private static final LoreTreeBuilder LORE_TREE_BUILDER =
@@ -129,6 +130,98 @@ public class LoreDefinitions {
                                         "have discovered several pages of notes, written in a hand I well recognize " +
                                         "from years of correspondence. Perhaps they will offer some insight into " +
                                         "whatever strange events heralded my own arrival here..."
+                        )
+                    .addLeaf("Message to the Heir",
+                            "\t\"Samhein, 2993 A.R., Vor-Nyryk, Ys:" +
+                                    "\n\n\tThis may be the last time I am able to write you - for what I am about to " +
+                                    "attempt may be more dangerous than any of my previous explorations or " +
+                                    "endeavors. " +
+                                    "\n\n\tI have made a rather astonishing discovery. In these very woods, in a " +
+                                    "deep grove so dark that not even the faint moonlight which illumines the rest " +
+                                    "of the forest can penetrate, there is an ancient device of unknown origin, with " +
+                                    "incredible power. It must have lain dormant for a very long time - perhaps it " +
+                                    "was last used during the Dark Reign, nearly 2 millenia ago - or perhaps it has " +
+                                    "been far, far longer than that. For it is very ancient - what little I have " +
+                                    "discovered in my research that pertains, or might pertain, to it is not at all " +
+                                    "direct, but the implications are that such devices as this were made not by " +
+                                    "human hands, in aeons so distant that years are nearly useless in measuring " +
+                                    "them. " +
+                                    "\n\n\tThe date is significant as well - the festivals of the old Druids, around " +
+                                    "which our calendar is based, are also far older than is commonly believed, and " +
+                                    "the festivals themselves, or the cycles of time to which they correspond, have " +
+                                    "a certain power. I believe I have discovered a way to re-activate this ancient " +
+                                    "mechanism, but to be sure of my method, I must attempt it on this blackest of " +
+                                    "nights. " +
+                                    "\n\n\tIf my suspicions and hypotheses are correct, doing so will open up vast " +
+                                    "episodes of earth's history which have been lost to time. I will be able to " +
+                                    "confirm - or disprove - many of the connections and theories my research has " +
+                                    "led me to discover, and illumine some of the deepest, darkest secrets recorded " +
+                                    "now only in ancient, half-forgotten texts, most regarded by modern scholars " +
+                                    "as entirely mythical, if not outright fanciful. " +
+                                    "\n\n\tIt would appear that this device is part of a vast, ancient network, " +
+                                    "connecting far corners of the earth - and perhaps even other worlds - at key " +
+                                    "historical locations. It is rumored that the ancients knew of them, and any " +
+                                    "civilization - indeed any race capable of establishing a great civilization, " +
+                                    "for there have likely been countless cycles of civilization on this earth long " +
+                                    "before humanity ever laid one stone atop another - would have been drawn to " +
+                                    "them, and made use of them as they could. " +
+                                    "\n\n\tProbably our own history has connections to them - the dark Tyrants of " +
+                                    "nearby Vor-Nyryk, who presided over the Dark Reign, are said to have sent their " +
+                                    "mages and explorers to distant corners of the earth, and they were rumored to " +
+                                    "have known precisely how to find principal locations of elder power. Long before " +
+                                    "them, beyond recorded history and into myth, those Angelic beings the Church " +
+                                    "refers to as the Nephilim, or their supposed gods, the ancient golden " +
+                                    "Annunaki, may have had a connection to them as well. The gleaming domes and " +
+                                    "pillars of ancient and fallen Ur-Eden, or the even more ancient and ice-clad " +
+                                    "ruins of lost Hyborea, known only to our most intrepid archaeologists, could " +
+                                    "be laid bare to modern scholars at last. And who knows what else we might " +
+                                    "learn? Perhaps the truth of those strange and terrible Hyborean murals " +
+                                    "depicting warriors in battle against Serpent-men, or the truth of the even " +
+                                    "older legend of Ultima Thule and the hairy half men who ruled the far north " +
+                                    "aeons before the first Hyboreans, or the frightful and abhorrent whispers of " +
+                                    "Typhon and the dread chimeras... and of course, whatever lost race which " +
+                                    "built this network so long ago. " +
+                                    "\n\n\tI could write for hours of the endless arcane mysteries which might be " +
+                                    "unlocked to us, but you know as well as I how many myth-cycles such as these " +
+                                    "are hinted at in ancient books disregarded by, or totally unknown to, most in " +
+                                    "our age. Better that I go and see for myself. As you will know if you ever read " +
+                                    "this, I am leaving the estate to you if I fail to return from this adventure. " +
+                                    "You are the best equipped to continue my research, if I should perish in it, " +
+                                    "and certainly you are the least likely in the family to think me mad. The house " +
+                                    "shall be yours to do with as you wish. I have begun several projects here, in " +
+                                    "order to facilitate my research and explorations. I encourage you to expand " +
+                                    "upon them as you can. Indeed, if I do not return from this expedition, you will " +
+                                    "certainly need to be even more prepared than I am now - but I cannot wait " +
+                                    "a full year, until next Samhein, to put my theories to the test." +
+                                    "\n\n\tI wish you the best in your own adventures - though I hope I will yet have " +
+                                    "the chance to do so in person.\"" +
+                                    "\n\n\tSo... it seems the old man was involved in far more perilous enterprises " +
+                                    "than he ever revealed in his missives. How much of what he writes, or hints at, " +
+                                    "could possibly be true? As he noted, you are indeed aware of most of the myths " +
+                                    "and legends he mentioned here, if apparently not so familiar with them as he " +
+                                    "appears to have been. But even to your open and curious mind, most of those had " +
+                                    "been just that - myths, perhaps allegorical in relation to known history, but " +
+                                    "not with any great basis in fact." +
+                                    "\n\n\tPre-human civilizations? Other worlds? A primal magic linked with the " +
+                                    "turning of the seasons, and apparently far more powerful than anything known " +
+                                    "to modern alchemists, or the mage-priests of the Church? " +
+                                    "\n\n\tWell, certainly something unfortunate befell your old relative, if not " +
+                                    "necessarily of eldritch nature. There are many natural dangers in a wood such " +
+                                    "as this, without the need of any supernatural ones. You recall from certain of " +
+                                    "his letters that there are packs of wolves, large spiders, bears, and other " +
+                                    "dangerous beasts living in the forest, and for one so venerable, the danger was " +
+                                    "likely even greater. Nevertheless, you resolve to make as thorough a search of " +
+                                    "the forest as you can, in the coming days and weeks. Perhaps you will discover " +
+                                    "what end he actually came to - from the date of the message, late last autumn, " +
+                                    "you find it incredibly unlikely that he might still be among the living after " +
+                                    "a winter in the wilderness. " +
+                                    "\n\n\tPerhaps if you can locate this mysterious device, which had so fascinated " +
+                                    "him that it apparently drew him on to that end, you might uncover further " +
+                                    "evidence. And such a device, if indeed it behaves anything like his " +
+                                    "description, would be worth investigation in its own right. Hopefully, he " +
+                                    "managed to complete whatever repair or rite was necessary to restore " +
+                                    "whatever function it may have had, since it will be a long time yet before " +
+                                    "Samhein comes this year..."
                         )
                         .growTheme()
                     .addTheme("The Dark Grove"); //todo - add leaves

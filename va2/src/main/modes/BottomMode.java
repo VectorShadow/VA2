@@ -31,15 +31,7 @@ public class BottomMode implements OperatingMode {
             if (Session.getFileManager().loadProfile()) {
                 Session.getModeManager().transitionTo(targetMode);
             } else {
-                Session.getModeManager().transitionTo(
-                        new TransitiveScrollingTextMode(
-                                Session.unlockLore(
-                                        LoreDefinitions.THEME_GENERAL,
-                                        LoreDefinitions.GENERAL_NEW_PLAYER
-                                )
-                                , targetMode
-                        )
-                );
+                Session.unlockLore(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_NEW_PLAYER, targetMode);
             }
             isNewSession = false;
         } else {

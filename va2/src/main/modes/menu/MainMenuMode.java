@@ -41,9 +41,7 @@ public class MainMenuMode extends MenuMode {
                         LoreDefinitions.THEME_GENERAL,
                         LoreDefinitions.GENERAL_NEW_CHARACTER
                 )).isLocked()) {
-                    lore = Session.unlockLore(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_NEW_CHARACTER);
-                    Session.getModeManager().transitionTo(
-                            new TransitiveScrollingTextMode(lore, targetMode));
+                    Session.unlockLore(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_NEW_CHARACTER, targetMode);
                 } else
                     Session.getModeManager().transitionTo(targetMode);
                 return;

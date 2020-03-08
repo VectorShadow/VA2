@@ -77,8 +77,8 @@ public class MainGameViewMode implements OperatingMode {
                     } else if (tt.equals(TerrainDefinitions.REWARD_STAIR)) {
                         Session.getCurrentDungeon().exitDungeon(true);
                     } else {
-                        if (EstateRoomMenuMode.interpretTerrain(tt) == null) break;
-                        Session.getModeManager().transitionTo(EstateRoomMenuMode.interpretTerrain(tt));
+                        if (EstateRoomMenuMode.interpretTerrain(tt) != null)
+                            Session.getModeManager().transitionTo(EstateRoomMenuMode.interpretTerrain(tt));
                         return;
                     }
                 }

@@ -2,7 +2,10 @@ package main.modes.menu;
 
 import io.out.GUIManager;
 import main.Session;
+import main.modes.OperatingMode;
 import main.modes.menu.estate.*;
+import world.lore.LockLeaf;
+import world.lore.LoreDefinitions;
 import world.terrain.TerrainDefinitions;
 import world.terrain.TerrainTemplate;
 
@@ -24,9 +27,17 @@ public abstract class EstateRoomMenuMode extends MenuMode {
     }
 
     public static EstateRoomMenuMode interpretTerrain(TerrainTemplate tt) {
-        if (tt.equals(TerrainDefinitions.LIBRARY_PORTAL))
-            return new LibraryMenuMode();
-        else if (tt.equals(TerrainDefinitions.HALL_OF_ARMS_PORTAL))
+        if (tt.equals(TerrainDefinitions.LIBRARY_PORTAL)) {
+            EstateRoomMenuMode targetMode = new LibraryMenuMode();
+            if (((LockLeaf)Session.getLore().get(
+                    LoreDefinitions.THEME_GENERAL,
+                    LoreDefinitions.GENERAL_ESTATE_MESSAGE
+            )).isLocked()) {
+                Session.unlockLore(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_ESTATE_MESSAGE, targetMode);
+                return null;
+            } else
+                return targetMode;
+        } else if (tt.equals(TerrainDefinitions.HALL_OF_ARMS_PORTAL))
             return new HallOfArmsMenuMode();
         else if (tt.equals(TerrainDefinitions.ARCHERY_RANGE_PORTAL))
             return new ArcheryRangeMenuMode();

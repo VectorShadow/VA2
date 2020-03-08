@@ -4,6 +4,9 @@ import engine.Engine;
 import engine.action.ActionDefinitions;
 import io.out.DisplayStandards;
 import io.out.message.MessageCenter;
+import main.modes.OperatingMode;
+import main.modes.ScrollingTextMode;
+import main.modes.TransitiveScrollingTextMode;
 import resources.chroma.ChromaSet;
 import world.actor.ActorDefinitions;
 import world.dungeon.Dungeon;
@@ -113,9 +116,15 @@ public class Session {
     public static LoreTree getLore() {
         return lore;
     }
-    public static String unlockLore(int themeIndex, int loreIndex) {
+    public static void unlockLore(int themeIndex, int loreIndex, OperatingMode targetMode) {
         ((LockLeaf)lore.get(themeIndex, loreIndex)).unlock();
-        return LoreDefinitions.loreAt(themeIndex, loreIndex);
+        if (targetMode == null)
+            modeManager.transitionTo(
+                    new ScrollingTextMode(LoreDefinitions.loreAt(themeIndex, loreIndex)));
+        else
+            modeManager.transitionTo(
+                    new TransitiveScrollingTextMode(LoreDefinitions.loreAt(themeIndex, loreIndex), targetMode)
+        );
     }
     public static Player getPlayer() {
         return player;
