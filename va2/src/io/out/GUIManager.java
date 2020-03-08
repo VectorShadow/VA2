@@ -28,7 +28,7 @@ public class GUIManager {
      * a key listener that throttles player input, preventing handling overload
      */
     private class ThrottledKeyListener implements KeyListener {
-        private static final int MINIMUM_INPUT_INTERVAL = 25;
+        private static final int MINIMUM_INPUT_INTERVAL = 15;
         private long lastValidInput = 0;
 
         @Override
@@ -41,11 +41,11 @@ public class GUIManager {
             long now = System.currentTimeMillis();
             if (now - lastValidInput < MINIMUM_INPUT_INTERVAL) return;
             lastValidInput = now;
-//            try {
+            try {
                 Session.getModeManager().handleKeyPress(e);
-//            } catch (Exception ex) {
-//                ErrorLogger.logFatalException(ex);
-//            }
+            } catch (Exception ex) {
+                ErrorLogger.logFatalException(ex);
+            }
         }
 
         @Override

@@ -168,19 +168,19 @@ public class LoreDefinitions {
                                     "\n\n\tProbably our own history has connections to them - the dark Tyrants of " +
                                     "nearby Vor-Nyryk, who presided over the Dark Reign, are said to have sent their " +
                                     "mages and explorers to distant corners of the earth, and they were rumored to " +
-                                    "have known precisely how to find principal locations of elder power. Long before " +
-                                    "them, beyond recorded history and into myth, those Angelic beings the Church " +
-                                    "refers to as the Nephilim, or their supposed gods, the ancient golden " +
+                                    "have known precisely how to find principal locations of elder power. Long " +
+                                    "before them, beyond recorded history and into myth, those Angelic beings the " +
+                                    "Church refers to as the Nephilim, or their supposed gods, the fabled golden " +
                                     "Annunaki, may have had a connection to them as well. The gleaming domes and " +
                                     "pillars of ancient and fallen Ur-Eden, or the even more ancient and ice-clad " +
-                                    "ruins of lost Hyborea, known only to our most intrepid archaeologists, could " +
-                                    "be laid bare to modern scholars at last. And who knows what else we might " +
-                                    "learn? Perhaps the truth of those strange and terrible Hyborean murals " +
-                                    "depicting warriors in battle against Serpent-men, or the truth of the even " +
+                                    "ruins of lost Hyborea, known only to our most intrepid archaeologists, could be " +
+                                    "laid bare to modern scholars at last. And who knows what else we might learn? " +
+                                    "Perhaps the truth of those strange and terrible Hyborean murals depicting " +
+                                    "warriors in battle against evil, twisted Serpent-men, or the truth of the even " +
                                     "older legend of Ultima Thule and the hairy half men who ruled the far north " +
                                     "aeons before the first Hyboreans, or the frightful and abhorrent whispers of " +
-                                    "Typhon and the dread chimeras... and of course, whatever lost race which " +
-                                    "built this network so long ago. " +
+                                    "Typhon and the dread chimaeras... and of course, whatever lost race which " +
+                                    "built this very network, so long ago. " +
                                     "\n\n\tI could write for hours of the endless arcane mysteries which might be " +
                                     "unlocked to us, but you know as well as I how many myth-cycles such as these " +
                                     "are hinted at in ancient books disregarded by, or totally unknown to, most in " +
@@ -218,7 +218,7 @@ public class LoreDefinitions {
                                     "\n\n\tPerhaps if you can locate this mysterious device, which had so fascinated " +
                                     "him that it apparently drew him on to that end, you might uncover further " +
                                     "evidence. And such a device, if indeed it behaves anything like his " +
-                                    "description, would be worth investigation in its own right. Hopefully, he " +
+                                    "description, would be well worth investigation in its own right. Hopefully, he " +
                                     "managed to complete whatever repair or rite was necessary to restore " +
                                     "whatever function it may have had, since it will be a long time yet before " +
                                     "Samhein comes this year..."
