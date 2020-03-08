@@ -4,14 +4,14 @@ import contract.Gui;
 import contract.menu.Menu;
 import core.DualityGUI;
 import error.ErrorLogger;
-import io.out.message.MessageCenter;
+import io.out.message.Message;
 import main.MetaData;
 import main.Session;
 import resources.DualityContext;
 import resources.DualityMode;
 import resources.chroma.ChromaSet;
 import resources.glyph.Glyph;
-import resources.glyph.image.GlyphString;
+import resources.glyph.GlyphString;
 import resources.glyph.image.ImageManager;
 
 import java.awt.*;
@@ -149,11 +149,11 @@ public class GUIManager {
 
     public void changeChannelToGameDisplay() {
         GUI.changeChannel(CHANNEL_GAME);
-        GUI.clear();
+        clearScreen();
     }
     public void changeChannelToFullscreenText() {
         GUI.changeChannel(CHANNEL_FULLSCREEN_TEXT);
-        GUI.clear();
+        clearScreen();
     }
 
     public void clearScreen() {
@@ -173,6 +173,31 @@ public class GUIManager {
     }
     public void printGlyphString(int zone, int row, int column, GlyphString gs) {
         GUI.print(zone, row, column, gs);
+    }
+
+    public int maxCol() {
+        return GUI.maxCol();
+    }
+    public int minCol() {
+        return GUI.minCol();
+    }
+    public int maxRow() {
+        return GUI.maxRow();
+    }
+    public int minRow() {
+        return GUI.minRow();
+    }
+    public int maxCol(int zoneID) {
+        return GUI.maxCol(zoneID);
+    }
+    public int minCol(int zoneID) {
+        return GUI.minCol(zoneID);
+    }
+    public int maxRow(int zoneID) {
+        return GUI.maxRow(zoneID);
+    }
+    public int minRow(int zoneID) {
+        return GUI.minRow(zoneID);
     }
     public void printCenteredBlock(double percentFromTop, String[] text) {
         int row = GUI.rowAtPercent(percentFromTop);
@@ -229,9 +254,9 @@ public class GUIManager {
     }
     public void printMessages() {
         GUI.clear(ZONE_MESSAGE_CENTER);
-        MessageCenter.Message last = Session.getMessageCenter().getLastMessage();
-        MessageCenter.Message onScreen = Session.getMessageCenter().getOnScreenMessages();
-        Point lastGlyph =         GUI.print(
+        Message last = Session.getMessageCenter().getLastMessage();
+        Message onScreen = Session.getMessageCenter().getOnScreenMessages();
+        Point lastGlyph = GUI.print(
                 ZONE_MESSAGE_CENTER,
                 1,
                 1,

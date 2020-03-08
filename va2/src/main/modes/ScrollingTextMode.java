@@ -1,9 +1,8 @@
 package main.modes;
 
-import io.out.DisplayStandards;
 import io.out.GUIManager;
 import main.Session;
-import resources.glyph.image.GlyphString;
+import resources.glyph.GlyphString;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;

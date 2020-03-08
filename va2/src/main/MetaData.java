@@ -19,6 +19,7 @@ public class MetaData {
                 "\n\tHelp Menu - ?" +
                 "\n\tSave Game - Ctrl s" +
                 "\n\tDelete Game - Ctrl q" +
+                "\n\tRecall Messages - Shift r" +
                 "\n\nMovement Commands:" +
                 "\n\tRest - Numpad 5" +
                 "\n\tWalk - Arrow Keys/Numpad" +

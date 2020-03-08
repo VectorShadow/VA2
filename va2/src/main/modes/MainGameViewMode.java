@@ -108,6 +108,11 @@ public class MainGameViewMode implements OperatingMode {
                     Session.getModeManager().transitionTo(new ConfirmDeleteGameMode());
                 }
                 return;
+            case VK_R:
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                    Session.getModeManager().transitionTo(new MessageRecallMode(Session.getMessageCenter().getMessageRecall()));
+                }
+                return;
             //todo - lots. breaks when we want to redraw the screen, returns if not
         }
         if (action != null)
