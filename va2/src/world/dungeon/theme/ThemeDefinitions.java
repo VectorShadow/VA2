@@ -74,11 +74,11 @@ public class ThemeDefinitions {
                                     .build()
                             ),
                             new Continuum<>(
-                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    ActorDefinitions.BLACK_BEAR_TEMPLATE,
                                     new ArrayList<>()
                             ),
                             new Continuum<>(
-                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    ActorDefinitions.CAVE_BEAR_TEMPLATE,
                                     new ArrayList<>()
                             ),
                             new Continuum<>(

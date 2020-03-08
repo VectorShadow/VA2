@@ -88,4 +88,44 @@ public class ActorDefinitions {
                                     72
                             )
                     );
+    public static final ActorTemplate BLACK_BEAR_TEMPLATE =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("black bear")
+                    .setSymbols('b')
+                    .setForegroundColors(ColorStandards.BLACK_BEAR_FUR)
+                    .manufactureActorTemplate(
+                            24,
+                            new Combatant(
+                                    512,
+                                    112,
+                                    48,
+                                    112,
+                                    96,
+                                    192
+                            )
+                    );
+    public static final ActorTemplate CAVE_BEAR_TEMPLATE =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("giant cave bear")
+                    .setSymbols('b')
+                    .setForegroundColors(
+                            new Color[]{
+                                    Chroma.BROWN,
+                                    Chroma.GREY,
+                                    ColorStandards.BLACK_BEAR_FUR
+                            }
+                            )
+                    .manufactureActorTemplate(
+                            24,
+                            new Combatant(
+                                    768,
+                                    116,
+                                    40,
+                                    128,
+                                    72,
+                                    256
+                            )
+                    );
 }

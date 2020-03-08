@@ -94,7 +94,7 @@ public class LoreDefinitions {
                                         "\n\n\tIn any case, I have now arrived at the estate in question. It seems " +
                                         "even more ancient and weathered than I recall from my last visit as a " +
                                         "youth, but for all that it appears to be structurally sound, and the " +
-                                        "interior is well-kept - or had been, until the vanishing of it former " +
+                                        "interior is well-kept - or had been, until the vanishing of its former " +
                                         "owner. It is also more remote than I had remembered - I stayed the night at " +
                                         "an inn in the hamlet of Eth-sar two nights ago, and there have been no " +
                                         "other such settlements since then - only a few isolated cots and farms, and " +
@@ -160,8 +160,8 @@ public class LoreDefinitions {
                                     "now only in ancient, half-forgotten texts, most regarded by modern scholars " +
                                     "as entirely mythical, if not outright fanciful. " +
                                     "\n\n\tIt would appear that this device is part of a vast, ancient network, " +
-                                    "connecting far corners of the earth - and perhaps even other worlds - at key " +
-                                    "historical locations. It is rumored that the ancients knew of them, and any " +
+                                    "connecting far corners of the earth - and perhaps even other worlds - at " +
+                                    "prominent locations. It is rumored that the ancients knew of them, and any " +
                                     "civilization - indeed any race capable of establishing a great civilization, " +
                                     "for there have likely been countless cycles of civilization on this earth long " +
                                     "before humanity ever laid one stone atop another - would have been drawn to " +
