@@ -10,6 +10,7 @@ import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.TerrainSet;
 import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
+import world.terrain.TerrainTemplate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -120,6 +121,22 @@ public abstract class FloorGenerator implements Serializable {
     }
     protected Coordinate leastDistant(Coordinate c, ArrayList<Coordinate> cList) {
         return evaluateDistance(c, cList, false);
+    }
+    protected Coordinate randomInterior() {
+        Random r = Session.getRNG();
+        int randomRow = r.nextInt((int)(floor.ROWS * 0.85)) + (int)(floor.ROWS * 0.075);
+        int randomCol = r.nextInt((int)(floor.COLS * 0.85)) + (int)(floor.COLS * 0.075);
+        return new Coordinate(randomRow, randomCol);
+    }
+    protected void placeRemainingEnemies() {
+        while (enemyPotential > 0) {
+            Coordinate c = randomInterior();
+            FloorTile ft = floor.tileAt(c.getRow(), c.getColumn());
+            if (ft.getActor() == null && ((TerrainTemplate)ft.getTerrain().getTemplate()).permitsMovement()) {
+                --enemyPotential;
+                Session.addActor(new Actor(floor.THEME.getActorSet().randomizeEnemy(floor.DEPTH)), c);
+            }
+        }
     }
     protected void placeEntryStair(Coordinate c) {
         FloorTile ft = floor.tileAt(c.getRow(), c.getColumn());

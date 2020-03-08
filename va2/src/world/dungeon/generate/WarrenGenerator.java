@@ -35,9 +35,7 @@ public class WarrenGenerator extends FloorGenerator{
         ArrayList<Coordinate> clearingCenters = new ArrayList<>();
         for (int i = 0; i < clearingCount; ++i) {
             //randomly generate coordinates away from the edges of the floor
-            int randomRow = r.nextInt((int)(floor.ROWS * 0.85)) + (int)(floor.ROWS * 0.075);
-            int randomCol = r.nextInt((int)(floor.COLS * 0.85)) + (int)(floor.COLS * 0.075);
-            Coordinate c = new Coordinate(randomRow, randomCol);
+            Coordinate c = randomInterior();
             if (!clearingCenters.contains(c)) //don't duplicate random coordinates by accident
                 clearingCenters.add(c);
             else
@@ -62,6 +60,7 @@ public class WarrenGenerator extends FloorGenerator{
         //open up the final clearing
         openClearing(currentClearingCenter);
         addStreams();
+        placeRemainingEnemies();
         placeEntryStair(mostDistantClearings.getC1());
         placeEndStairs(currentClearingCenter);
         return floor;
