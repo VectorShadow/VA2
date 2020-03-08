@@ -23,5 +23,5 @@ public class DisplayStandards {
     public static final Color MESSAGE_DEFAULT_BACKGROUND = GAME_DEFAULT_BACKGROUND;
     public static final Color MESSAGE_DEFAULT_FOREGROUND = Chroma.WHITE;
 
-    public static final ChromaSet THEME_THE_DARK_GROVE = new ChromaSet(ColorStandards.WOODED_TWILIGHT, ColorStandards.ANCIENT_OAK, ColorStandards.FOREST_STREAM);
+    public static final ChromaSet THEME_THE_DARK_GROVE = new ChromaSet(ColorStandards.WOODED_TWILIGHT, ColorStandards.FOREST_UNDERGROWTH, ColorStandards.FOREST_STREAM);
 }
