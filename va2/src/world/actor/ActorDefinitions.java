@@ -1,6 +1,8 @@
 package world.actor;
 
 import combat.Combatant;
+import combat.melee.forms.FormDefinitions;
+import combat.melee.weapons.WeaponDefinitions;
 import resources.chroma.Chroma;
 import world.ColorStandards;
 import world.WorldObjectTemplateFactory;
@@ -24,7 +26,9 @@ public class ActorDefinitions {
                                     128,
                                     128,
                                     128,
-                                    128
+                                    128,
+                                    FormDefinitions.UNTRAINED,
+                                    WeaponDefinitions.BARE_HANDED
                             )
                     );
     public static final ActorTemplate GIANT_HUNTING_SPIDER =
@@ -51,7 +55,9 @@ public class ActorDefinitions {
                                     128,
                                     32,
                                     32,
-                                    16
+                                    16,
+                                    FormDefinitions.UNTRAINED,
+                                    WeaponDefinitions.BARE_HANDED
                             )
                     );
     public static final ActorTemplate FOREST_WOLF_TEMPLATE =
@@ -68,7 +74,9 @@ public class ActorDefinitions {
                                     155,
                                     128,
                                     72,
-                                    64
+                                    64,
+                                    FormDefinitions.UNTRAINED,
+                                    WeaponDefinitions.BARE_HANDED
                             )
                     );
     public static final ActorTemplate SILVER_WOLF_TEMPLATE =
@@ -85,7 +93,9 @@ public class ActorDefinitions {
                                     128,
                                     155,
                                     84,
-                                    72
+                                    72,
+                                    FormDefinitions.UNTRAINED,
+                                    WeaponDefinitions.BARE_HANDED
                             )
                     );
     public static final ActorTemplate BLACK_BEAR_TEMPLATE =
@@ -102,7 +112,9 @@ public class ActorDefinitions {
                                     48,
                                     112,
                                     96,
-                                    192
+                                    192,
+                                    FormDefinitions.UNTRAINED,
+                                    WeaponDefinitions.BARE_HANDED
                             )
                     );
     public static final ActorTemplate CAVE_BEAR_TEMPLATE =
@@ -125,7 +137,9 @@ public class ActorDefinitions {
                                     40,
                                     128,
                                     72,
-                                    256
+                                    256,
+                                    FormDefinitions.UNTRAINED,
+                                    WeaponDefinitions.BARE_HANDED
                             )
                     );
 }

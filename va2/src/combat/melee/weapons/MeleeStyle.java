@@ -1,4 +1,4 @@
-package combat.melee;
+package combat.melee.weapons;
 
 /**
  * The general approach to wielding a weapon. Special abilities for forms should take these into account -

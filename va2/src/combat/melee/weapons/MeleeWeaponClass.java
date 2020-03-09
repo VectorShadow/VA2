@@ -1,4 +1,4 @@
-package combat.melee;
+package combat.melee.weapons;
 
 /**
  * A differentiation of weapons into specific types. These are grouped by common characteristics, and
@@ -9,7 +9,7 @@ package combat.melee;
  * only pierce, and a scythe can only rend. Others, like a halberd, may have a primary and secondary type.
  * This should be accounted for in autoattacks and special abilities.
  */
-public enum WeaponClass {
+public enum MeleeWeaponClass {
     FIST_CLAW,
     SHORT_BLADES,
     SWORDS,

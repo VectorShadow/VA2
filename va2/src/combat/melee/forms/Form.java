@@ -1,30 +1,36 @@
-package combat.melee;
+package combat.melee.forms;
 
+import combat.melee.*;
+import combat.melee.weapons.MeleeStyle;
+import combat.melee.weapons.MeleeWeapon;
+import combat.melee.weapons.MeleeWeaponClass;
 import main.Session;
 import resources.continuum.Continuum;
 
 /**
- * A melee combat form for a specific Style and Weapon Class, specifying Tactics Continua and special abilities.
+ * A melee combat form for a specific Style and MeleeWeapon Class, specifying Tactics Continua and special abilities.
  */
 public class Form {
     private final MeleeStyle meleeStyle;
-    private final WeaponClass weaponClass;
+    private final MeleeWeaponClass meleeWeaponClass;
     private final Continuum<AttackTactic> attackTactics;
     private final Continuum<DefenseTactic> defenseTactics;
     //todo - special abilities
 
-    public Form(MeleeStyle ms, WeaponClass wc, Continuum<AttackTactic> at, Continuum<DefenseTactic> dt) {
+    public Form(MeleeStyle ms, MeleeWeaponClass wc, Continuum<AttackTactic> at, Continuum<DefenseTactic> dt) {
         meleeStyle = ms;
-        weaponClass = wc;
+        meleeWeaponClass = wc;
         attackTactics = at;
         defenseTactics = dt;
     }
 
     /**
      * Use this to browse a list of known Forms and return only those matching the provided style and class.
+     * Note that if a form does not specify a style or class, it can be used with any style or class.
      */
-    public boolean applicable(MeleeStyle ms, WeaponClass wc) {
-        return meleeStyle == ms && weaponClass == wc;
+    public boolean applicable(MeleeWeapon mw) {
+        return (meleeStyle == null || meleeStyle == mw.getMeleeStyle()) &&
+                (meleeWeaponClass == null || meleeWeaponClass == mw.getMeleeWeaponClass());
     }
 
     /**
