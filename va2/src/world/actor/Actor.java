@@ -24,6 +24,7 @@ public class Actor extends WorldObject {
 
     public Actor(ActorTemplate t) {
         super(t);
+        combatant = t.getCombatant().clone();
         energyGainPerTurn = t.getEnergyGainPerTurn();
     }
     public void clearQueuedActions() {
@@ -49,6 +50,10 @@ public class Actor extends WorldObject {
 
     public Coordinate getLocation() {
         return location;
+    }
+
+    public Combatant getCombatant() {
+        return combatant;
     }
 
     public Action checkQueuedAction() {
@@ -87,10 +92,19 @@ public class Actor extends WorldObject {
         //todo - check temporary effects
         return 1.0;
     }
-    public int rollDamage() {
-        //todo - get this actor's weapon (when a player equips a weapon, it should also set its actor weapon)
-        //todo - roll that weapon's damage, providing the actor's strength including any temporary adjustments
-        //todo - check temporary effects for damage adjustments
-        return 0;
+    public int getAdjustedAccuracy(){
+        return combatant.getAccuracy(); //todo - modifications from status!
+    }
+    public int getAdjustedEvasion(){
+        return combatant.getEvasion(); //todo - modifications from status!
+    }
+    public int getAdjustedPrecision(){
+        return combatant.getPrecision(); //todo - modifications from status!
+    }
+    public int getAdjustedDefense(){
+        return combatant.getDefense(); //todo - modifications from status!
+    }
+    public int getAdjustedStrength(){
+        return combatant.getStrength(); //todo - modifications from status!
     }
 }

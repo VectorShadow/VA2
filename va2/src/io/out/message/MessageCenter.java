@@ -1,10 +1,7 @@
 package io.out.message;
 
-import io.out.DisplayStandards;
 import main.Session;
 
-import java.awt.*;
-import java.util.ArrayList;
 
 public class MessageCenter {
 
@@ -12,12 +9,16 @@ public class MessageCenter {
     private Message onScreenMessages = new Message(MessageType.OLD);
     private Message lastMessage = new Message();
 
-    public void sendMessage(String text, MessageType type) {
+    public void sendMessage(Message m) {
         if (lastMessage.length() > 0) onScreenMessages.concatenate(lastMessage);
-        Message message = new Message(type.background, type.foreground, text);
-        lastMessage = message;
+        lastMessage = m;
         trimOnScreenMessages();
-        messageRecall.add(message);
+        messageRecall.add(m);
+    }
+
+    public void sendMessage(String text, MessageType type) {
+        Message m = new Message(type.background, type.foreground, text);
+        sendMessage(m);
     }
     void trimOnScreenMessages() {
         int currentLength = onScreenMessages.length();

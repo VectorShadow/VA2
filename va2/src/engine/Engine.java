@@ -2,6 +2,7 @@ package engine;
 
 import combat.melee.MeleeResolver;
 import engine.action.*;
+import io.out.message.Message;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
 import main.Session;
@@ -134,7 +135,9 @@ public class Engine implements Serializable {
             destRow = destination.getRow();
             destCol = destination.getColumn();
             defender = f.tileAt(destRow, destCol).getActor();
-            MeleeResolver.resolve(actor, aaa, defender);
+            Message playerMessage = MeleeResolver.resolve(actor, aaa, defender);
+            if (playerMessage != null)
+                Session.getMessageCenter().sendMessage(playerMessage);
         }
         //todo - else {} all other cases
     }
@@ -148,7 +151,11 @@ public class Engine implements Serializable {
         int destCol = destination.getColumn();
         FloorTile ft = f.tileAt(destRow, destCol);
         if (da instanceof AdjacentMovementAction && ft.getActor() != null) //if we try to move but there is an actor
-            return new AdjacentAttackAction(da.getDirection(), actor.getAttackEnergyMultiplier(), actor.rollDamage());
+            return new AdjacentAttackAction(
+                    da.getDirection(),
+                    actor.getAttackEnergyMultiplier(),
+                    ft.getActor().getCombatant().selectMeleeWeapon()
+            );
         if (da instanceof AdjacentAttackAction && ft.getActor() == null) //if we try to attack but there is no actor
             return new AdjacentMovementAction(da.getDirection(), actor.getMoveEnergyMultiplier());
         return da; //no problems were encountered

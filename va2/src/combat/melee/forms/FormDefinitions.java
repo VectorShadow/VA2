@@ -38,6 +38,7 @@ public class FormDefinitions {
                             .addElement(new Pair<>(0.55, DefenseTactic.RIPOSTE))
                             .addElement(new Pair<>(0.65, DefenseTactic.BRACE))
                             .build()
-            )
+            ),
+            new int[] {0,0,0,0,0}
     );
 }

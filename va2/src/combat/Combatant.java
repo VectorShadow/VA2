@@ -80,23 +80,26 @@ public class Combatant implements Serializable {
     }
 
     public int getAccuracy() {
-        return accuracy;
-    }
-
-    public int getDefense() {
-        return defense;
+        return accuracy + meleeForm.adjustAccuracy();
     }
 
     public int getEvasion() {
-        return evasion;
+        return evasion + meleeForm.adjustEvasion();
     }
 
     public int getPrecision() {
-        return precision;
+        return precision + meleeForm.adjustPrecision();
+    }
+    public int getDefense() {
+        return defense + meleeForm.adjustDefense();
     }
 
     public int getStrength() {
-        return strength;
+        return strength + meleeForm.adjustStrength();
+    }
+
+    public Form getMeleeForm() {
+        return meleeForm;
     }
 
     public MeleeWeapon selectMeleeWeapon() {

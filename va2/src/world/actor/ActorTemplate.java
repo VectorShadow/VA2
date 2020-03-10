@@ -25,7 +25,7 @@ public class ActorTemplate extends WorldObjectTemplate {
             int md) {
         super(d, n, nc, bgt, r);
         energyGainPerTurn = e;
-        combatant = c.clone();
+        combatant = c;
         minimumDepth = md;
     }
 
