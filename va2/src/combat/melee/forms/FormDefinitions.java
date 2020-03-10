@@ -6,6 +6,8 @@ import resources.continuum.Continuum;
 import resources.continuum.Pair;
 import util.ArrayListBuilder;
 
+import java.awt.*;
+
 public class FormDefinitions {
     /**
      * An untrained melee weapon form, usable with any style and weapon class.
@@ -13,6 +15,9 @@ public class FormDefinitions {
      * and 35% Evade, 30% Deflect, 25% Riposte, 10% Brace, and 0% Ignore on defence.
      */
     public static final Form UNTRAINED = new Form(
+            "<Untrained>",
+            "untrained melee combat",
+            Color.WHITE, //todo - Color Standards!
             null,
             null,
             new Continuum<>(

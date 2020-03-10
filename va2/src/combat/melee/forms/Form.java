@@ -5,19 +5,32 @@ import combat.melee.weapons.MeleeStyle;
 import combat.melee.weapons.MeleeWeapon;
 import combat.melee.weapons.MeleeWeaponClass;
 import main.Session;
+import main.extensible.TextDisplayable;
 import resources.continuum.Continuum;
+
+import java.awt.*;
 
 /**
  * A melee combat form for a specific Style and MeleeWeapon Class, specifying Tactics Continua and special abilities.
  */
-public class Form {
+public class Form extends TextDisplayable {
     private final MeleeStyle meleeStyle;
     private final MeleeWeaponClass meleeWeaponClass;
     private final Continuum<AttackTactic> attackTactics;
     private final Continuum<DefenseTactic> defenseTactics;
+
     //todo - special abilities
 
-    public Form(MeleeStyle ms, MeleeWeaponClass wc, Continuum<AttackTactic> at, Continuum<DefenseTactic> dt) {
+    public Form(
+            String d,
+            String n,
+            Color nc,
+            MeleeStyle ms,
+            MeleeWeaponClass wc,
+            Continuum<AttackTactic> at,
+            Continuum<DefenseTactic> dt
+    ) {
+        super(d, n, nc);
         meleeStyle = ms;
         meleeWeaponClass = wc;
         attackTactics = at;

@@ -2,11 +2,13 @@ package combat.melee.weapons;
 
 import combat.DamageType;
 import main.Session;
+import main.extensible.TextDisplayable;
 import resources.continuum.Continuum;
 
+import java.awt.*;
 import java.util.ArrayList;
 
-public class InnateWeapon implements MeleeWeapon {
+public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
     private final int damageLimit;
     private final int damageVariance;
     private final double strengthInfluence;
@@ -16,17 +18,9 @@ public class InnateWeapon implements MeleeWeapon {
     private final Continuum<DamageType> damageTypeContinuum;
 
     public InnateWeapon(
-            int damLim,
-            int damVar,
-            double strInf,
-            int[] adjAccPreStr,
-            MeleeStyle ms,
-            MeleeWeaponClass mwc,
-            DamageType dt
-    ) {
-        this(damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(dt, new ArrayList<>()));
-    }
-    public InnateWeapon(
+            String d,
+            String n,
+            Color nc,
             int damLim,
             int damVar,
             double strInf,
@@ -35,6 +29,7 @@ public class InnateWeapon implements MeleeWeapon {
             MeleeWeaponClass mwc,
             Continuum<DamageType> dtc
     ) {
+        super(d, n, nc);
         if (damLim < damVar || strInf < 0 || strInf > .5 || adjAccPreStr.length != 3)
             throw new IllegalStateException("Arguments out of bounds.");
         damageLimit = damLim;
@@ -45,8 +40,26 @@ public class InnateWeapon implements MeleeWeapon {
         meleeWeaponClass = mwc;
         damageTypeContinuum = dtc;
     }
+
+    public InnateWeapon(
+            String d,
+            String n,
+            Color nc,
+            int damLim,
+            int damVar,
+            double strInf,
+            int[] adjAccPreStr,
+            MeleeStyle ms,
+            MeleeWeaponClass mwc,
+            DamageType dt
+    ) {
+        this(d, n, nc, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(dt, new ArrayList<>()));
+    }
     private InnateWeapon(InnateWeapon iw) {
         this(
+                iw.description,
+                iw.name,
+                iw.nameColor,
                 iw.damageLimit,
                 iw.damageVariance,
                 iw.strengthInfluence,

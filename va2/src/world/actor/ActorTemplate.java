@@ -15,21 +15,22 @@ public class ActorTemplate extends WorldObjectTemplate {
     private final int minimumDepth;
 
     public ActorTemplate(
-            String n,
             String d,
-            boolean r,
+            String n,
+            Color nc,
             ArrayList<Character> s,
             ArrayList<Color> b,
             ArrayList<Color> f,
+            boolean r,
             int e,
             Combatant c,
-            int depth
-    ) {
-        super(n, d, r, s, b, f);
+            int md) {
+        super(d, n, nc, s, b, f, r);
         energyGainPerTurn = e;
         combatant = c.clone();
-        minimumDepth = depth;
+        minimumDepth = md;
     }
+
 
     public int getEnergyGainPerTurn() {
         return energyGainPerTurn;

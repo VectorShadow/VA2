@@ -12,20 +12,23 @@ public class TerrainTemplate extends WorldObjectTemplate {
     private final boolean permitLight;
     private final boolean permitMovement;
     private final boolean messageOnMove;
+
     public TerrainTemplate(
-            String n,
             String d,
-            boolean r,
+            String n,
+            Color nc,
             ArrayList<Character> s,
             ArrayList<Color> b,
             ArrayList<Color> f,
-            boolean permitLight,
-            boolean permitMovement,
-            boolean messageOnMove) {
-        super(n, d, r, s, b, f);
-        this.permitLight = permitLight;
-        this.permitMovement = permitMovement;
-        this.messageOnMove = messageOnMove;
+            boolean r,
+            boolean perLight,
+            boolean perMove,
+            boolean msgMove
+    ) {
+        super(d, n, nc, s, b, f, r);
+        permitLight = perLight;
+        permitMovement = perMove;
+        messageOnMove = msgMove;
     }
 
     public boolean permitsLight() {

@@ -1,6 +1,7 @@
 package world;
 
 import combat.Combatant;
+import io.out.DisplayStandards;
 import world.actor.ActorTemplate;
 import world.terrain.TerrainTemplate;
 
@@ -18,11 +19,13 @@ public class WorldObjectTemplateFactory {
 
     private String name = "";
     private String description = "";
-    private boolean reflectLight = false;
+    private Color nameColor = DisplayStandards.MESSAGE_DEFAULT_FOREGROUND;
 
     private ArrayList<Character> symbols;
     private ArrayList<Color> backgroundColors;
     private ArrayList<Color> foregroundColors;
+
+    private boolean reflectLight = false;
 
     private WorldObjectTemplateFactory(){
         symbols = new ArrayList<>();
@@ -42,6 +45,10 @@ public class WorldObjectTemplateFactory {
         name = n;
         if (description.equals(""))
             description = name;
+        return this;
+    }
+    public WorldObjectTemplateFactory setNameColor(Color nc) {
+        nameColor = nc;
         return this;
     }
     public WorldObjectTemplateFactory setDescription(String d) {
@@ -95,12 +102,13 @@ public class WorldObjectTemplateFactory {
     public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant, int minimumDepth) {
         forceNonEmptyLists();
         return new ActorTemplate(
-                name,
                 description,
-                reflectLight,
+                name,
+                nameColor,
                 symbols,
                 backgroundColors,
                 foregroundColors,
+                reflectLight,
                 energyPerTurn,
                 combatant,
                 minimumDepth
@@ -109,12 +117,13 @@ public class WorldObjectTemplateFactory {
     public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {
         forceNonEmptyLists();
         return new TerrainTemplate(
-                name,
                 description,
-                reflectLight,
+                name,
+                nameColor,
                 symbols,
                 backgroundColors,
                 foregroundColors,
+                reflectLight,
                 permitLight,
                 permitMovement,
                 messageOnMove
