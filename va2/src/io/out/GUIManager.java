@@ -111,18 +111,18 @@ public class GUIManager {
         new ScreenRefresherDaemon().start();
     }
     private void setupChannels() {
-        final double TEXT_WINDOW_START = 0.82;
+        final double MESSAGE_WINDOW_START = 0.78;
         int messageZone =
                 GUI.addZone(
                         CHANNEL_GAME,
-                        TEXT_WINDOW_START,
-                        1.0 - TEXT_WINDOW_START,
+                        MESSAGE_WINDOW_START,
+                        1.0 - MESSAGE_WINDOW_START,
                         0.0,
                         1.0,
                         DualityMode.MESSAGES
                 );
         //calculate the number of rows and columns available to display messages:
-        messageWindowRows = GUI.countRows() - GUI.rowAtPercent(TEXT_WINDOW_START);
+        messageWindowRows = GUI.countRows() - GUI.rowAtPercent(MESSAGE_WINDOW_START);
         messageWindowCols = GUI.colAtPercent(ZONE_MESSAGE_CENTER, 1.0);
         //todo - game channel setup here
         int fsText = GUI.addChannel(DualityMode.LONG_TEXT);
@@ -168,11 +168,11 @@ public class GUIManager {
     public void printGlyph(int zone, int row, int column, Glyph g) {
         GUI.print(zone, row, column, g);
     }
-    public void printGlyphString(int row, int column, GlyphString gs) {
-        GUI.print(row, column, gs);
+    public Point printGlyphString(int row, int column, GlyphString gs) {
+        return GUI.print(row, column, gs);
     }
-    public void printGlyphString(int zone, int row, int column, GlyphString gs) {
-        GUI.print(zone, row, column, gs);
+    public Point printGlyphString(int zone, int row, int column, GlyphString gs) {
+        return GUI.print(zone, row, column, gs);
     }
 
     public int maxCol() {

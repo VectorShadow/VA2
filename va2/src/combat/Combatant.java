@@ -28,6 +28,8 @@ public class Combatant implements Serializable {
     private Continuum<MeleeWeapon> meleeWeapons; //a continuum of melee weapons available to this combatant
     //todo - ranged weapons
 
+    private boolean ignoreBonus = false; //whether this attacker has a bonus from ignoring the last incoming attack
+
     //todo - we probably want damage type modifications here as well.
 
     public Combatant(
@@ -110,6 +112,17 @@ public class Combatant implements Serializable {
     }
     public void setMeleeWeapons(MeleeWeapon mw) {
         setMeleeWeapons(new Continuum<>(mw, new ArrayList<>()));
+    }
+
+    public void setIgnoreBonus() {
+        ignoreBonus = true;
+    }
+    public boolean hasIgnoreBonus(){
+        if (ignoreBonus) {
+            ignoreBonus = false;
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -10,8 +10,8 @@ public class MessageCenter {
     private Message lastMessage = new Message();
 
     public void sendMessage(Message m) {
-        if (lastMessage.length() > 0) onScreenMessages.concatenate(lastMessage);
-        lastMessage = m;
+        if (lastMessage.length() > 0) onScreenMessages.prepend(lastMessage);
+        lastMessage = trim(m);
         trimOnScreenMessages();
         messageRecall.add(m);
     }
@@ -19,6 +19,11 @@ public class MessageCenter {
     public void sendMessage(String text, MessageType type) {
         Message m = new Message(type.background, type.foreground, text);
         sendMessage(m);
+    }
+    private Message trim(Message m) {
+        String s = m.text;
+        if (s.length() < maxLength()) return m;
+        return new Message(m.background, m.foreground, s.substring(0, maxLength() - s.length() - 3) + "...");
     }
     void trimOnScreenMessages() {
         int currentLength = onScreenMessages.length();

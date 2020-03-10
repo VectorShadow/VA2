@@ -13,6 +13,10 @@ public class Functions {
      * @return whether the first actor has won the roll.
      */
     public static boolean oppose(int first, int second) {
+        if (first <= 0) //first actor automatically loses
+            return false;
+        else if (second <= 0) //second actor automatically loses
+            return true;
         int scale1 = first / 8;
         int scale2 = second / 8;
         int roll1 = Session.getRNG().nextInt(first) + 1;

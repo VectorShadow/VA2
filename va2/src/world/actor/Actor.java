@@ -36,13 +36,13 @@ public class Actor extends WorldObject {
                     currentEnergy + ").");
         currentEnergy -= cost;
         //allow negative energy actions (for example, resting) without exceeding the cap
-        if (currentEnergy > ActionDefinitions.MAXIMUM_ACTION_ENERGY)
-            currentEnergy = ActionDefinitions.MAXIMUM_ACTION_ENERGY;
+        if (currentEnergy > ActionDefinitions.MAXIMUM_ACTOR_ENERGY)
+            currentEnergy = ActionDefinitions.MAXIMUM_ACTOR_ENERGY;
     }
     public void gainEnergy() {
         currentEnergy += energyGainPerTurn;
-        if (currentEnergy > ActionDefinitions.MAXIMUM_ACTION_ENERGY)
-            currentEnergy = ActionDefinitions.MAXIMUM_ACTION_ENERGY;
+        if (currentEnergy > ActionDefinitions.MAXIMUM_ACTOR_ENERGY)
+            currentEnergy = ActionDefinitions.MAXIMUM_ACTOR_ENERGY;
     }
     public boolean hasQueuedAction() {
         return !queuedActions.isEmpty();
@@ -68,7 +68,7 @@ public class Actor extends WorldObject {
     }
 
     public boolean hasEnoughEnergy(int cost) {
-        return currentEnergy > cost;
+        return currentEnergy + ActionDefinitions.ACTION_ENERGY_BUFFER > cost;
     }
     public void plan() {
         //todo - hack! call the template's AI and use it to generate an action or set of actions

@@ -7,8 +7,8 @@ import resources.glyph.GlyphString;
 import java.awt.*;
 
 public class Message {
-    final Color background;
-    final Color foreground;
+    Color background;
+    Color foreground;
     String text;
 
     public Message() {
@@ -16,7 +16,11 @@ public class Message {
     }
 
     public Message(MessageType mt) {
-        this(mt.background, mt.foreground, "");
+        this(mt, "");
+    }
+
+    public Message(MessageType mt, String t) {
+        this(mt.background, mt.foreground, t);
     }
 
     public Message(Color b, Color f, String t) {
@@ -42,11 +46,18 @@ public class Message {
     public int length() {
         return text.length();
     }
-    public void concatenate(Message m) {
+    public void append(Message m) {
+        text += "  " + m.text;
+    }
+    public void prepend(Message m) {
         text = "  " + m.text + text;
     }
     public void setText(String t) {
         text = t;
+    }
+    public void changeType(MessageType mt) {
+        background = mt.background;
+        foreground = mt.foreground;
     }
 
     public GlyphString asGlyphString() {

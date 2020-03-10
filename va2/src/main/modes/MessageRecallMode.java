@@ -53,10 +53,10 @@ public class MessageRecallMode implements OperatingMode {
                 "[Press <Enter> to continue, or use the arrow keys to scroll (" + pct + "%)]",
                 Session.getColorScheme()
         );
+        int row = 6;
         for (int i = displayFromIndex; i < messageRecall.size(); ++i) {
-            int row = 6 + (i - displayFromIndex);
             if (row > gm.maxRow()) break;
-            gm.printGlyphString(row, 4, messageRecall.get(i).asGlyphString());
+            row = (gm.printGlyphString(row, 4, messageRecall.get(i).asGlyphString())).y + 1;
         }
     }
 
