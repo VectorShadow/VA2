@@ -1,10 +1,10 @@
 package world.actor;
 
 import combat.Combatant;
+import resources.glyph.BalancedGlyphTemplate;
 import world.WorldObjectTemplate;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Contains information required to describe and represent a generic type of actor.
@@ -18,14 +18,12 @@ public class ActorTemplate extends WorldObjectTemplate {
             String d,
             String n,
             Color nc,
-            ArrayList<Character> s,
-            ArrayList<Color> b,
-            ArrayList<Color> f,
+            BalancedGlyphTemplate bgt,
             boolean r,
             int e,
             Combatant c,
             int md) {
-        super(d, n, nc, s, b, f, r);
+        super(d, n, nc, bgt, r);
         energyGainPerTurn = e;
         combatant = c.clone();
         minimumDepth = md;

@@ -1,9 +1,9 @@
 package world;
 
 import main.extensible.GlyphDisplayable;
+import resources.glyph.BalancedGlyphTemplate;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * The base class for all WorldObjectTemplates. Templates for objects which extend WorldObject must extend this class.
@@ -15,13 +15,10 @@ public abstract class WorldObjectTemplate extends GlyphDisplayable {
             String d,
             String n,
             Color nc,
-            ArrayList<Character> s,
-            ArrayList<Color> b,
-            ArrayList<Color> f,
+            BalancedGlyphTemplate bgt,
             boolean r
     ) {
-        super(d, n, nc, s, b, f);
-
+        super(d, n, nc, bgt);
         reflectsLight = r;
     }
 

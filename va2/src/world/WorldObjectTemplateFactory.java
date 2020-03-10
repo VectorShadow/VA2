@@ -2,6 +2,7 @@ package world;
 
 import combat.Combatant;
 import io.out.DisplayStandards;
+import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
 import world.terrain.TerrainTemplate;
 
@@ -105,9 +106,11 @@ public class WorldObjectTemplateFactory {
                 description,
                 name,
                 nameColor,
-                symbols,
-                backgroundColors,
-                foregroundColors,
+                new BalancedGlyphTemplate(
+                    symbols,
+                    backgroundColors,
+                    foregroundColors
+                ),
                 reflectLight,
                 energyPerTurn,
                 combatant,
@@ -120,9 +123,11 @@ public class WorldObjectTemplateFactory {
                 description,
                 name,
                 nameColor,
-                symbols,
-                backgroundColors,
-                foregroundColors,
+                new BalancedGlyphTemplate(
+                        symbols,
+                        backgroundColors,
+                        foregroundColors
+                ),
                 reflectLight,
                 permitLight,
                 permitMovement,

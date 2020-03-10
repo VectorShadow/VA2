@@ -1,9 +1,9 @@
 package world.terrain;
 
+import resources.glyph.BalancedGlyphTemplate;
 import world.WorldObjectTemplate;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Contains information required to describe and represent a generic type of terrain.
@@ -17,15 +17,13 @@ public class TerrainTemplate extends WorldObjectTemplate {
             String d,
             String n,
             Color nc,
-            ArrayList<Character> s,
-            ArrayList<Color> b,
-            ArrayList<Color> f,
+            BalancedGlyphTemplate bgt,
             boolean r,
             boolean perLight,
             boolean perMove,
             boolean msgMove
     ) {
-        super(d, n, nc, s, b, f, r);
+        super(d, n, nc, bgt, r);
         permitLight = perLight;
         permitMovement = perMove;
         messageOnMove = msgMove;
