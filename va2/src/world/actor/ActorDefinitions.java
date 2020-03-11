@@ -21,12 +21,61 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             25,
                             new Combatant(
-                                    1_000,
+                                    1_024,
                                     128,
                                     128,
                                     128,
                                     128,
                                     128,
+                                    FormDefinitions.UNTRAINED,
+                                    WeaponDefinitions.BARE_HANDED
+                            )
+                    );
+    public static final ActorTemplate WOODLAND_SPIDER =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("woodland spider")
+                    .setSymbols('s')
+                    .setForegroundColors(
+                            new Color[] {
+                                    Chroma.BROWN,
+                            }
+                    )
+                    .manufactureActorTemplate(
+                            38,
+                            new Combatant(
+                                    16,
+                                    196,
+                                    196,
+                                    8,
+                                    16,
+                                    8,
+                                    FormDefinitions.UNTRAINED,
+                                    WeaponDefinitions.BARE_HANDED
+                            )
+                    );
+    public static final ActorTemplate LARGE_HUNTING_SPIDER =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("large hunting spider")
+                    .setSymbols('s')
+                    .setForegroundColors(
+                            new Color[] {
+                                    ColorStandards.HUNTING_SPIDER_BODY,
+                                    ColorStandards.HUNTING_SPIDER_BODY,
+                                    Chroma.BROWN,
+                                    Chroma.BEIGE
+                            }
+                    )
+                    .manufactureActorTemplate(
+                            37,
+                            new Combatant(
+                                    24,
+                                    224,
+                                    144,
+                                    16,
+                                    32,
+                                    12,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
                             )
@@ -50,7 +99,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             36,
                             new Combatant(
-                                    64,
+                                    48,
                                     256,
                                     128,
                                     32,

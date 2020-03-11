@@ -65,13 +65,19 @@ public class ThemeDefinitions {
                     ),
                     new ActorSet(
                             new Continuum<>(
-                                    ActorDefinitions.GIANT_HUNTING_SPIDER,
-                                    new ArrayList<>()
+                                    ActorDefinitions.WOODLAND_SPIDER,
+                                    ArrayListBuilder
+                                            .initialize()
+                                            .addElement(new Pair<>(0.25, ActorDefinitions.LARGE_HUNTING_SPIDER))
+                                            .addElement(new Pair<>(0.075, ActorDefinitions.GIANT_HUNTING_SPIDER))
+                                            .build()
                             ),
                             new Continuum<>(
                                     ActorDefinitions.FOREST_WOLF_TEMPLATE,
-                                    ArrayListBuilder.initialize().addElement(new Pair<>(0.4, ActorDefinitions.SILVER_WOLF_TEMPLATE))
-                                    .build()
+                                    ArrayListBuilder
+                                            .initialize()
+                                            .addElement(new Pair<>(0.4, ActorDefinitions.SILVER_WOLF_TEMPLATE))
+                                            .build()
                             ),
                             new Continuum<>(
                                     ActorDefinitions.BLACK_BEAR_TEMPLATE,

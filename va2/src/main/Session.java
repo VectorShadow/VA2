@@ -17,6 +17,7 @@ import io.out.GUIManager;
 import main.modes.ModeManager;
 import util.Coordinate;
 import world.actor.Actor;
+import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.ThemeDefinitions;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
@@ -151,9 +152,18 @@ public class Session {
         currentFloor.placeActor(a, c);
         engine.addActor(a);
     }
+    public static void removeActor(Actor a) {
+        Coordinate c = a.getLocation();
+        FloorTile ft = currentFloor.tileAt(c.getRow(), c.getColumn());
+        engine.removeActor(a);
+        ft.setActor(null);
+    }
     public static void killActor(Actor a) {
-        //todo - remove the actor from the currentFloor and the engine.
-        //todo - if this actor is the player, terminate the game appropriately.
+        removeActor(a);
+        if (player.getActor() == a) {
+            System.exit(0);
+            //todo - terminate the game appropriately
+        }
     }
     public static boolean isPlaying() {
         return player.getActor() != null;

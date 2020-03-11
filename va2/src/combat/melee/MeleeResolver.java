@@ -390,6 +390,10 @@ public class MeleeResolver extends CombatResolver {
         //todo - armor
         if (!defenderCombatant.adjustHealth(-attackDamage)) {
             Session.killActor(defender);
+            if (isAttackerPlayer) {
+                updateMessage("You have slain the " + defenderName + ".", MessageType.SUCCESS);
+                //todo - award xp and loot to dungeon pool
+            }
         }
         return message;
     }

@@ -144,8 +144,7 @@ public abstract class FloorGenerator implements Serializable {
         //clear the stairs for the player:
         if (ft.getActor() != null) {
             Actor actor = ft.getActor();
-            Session.getEngine().removeActor(actor);
-            ft.setActor(null);
+            Session.removeActor(actor);
         }
         floor.setPlayerSpawn(c);
     }
