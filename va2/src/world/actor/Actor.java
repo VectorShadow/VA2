@@ -1,7 +1,6 @@
 package world.actor;
 
 import ai.CloseCombatAI;
-import ai.RandomAI;
 import combat.Combatant;
 import engine.action.Action;
 import engine.action.ActionDefinitions;
@@ -69,7 +68,7 @@ public class Actor extends WorldObject {
     }
 
     public boolean hasEnoughEnergy(int cost) {
-        return currentEnergy + ActionDefinitions.ACTION_ENERGY_BUFFER > cost;
+        return currentEnergy > cost;
     }
     public void plan() {
         //todo - hack! call the template's AI and use it to generate an action or set of actions

@@ -74,8 +74,6 @@ public class Floor implements Serializable {
         currentRow = coordinate.getRow();
         currentCol = coordinate.getColumn();
         floorTile = floorTiles[currentRow][currentCol];
-        if (floorTile.getActor() != null)
-            throw new IllegalStateException("Placed an actor on top of an existing actor. Why?");
         floorTile.setActor(actor);
         if (actor == Session.getPlayer().getActor()) {
             TerrainTemplate tt = (TerrainTemplate)floorTile.getTerrain().getTemplate();
