@@ -51,6 +51,8 @@ public class Engine implements Serializable {
             for (int i = 0; i < actors.size(); ++i) {
                 actor = actors.get(i);
                 actor.gainEnergy(); //gain this turn's energy
+                if (!actor.hasEnoughEnergy(ActionDefinitions.MAXIMUM_ACTION_ENERGY)) //wait till we can take any action
+                    continue;
                 if (!actor.hasQueuedAction()) {
                     if (i == 0) return; //if the player has no queued action, we are done
                     actor.plan(); //else use the plan method to invoke the AI and queue an action
@@ -81,7 +83,7 @@ public class Engine implements Serializable {
                 }
             }
             //increment the game turn and automatically save every so often
-            if (++gameTurn % 1_000 == 0) Session.getFileManager().saveGameState();
+            if (++gameTurn % 1_024 == 0) Session.getFileManager().saveGameState();
         }
     }
     public boolean validate(Actor actor, Action action) {

@@ -68,15 +68,15 @@ public class ThemeDefinitions {
                                     ActorDefinitions.WOODLAND_SPIDER,
                                     ArrayListBuilder
                                             .initialize()
-                                            .addElement(new Pair<>(0.25, ActorDefinitions.LARGE_HUNTING_SPIDER))
-                                            .addElement(new Pair<>(0.075, ActorDefinitions.GIANT_HUNTING_SPIDER))
+                                            .addElement(new Pair<>(0.15, ActorDefinitions.LARGE_HUNTING_SPIDER))
+                                            .addElement(new Pair<>(0.025, ActorDefinitions.GIANT_HUNTING_SPIDER))
                                             .build()
                             ),
                             new Continuum<>(
                                     ActorDefinitions.FOREST_WOLF_TEMPLATE,
                                     ArrayListBuilder
                                             .initialize()
-                                            .addElement(new Pair<>(0.4, ActorDefinitions.SILVER_WOLF_TEMPLATE))
+                                            .addElement(new Pair<>(0.25, ActorDefinitions.SILVER_WOLF_TEMPLATE))
                                             .build()
                             ),
                             new Continuum<>(
