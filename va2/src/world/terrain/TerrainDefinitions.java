@@ -5,6 +5,7 @@ import world.ColorStandards;
 import world.WorldObjectTemplateFactory;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 
 /**
  * Contains the definitions for each available TerrainTemplate.
@@ -172,5 +173,20 @@ public class TerrainDefinitions {
                     .setName("a pathway leading deeper into the dungeon")
                     .setSymbols('>')
                     .setForegroundColors(Color.ORANGE)
+                    .manufactureTerrainTemplate(true, true, true);
+    public static TerrainTemplate TANGLED_PORTAL =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("a strange and tangled mass of ancient vines and webs")
+                    .setSymbols('&')
+                    .setForegroundColors(
+                            new Color[]{
+                                    ColorStandards.HUNTING_SPIDER_BODY,
+                                    ColorStandards.ANCIENT_OAK,
+                                    ColorStandards.FOREST_UNDERGROWTH,
+                                    Chroma.BROWN,
+                                    Chroma.GREEN
+                            }
+                            )
                     .manufactureTerrainTemplate(true, true, true);
 }

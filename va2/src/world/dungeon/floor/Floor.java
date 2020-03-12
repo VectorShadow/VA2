@@ -4,6 +4,7 @@ import io.out.message.MessageType;
 import main.Session;
 import util.Coordinate;
 import world.actor.Actor;
+import world.dungeon.generate.PredefinedMapGenerator;
 import world.dungeon.theme.DungeonTheme;
 import world.light.Light;
 import world.terrain.TerrainTemplate;
@@ -25,11 +26,16 @@ public class Floor implements Serializable {
     public Floor(int depth, DungeonTheme dt) {
         DEPTH = depth;
         THEME = dt;
-        ROWS = THEME.randomizeRows();
-        COLS = THEME.randomizeCols();
+        ROWS = isDeepestFloor()
+                ? THEME.finalFloorRows()
+                : THEME.randomizeRows();
+        COLS = isDeepestFloor()
+                ? THEME.finalFloorCols()
+                : THEME.randomizeCols();
         floorTiles = new FloorTile[ROWS][COLS];
         initializeTiles(THEME.getAmbientLight());
     }
+
     private void initializeTiles(Light l) {
         floorTiles = new FloorTile[ROWS][COLS];
         for (int i = 0; i < ROWS; ++i) {
@@ -42,7 +48,10 @@ public class Floor implements Serializable {
         }
     }
     public void generate() {
-        THEME.randomizeFloorGenerator().generate(this);
+        if (Session.isFinalFloor())
+            new PredefinedMapGenerator().generate(this);
+        else
+            THEME.randomizeFloorGenerator().generate(this);
     }
 
     public int getSize() {
@@ -90,5 +99,8 @@ public class Floor implements Serializable {
 
     public void setPlayerSpawn(Coordinate playerSpawn) {
         this.playerSpawn = playerSpawn;
+    }
+    private boolean isDeepestFloor() {
+        return DEPTH == THEME.getDepth();
     }
 }

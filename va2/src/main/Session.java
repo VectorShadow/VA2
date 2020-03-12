@@ -11,7 +11,6 @@ import main.progression.Experience;
 import resources.chroma.ChromaSet;
 import world.actor.ActorDefinitions;
 import world.dungeon.Dungeon;
-import world.dungeon.DungeonDefinitions;
 import world.dungeon.floor.Floor;
 import io.file.FileManager;
 import io.out.GUIManager;
@@ -58,7 +57,7 @@ public class Session {
     }
     public static void reset() {
         camera = new Camera();
-        currentDungeon = new Dungeon(DungeonDefinitions.THE_DARK_GROVE);
+        currentDungeon = new Dungeon(ThemeDefinitions.DARK_GROVE);
         currentFloor = new Floor(0, ThemeDefinitions.YSIAN_ESTATE);
         engine = new Engine();
         messageCenter = new MessageCenter();
@@ -169,5 +168,8 @@ public class Session {
     }
     public static boolean isPlaying() {
         return player.getActor() != null;
+    }
+    public static boolean isFinalFloor() {
+        return currentFloor.DEPTH == currentDungeon.getTheme().getDepth();
     }
 }

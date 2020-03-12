@@ -20,7 +20,10 @@ public class DungeonTheme implements Serializable {
     private final int ROW_VARIANCE;
     private final int COL_VARIANCE;
     private final int ENEMY_VARIANCE;
+    private final int DUNGEON_DEPTH;
 
+    private final String[] FINAL_FLOOR_ACTORS;
+    private final String[] FINAL_FLOOR_MAP;
 
     private final Continuum<FloorGenerator> GENERATORS;
     private final ActorSet ACTOR_SET;
@@ -37,6 +40,9 @@ public class DungeonTheme implements Serializable {
             int rowVar,
             int colVar,
             int enemyVar,
+            int depth,
+            String[] actors,
+            String[] map,
             Continuum<FloorGenerator> floorGen,
             ActorSet actorSet,
             TerrainSet terrainSet
@@ -50,6 +56,9 @@ public class DungeonTheme implements Serializable {
         ROW_VARIANCE = rowVar;
         COL_VARIANCE = colVar;
         ENEMY_VARIANCE = enemyVar;
+        DUNGEON_DEPTH = depth;
+        FINAL_FLOOR_ACTORS = actors;
+        FINAL_FLOOR_MAP = map;
         GENERATORS = floorGen;
         ACTOR_SET = actorSet;
         TERRAIN_SET = terrainSet;
@@ -64,6 +73,12 @@ public class DungeonTheme implements Serializable {
     public int randomizeCols() {
         return MAXIMUM_COLS - Session.getRNG().nextInt(COL_VARIANCE);
     }
+    public int finalFloorRows() {
+        return FINAL_FLOOR_MAP.length;
+    }
+    public int finalFloorCols() {
+        return FINAL_FLOOR_MAP[0].length();
+    }
     public int randomizeEnemies() {
         return MAXIMUM_ENEMIES - Session.getRNG().nextInt(ENEMY_VARIANCE);
     }
@@ -71,10 +86,22 @@ public class DungeonTheme implements Serializable {
         return GENERATORS.getValue(Session.getRNG());
     }
 
+    public String[] getFinalFloorActors() {
+        return FINAL_FLOOR_ACTORS;
+    }
+
+    public String[] getFinalFloorMap() {
+        return FINAL_FLOOR_MAP;
+    }
+
     public ActorSet getActorSet() {
         return ACTOR_SET;
     }
     public TerrainSet getTerrainSet() {
         return TERRAIN_SET;
+    }
+
+    public int getDepth() {
+        return DUNGEON_DEPTH;
     }
 }

@@ -76,6 +76,9 @@ public class MainGameViewMode implements OperatingMode {
                         Session.getCurrentDungeon().exitDungeon(false);
                     } else if (tt.equals(TerrainDefinitions.REWARD_STAIR)) {
                         Session.getCurrentDungeon().exitDungeon(true);
+                    } else if(tt.equals(Session.getCurrentDungeon().getTheme().getTerrainSet().getEndTerrain())) {
+                        //todo - unlock and display dungeon completion lore
+                        Session.getCurrentDungeon().exitDungeon(true);
                     } else {
                         if (EstateRoomMenuMode.interpretTerrain(tt) != null)
                             Session.getModeManager().transitionTo(EstateRoomMenuMode.interpretTerrain(tt));
@@ -88,8 +91,15 @@ public class MainGameViewMode implements OperatingMode {
                     here = player.getActor().getLocation();
                     tt = (TerrainTemplate)
                             Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
-                    if (tt.equals(TerrainDefinitions.FOREST_GATE)) //todo - open a menu here once we have cleared Dark Grove
+                    if (tt.equals(TerrainDefinitions.FOREST_GATE)) {
+                        //todo - open a menu here once we have cleared Dark Grove
                         Session.getCurrentDungeon().nextFloor();
+                    } else if (tt.equals(TerrainDefinitions.NEXT_FLOOR_STAIR)) {
+                        Session.getCurrentDungeon().nextFloor();
+                    } else if(tt.equals(Session.getCurrentDungeon().getTheme().getTerrainSet().getEndTerrain())) {
+                        //todo - unlock and display dungeon completion lore
+                        Session.getCurrentDungeon().exitDungeon(true);
+                    }
                 }
                 break;
             case VK_S:

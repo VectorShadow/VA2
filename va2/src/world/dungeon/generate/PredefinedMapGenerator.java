@@ -1,7 +1,11 @@
 package world.dungeon.generate;
 
+import main.Session;
 import util.Coordinate;
+import world.actor.Actor;
+import world.actor.ActorTemplate;
 import world.dungeon.floor.Floor;
+import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.TerrainSet;
 import world.dungeon.theme.ThemeDefinitions;
@@ -16,55 +20,81 @@ import world.terrain.TerrainTemplate;
 public class PredefinedMapGenerator extends FloorGenerator {
     @Override
     public Floor generate(Floor f) {
-        String[] definition;
         floor = f;
         if (floor.THEME == ThemeDefinitions.YSIAN_ESTATE) {
-            definition = new String[] {
-                    "!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-                    "!*************************!",
-                    "!**;*;;;*;;;*>**;*;;;**;**!",
-                    "!*;;;*;;;;*;;;*;;;;;;*;;;*!",
-                    "!**;;;;;;;*;;;;;;;;*;;;;;*!",
-                    "!*;;;;*;;;;;*;;;;;;;;;;***!",
-                    "!##==##==#*;;;;;*#==##==##!",
-                    "!##......#**;;;**#......##!",
-                    "!##......#*;;;;;*#......##!",
-                    "!#`......#*;;;;;*#......0#!",
-                    "!##......#*;;;;;*#......##!",
-                    "!##......#***;***#......##!",
-                    "!##......####;####......##!",
-                    "!#1.....................9#!",
-                    "!##.....................##!",
-                    "!##.....................##!",
-                    "!##.....................##!",
-                    "!#2.....................8#!",
-                    "!##.....................##!",
-                    "!##.....................##!",
-                    "!####3###4###5###6###7####!",
-                    "!#########################!",
-                    "!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            };
             for (int i = 0; i < floor.ROWS; ++i) {
                 for (int j = 0; j < floor.COLS; ++j) {
                     floor.tileAt(i, j).setSeen(true); //the player remembers his own house
                 }
             }
-        } /*todo else if - other predefined levels? */ else {
-            throw new IllegalArgumentException("Unknown theme.");
         }
-        copy(definition);
+        copyMap();
+        copyActors();
         return floor;
     }
-    private void copy(String[] s) {
+    private void copyActors() {
+        String[] s = floor.THEME.getFinalFloorActors();
+        char c;
+        ActorTemplate[] dbs = floor.THEME.getActorSet().getDungeonBossSet();
+        ActorTemplate at;
         for (int i = 0; i < floor.ROWS; ++i) {
             for (int j = 0; j < floor.COLS; ++j) {
-                char c = s[i].charAt(j);
-                //todo - themes should map chars to terrain definitions.
-                TerrainSet ts = floor.THEME.getTerrainSet();
-                TerrainTemplate tt;
+                c = s[i].charAt(j);
+                switch (c) {
+                    case ' ':
+                        at = null;
+                        break;
+                    case '0':
+                        at = dbs[0];
+                        break;
+                    case '1':
+                        at = dbs[1];
+                        break;
+                    case '2':
+                        at = dbs[2];
+                        break;
+                    case '3':
+                        at = dbs[3];
+                        break;
+                    case '4':
+                        at = dbs[4];
+                        break;
+                    case '5':
+                        at = dbs[5];
+                        break;
+                    case '6':
+                        at = dbs[6];
+                        break;
+                    case '7':
+                        at = dbs[7];
+                        break;
+                    case '8':
+                        at = dbs[8];
+                        break;
+                    case '9':
+                        at = dbs[9];
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unexpected symbol " + c);
+                }
+                if (at != null)
+                    Session.addActor(new Actor(at), new Coordinate(i, j));
+            }
+        }
+    }
+    private void copyMap() {
+        String[] s = floor.THEME.getFinalFloorMap();
+        char c;
+        //todo - themes should map chars to terrain definitions.
+        TerrainSet ts = floor.THEME.getTerrainSet();
+        TerrainTemplate tt;
+        for (int i = 0; i < floor.ROWS; ++i) {
+            for (int j = 0; j < floor.COLS; ++j) {
+                c = s[i].charAt(j);
                 switch (c) {
                     case '!':
                         tt = TerrainDefinitions.PERMANENT_WALL;
+                        break;
                     case '#':
                         tt = ts.getBasePrimaryWall();
                         break;
@@ -76,6 +106,13 @@ public class PredefinedMapGenerator extends FloorGenerator {
                         break;
                     case '*':
                         tt = ts.getBaseAlternateWall();
+                        break;
+                    case '<':
+                        tt = TerrainDefinitions.FLIGHT_STAIR;
+                        floor.setPlayerSpawn(new Coordinate(i, j));
+                        break;
+                    case '$':
+                        tt = floor.THEME.getTerrainSet().getEndTerrain();
                         break;
                     case '>':
                         tt = TerrainDefinitions.FOREST_GATE;

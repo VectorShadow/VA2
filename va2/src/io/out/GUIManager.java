@@ -268,7 +268,6 @@ public class GUIManager {
                 lastGlyph.x,
                 new GlyphString(onScreen.getText(), onScreen.getBackground(), onScreen.getForeground())
         );
-        GUI.setTitle("Player Health: " + Session.getPlayer().getActor().getCombatant().getHealthPercent());
     }
 
     public void toggleFullScreenMode() {

@@ -61,6 +61,6 @@ public class Message {
     }
 
     public GlyphString asGlyphString() {
-        return new GlyphString(text, background, foreground);
+        return new GlyphString(getText(), getBackground(), getForeground());
     }
 }

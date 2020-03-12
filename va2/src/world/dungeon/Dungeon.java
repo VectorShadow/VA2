@@ -16,33 +16,20 @@ import java.util.ArrayList;
  * Keeps track of a specific instance of a dungeon.
  */
 public class Dungeon implements Serializable {
-    private static final double EARLY_EXIT_PENALTY = 0.25;
+    private static final double EARLY_EXIT_PENALTY = 0.4;
 
-    private final DungeonTemplate DUNGEON_TEMPLATE;
+    private final DungeonTheme DUNGEON_THEME;
     private ArrayList<Reward> rewards = new ArrayList<>();
 
-    public Dungeon(DungeonTemplate dt) {
-        DUNGEON_TEMPLATE = dt;
+    public Dungeon(DungeonTheme dt) {
+        DUNGEON_THEME = dt;
     }
     public void addReward(Reward r) {
         rewards.add(r);
     }
     public void nextFloor() {
-        int currentDepth = Session.getCurrentFloor().DEPTH;
-        if (currentDepth == DUNGEON_TEMPLATE.getDepth()) {
-            //todo - generate the final floor from the DUNGEON_TEMPLATE, using PredefinedFloorGenerator
-            //todo - populate from the template
-            //todo - send a special message
-            throw new UnsupportedOperationException("Boss floors not implemented!");
-        } else if (currentDepth > DUNGEON_TEMPLATE.getDepth()) {
-            //todo - add a completion bonus in loot and xp
-            Session.getMessageCenter().sendMessage("You have cleared the dungeon.", MessageType.SUCCESS);
-            exitDungeon(true);
-            return;
-        } else {
-            Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO);
-            Session.setCurrentFloor(new Floor(currentDepth + 1, DUNGEON_TEMPLATE.DUNGEON_THEME));
-        }
+        Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO);
+        Session.setCurrentFloor(new Floor(Session.getCurrentFloor().DEPTH + 1, DUNGEON_THEME));
     }
     public void exitDungeon(boolean fullRewards) {
         Player player = Session.getPlayer();
@@ -57,10 +44,16 @@ public class Dungeon implements Serializable {
         }
         rewards = new ArrayList<>();
         Session.getMessageCenter().sendMessage(
-                fullRewards ?
-                        "You leave the dungeon and return to your estate." :
-                        "You flee the dungeon and escape to your estate.",
-                fullRewards ? MessageType.INFO : MessageType.WARNING
+                fullRewards
+                        ? Session.isFinalFloor()
+                        ? "You have cleared the dungeon."
+                        : "You leave the dungeon and return to your estate."
+                        : "You flee the dungeon and escape to your estate.",
+                fullRewards
+                        ? Session.isFinalFloor()
+                        ? MessageType.SUCCESS
+                        : MessageType.INFO
+                        : MessageType.WARNING
         );
         Session.setCurrentFloor(new Floor(0, ThemeDefinitions.YSIAN_ESTATE));
         if (experience.getLevel() > startLevel) {
@@ -69,7 +62,8 @@ public class Dungeon implements Serializable {
             );
         }
     }
+
     public DungeonTheme getTheme() {
-        return DUNGEON_TEMPLATE.DUNGEON_THEME;
+        return DUNGEON_THEME;
     }
 }
