@@ -14,6 +14,7 @@ import io.out.message.MessageType;
 import main.Session;
 import util.Grammar;
 import world.actor.Actor;
+import world.actor.ActorTemplate;
 
 /**
  * CombatResolver for Melee combat interactions.
@@ -392,7 +393,7 @@ public class MeleeResolver extends CombatResolver {
             Session.killActor(defender);
             if (isAttackerPlayer) {
                 updateMessage("You have slain the " + defenderName + ".", MessageType.SUCCESS);
-                //todo - award xp and loot to dungeon pool
+                Session.getCurrentDungeon().addReward(((ActorTemplate)defender.getTemplate()).getReward());
             }
         }
         return message;

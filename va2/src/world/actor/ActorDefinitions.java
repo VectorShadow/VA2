@@ -3,6 +3,7 @@ package world.actor;
 import combat.Combatant;
 import combat.melee.forms.FormDefinitions;
 import combat.melee.weapons.WeaponDefinitions;
+import main.progression.Reward;
 import resources.chroma.Chroma;
 import world.ColorStandards;
 import world.WorldObjectTemplateFactory;
@@ -29,7 +30,8 @@ public class ActorDefinitions {
                                     128,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
-                            )
+                            ),
+                            new Reward(0, 0)
                     );
     public static final ActorTemplate WOODLAND_SPIDER =
             WorldObjectTemplateFactory
@@ -52,7 +54,8 @@ public class ActorDefinitions {
                                     8,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
-                            )
+                            ),
+                            new Reward(1, 2)
                     );
     public static final ActorTemplate LARGE_HUNTING_SPIDER =
             WorldObjectTemplateFactory
@@ -78,7 +81,8 @@ public class ActorDefinitions {
                                     12,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
-                            )
+                            ),
+                            new Reward(1, 6)
                     );
     public static final ActorTemplate GIANT_HUNTING_SPIDER =
             WorldObjectTemplateFactory
@@ -107,7 +111,8 @@ public class ActorDefinitions {
                                     16,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
-                            )
+                            ),
+                            new Reward(1, 16)
                     );
     public static final ActorTemplate FOREST_WOLF_TEMPLATE =
             WorldObjectTemplateFactory
@@ -126,7 +131,8 @@ public class ActorDefinitions {
                                     64,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
-                            )
+                            ),
+                            new Reward(2, 12)
                     );
     public static final ActorTemplate SILVER_WOLF_TEMPLATE =
             WorldObjectTemplateFactory
@@ -145,7 +151,8 @@ public class ActorDefinitions {
                                     72,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
-                            )
+                            ),
+                            new Reward(2, 20)
                     );
     public static final ActorTemplate BLACK_BEAR_TEMPLATE =
             WorldObjectTemplateFactory
@@ -164,7 +171,8 @@ public class ActorDefinitions {
                                     192,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
-                            )
+                            ),
+                            new Reward(3, 24)
                     );
     public static final ActorTemplate CAVE_BEAR_TEMPLATE =
             WorldObjectTemplateFactory
@@ -189,6 +197,7 @@ public class ActorDefinitions {
                                     256,
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
-                            )
+                            ),
+                            new Reward(5, 32)
                     );
 }

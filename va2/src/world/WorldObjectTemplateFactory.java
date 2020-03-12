@@ -2,6 +2,7 @@ package world;
 
 import combat.Combatant;
 import io.out.DisplayStandards;
+import main.progression.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
 import world.terrain.TerrainTemplate;
@@ -97,10 +98,15 @@ public class WorldObjectTemplateFactory {
         if (backgroundColors.isEmpty()) backgroundColors.add(DEFAULT_BACKGROUND_COLOR);
         if (foregroundColors.isEmpty()) foregroundColors.add(DEFAULT_FOREGROUND_COLOR);
     }
-    public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant) {
-        return manufactureActorTemplate(energyPerTurn, combatant, 1);
+    public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant, Reward reward) {
+        return manufactureActorTemplate(energyPerTurn, combatant, 1, reward);
     }
-    public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant, int minimumDepth) {
+    public ActorTemplate manufactureActorTemplate(
+            int energyPerTurn,
+            Combatant combatant,
+            int minimumDepth,
+            Reward reward
+    ) {
         forceNonEmptyLists();
         return new ActorTemplate(
                 description,
@@ -114,7 +120,8 @@ public class WorldObjectTemplateFactory {
                 reflectLight,
                 energyPerTurn,
                 combatant,
-                minimumDepth
+                minimumDepth,
+                reward
         );
     }
     public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {

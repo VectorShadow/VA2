@@ -1,6 +1,7 @@
 package world.actor;
 
 import combat.Combatant;
+import main.progression.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.WorldObjectTemplate;
 
@@ -13,20 +14,23 @@ public class ActorTemplate extends WorldObjectTemplate {
     private final int energyGainPerTurn;
     private final Combatant combatant;
     private final int minimumDepth;
+    private final Reward reward;
 
     public ActorTemplate(
             String d,
             String n,
             Color nc,
             BalancedGlyphTemplate bgt,
-            boolean r,
+            boolean reflect,
             int e,
             Combatant c,
-            int md) {
-        super(d, n, nc, bgt, r);
+            int md,
+            Reward reward) {
+        super(d, n, nc, bgt, reflect);
         energyGainPerTurn = e;
         combatant = c;
         minimumDepth = md;
+        this.reward = reward;
     }
 
 
@@ -40,5 +44,9 @@ public class ActorTemplate extends WorldObjectTemplate {
 
     public int getMinimumDepth() {
         return minimumDepth;
+    }
+
+    public Reward getReward() {
+        return reward;
     }
 }

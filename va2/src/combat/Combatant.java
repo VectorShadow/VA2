@@ -77,6 +77,9 @@ public class Combatant implements Serializable {
         if (health > healthCapacity) health = healthCapacity;
         return health > 0;
     }
+    public void renewHealth() {
+        health = healthCapacity;
+    }
     public double getHealthPercent() {
         return 100.0 * (double)health / (double)healthCapacity;
     }
