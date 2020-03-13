@@ -76,7 +76,8 @@ public class MainGameViewMode implements OperatingMode {
                         Session.getCurrentDungeon().exitDungeon(false);
                     } else if (tt.equals(TerrainDefinitions.REWARD_STAIR)) {
                         Session.getCurrentDungeon().exitDungeon(true);
-                    } else if(tt.equals(Session.getCurrentDungeon().getTheme().getTerrainSet().getEndTerrain())) {
+                    } else if(!Session.getCurrentDungeon().isDungeonBossAlive() &&
+                            tt.equals(Session.getCurrentDungeon().getTheme().getTerrainSet().getEndTerrain())) {
                         //todo - unlock and display dungeon completion lore
                         Session.getCurrentDungeon().exitDungeon(true);
                     } else {
@@ -96,7 +97,8 @@ public class MainGameViewMode implements OperatingMode {
                         Session.getCurrentDungeon().nextFloor();
                     } else if (tt.equals(TerrainDefinitions.NEXT_FLOOR_STAIR)) {
                         Session.getCurrentDungeon().nextFloor();
-                    } else if(tt.equals(Session.getCurrentDungeon().getTheme().getTerrainSet().getEndTerrain())) {
+                    } else if(!Session.getCurrentDungeon().isDungeonBossAlive() &&
+                            tt.equals(Session.getCurrentDungeon().getTheme().getTerrainSet().getEndTerrain())) {
                         //todo - unlock and display dungeon completion lore
                         Session.getCurrentDungeon().exitDungeon(true);
                     }

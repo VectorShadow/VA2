@@ -1,5 +1,6 @@
 package main.progression;
 
+import main.Session;
 import main.extensible.Saveable;
 
 public class Reward extends Saveable {
@@ -13,21 +14,16 @@ public class Reward extends Saveable {
     }
 
     public long evaluateExperience(int playerLevel) {
-        double difference = playerLevel - REWARD_LEVEL;
-        double multiplier = 1.0 * (
-                (difference < 0)
-                        ? Math.min(Math.pow(1.04, (0 - difference)), 2.5)
-                        : (difference > 0)
-                        ? Math.max(Math.pow(0.96, difference), 0.0025)
-                        : 1.0
-        );
-        return (long)(Math.max((double)REWARD_EXPERIENCE * multiplier, 1));
+        //the deeper the floor in a given dungeon, the better the experience todo - loot rewards should use this too
+        double difference = playerLevel - (REWARD_LEVEL + Session.getCurrentFloor().DEPTH);
+        double multiplier = 1.0 * Math.pow(0.92, difference);
+        return (long)((double)REWARD_EXPERIENCE * multiplier);
     }
 
-    public static final void testScaling() {
-        Reward r = new Reward(32, 1_024);
-        for (int i = 0; i < 64; ++i) {
-            System.out.println("Player level: " + i + " XP Awarded: " + r.evaluateExperience(i) + " / " + Experience.XP_TABLE[i]);
+    public static void testScaling() {
+        Reward r = new Reward(25, 128);
+        for (int i = 0; i < 128; ++i) {
+            System.out.println("Player level: " + i + " XP Awarded: " + r.evaluateExperience(i) + " / " + Experience.calculateXP(i));
         }
     }
 }

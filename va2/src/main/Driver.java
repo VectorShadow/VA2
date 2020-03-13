@@ -1,6 +1,7 @@
 package main;
 
 import error.ErrorLogger;
+import main.progression.Reward;
 
 public class Driver {
     public static void main(String[] args) {
@@ -9,5 +10,6 @@ public class Driver {
         } catch (Exception e) {
             ErrorLogger.logFatalException(e);
         }
+        Reward.testScaling();
     }
 }
