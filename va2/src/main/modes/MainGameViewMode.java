@@ -142,6 +142,7 @@ public class MainGameViewMode implements OperatingMode {
                 gm.printGlyph(r, c, floorRenderer.getGlyphAt(r, c));
             }
         }
+        gm.printPlayerStatistics();
         gm.printMessages();
     }
 

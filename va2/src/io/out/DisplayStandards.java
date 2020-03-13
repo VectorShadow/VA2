@@ -15,7 +15,14 @@ public class DisplayStandards {
         ChromaSet cs = Session.getColorScheme();
         return GlyphBuilder
                 .buildGlyph()
-                .setDefaults(cs.getForeground(), cs.getBackground(), ' ')
+                .setDefaults(cs.subdueForeground(), cs.getHighlight(), '!')
+                .build(DualityMode.SHORT_TEXT);
+    }
+    public static final Glyph getPlayerStatsBorder() {
+        ChromaSet cs = Session.getColorScheme();
+        return GlyphBuilder
+                .buildGlyph()
+                .setDefaults(cs.subdueForeground(), cs.getHighlight(), '@')
                 .build(DualityMode.SHORT_TEXT);
     }
 

@@ -65,7 +65,6 @@ public class Dungeon implements Serializable {
     }
     private void dispenseRewards(double threshold) {
         Player player = Session.getPlayer();
-        player.getActor().getCombatant().renewHealth();
         Experience experience = player.getExperience();
         int startLevel = experience.getLevel();
         for (Iterator<Reward> i = rewards.iterator(); i.hasNext();) {

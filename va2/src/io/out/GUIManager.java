@@ -7,12 +7,15 @@ import error.ErrorLogger;
 import io.out.message.Message;
 import main.MetaData;
 import main.Session;
+import main.progression.Experience;
 import resources.DualityContext;
 import resources.DualityMode;
 import resources.chroma.ChromaSet;
 import resources.glyph.Glyph;
 import resources.glyph.GlyphString;
 import resources.glyph.image.ImageManager;
+import util.Format;
+import world.ColorStandards;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -62,6 +65,7 @@ public class GUIManager {
     public static final int CHANNEL_FULLSCREEN_TEXT = 1;
 
     public static final int ZONE_MESSAGE_CENTER = 0;
+    public static final int ZONE_PLAYER_STATS = 1;
 
     private final Gui GUI = new DualityGUI();
 
@@ -124,12 +128,24 @@ public class GUIManager {
         //calculate the number of rows and columns available to display messages:
         messageWindowRows = GUI.countRows() - GUI.rowAtPercent(MESSAGE_WINDOW_START);
         messageWindowCols = GUI.colAtPercent(ZONE_MESSAGE_CENTER, 1.0);
+        int statsZone =
+                GUI.addZone(
+                        CHANNEL_GAME,
+                        0.0,
+                        MESSAGE_WINDOW_START,
+                        0.0,
+                        0.2,
+                        DualityMode.SHORT_TEXT
+                );
         //todo - game channel setup here
         int fsText = GUI.addChannel(DualityMode.LONG_TEXT);
         //paranoia - these checks can be removed once we stop adding GUI channels/zones:
         if (ZONE_MESSAGE_CENTER != messageZone)
             throw new IllegalStateException("Invalid zone index for Message Center - expected " +
                     ZONE_MESSAGE_CENTER + " but was " + messageZone);
+        if (ZONE_PLAYER_STATS != statsZone)
+            throw new IllegalStateException("Invalid zone index for Player Stats - expected " +
+                    ZONE_PLAYER_STATS + " but was " + statsZone);
         if (CHANNEL_FULLSCREEN_TEXT != fsText)
             throw new IllegalStateException("Invalid channel index for Fullscreen Text - expected " +
                     CHANNEL_FULLSCREEN_TEXT + " but was " + fsText);
@@ -145,6 +161,7 @@ public class GUIManager {
             }
         }
         GUI.setBorder(CHANNEL_GAME, ZONE_MESSAGE_CENTER, DisplayStandards.getMessageWindowBorder());
+        GUI.setBorder(CHANNEL_GAME, ZONE_PLAYER_STATS, DisplayStandards.getPlayerStatsBorder());
     }
 
     public void changeChannelToGameDisplay() {
@@ -267,6 +284,44 @@ public class GUIManager {
                 lastGlyph.y,
                 lastGlyph.x,
                 new GlyphString(onScreen.getText(), onScreen.getBackground(), onScreen.getForeground())
+        );
+    }
+    public void printPlayerStatistics() {
+        int playerLevel = Session.getPlayer().getExperience().getLevel();
+        long playerExperience = Session.getPlayer().getExperience().getExp();
+        double xpPercent = 100.0 * ((double)playerExperience / (double)Experience.calculateXP(playerLevel + 1));
+        String xpString = Format.percent(
+                xpPercent,
+                0
+        );
+        double healthPercent = Session.getPlayer().getActor().getCombatant().getHealthPercent();
+        GUI.clear(ZONE_PLAYER_STATS);
+        int row = 1;
+        GUI.print(
+                ZONE_PLAYER_STATS,
+                row++,
+                1,
+                new GlyphString(
+                        "Level: " + playerLevel,
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_PLAYER_STATS,
+                row++,
+                1,
+                new GlyphString(
+                        "Progress: " + xpString,
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_PLAYER_STATS,
+                row++,
+                1,
+                Format.colorCode("Health: ", healthPercent, 0)
         );
     }
 

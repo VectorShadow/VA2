@@ -14,6 +14,15 @@ public class Experience extends Saveable {
     public int getLevel() {
         return level;
     }
+
+    public long getExp() {
+        return exp;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
     public void gainXP(long xp) {
         if (level >= MAX_LEVEL) return; //stop XP gain after reaching maximum level
         exp += xp;
