@@ -10,6 +10,5 @@ public class Driver {
         } catch (Exception e) {
             ErrorLogger.logFatalException(e);
         }
-        Reward.testScaling();
     }
 }
