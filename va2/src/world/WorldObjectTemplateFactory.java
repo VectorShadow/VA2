@@ -22,7 +22,6 @@ public class WorldObjectTemplateFactory {
 
     private String name = "";
     private String description = "";
-    private Color nameColor = DisplayStandards.MESSAGE_DEFAULT_FOREGROUND;
 
     private ArrayList<Character> symbols;
     private ArrayList<Color> backgroundColors;
@@ -48,10 +47,6 @@ public class WorldObjectTemplateFactory {
         name = n;
         if (description.equals(""))
             description = name;
-        return this;
-    }
-    public WorldObjectTemplateFactory setNameColor(Color nc) {
-        nameColor = nc;
         return this;
     }
     public WorldObjectTemplateFactory setDescription(String d) {
@@ -113,7 +108,6 @@ public class WorldObjectTemplateFactory {
         return new ActorTemplate(
                 description,
                 name,
-                nameColor,
                 new BalancedGlyphTemplate(
                     symbols,
                     backgroundColors,
@@ -132,7 +126,6 @@ public class WorldObjectTemplateFactory {
         return new TerrainTemplate(
                 description,
                 name,
-                nameColor,
                 new BalancedGlyphTemplate(
                         symbols,
                         backgroundColors,

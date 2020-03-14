@@ -16,14 +16,13 @@ public class TerrainTemplate extends WorldObjectTemplate {
     public TerrainTemplate(
             String d,
             String n,
-            Color nc,
             BalancedGlyphTemplate bgt,
             boolean r,
             boolean perLight,
             boolean perMove,
             boolean msgMove
     ) {
-        super(d, n, nc, bgt, r);
+        super(d, n, bgt, r);
         permitLight = perLight;
         permitMovement = perMove;
         messageOnMove = msgMove;

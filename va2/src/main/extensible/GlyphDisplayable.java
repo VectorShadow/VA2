@@ -3,6 +3,7 @@ package main.extensible;
 import io.out.DisplayStandards;
 import resources.DualityMode;
 import resources.chroma.Chroma;
+import resources.continuum.Continuum;
 import resources.glyph.BalancedGlyphTemplate;
 import resources.glyph.Glyph;
 import resources.glyph.GlyphBuilder;
@@ -16,10 +17,9 @@ public abstract class GlyphDisplayable extends TextDisplayable {
     public GlyphDisplayable(
             String d,
             String n,
-            Color nc,
             BalancedGlyphTemplate bgt
     ) {
-        super(d, n, nc);
+        super(d, n, new Continuum<>(bgt.getForegroundColors()));
         balancedGlyphTemplate = bgt;
     }
 

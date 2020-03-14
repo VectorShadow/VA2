@@ -6,7 +6,6 @@ import main.progression.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.WorldObjectTemplate;
 
-import java.awt.*;
 
 /**
  * Contains information required to describe and represent a generic type of actor.
@@ -21,7 +20,6 @@ public class ActorTemplate extends WorldObjectTemplate {
     public ActorTemplate(
             String d,
             String n,
-            Color nc,
             BalancedGlyphTemplate bgt,
             boolean reflect,
             int e,
@@ -29,7 +27,7 @@ public class ActorTemplate extends WorldObjectTemplate {
             int md,
             Reward reward,
             AI ai) {
-        super(d, n, nc, bgt, reflect);
+        super(d, n, bgt, reflect);
         energyGainPerTurn = e;
         combatant = c;
         minimumDepth = md;

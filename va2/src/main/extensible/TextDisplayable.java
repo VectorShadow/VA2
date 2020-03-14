@@ -1,19 +1,24 @@
 package main.extensible;
 
 import main.Session;
+import resources.continuum.Continuum;
 import resources.glyph.GlyphString;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class TextDisplayable extends Saveable {
     protected final String description;
     protected final String name;
-    protected final Color nameColor;
+    protected final Continuum<Color> dislayColor;
 
-    public TextDisplayable(String d, String n, Color nc) {
+    public TextDisplayable(String d, String n, Color dc) {
+        this(d, n, new Continuum<>(dc));
+    }
+    public TextDisplayable(String d, String n, Continuum<Color> dc) {
         description = d;
         name = n;
-        nameColor = nc;
+        dislayColor = dc;
     }
 
     public String getDescription() {
@@ -24,7 +29,7 @@ public abstract class TextDisplayable extends Saveable {
         return name;
     }
     public GlyphString getColoredName() {
-        return new GlyphString(name, Session.getColorScheme().getBackground(), nameColor);
+        return new GlyphString(name, Session.getColorScheme().getBackground(), dislayColor.getBase(), new ArrayList<>(), dislayColor.getPairList());
     }
     @Override
     public boolean equals(Object o) {
