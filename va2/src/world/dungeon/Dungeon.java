@@ -11,9 +11,7 @@ import world.dungeon.theme.ThemeDefinitions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.stream.Stream;
 
 /**
  * Keeps track of a specific instance of a dungeon.
@@ -80,7 +78,7 @@ public class Dungeon implements Serializable {
             );
         }
     }
-    public void killBoss() {
+    public void killDungeonBoss() {
         dungeonBossAlive = false;
     }
 

@@ -22,6 +22,7 @@ public class Floor implements Serializable {
     public final int COLS;
     FloorTile[][] floorTiles;
     private Coordinate playerSpawn;
+    private boolean floorBossAlive = false;
 
     public Floor(int depth, DungeonTheme dt) {
         DEPTH = depth;
@@ -102,5 +103,15 @@ public class Floor implements Serializable {
     }
     private boolean isDeepestFloor() {
         return DEPTH == THEME.getDepth();
+    }
+    public void spawnFloorBoss() {
+        floorBossAlive = true;
+    }
+    public void killFloorBoss() {
+        floorBossAlive = false;
+    }
+
+    public boolean isFloorBossAlive() {
+        return floorBossAlive;
     }
 }

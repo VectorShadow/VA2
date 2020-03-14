@@ -1,10 +1,15 @@
 package world.actor;
 
+import ai.AIDefinitions;
 import combat.Combatant;
 import combat.melee.forms.FormDefinitions;
+import combat.melee.weapons.MeleeWeapon;
 import combat.melee.weapons.WeaponDefinitions;
 import main.progression.Reward;
 import resources.chroma.Chroma;
+import resources.continuum.Continuum;
+import resources.continuum.Pair;
+import util.ArrayListBuilder;
 import world.ColorStandards;
 import world.WorldObjectTemplateFactory;
 
@@ -31,7 +36,8 @@ public class ActorDefinitions {
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
                             ),
-                            new Reward(0, 0)
+                            new Reward(0, 0),
+                            AIDefinitions.PLAYER_AI
                     );
     public static final ActorTemplate WOODLAND_SPIDER =
             WorldObjectTemplateFactory
@@ -52,10 +58,11 @@ public class ActorDefinitions {
                                     8,
                                     16,
                                     8,
-                                    FormDefinitions.UNTRAINED,
-                                    WeaponDefinitions.BARE_HANDED
+                                    FormDefinitions.SMALL_BEAST,
+                                    WeaponDefinitions.SPIDER_BITE
                             ),
-                            new Reward(1, 2)
+                            new Reward(1, 2),
+                            AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate LARGE_HUNTING_SPIDER =
             WorldObjectTemplateFactory
@@ -79,10 +86,11 @@ public class ActorDefinitions {
                                     16,
                                     32,
                                     12,
-                                    FormDefinitions.UNTRAINED,
-                                    WeaponDefinitions.BARE_HANDED
+                                    FormDefinitions.SMALL_BEAST,
+                                    WeaponDefinitions.SPIDER_BITE
                             ),
-                            new Reward(1, 6)
+                            new Reward(1, 6),
+                            AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate GIANT_HUNTING_SPIDER =
             WorldObjectTemplateFactory
@@ -109,10 +117,11 @@ public class ActorDefinitions {
                                     32,
                                     32,
                                     16,
-                                    FormDefinitions.UNTRAINED,
-                                    WeaponDefinitions.BARE_HANDED
+                                    FormDefinitions.SMALL_BEAST,
+                                    WeaponDefinitions.SPIDER_BITE
                             ),
-                            new Reward(1, 16)
+                            new Reward(1, 16),
+                            AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate FOREST_WOLF_TEMPLATE =
             WorldObjectTemplateFactory
@@ -129,10 +138,11 @@ public class ActorDefinitions {
                                     128,
                                     72,
                                     64,
-                                    FormDefinitions.UNTRAINED,
-                                    WeaponDefinitions.BARE_HANDED
+                                    FormDefinitions.SMALL_BEAST,
+                                    WeaponDefinitions.WOLF_BITE
                             ),
-                            new Reward(2, 12)
+                            new Reward(2, 12),
+                            AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate SILVER_WOLF_TEMPLATE =
             WorldObjectTemplateFactory
@@ -149,10 +159,11 @@ public class ActorDefinitions {
                                     155,
                                     84,
                                     72,
-                                    FormDefinitions.UNTRAINED,
-                                    WeaponDefinitions.BARE_HANDED
+                                    FormDefinitions.SMALL_BEAST,
+                                    WeaponDefinitions.WOLF_BITE
                             ),
-                            new Reward(2, 20)
+                            new Reward(2, 20),
+                            AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate BLACK_BEAR_TEMPLATE =
             WorldObjectTemplateFactory
@@ -169,10 +180,11 @@ public class ActorDefinitions {
                                     112,
                                     96,
                                     192,
-                                    FormDefinitions.UNTRAINED,
-                                    WeaponDefinitions.BARE_HANDED
+                                    FormDefinitions.LARGE_BEAST,
+                                    WeaponDefinitions.BEAR_BITE
                             ),
-                            new Reward(3, 24)
+                            new Reward(3, 24),
+                            AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate CAVE_BEAR_TEMPLATE =
             WorldObjectTemplateFactory
@@ -195,9 +207,62 @@ public class ActorDefinitions {
                                     128,
                                     72,
                                     256,
-                                    FormDefinitions.UNTRAINED,
-                                    WeaponDefinitions.BARE_HANDED
+                                    FormDefinitions.LARGE_BEAST,
+                                    new Continuum<MeleeWeapon>(
+                                            WeaponDefinitions.BEAR_SWAT,
+                                            ArrayListBuilder
+                                                    .initialize()
+                                                    .addElement(
+                                                            new Pair<MeleeWeapon>(
+                                                                    0.4,
+                                                                    WeaponDefinitions.BEAR_BITE
+                                                            )
+                                                    )
+                                                    .build()
+                                            )
                             ),
-                            new Reward(5, 32)
+                            new Reward(5, 32),
+                            AIDefinitions.CCW_AI
+                    );
+    public static final ActorTemplate ANCIENT_WEB_CRAWLER_TEMPLATE =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("ancient web crawler")
+                    .setDescription("a sinister looking arachnid of unbelievable size")
+                    .setSymbols('s')
+                    .setForegroundColors(
+                            new Color[]{
+                                    Chroma.BROWN,
+                                    Chroma.ICHOR_BLUE,
+                                    Chroma.ELEMENTAL_ACID,
+                                    Chroma.RED,
+                                    ColorStandards.HUNTING_SPIDER_HOURGLASS
+                            }
+                    )
+                    .manufactureActorTemplate(
+                            19,
+                            new Combatant(
+                                    2_048,
+                                    144,
+                                    96,
+                                    256,
+                                    96,
+                                    256,
+                                    FormDefinitions.LARGE_BEAST,
+                                    new Continuum<MeleeWeapon>(
+                                            WeaponDefinitions.SPIDER_BITE,
+                                            ArrayListBuilder
+                                                    .initialize()
+                                                    .addElement(
+                                                            new Pair<MeleeWeapon>(
+                                                                    0.33,
+                                                                    WeaponDefinitions.ACID_STING
+                                                            )
+                                                    )
+                                                    .build()
+                                    )
+                            ),
+                            new Reward(8, 256),
+                            AIDefinitions.CCS_AI
                     );
 }

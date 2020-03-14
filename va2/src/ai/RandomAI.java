@@ -10,7 +10,7 @@ import world.actor.Actor;
 /**
  * An AI which moves randomly.
  */
-public class RandomAI extends AbstractAI {
+public class RandomAI extends AI {
     @Override
     public Action decide(Actor a) {
         Action action;

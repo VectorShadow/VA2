@@ -10,8 +10,7 @@ import world.actor.Actor;
 import world.dungeon.floor.FloorTile;
 import world.terrain.TerrainTemplate;
 
-public class CloseCombatAI extends AbstractAI {
-    private final RandomAI randomAI = new RandomAI();
+public abstract class CloseCombatAI extends AI implements SecondaryAI {
 
     @Override
     public Action decide(Actor a) {
@@ -19,7 +18,7 @@ public class CloseCombatAI extends AbstractAI {
         Coordinate ca = a.getLocation();
         Coordinate cp = Session.getPlayer().getActor().getLocation();
         double distance = ca.distanceTo(cp);
-        if (distance < 12) { //hack - todo: get an actual detection distance, check LoS
+        if (distance < 7) { //hack - todo: get an actual detection distance, check LoS
             Direction bestDirection = Direction.SELF;
             double bestDistance = distance;
             Coordinate targetCoordinate = ca;
@@ -45,6 +44,6 @@ public class CloseCombatAI extends AbstractAI {
               bestDirection,
               a.getMoveEnergyMultiplier()
             );
-        } else return randomAI.decide(a);
+        } else return getSecondaryAI().decide(a);
     }
 }

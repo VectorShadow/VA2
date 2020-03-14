@@ -156,7 +156,7 @@ public class Engine implements Serializable {
             return new AdjacentAttackAction(
                     da.getDirection(),
                     actor.getAttackEnergyMultiplier(),
-                    ft.getActor().getCombatant().selectMeleeWeapon()
+                    actor.getCombatant().selectMeleeWeapon()
             );
         if (da instanceof AdjacentAttackAction && ft.getActor() == null) //if we try to attack but there is no actor
             return new AdjacentMovementAction(da.getDirection(), actor.getMoveEnergyMultiplier());

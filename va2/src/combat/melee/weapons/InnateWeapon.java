@@ -5,7 +5,6 @@ import main.Session;
 import main.extensible.TextDisplayable;
 import resources.continuum.Continuum;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
@@ -20,7 +19,6 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
     public InnateWeapon(
             String d,
             String n,
-            Color nc,
             int damLim,
             int damVar,
             double strInf,
@@ -29,7 +27,7 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
             MeleeWeaponClass mwc,
             Continuum<DamageType> dtc
     ) {
-        super(d, n, nc);
+        super(d, n, dtc.getBase().getColor());
         if (damLim < damVar || strInf < 0 || strInf > .5 || adjAccPreStr.length != 3)
             throw new IllegalStateException("Arguments out of bounds.");
         damageLimit = damLim;
@@ -44,7 +42,6 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
     public InnateWeapon(
             String d,
             String n,
-            Color nc,
             int damLim,
             int damVar,
             double strInf,
@@ -53,13 +50,12 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
             MeleeWeaponClass mwc,
             DamageType dt
     ) {
-        this(d, n, nc, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(dt, new ArrayList<>()));
+        this(d, n, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(dt, new ArrayList<>()));
     }
     private InnateWeapon(InnateWeapon iw) {
         this(
                 iw.description,
                 iw.name,
-                iw.nameColor,
                 iw.damageLimit,
                 iw.damageVariance,
                 iw.strengthInfluence,

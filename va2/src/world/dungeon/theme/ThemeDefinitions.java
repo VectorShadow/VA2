@@ -233,8 +233,11 @@ public class ThemeDefinitions {
                                     new ArrayList<>()
                             ),
                             new Continuum<>(
-                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
-                                    new ArrayList<>()
+                                    null,
+                                    ArrayListBuilder
+                                            .initialize()
+                                            .addElement(new Pair<>(0.15, ActorDefinitions.ANCIENT_WEB_CRAWLER_TEMPLATE))
+                                            .build()
                             ),
                             new ActorTemplate[]{}
                     ),

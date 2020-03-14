@@ -4,6 +4,7 @@ import combat.CombatResolver;
 import combat.Combatant;
 import combat.Functions;
 import combat.melee.forms.Form;
+import combat.melee.weapons.InnateWeapon;
 import combat.melee.weapons.MeleeStyle;
 import combat.melee.weapons.MeleeWeapon;
 import engine.action.ActionDefinitions;
@@ -15,6 +16,9 @@ import main.Session;
 import util.Grammar;
 import world.actor.Actor;
 import world.actor.ActorTemplate;
+import world.dungeon.Dungeon;
+import world.dungeon.floor.Floor;
+import world.dungeon.theme.ActorSet;
 
 /**
  * CombatResolver for Melee combat interactions.
@@ -59,7 +63,9 @@ public class MeleeResolver extends CombatResolver {
                                 isAttackerPlayer,
                                 "You",
                                 "The " + attackerName,
-                                attackTactic.message,
+                                attackTactic == AttackTactic.STRIKE && attackerMeleeWeapon instanceof InnateWeapon
+                                        ? ((InnateWeapon) attackerMeleeWeapon).getDescription()
+                                        : attackTactic.message,
                                 "the " + defenderName + ".",
                                 "you."
                             ) + "  " +
@@ -392,8 +398,18 @@ public class MeleeResolver extends CombatResolver {
         if (!defenderCombatant.adjustHealth(-attackDamage)) {
             Session.killActor(defender);
             if (isAttackerPlayer) {
-                updateMessage("You have slain the " + defenderName + ".", MessageType.SUCCESS);
-                Session.getCurrentDungeon().addReward(((ActorTemplate)defender.getTemplate()).getReward());
+                Dungeon d = Session.getCurrentDungeon();
+                Floor f = Session.getCurrentFloor();
+                ActorSet as = f.THEME.getActorSet();
+                if (as.isFloorBoss(defender)) {
+                    updateMessage("You have defeated " + defenderName + ", the guardian of this area.", MessageType.SUCCESS);
+                    f.killFloorBoss();
+                } else if (as.getDungeonBossSet().length > 0 && as.getDungeonBossSet()[0] == defender.getTemplate()) {
+                    updateMessage("You have defeated " + defenderName + ", the final guardian of this dungeon.", MessageType.SUCCESS);
+                    d.killDungeonBoss();
+                } else
+                    updateMessage("You have slain the " + defenderName + ".", MessageType.INFO);
+                d.addReward(((ActorTemplate)defender.getTemplate()).getReward());
             }
         }
         return message;

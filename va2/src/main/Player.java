@@ -31,7 +31,7 @@ public class Player implements Serializable {
     }
     public int getSightRadius() {
         //todo - hack!
-        return 6;
+        return 8;
     }
     public AdjacentMovementAction getMove(Direction d) {
         //hack - todo: ask the player actor what it's move energy multiplier is

@@ -2,6 +2,7 @@ package world.dungeon.theme;
 
 import main.Session;
 import resources.continuum.Continuum;
+import world.actor.Actor;
 import world.actor.ActorTemplate;
 
 import java.io.Serializable;
@@ -57,8 +58,14 @@ public class ActorSet implements Serializable {
         ActorTemplate at;
         do {
             at = FLOOR_BOSS_SET.getValue(Session.getRNG());
-        } while (currentDepth < at.getMinimumDepth());
+        } while (at != null && currentDepth < at.getMinimumDepth());
         return at;
+    }
+    public boolean isFloorBoss(Actor a) {
+        return FLOOR_BOSS_SET.contains((ActorTemplate)a.getTemplate());
+    }
+    public boolean isDungeonBoss(Actor a) {
+        return DUNGEON_BOSS_SET.length > 0 && DUNGEON_BOSS_SET[0] == a.getTemplate();
     }
     public ActorTemplate[] getDungeonBossSet() {
         return DUNGEON_BOSS_SET;

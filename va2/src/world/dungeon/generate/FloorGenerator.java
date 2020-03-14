@@ -4,6 +4,7 @@ import main.Session;
 import util.Coordinate;
 import util.Direction;
 import world.actor.Actor;
+import world.actor.ActorTemplate;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.DungeonTheme;
@@ -150,6 +151,11 @@ public abstract class FloorGenerator implements Serializable {
     }
     protected void placeEndStairs(Coordinate c) {
         floor.tileAt(c.getRow(), c.getColumn()).setTerrain(new Terrain(TerrainDefinitions.NEXT_FLOOR_STAIR));
+        ActorTemplate floorBossTemplate = floor.THEME.getActorSet().randomizeFloorBoss(floor.DEPTH);
+        if (floorBossTemplate != null) {
+            Session.addActor(new Actor(floorBossTemplate), c);
+            floor.spawnFloorBoss();
+        }
         Coordinate c1 = Direction.random(false).shift(c);
         floor.tileAt(c1.getRow(), c1.getColumn()).setTerrain(new Terrain(TerrainDefinitions.REWARD_STAIR));
     }

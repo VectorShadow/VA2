@@ -1,5 +1,6 @@
 package world.actor;
 
+import ai.AI;
 import combat.Combatant;
 import main.progression.Reward;
 import resources.glyph.BalancedGlyphTemplate;
@@ -15,6 +16,7 @@ public class ActorTemplate extends WorldObjectTemplate {
     private final Combatant combatant;
     private final int minimumDepth;
     private final Reward reward;
+    private final AI ai;
 
     public ActorTemplate(
             String d,
@@ -25,12 +27,14 @@ public class ActorTemplate extends WorldObjectTemplate {
             int e,
             Combatant c,
             int md,
-            Reward reward) {
+            Reward reward,
+            AI ai) {
         super(d, n, nc, bgt, reflect);
         energyGainPerTurn = e;
         combatant = c;
         minimumDepth = md;
         this.reward = reward;
+        this.ai = ai;
     }
 
 
@@ -48,5 +52,9 @@ public class ActorTemplate extends WorldObjectTemplate {
 
     public Reward getReward() {
         return reward;
+    }
+
+    public AI getAi() {
+        return ai;
     }
 }

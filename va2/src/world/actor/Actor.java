@@ -1,6 +1,5 @@
 package world.actor;
 
-import ai.CloseCombatAI;
 import combat.Combatant;
 import engine.action.Action;
 import engine.action.ActionDefinitions;
@@ -72,7 +71,7 @@ public class Actor extends WorldObject {
     }
     public void plan() {
         //todo - hack! call the template's AI and use it to generate an action or set of actions
-        queueAction(new CloseCombatAI().decide(this));
+        queueAction(((ActorTemplate)getTemplate()).getAi().decide(this));
     }
     public void queueAction(Action a) {
         queuedActions.addLast(a);

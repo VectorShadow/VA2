@@ -15,6 +15,9 @@ public class Grammar {
             if (c == '&') {
                 if (self) continue;
                 else configuredMessage += 's';
+            } else if (c == '$') {
+                if (self) continue;
+                else configuredMessage += "es";
             } else
                 configuredMessage += c;
         }

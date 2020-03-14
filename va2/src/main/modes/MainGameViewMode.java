@@ -5,6 +5,7 @@ import engine.action.AdjacentMovementAction;
 import engine.action.PauseAction;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
+import io.out.message.MessageType;
 import main.MetaData;
 import main.Player;
 import main.Session;
@@ -72,9 +73,12 @@ public class MainGameViewMode implements OperatingMode {
                     here = player.getActor().getLocation();
                     tt = (TerrainTemplate)
                             Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
-                    if (tt.equals(TerrainDefinitions.FLIGHT_STAIR)) {
+                    if (tt.equals(TerrainDefinitions.FLIGHT_STAIR) ||
+                            (tt.equals(TerrainDefinitions.REWARD_STAIR) &&
+                                    Session.getCurrentFloor().isFloorBossAlive())) { //kill floor boss for rewards!
                         Session.getCurrentDungeon().exitDungeon(false);
-                    } else if (tt.equals(TerrainDefinitions.REWARD_STAIR)) {
+                    } else if (tt.equals(TerrainDefinitions.REWARD_STAIR) &&
+                            !Session.getCurrentFloor().isFloorBossAlive()) {
                         Session.getCurrentDungeon().exitDungeon(true);
                     } else if(!Session.getCurrentDungeon().isDungeonBossAlive() &&
                             tt.equals(Session.getCurrentDungeon().getTheme().getTerrainSet().getEndTerrain())) {
@@ -96,7 +100,12 @@ public class MainGameViewMode implements OperatingMode {
                         //todo - open a menu here once we have cleared Dark Grove
                         Session.getCurrentDungeon().nextFloor();
                     } else if (tt.equals(TerrainDefinitions.NEXT_FLOOR_STAIR)) {
-                        Session.getCurrentDungeon().nextFloor();
+                        if (Session.getCurrentFloor().isFloorBossAlive()) {
+                            Session.getMessageCenter().sendMessage(
+                                    "You may not enter the next floor before defeating the guardian of this floor.",
+                                    MessageType.ERROR);
+                        } else
+                            Session.getCurrentDungeon().nextFloor();
                     } else if(!Session.getCurrentDungeon().isDungeonBossAlive() &&
                             tt.equals(Session.getCurrentDungeon().getTheme().getTerrainSet().getEndTerrain())) {
                         //todo - unlock and display dungeon completion lore
