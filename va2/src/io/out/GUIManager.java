@@ -15,7 +15,6 @@ import resources.glyph.Glyph;
 import resources.glyph.GlyphString;
 import resources.glyph.image.ImageManager;
 import util.Format;
-import world.ColorStandards;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -66,6 +65,7 @@ public class GUIManager {
 
     public static final int ZONE_MESSAGE_CENTER = 0;
     public static final int ZONE_PLAYER_STATS = 1;
+    public static final int ZONE_PLAYER_ACTIONS = 2;
 
     private final Gui GUI = new DualityGUI();
 
@@ -137,7 +137,15 @@ public class GUIManager {
                         0.2,
                         DualityMode.SHORT_TEXT
                 );
-        //todo - game channel setup here
+        int actionsZone =
+                GUI.addZone(
+                        CHANNEL_GAME,
+                        0.0,
+                        MESSAGE_WINDOW_START,
+                        0.8,
+                        0.2,
+                        DualityMode.SHORT_TEXT
+                );
         int fsText = GUI.addChannel(DualityMode.LONG_TEXT);
         //paranoia - these checks can be removed once we stop adding GUI channels/zones:
         if (ZONE_MESSAGE_CENTER != messageZone)
@@ -146,6 +154,9 @@ public class GUIManager {
         if (ZONE_PLAYER_STATS != statsZone)
             throw new IllegalStateException("Invalid zone index for Player Stats - expected " +
                     ZONE_PLAYER_STATS + " but was " + statsZone);
+        if (ZONE_PLAYER_ACTIONS != actionsZone)
+            throw new IllegalStateException("Invalid zone index for Player Actions - expected " +
+                    ZONE_PLAYER_ACTIONS + " but was " + actionsZone);
         if (CHANNEL_FULLSCREEN_TEXT != fsText)
             throw new IllegalStateException("Invalid channel index for Fullscreen Text - expected " +
                     CHANNEL_FULLSCREEN_TEXT + " but was " + fsText);
@@ -162,6 +173,7 @@ public class GUIManager {
         }
         GUI.setBorder(CHANNEL_GAME, ZONE_MESSAGE_CENTER, DisplayStandards.getMessageWindowBorder());
         GUI.setBorder(CHANNEL_GAME, ZONE_PLAYER_STATS, DisplayStandards.getPlayerStatsBorder());
+        GUI.setBorder(CHANNEL_GAME, ZONE_PLAYER_ACTIONS, DisplayStandards.getPlayerActionsBorder());
     }
 
     public void changeChannelToGameDisplay() {
@@ -215,6 +227,9 @@ public class GUIManager {
     }
     public int minRow(int zoneID) {
         return GUI.minRow(zoneID);
+    }
+    public int from(int channelID, int zoneID, boolean row, boolean before) {
+        return GUI.from(channelID, zoneID, row, before);
     }
     public void printCenteredBlock(double percentFromTop, String[] text) {
         int row = GUI.rowAtPercent(percentFromTop);

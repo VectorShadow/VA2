@@ -92,6 +92,19 @@ public class FloorRenderer {
                 glyphMap.setGlyph(floorRow - ROW_OFFSET, floorCol - COL_OFFSET, g);
             }
         }
+        GUIManager gm = Session.getGuiManager();
+        int enhanceRow =
+                gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_MESSAGE_CENTER, true, true);
+        int enhancementColumn =
+                gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_STATS, false, false);
+        glyphMap.setGlyph(enhanceRow, enhancementColumn, DisplayStandards.getEnhancementGlyph());
+        //todo - display enhancement glyphs above this
+        glyphMap.setGlyph(0, enhancementColumn, DisplayStandards.getWardGlyph());
+        //todo - display ward glyphs left of this
+        int afflictionColumn =
+                gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_ACTIONS, false, true);
+        glyphMap.setGlyph(0, afflictionColumn, DisplayStandards.getAfflictionGlyph());
+        //todo - display affliction glyphs below this
     }
     private boolean continuePropogation(Coordinate c, double d, Floor f) {
         return d < Session.getPlayer().getSightRadius() &&
