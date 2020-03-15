@@ -36,7 +36,7 @@ public class ActorDefinitions {
                                     FormDefinitions.UNTRAINED,
                                     WeaponDefinitions.BARE_HANDED
                             ),
-                            new Reward(0, 0),
+                            new Reward(0),
                             AIDefinitions.PLAYER_AI
                     );
     public static final ActorTemplate WOODLAND_SPIDER =
@@ -61,7 +61,7 @@ public class ActorDefinitions {
                                     FormDefinitions.SMALL_BEAST,
                                     WeaponDefinitions.SPIDER_BITE
                             ),
-                            new Reward(1, 2),
+                            new Reward(2),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate LARGE_HUNTING_SPIDER =
@@ -89,7 +89,7 @@ public class ActorDefinitions {
                                     FormDefinitions.SMALL_BEAST,
                                     WeaponDefinitions.SPIDER_BITE
                             ),
-                            new Reward(1, 6),
+                            new Reward(6),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate GIANT_HUNTING_SPIDER =
@@ -120,7 +120,7 @@ public class ActorDefinitions {
                                     FormDefinitions.SMALL_BEAST,
                                     WeaponDefinitions.SPIDER_BITE
                             ),
-                            new Reward(1, 16),
+                            new Reward(16),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate FOREST_WOLF_TEMPLATE =
@@ -141,7 +141,7 @@ public class ActorDefinitions {
                                     FormDefinitions.SMALL_BEAST,
                                     WeaponDefinitions.WOLF_BITE
                             ),
-                            new Reward(2, 12),
+                            new Reward(12),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate SILVER_WOLF_TEMPLATE =
@@ -162,7 +162,7 @@ public class ActorDefinitions {
                                     FormDefinitions.SMALL_BEAST,
                                     WeaponDefinitions.WOLF_BITE
                             ),
-                            new Reward(2, 20),
+                            new Reward(20),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate BLACK_BEAR_TEMPLATE =
@@ -183,7 +183,7 @@ public class ActorDefinitions {
                                     FormDefinitions.LARGE_BEAST,
                                     WeaponDefinitions.BEAR_BITE
                             ),
-                            new Reward(3, 24),
+                            new Reward(32),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate CAVE_BEAR_TEMPLATE =
@@ -221,7 +221,7 @@ public class ActorDefinitions {
                                                     .build()
                                             )
                             ),
-                            new Reward(5, 32),
+                            new Reward(38),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate ANCIENT_WEB_CRAWLER_TEMPLATE =
@@ -262,7 +262,7 @@ public class ActorDefinitions {
                                                     .build()
                                     )
                             ),
-                            new Reward(8, 256),
+                            new Reward(256),
                             AIDefinitions.CCS_AI
                     );
 }
