@@ -3,7 +3,7 @@ package world.actor;
 import ai.AIDefinitions;
 import combat.Combatant;
 import combat.melee.forms.FormDefinitions;
-import combat.melee.weapons.MeleeWeapon;
+import combat.melee.weapons.WieldedMeleeWeapon;
 import combat.melee.weapons.WeaponDefinitions;
 import main.progression.Reward;
 import resources.chroma.Chroma;
@@ -208,12 +208,12 @@ public class ActorDefinitions {
                                     72,
                                     256,
                                     FormDefinitions.LARGE_BEAST,
-                                    new Continuum<MeleeWeapon>(
+                                    new Continuum<WieldedMeleeWeapon>(
                                             WeaponDefinitions.BEAR_SWAT,
                                             ArrayListBuilder
                                                     .initialize()
                                                     .addElement(
-                                                            new Pair<MeleeWeapon>(
+                                                            new Pair<WieldedMeleeWeapon>(
                                                                     0.4,
                                                                     WeaponDefinitions.BEAR_BITE
                                                             )
@@ -249,12 +249,12 @@ public class ActorDefinitions {
                                     96,
                                     256,
                                     FormDefinitions.LARGE_BEAST,
-                                    new Continuum<MeleeWeapon>(
+                                    new Continuum<WieldedMeleeWeapon>(
                                             WeaponDefinitions.SPIDER_BITE,
                                             ArrayListBuilder
                                                     .initialize()
                                                     .addElement(
-                                                            new Pair<MeleeWeapon>(
+                                                            new Pair<WieldedMeleeWeapon>(
                                                                     0.33,
                                                                     WeaponDefinitions.ACID_STING
                                                             )

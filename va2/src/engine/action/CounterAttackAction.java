@@ -2,7 +2,7 @@ package engine.action;
 
 import combat.melee.AttackTactic;
 import combat.melee.DefenseTactic;
-import combat.melee.weapons.MeleeWeapon;
+import combat.melee.weapons.ResolvableMeleeWeapon;
 
 /**
  * An automatic counterattack carrying all the information necessary to resolve the counterattack.
@@ -11,12 +11,12 @@ public class CounterAttackAction implements MeleeAttackAction {
 
     private final AttackTactic attackTactic;
     private final DefenseTactic defenseTactic;
-    private final MeleeWeapon meleeWeapon;
+    private final ResolvableMeleeWeapon resolvableMeleeWeapon;
 
-    public CounterAttackAction(AttackTactic at, DefenseTactic dt, MeleeWeapon mw) {
+    public CounterAttackAction(AttackTactic at, DefenseTactic dt, ResolvableMeleeWeapon mw) {
         attackTactic = at;
         defenseTactic = dt;
-        meleeWeapon = mw;
+        resolvableMeleeWeapon = mw;
     }
 
     public AttackTactic getAttackTactic() {
@@ -28,7 +28,7 @@ public class CounterAttackAction implements MeleeAttackAction {
     }
 
     @Override
-    public MeleeWeapon getMeleeWeapon() {
-        return meleeWeapon;
+    public ResolvableMeleeWeapon getResolvableMeleeWeapon() {
+        return resolvableMeleeWeapon;
     }
 }

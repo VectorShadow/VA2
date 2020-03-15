@@ -1,15 +1,15 @@
 package engine.action;
 
-import combat.melee.weapons.MeleeWeapon;
+import combat.melee.weapons.ResolvableMeleeWeapon;
 import util.Direction;
 
 public class AdjacentAttackAction extends DirectedAction implements MeleeAttackAction {
 
-    private final MeleeWeapon meleeWeapon;
+    private final ResolvableMeleeWeapon resolvableMeleeWeapon;
 
-    public AdjacentAttackAction(Direction d, double energyMultiplier, MeleeWeapon mw) {
+    public AdjacentAttackAction(Direction d, double energyMultiplier, ResolvableMeleeWeapon mw) {
         super(d, energyMultiplier);
-        meleeWeapon = mw;
+        resolvableMeleeWeapon = mw;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class AdjacentAttackAction extends DirectedAction implements MeleeAttackA
     }
 
     @Override
-    public MeleeWeapon getMeleeWeapon() {
-        return meleeWeapon;
+    public ResolvableMeleeWeapon getResolvableMeleeWeapon() {
+        return resolvableMeleeWeapon;
     }
 }

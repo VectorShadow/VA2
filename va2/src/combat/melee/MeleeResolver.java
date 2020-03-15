@@ -2,9 +2,8 @@ package combat.melee;
 
 import combat.*;
 import combat.melee.forms.Form;
-import combat.melee.weapons.InnateWeapon;
 import combat.melee.weapons.MeleeStyle;
-import combat.melee.weapons.MeleeWeapon;
+import combat.melee.weapons.ResolvableMeleeWeapon;
 import engine.action.ActionDefinitions;
 import engine.action.CounterAttackAction;
 import engine.action.MeleeAttackAction;
@@ -51,8 +50,8 @@ public class MeleeResolver extends CombatResolver {
                 : isDefenderPlayer
                 ? defenderForm.selectDefenseTactic() //todo - use the player's set tactic
                 : defenderForm.selectDefenseTactic(); //select a random available tactic
-        MeleeWeapon attackerMeleeWeapon = meleeAttackAction.getMeleeWeapon();
-        WeaponDamage weaponDamage = attackerMeleeWeapon.resolveWeaponDamage();
+        ResolvableMeleeWeapon attackerResolvableMeleeWeapon = meleeAttackAction.getResolvableMeleeWeapon();
+        WeaponDamage weaponDamage = attackerResolvableMeleeWeapon.resolveWeaponDamage(attackTactic == AttackTactic.BLOW);
         //counterattacks preserve any existing message - otherwise we need to reset it
         if (!(meleeAttackAction instanceof CounterAttackAction)){
             message = (isAttackerPlayer || isDefenderPlayer)
@@ -194,12 +193,12 @@ public class MeleeResolver extends CombatResolver {
          * Calculate effective values:
          */
         int effectiveAttackerAccuracy = (int)(attackerAccuracyMultiplier *
-                ((double)attacker.getAdjustedAccuracy() + (double)attackerMeleeWeapon.adjustAccuracy()));
+                ((double)attacker.getAdjustedAccuracy() + (double) attackerResolvableMeleeWeapon.adjustAccuracy()));
         int effectiveAttackerPrecision = (int)(attackerPrecisionMultiplier *
-                ((double)attacker.getAdjustedPrecision() + (double)attackerMeleeWeapon.adjustPrecision()));
-        int effectiveAttackerStrength = attacker.getAdjustedStrength() + attackerMeleeWeapon.adjustStrength();
-        MeleeWeapon defenderMeleeWeapon = defenderCombatant.selectMeleeWeapon();
-        MeleeStyle defenderStyle = defenderMeleeWeapon.getMeleeStyle();
+                ((double)attacker.getAdjustedPrecision() + (double) attackerResolvableMeleeWeapon.adjustPrecision()));
+        int effectiveAttackerStrength = attacker.getAdjustedStrength() + attackerResolvableMeleeWeapon.adjustStrength();
+        ResolvableMeleeWeapon defenderResolvableMeleeWeapon = defenderCombatant.selectMeleeWeapon();
+        MeleeStyle defenderStyle = defenderResolvableMeleeWeapon.getMeleeStyle();
         int effectiveDefenderEvasion = (int)(defenderEvasionMultiplier * (double)defender.getAdjustedEvasion());
         int effectiveDefenderDeflection = (int)(defenderDeflectionMultiplier *
                 (double)(defenderStyle == MeleeStyle.SHIELD
@@ -260,7 +259,7 @@ public class MeleeResolver extends CombatResolver {
                                                 : attackerHasIgnoreBonus //if attacker has ignore bonus, his attack is not
                                                 ? DefenseTactic.IGNORE //negated, but he may not defend against the counter
                                                 : null, //otherwise, the attacker has freedom of defensive tactics
-                                        defenderMeleeWeapon
+                                        defenderResolvableMeleeWeapon
                                 ),
                                 attacker
                         );
@@ -380,7 +379,7 @@ public class MeleeResolver extends CombatResolver {
                 (int)(attackerDamageMultiplier *
                         defenderDamageReductionMultiplier *
                         weaponDamage.modify() *
-                        (double)(attackerMeleeWeapon.rollRawDamage(effectiveAttackerStrength)));
+                        (double)(attackerResolvableMeleeWeapon.rollRawDamage(effectiveAttackerStrength)));
         //hack - tell me how much damage I'm doing!
         if (isAttackerPlayer || isDefenderPlayer) {
             updateMessage(

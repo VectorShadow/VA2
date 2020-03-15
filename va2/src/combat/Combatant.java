@@ -1,7 +1,8 @@
 package combat;
 
 import combat.melee.forms.Form;
-import combat.melee.weapons.MeleeWeapon;
+import combat.melee.weapons.WieldedMeleeWeapon;
+import combat.melee.weapons.ResolvableMeleeWeapon;
 import main.Session;
 import resources.continuum.Continuum;
 
@@ -25,7 +26,7 @@ public class Combatant implements Serializable {
 
     private Form meleeForm; //the form this combatant uses in melee combat
 
-    private Continuum<MeleeWeapon> meleeWeapons; //a continuum of melee weapons available to this combatant
+    private Continuum<WieldedMeleeWeapon> combatantMeleeWeapons; //a continuum of melee weapons available to this combatant
     //todo - ranged weapons
 
     private boolean ignoreBonus = false; //whether this attacker has a bonus from ignoring the last incoming attack
@@ -40,7 +41,7 @@ public class Combatant implements Serializable {
             int def,
             int str,
             Form defaultForm,
-            MeleeWeapon defaultMeleeWeapon
+            WieldedMeleeWeapon defaultMeleeWeapon
     ) {
         this(hea, acc, eva, pre, def, str, defaultForm, new Continuum<>(defaultMeleeWeapon, new ArrayList<>()));
     }
@@ -52,7 +53,7 @@ public class Combatant implements Serializable {
             int def,
             int str,
             Form defaultForm,
-            Continuum<MeleeWeapon> defaultMeleeWeapons
+            Continuum<WieldedMeleeWeapon> defaultMeleeWeapons
     ) {
         health = healthCapacity = hea;
         accuracy = acc;
@@ -61,10 +62,10 @@ public class Combatant implements Serializable {
         defense = def;
         strength = str;
         meleeForm = defaultForm;
-        meleeWeapons = defaultMeleeWeapons;
+        combatantMeleeWeapons = defaultMeleeWeapons;
     }
     private Combatant(Combatant c) {
-        this(c.healthCapacity, c.accuracy, c.evasion, c.precision, c.defense, c.strength, c.meleeForm, c.meleeWeapons);
+        this(c.healthCapacity, c.accuracy, c.evasion, c.precision, c.defense, c.strength, c.meleeForm, c.combatantMeleeWeapons);
     }
 
     /**
@@ -107,14 +108,14 @@ public class Combatant implements Serializable {
         return meleeForm;
     }
 
-    public MeleeWeapon selectMeleeWeapon() {
-        return meleeWeapons.getValue(Session.getRNG());
+    public ResolvableMeleeWeapon selectMeleeWeapon() {
+        return combatantMeleeWeapons.getValue(Session.getRNG()).getResolvableMeleeWeapon();
     }
-    public void setMeleeWeapons(Continuum<MeleeWeapon> mwc) {
-        meleeWeapons = mwc;
+    public void setMeleeWeapons(Continuum<WieldedMeleeWeapon> mwc) {
+        combatantMeleeWeapons = mwc;
     }
-    public void setMeleeWeapons(MeleeWeapon mw) {
-        setMeleeWeapons(new Continuum<>(mw, new ArrayList<>()));
+    public void setMeleeWeapons(WieldedMeleeWeapon cmw) {
+        setMeleeWeapons(new Continuum<>(cmw, new ArrayList<>()));
     }
 
     public void setIgnoreBonus() {

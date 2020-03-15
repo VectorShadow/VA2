@@ -2,7 +2,7 @@ package combat.melee.forms;
 
 import combat.melee.*;
 import combat.melee.weapons.MeleeStyle;
-import combat.melee.weapons.MeleeWeapon;
+import combat.melee.weapons.ResolvableMeleeWeapon;
 import combat.melee.weapons.MeleeWeaponClass;
 import main.Session;
 import main.extensible.TextDisplayable;
@@ -11,7 +11,7 @@ import resources.continuum.Continuum;
 import java.awt.*;
 
 /**
- * A melee combat form for a specific Style and MeleeWeapon Class, specifying Tactics Continua and special abilities.
+ * A melee combat form for a specific Style and ResolvableMeleeWeapon Class, specifying Tactics Continua and special abilities.
  */
 public class Form extends TextDisplayable {
     private final MeleeStyle meleeStyle;
@@ -46,7 +46,7 @@ public class Form extends TextDisplayable {
      * Use this to browse a list of known Forms and return only those matching the provided style and class.
      * Note that if a form does not specify a style or class, it can be used with any style or class.
      */
-    public boolean applicable(MeleeWeapon mw) {
+    public boolean applicable(ResolvableMeleeWeapon mw) {
         return (meleeStyle == null || meleeStyle == mw.getMeleeStyle()) &&
                 (meleeWeaponClass == null || meleeWeaponClass == mw.getMeleeWeaponClass());
     }
