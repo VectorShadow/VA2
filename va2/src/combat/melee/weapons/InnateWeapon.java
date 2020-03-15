@@ -1,6 +1,7 @@
 package combat.melee.weapons;
 
 import combat.DamageType;
+import combat.WeaponDamage;
 import main.Session;
 import main.extensible.TextDisplayable;
 import resources.continuum.Continuum;
@@ -14,7 +15,7 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
     private final int[] statModifiers;
     private final MeleeStyle meleeStyle;
     private final MeleeWeaponClass meleeWeaponClass;
-    private final Continuum<DamageType> damageTypeContinuum;
+    private final Continuum<WeaponDamage> weaponDamageContinuum;
 
     public InnateWeapon(
             String d,
@@ -25,9 +26,9 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
             int[] adjAccPreStr,
             MeleeStyle ms,
             MeleeWeaponClass mwc,
-            Continuum<DamageType> dtc
+            Continuum<WeaponDamage> wdc
     ) {
-        super(d, n, dtc.getBase().getColor());
+        super(d, n, wdc.getBase().type().getColor());
         if (damLim < damVar || strInf < 0 || strInf > .5 || adjAccPreStr.length != 3)
             throw new IllegalStateException("Arguments out of bounds.");
         damageLimit = damLim;
@@ -36,7 +37,7 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
         statModifiers = adjAccPreStr;
         meleeStyle = ms;
         meleeWeaponClass = mwc;
-        damageTypeContinuum = dtc;
+        weaponDamageContinuum = wdc;
     }
 
     public InnateWeapon(
@@ -48,9 +49,9 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
             int[] adjAccPreStr,
             MeleeStyle ms,
             MeleeWeaponClass mwc,
-            DamageType dt
+            WeaponDamage wd
     ) {
-        this(d, n, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(dt, new ArrayList<>()));
+        this(d, n, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(wd, new ArrayList<>()));
     }
     private InnateWeapon(InnateWeapon iw) {
         this(
@@ -62,7 +63,7 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
                 iw.statModifiers,
                 iw.meleeStyle,
                 iw.meleeWeaponClass,
-                iw.damageTypeContinuum
+                iw.weaponDamageContinuum
         );
     }
 
@@ -100,8 +101,8 @@ public class InnateWeapon extends TextDisplayable implements MeleeWeapon {
     }
 
     @Override
-    public DamageType resolveDamageType() {
-        return damageTypeContinuum.getValue(Session.getRNG());
+    public WeaponDamage resolveWeaponDamage(boolean isHeavyBlow) {
+        return isHeavyBlow ? weaponDamageContinuum.getBase() : weaponDamageContinuum.getValue(Session.getRNG());
     }
 
     @Override

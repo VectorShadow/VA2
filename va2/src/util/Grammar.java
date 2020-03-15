@@ -12,10 +12,10 @@ public class Grammar {
         String configuredMessage = (self ? selfIntro : otherIntro) + " ";
         char[] unconfiguredMessage = variable.toCharArray();
         for (char c : unconfiguredMessage) {
-            if (c == '&') {
+            if (c == '$') {
                 if (self) continue;
                 else configuredMessage += 's';
-            } else if (c == '$') {
+            } else if (c == '&') {
                 if (self) continue;
                 else configuredMessage += "es";
             } else

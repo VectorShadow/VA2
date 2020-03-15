@@ -1,8 +1,6 @@
 package combat.melee;
 
-import combat.CombatResolver;
-import combat.Combatant;
-import combat.Functions;
+import combat.*;
 import combat.melee.forms.Form;
 import combat.melee.weapons.InnateWeapon;
 import combat.melee.weapons.MeleeStyle;
@@ -54,6 +52,7 @@ public class MeleeResolver extends CombatResolver {
                 ? defenderForm.selectDefenseTactic() //todo - use the player's set tactic
                 : defenderForm.selectDefenseTactic(); //select a random available tactic
         MeleeWeapon attackerMeleeWeapon = meleeAttackAction.getMeleeWeapon();
+        WeaponDamage weaponDamage = attackerMeleeWeapon.resolveWeaponDamage();
         //counterattacks preserve any existing message - otherwise we need to reset it
         if (!(meleeAttackAction instanceof CounterAttackAction)){
             message = (isAttackerPlayer || isDefenderPlayer)
@@ -63,8 +62,8 @@ public class MeleeResolver extends CombatResolver {
                                 isAttackerPlayer,
                                 "You",
                                 "The " + attackerName,
-                                attackTactic == AttackTactic.STRIKE && attackerMeleeWeapon instanceof InnateWeapon
-                                        ? ((InnateWeapon) attackerMeleeWeapon).getDescription()
+                                attackTactic == AttackTactic.STRIKE
+                                        ? weaponDamage.describe()
                                         : attackTactic.message,
                                 "the " + defenderName + ".",
                                 "you."
@@ -377,8 +376,11 @@ public class MeleeResolver extends CombatResolver {
         /**
          * Roll for and adjust damage.
          */
-        int attackDamage = (int)(attackerDamageMultiplier * defenderDamageReductionMultiplier *
-                (double)(attackerMeleeWeapon.rollRawDamage(effectiveAttackerStrength)));
+        int attackDamage =
+                (int)(attackerDamageMultiplier *
+                        defenderDamageReductionMultiplier *
+                        weaponDamage.modify() *
+                        (double)(attackerMeleeWeapon.rollRawDamage(effectiveAttackerStrength)));
         //hack - tell me how much damage I'm doing!
         if (isAttackerPlayer || isDefenderPlayer) {
             updateMessage(

@@ -24,7 +24,19 @@ public enum DamageType {
             case PUNCTURE: return Chroma.GREEN;
             case REND: return Chroma.RED;
             default:
-                throw new IllegalStateException("Unimplemented DamageType Color");
+                throw new IllegalStateException("Unimplemented DamageType");
+        }
+    }
+    public String describe() {
+        switch (this) {
+            case ACID: return "dissolve$";
+            case COLD: return "freeze$";
+            case FIRE: return "burn$";
+            case IMPACT: return "smash&";
+            case PUNCTURE: return "puncture$";
+            case REND: return "rend$";
+            default:
+                throw new IllegalStateException("Unimplemented DamageType");
         }
     }
 }
