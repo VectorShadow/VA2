@@ -91,19 +91,9 @@ public class Actor extends WorldObject {
         //todo - check temporary effects
         return 1.0;
     }
-    public int getAdjustedAccuracy(){
-        return combatant.getAccuracy(); //todo - modifications from status!
-    }
-    public int getAdjustedEvasion(){
-        return combatant.getEvasion(); //todo - modifications from status!
-    }
-    public int getAdjustedPrecision(){
-        return combatant.getPrecision(); //todo - modifications from status!
-    }
-    public int getAdjustedDefense(){
-        return combatant.getDefense(); //todo - modifications from status!
-    }
-    public int getAdjustedStrength(){
-        return combatant.getStrength(); //todo - modifications from status!
+    public int getAdjustedStatistic(int combatantStatisticIndex) {
+        int combatantStatistic = combatant.getStatistic(combatantStatisticIndex);
+        //todo - use the index to check status array and adjust with any that apply
+        return combatantStatistic;
     }
 }

@@ -16,13 +16,16 @@ import java.util.ArrayList;
  * and further modify them as necessary(via permanent ability, form modification, temporary effect, etc.)
  */
 public class Combatant implements Serializable {
-    private int healthCapacity; //the maximum health of this combatant
-    private int health; //the current health of this combatant
-    private int accuracy; //the ability of this combatant to use weapons
-    private int evasion; //the ability of this combatant to avoid incoming attacks
-    private int precision; //the ability of this combatant to target vulnerable areas
-    private int defense; //the ability of this combatant to protect vulnerable areas
-    private int strength; //the physical power of this combatant
+
+    public static final int HEALTH_CAPACITY = 0;
+    public static final int HEALTH = 1;
+    public static final int ACCURACY = 2;
+    public static final int EVASION = 3;
+    public static final int PRECISION = 4;
+    public static final int DEFENSE = 5;
+    public static final int STRENGTH = 6;
+
+    private int[] combatStatistics;
 
     private Form meleeForm; //the form this combatant uses in melee combat
 
@@ -55,17 +58,21 @@ public class Combatant implements Serializable {
             Form defaultForm,
             Continuum<WieldedMeleeWeapon> defaultMeleeWeapons
     ) {
-        health = healthCapacity = hea;
-        accuracy = acc;
-        evasion = eva;
-        precision = pre;
-        defense = def;
-        strength = str;
+        combatStatistics = new int[] {hea, hea, acc, eva, pre, def, str};
         meleeForm = defaultForm;
         combatantMeleeWeapons = defaultMeleeWeapons;
     }
     private Combatant(Combatant c) {
-        this(c.healthCapacity, c.accuracy, c.evasion, c.precision, c.defense, c.strength, c.meleeForm, c.combatantMeleeWeapons);
+        this(
+                c.getStatistic(HEALTH_CAPACITY),
+                c.getStatistic(ACCURACY),
+                c.getStatistic(EVASION),
+                c.getStatistic(PRECISION),
+                c.getStatistic(DEFENSE),
+                c.getStatistic(STRENGTH),
+                c.meleeForm,
+                c.combatantMeleeWeapons
+        );
     }
 
     /**
@@ -74,34 +81,15 @@ public class Combatant implements Serializable {
      * @return whether this combatant is still alive.
      */
     public boolean adjustHealth(int adjustment) {
-        health += adjustment;
-        if (health > healthCapacity) health = healthCapacity;
-        return health > 0;
+        setStatistic(HEALTH, getStatistic(HEALTH) + adjustment);
+        if (getStatistic(HEALTH) > getStatistic(HEALTH_CAPACITY)) renewHealth();
+        return getStatistic(HEALTH) > 0;
     }
     public void renewHealth() {
-        health = healthCapacity;
+        setStatistic(HEALTH, getStatistic(HEALTH_CAPACITY));
     }
     public double getHealthPercent() {
-        return 100.0 * (double)health / (double)healthCapacity;
-    }
-
-    public int getAccuracy() {
-        return accuracy + meleeForm.adjustAccuracy();
-    }
-
-    public int getEvasion() {
-        return evasion + meleeForm.adjustEvasion();
-    }
-
-    public int getPrecision() {
-        return precision + meleeForm.adjustPrecision();
-    }
-    public int getDefense() {
-        return defense + meleeForm.adjustDefense();
-    }
-
-    public int getStrength() {
-        return strength + meleeForm.adjustStrength();
+        return 100.0 * (double)getStatistic(HEALTH) / (double)getStatistic(HEALTH_CAPACITY);
     }
 
     public Form getMeleeForm() {
@@ -127,6 +115,13 @@ public class Combatant implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public int getStatistic(int index) {
+        return combatStatistics[index] + ((index > HEALTH) ? meleeForm.adjustStatistic(index) : 0);
+    }
+    public void setStatistic(int index, int value) {
+        combatStatistics[index] = value;
     }
 
     @Override

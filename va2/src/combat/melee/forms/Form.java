@@ -68,19 +68,7 @@ public class Form extends TextDisplayable {
         return defenseTactics.getValue(Session.getRNG());
     }
 
-    public int adjustAccuracy() {
-        return statModifiers[0];
-    }
-    public int adjustEvasion() {
-        return statModifiers[1];
-    }
-    public int adjustPrecision() {
-        return statModifiers[2];
-    }
-    public int adjustDefense() {
-        return statModifiers[3];
-    }
-    public int adjustStrength() {
-        return statModifiers[4];
+    public int adjustStatistic(int combatantStatisticIndex) {
+        return statModifiers[combatantStatisticIndex - 2];
     }
 }

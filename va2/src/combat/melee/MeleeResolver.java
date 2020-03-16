@@ -17,6 +17,8 @@ import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.ActorSet;
 
+import static combat.Combatant.*;
+
 /**
  * CombatResolver for Melee combat interactions.
  */
@@ -193,20 +195,25 @@ public class MeleeResolver extends CombatResolver {
          * Calculate effective values:
          */
         int effectiveAttackerAccuracy = (int)(attackerAccuracyMultiplier *
-                ((double)attacker.getAdjustedAccuracy() + (double) attackerResolvableMeleeWeapon.adjustAccuracy()));
+                ((double)attacker.getAdjustedStatistic(ACCURACY) +
+                        (double) attackerResolvableMeleeWeapon.adjustAccuracy()));
         int effectiveAttackerPrecision = (int)(attackerPrecisionMultiplier *
-                ((double)attacker.getAdjustedPrecision() + (double) attackerResolvableMeleeWeapon.adjustPrecision()));
-        int effectiveAttackerStrength = attacker.getAdjustedStrength() + attackerResolvableMeleeWeapon.adjustStrength();
+                ((double)attacker.getAdjustedStatistic(PRECISION) +
+                        (double) attackerResolvableMeleeWeapon.adjustPrecision()));
+        int effectiveAttackerStrength = attacker.getAdjustedStatistic(STRENGTH) +
+                attackerResolvableMeleeWeapon.adjustStrength();
         ResolvableMeleeWeapon defenderResolvableMeleeWeapon = defenderCombatant.selectMeleeWeapon();
         MeleeStyle defenderStyle = defenderResolvableMeleeWeapon.getMeleeStyle();
-        int effectiveDefenderEvasion = (int)(defenderEvasionMultiplier * (double)defender.getAdjustedEvasion());
+        int effectiveDefenderEvasion = (int)(defenderEvasionMultiplier *
+                (double)defender.getAdjustedStatistic(EVASION));
         int effectiveDefenderDeflection = (int)(defenderDeflectionMultiplier *
                 (double)(defenderStyle == MeleeStyle.SHIELD
-                ? defender.getAdjustedEvasion() : //evasion for blocking todo - bonus for bigger shields?
+                ? defender.getAdjustedStatistic(EVASION) : //evasion for blocking todo - bonus for bigger shields?
                 defenderStyle == MeleeStyle.DUAL_WEAPON
-                        ? defender.getAdjustedAccuracy() //accuracy for parrying
-                        : (int)(0.5 * (double)defender.getAdjustedAccuracy()))); //halved if not shield or dual
-        int effectiveDefenderDefense = (int)(defenderDefenseMultiplier * (double)defender.getAdjustedDefense());
+                        ? defender.getAdjustedStatistic(ACCURACY) //accuracy for parrying
+                        : (int)(0.5 * (double)defender.getAdjustedStatistic(ACCURACY)))); //halved if not shield or dual
+        int effectiveDefenderDefense = (int)(defenderDefenseMultiplier *
+                (double)defender.getAdjustedStatistic(DEFENSE));
         if (attackerHasIgnoreBonus) { //apply the bonus from ignoring an incoming attack
             effectiveAttackerAccuracy = (int)(1.25 * (double)effectiveAttackerAccuracy);
             effectiveAttackerPrecision = (int)(1.25 * (double)effectiveAttackerPrecision);
