@@ -25,11 +25,9 @@ public interface ContactInteractive {
                 * h //attacking weapon gets base hardness modification
                 * ci1.getSelfDamageMultiplier(); //damage to actors caused by innate weapon impacts is reduced here, but damage to degradeable items is not
         //todo - volatility
-        double mult2 = (directImpact //as above
-                ? ci1.doesDamageSelf() //if this interactive item takes its own damage, that is, degradable armor
+        double mult2 = (directImpact && ci1.doesDamageSelf() //if this interactive item takes its own damage, that is, degradable armor
                 ? DIRECT_IMPACT_MULTIPLIER //multiply the damage to the armor
-                : (1 / DIRECT_IMPACT_MULTIPLIER) //if not, divide it instead, so actors are not unduly harmed by damage to their innate armor
-                : 1.0) //otherwise no adjustment
+                : 1.0) //otherwise no adjustment - a non-direct hit or an actor damaging direct hit is not increased here
                 * m1.getSusceptibility(t) //defending weapon receives damage of the type the attack possessed
                 * (1.0 / h) //defending weapon gets inverse hardness modification
                 * ci2.getSelfDamageMultiplier(); //as above
