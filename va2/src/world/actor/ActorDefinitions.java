@@ -3,7 +3,6 @@ package world.actor;
 import ai.AIDefinitions;
 import combat.Combatant;
 import combat.melee.forms.FormDefinitions;
-import combat.melee.weapons.ResolvableMeleeWeapon;
 import combat.melee.weapons.WeaponDefinitions;
 import main.progression.Reward;
 import resources.chroma.Chroma;
@@ -12,6 +11,7 @@ import resources.continuum.Pair;
 import util.ArrayListBuilder;
 import world.ColorStandards;
 import world.WorldObjectTemplateFactory;
+import world.item.MeleeWeapon;
 
 import java.awt.*;
 
@@ -208,7 +208,7 @@ public class ActorDefinitions {
                                     72,
                                     256,
                                     FormDefinitions.LARGE_BEAST,
-                                    new Continuum<ResolvableMeleeWeapon>(
+                                    new Continuum<MeleeWeapon>(
                                             WeaponDefinitions.BEAR_SWAT,
                                             ArrayListBuilder
                                                     .initialize()
@@ -249,7 +249,7 @@ public class ActorDefinitions {
                                     96,
                                     256,
                                     FormDefinitions.LARGE_BEAST,
-                                    new Continuum<ResolvableMeleeWeapon>(
+                                    new Continuum<MeleeWeapon>(
                                             WeaponDefinitions.SPIDER_BITE,
                                             ArrayListBuilder
                                                     .initialize()

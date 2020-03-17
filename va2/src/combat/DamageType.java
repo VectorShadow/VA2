@@ -1,8 +1,11 @@
 package combat;
 
 import resources.chroma.Chroma;
+import resources.continuum.Continuum;
+import resources.continuum.Pair;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Establishes all damage types.
@@ -38,5 +41,17 @@ public enum DamageType {
             default:
                 throw new IllegalStateException("Unimplemented DamageType");
         }
+    }
+
+    /**
+     * Pulled from ResolvableMeleeWeapon after deprecation for possible future use.
+     */
+    public static Continuum<Color> buildColorContinuum(Continuum<WeaponDamage> wdc) {
+        Color base = wdc.getBase().type().getColor();
+        ArrayList<Pair<Color>> list = new ArrayList<>();
+        for (Pair<WeaponDamage> wdp : wdc.getPairList()) {
+            list.add(new Pair<>(wdp.probability, wdp.element.type().getColor()));
+        }
+        return new Continuum<>(base, list);
     }
 }

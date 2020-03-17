@@ -2,11 +2,11 @@ package combat.melee.forms;
 
 import combat.melee.*;
 import combat.melee.weapons.MeleeStyle;
-import combat.melee.weapons.ResolvableMeleeWeapon;
 import combat.melee.weapons.MeleeWeaponClass;
 import main.Session;
 import main.extensible.TextDisplayable;
 import resources.continuum.Continuum;
+import world.item.MeleeWeapon;
 
 import java.awt.*;
 
@@ -46,7 +46,7 @@ public class Form extends TextDisplayable {
      * Use this to browse a list of known Forms and return only those matching the provided style and class.
      * Note that if a form does not specify a style or class, it can be used with any style or class.
      */
-    public boolean applicable(ResolvableMeleeWeapon mw) {
+    public boolean applicable(MeleeWeapon mw) {
         return (meleeStyle == null || meleeStyle == mw.getMeleeStyle()) &&
                 (meleeWeaponClass == null || meleeWeaponClass == mw.getMeleeWeaponClass());
     }

@@ -1,19 +1,15 @@
-package combat.melee.weapons;
+package world.item;
 
-import combat.CombatResolvable;
 import combat.WeaponDamage;
+import combat.melee.weapons.MeleeStyle;
+import combat.melee.weapons.MeleeWeaponClass;
 import main.Session;
 import resources.continuum.Continuum;
-import resources.continuum.Pair;
-import world.item.InteractiveItem;
+import world.item.loadout.EquipmentSlot;
+import world.item.material.Material;
 
-import java.awt.*;
-import java.util.ArrayList;
+public class MeleeWeapon extends ContactInteractiveItem {
 
-/**
- * This class specifies the properties of any type of melee weapon required by the MeleeResolver.
- */
-public class ResolvableMeleeWeapon extends CombatResolvable {
     private final int DAMAGE_LIMIT;
     private final int DAMAGE_VARIANCE;
     private final double STRENGTH_INFLUENCE;
@@ -22,19 +18,19 @@ public class ResolvableMeleeWeapon extends CombatResolvable {
     private final MeleeWeaponClass MELEE_WEAPON_CLASS;
     private final Continuum<WeaponDamage> WEAPON_DAMAGE_CONTINUUM;
 
-    private final Continuum<Color> COLOR_CONTINUUM;
-
-    public ResolvableMeleeWeapon(
-            InteractiveItem ii,
+    public MeleeWeapon(
+            ItemTemplate it,
+            boolean doesDegrade,
+            Material m,
+            boolean innate,
             int damLim,
             int damVar,
             double strInf,
             int[] adjAccPreStr,
             MeleeStyle ms,
             MeleeWeaponClass mwc,
-            Continuum<WeaponDamage> wdc
-    ){
-        super(ii);
+            Continuum<WeaponDamage> wdc) {
+        super(it, doesDegrade, m, EquipmentSlot.WIELDED, innate);
         if (damLim < damVar || strInf < 0 || strInf > .67 || adjAccPreStr.length != 3)
             throw new IllegalStateException("Arguments out of bounds.");
         DAMAGE_LIMIT = damLim;
@@ -44,33 +40,36 @@ public class ResolvableMeleeWeapon extends CombatResolvable {
         MELEE_STYLE = ms;
         MELEE_WEAPON_CLASS = mwc;
         WEAPON_DAMAGE_CONTINUUM = wdc;
-        COLOR_CONTINUUM = buildColorContinuum();
     }
-    public ResolvableMeleeWeapon(
-            InteractiveItem ii,
+    public MeleeWeapon(
+            ItemTemplate it,
+            boolean doesDegrade,
+            Material m,
+            boolean innate,
             int damLim,
             int damVar,
             double strInf,
             int[] adjAccPreStr,
             MeleeStyle ms,
             MeleeWeaponClass mwc,
-            WeaponDamage wd
-    ) {
-        this(ii, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(wd));
+            WeaponDamage wd) {
+        this(it, doesDegrade, m, innate, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(wd));
     }
-    public ResolvableMeleeWeapon(ResolvableMeleeWeapon mwt) {
+    MeleeWeapon(MeleeWeapon mw) {
         this(
-                mwt.getInteractiveItem(),
-                mwt.DAMAGE_LIMIT,
-                mwt.DAMAGE_VARIANCE,
-                mwt.STRENGTH_INFLUENCE,
-                mwt.STAT_MODIFIERS,
-                mwt.MELEE_STYLE,
-                mwt.MELEE_WEAPON_CLASS,
-                mwt.WEAPON_DAMAGE_CONTINUUM
+                ((ItemTemplate)mw.getTemplate()),
+                mw.DOES_DEGRADE,
+                mw.getMaterial(),
+                mw.INNATE,
+                mw.DAMAGE_LIMIT,
+                mw.DAMAGE_VARIANCE,
+                mw.STRENGTH_INFLUENCE,
+                mw.STAT_MODIFIERS,
+                mw.MELEE_STYLE,
+                mw.MELEE_WEAPON_CLASS,
+                mw.WEAPON_DAMAGE_CONTINUUM
         );
     }
-
     public int rollRawDamage(int wielderStrength) {
         double rollPct = 1.0 - STRENGTH_INFLUENCE;
         int rollDamage = (int)(rollPct * (double)(DAMAGE_LIMIT - Session.getRNG().nextInt(DAMAGE_VARIANCE)));
@@ -102,21 +101,8 @@ public class ResolvableMeleeWeapon extends CombatResolvable {
         return isHeavyBlow ? WEAPON_DAMAGE_CONTINUUM.getBase() : WEAPON_DAMAGE_CONTINUUM.getValue(Session.getRNG());
     }
 
-    public Continuum<Color> getColorContinuum() {
-        return COLOR_CONTINUUM;
-    }
-
-    private Continuum<Color> buildColorContinuum() {
-        Color base = WEAPON_DAMAGE_CONTINUUM.getBase().type().getColor();
-        ArrayList<Pair<Color>> list = new ArrayList<>();
-        for (Pair<WeaponDamage> wdp : WEAPON_DAMAGE_CONTINUUM.getPairList()) {
-            list.add(new Pair<>(wdp.probability, wdp.element.type().getColor()));
-        }
-        return new Continuum<>(base, list);
-    }
-
     @Override
-    public ResolvableMeleeWeapon clone() {
-        return new ResolvableMeleeWeapon(this);
+    public MeleeWeapon clone() {
+        return new MeleeWeapon(this);
     }
 }

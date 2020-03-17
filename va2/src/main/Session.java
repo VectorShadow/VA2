@@ -63,6 +63,7 @@ public class Session {
         messageCenter = new MessageCenter();
         player = new Player();
         player.setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
+        player.getEquipment().setStartingItems();
         currentFloor.generate();
     }
     public static void loadProfile(LoreTree loreTree) {

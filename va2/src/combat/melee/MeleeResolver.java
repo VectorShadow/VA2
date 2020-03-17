@@ -3,7 +3,6 @@ package combat.melee;
 import combat.*;
 import combat.melee.forms.Form;
 import combat.melee.weapons.MeleeStyle;
-import combat.melee.weapons.ResolvableMeleeWeapon;
 import engine.action.ActionDefinitions;
 import engine.action.CounterAttackAction;
 import engine.action.MeleeAttackAction;
@@ -16,7 +15,8 @@ import world.actor.ActorTemplate;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.ActorSet;
-import world.item.InteractiveItem;
+import world.item.ContactInteractiveItem;
+import world.item.MeleeWeapon;
 
 import static combat.Combatant.*;
 
@@ -53,9 +53,8 @@ public class MeleeResolver extends CombatResolver {
                 : isDefenderPlayer
                 ? defenderForm.selectDefenseTactic() //todo - use the player's set tactic
                 : defenderForm.selectDefenseTactic(); //select a random available tactic
-        ResolvableMeleeWeapon attackerResolvableMeleeWeapon = meleeAttackAction.getResolvableMeleeWeapon();
-        InteractiveItem attackerInteractiveWeapon = attackerResolvableMeleeWeapon.getInteractiveItem();
-        WeaponDamage weaponDamage = attackerResolvableMeleeWeapon.resolveWeaponDamage(attackTactic == AttackTactic.BLOW);
+        MeleeWeapon attackerMeleeWeapon = meleeAttackAction.getMeleeWeapon();
+        WeaponDamage weaponDamage = attackerMeleeWeapon.resolveWeaponDamage(attackTactic == AttackTactic.BLOW);
         //counterattacks preserve any existing message - otherwise we need to reset it
         if (!(meleeAttackAction instanceof CounterAttackAction)){
             message = (isAttackerPlayer || isDefenderPlayer)
@@ -198,15 +197,14 @@ public class MeleeResolver extends CombatResolver {
          */
         int effectiveAttackerAccuracy = (int)(attackerAccuracyMultiplier *
                 ((double)attacker.getAdjustedStatistic(ACCURACY) +
-                        (double) attackerResolvableMeleeWeapon.adjustAccuracy()));
+                        (double) attackerMeleeWeapon.adjustAccuracy()));
         int effectiveAttackerPrecision = (int)(attackerPrecisionMultiplier *
                 ((double)attacker.getAdjustedStatistic(PRECISION) +
-                        (double) attackerResolvableMeleeWeapon.adjustPrecision()));
+                        (double) attackerMeleeWeapon.adjustPrecision()));
         int effectiveAttackerStrength = attacker.getAdjustedStatistic(STRENGTH) +
-                attackerResolvableMeleeWeapon.adjustStrength();
-        ResolvableMeleeWeapon defenderResolvableMeleeWeapon = defenderCombatant.selectMeleeWeapon();
-        InteractiveItem defenderInteractiveWeapon = defenderResolvableMeleeWeapon.getInteractiveItem();
-        MeleeStyle defenderStyle = defenderResolvableMeleeWeapon.getMeleeStyle();
+                attackerMeleeWeapon.adjustStrength();
+        MeleeWeapon defenderMeleeWeapon = defenderCombatant.selectMeleeWeapon();
+        MeleeStyle defenderStyle = defenderMeleeWeapon.getMeleeStyle();
         int effectiveDefenderEvasion = (int)(defenderEvasionMultiplier *
                 (double)defender.getAdjustedStatistic(EVASION));
         int effectiveDefenderDeflection = (int)(defenderDeflectionMultiplier *
@@ -269,7 +267,7 @@ public class MeleeResolver extends CombatResolver {
                                                 : attackerHasIgnoreBonus //if attacker has ignore bonus, his attack is not
                                                 ? DefenseTactic.IGNORE //negated, but he may not defend against the counter
                                                 : null, //otherwise, the attacker has freedom of defensive tactics
-                                        defenderResolvableMeleeWeapon
+                                        defenderMeleeWeapon
                                 ),
                                 attacker
                         );
@@ -364,13 +362,13 @@ public class MeleeResolver extends CombatResolver {
                         );
                     }
                     int[] deflectionInteractionDamage = ContactInteractive.interact(
-                            attackerInteractiveWeapon,
+                            attackerMeleeWeapon,
                             weaponDamage.type(),
-                            defenderInteractiveWeapon,
+                            defenderMeleeWeapon,
                             false //deflection is not a direct impact
                     );
-                    if (attackerInteractiveWeapon.doesDamageSelf()) {
-                        if (!attackerInteractiveWeapon.damageSelf(deflectionInteractionDamage[0])) {
+                    if (attackerMeleeWeapon.doesDamageSelf()) {
+                        if (!attackerMeleeWeapon.damageSelf(deflectionInteractionDamage[0])) {
                             //todo - destroy this weapon
                         }
                     } else {
@@ -378,8 +376,8 @@ public class MeleeResolver extends CombatResolver {
                             attacker.getCombatant().adjustHealth(-deflectionInteractionDamage[0]); //don't die from this type of damage
                         }
                     }
-                    if (defenderInteractiveWeapon.doesDamageSelf()) {
-                        if (!defenderInteractiveWeapon.damageSelf(deflectionInteractionDamage[1])) {
+                    if (defenderMeleeWeapon.doesDamageSelf()) {
+                        if (!defenderMeleeWeapon.damageSelf(deflectionInteractionDamage[1])) {
                             //todo - destroy this weapon
                         }
                     } else {
@@ -412,7 +410,7 @@ public class MeleeResolver extends CombatResolver {
                 (int)(attackerDamageMultiplier *
                         defenderDamageReductionMultiplier *
                         weaponDamage.modify() *
-                        (double)(attackerResolvableMeleeWeapon.rollRawDamage(effectiveAttackerStrength)));
+                        (double)(attackerMeleeWeapon.rollRawDamage(effectiveAttackerStrength)));
         //hack - tell me how much damage I'm doing!
         if (isAttackerPlayer || isDefenderPlayer) {
             updateMessage(

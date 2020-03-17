@@ -72,9 +72,9 @@ public class Dungeon implements Serializable {
                 experience.gainXP(r.evaluateExperience(experience.getLevel()));
             }
         }
-        if (experience.getLevel() > startLevel) {
+        for (int level = startLevel + 1; level <= experience.getLevel(); ++level) {
             Session.getMessageCenter().sendMessage(
-                    "You have reached level " + experience.getLevel() + ".", MessageType.SUCCESS
+                    "You have reached level " + level + ".", MessageType.SUCCESS
             );
         }
     }

@@ -7,4 +7,7 @@ public abstract class Item extends WorldObject {
     public Item(ItemTemplate it) {
         super(it);
     }
+
+    @Override
+    public abstract Item clone();
 }

@@ -1,10 +1,10 @@
 package engine.action;
 
-import combat.melee.weapons.ResolvableMeleeWeapon;
+import world.item.MeleeWeapon;
 
 /**
  * All melee actions implement this for MeleeResolver.
  */
 public interface MeleeAttackAction {
-    ResolvableMeleeWeapon getResolvableMeleeWeapon();
+    MeleeWeapon getMeleeWeapon();
 }

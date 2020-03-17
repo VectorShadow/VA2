@@ -1,23 +1,30 @@
 package world.item.loadout;
 
-public class WeaponsBelt {
-    private Equippable wieldedWeapon = null;
-    private Equippable[] beltedWeapons;
+import combat.melee.weapons.WeaponDefinitions;
+import main.Session;
+import world.item.MeleeWeapon;
+
+public class WeaponsBelt extends LoadoutModule {
+    private MeleeWeapon wieldedWeapon = null;
+    private MeleeWeapon[] beltedWeapons;
 
     public WeaponsBelt(int capacity) {
-        beltedWeapons = new Equippable[capacity];
+        beltedWeapons = new MeleeWeapon[capacity];
     }
 
     public void switchTo(int index) {
-        Equippable e = beltedWeapons[index];
+        MeleeWeapon mw = beltedWeapons[index];
         beltedWeapons[index] = wieldedWeapon;
-        wieldedWeapon = e;
+        wieldedWeapon = mw;
     }
-    public boolean wield(Equippable e) {
-        if (wieldedWeapon == null && e.getEquipmentSlot() == Equippable.EquipmentSlot.WIELDED) {
-            wieldedWeapon = e;
-            return true;
-        }
-        return false;
+    public MeleeWeapon wield(MeleeWeapon mw) {
+        MeleeWeapon oldMeleeWeapon = wieldedWeapon;
+        wieldedWeapon = mw;
+        Session.getPlayer().getActor().getCombatant().setMeleeWeapons(
+                wieldedWeapon == null
+                        ? WeaponDefinitions.BARE_HANDED
+                        : wieldedWeapon
+        );
+        return oldMeleeWeapon;
     }
 }
