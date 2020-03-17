@@ -23,6 +23,10 @@ public abstract class GlyphDisplayable extends TextDisplayable {
         balancedGlyphTemplate = bgt;
     }
 
+    public BalancedGlyphTemplate getBalancedGlyphTemplate() {
+        return balancedGlyphTemplate;
+    }
+
     public Glyph memoryImage() {
         return GlyphBuilder
                 .buildGlyph()

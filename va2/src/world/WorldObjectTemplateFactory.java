@@ -6,6 +6,7 @@ import io.out.DisplayStandards;
 import main.progression.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
+import world.item.ItemTemplate;
 import world.terrain.TerrainTemplate;
 
 import java.awt.*;
@@ -119,6 +120,19 @@ public class WorldObjectTemplateFactory {
                 minimumDepth,
                 reward,
                 ai
+        );
+    }
+    public ItemTemplate manufactureItemTemplate(int durability) {
+        forceNonEmptyLists();
+        return new ItemTemplate(
+                description,
+                name,
+                new BalancedGlyphTemplate(
+                        symbols,
+                        backgroundColors,
+                        foregroundColors
+                ),
+                durability
         );
     }
     public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {

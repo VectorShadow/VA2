@@ -16,6 +16,7 @@ import world.actor.ActorTemplate;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.ActorSet;
+import world.item.InteractiveItem;
 
 import static combat.Combatant.*;
 
@@ -53,6 +54,7 @@ public class MeleeResolver extends CombatResolver {
                 ? defenderForm.selectDefenseTactic() //todo - use the player's set tactic
                 : defenderForm.selectDefenseTactic(); //select a random available tactic
         ResolvableMeleeWeapon attackerResolvableMeleeWeapon = meleeAttackAction.getResolvableMeleeWeapon();
+        InteractiveItem attackerInteractiveWeapon = attackerResolvableMeleeWeapon.getInteractiveItem();
         WeaponDamage weaponDamage = attackerResolvableMeleeWeapon.resolveWeaponDamage(attackTactic == AttackTactic.BLOW);
         //counterattacks preserve any existing message - otherwise we need to reset it
         if (!(meleeAttackAction instanceof CounterAttackAction)){
@@ -203,6 +205,7 @@ public class MeleeResolver extends CombatResolver {
         int effectiveAttackerStrength = attacker.getAdjustedStatistic(STRENGTH) +
                 attackerResolvableMeleeWeapon.adjustStrength();
         ResolvableMeleeWeapon defenderResolvableMeleeWeapon = defenderCombatant.selectMeleeWeapon();
+        InteractiveItem defenderInteractiveWeapon = defenderResolvableMeleeWeapon.getInteractiveItem();
         MeleeStyle defenderStyle = defenderResolvableMeleeWeapon.getMeleeStyle();
         int effectiveDefenderEvasion = (int)(defenderEvasionMultiplier *
                 (double)defender.getAdjustedStatistic(EVASION));
@@ -214,6 +217,7 @@ public class MeleeResolver extends CombatResolver {
                         : (int)(0.5 * (double)defender.getAdjustedStatistic(ACCURACY)))); //halved if not shield or dual
         int effectiveDefenderDefense = (int)(defenderDefenseMultiplier *
                 (double)defender.getAdjustedStatistic(DEFENSE));
+        int defenderInnateSelfDamage = 0; //any additional damage the defender may sustain from innate weapon contact interactions
         if (attackerHasIgnoreBonus) { //apply the bonus from ignoring an incoming attack
             effectiveAttackerAccuracy = (int)(1.25 * (double)effectiveAttackerAccuracy);
             effectiveAttackerPrecision = (int)(1.25 * (double)effectiveAttackerPrecision);
@@ -360,8 +364,30 @@ public class MeleeResolver extends CombatResolver {
                                 isAttackerPlayer ? MessageType.WARNING : MessageType.SUCCESS
                         );
                     }
-                    //todo - damage weapons/shields
-                    return message;
+                    int[] deflectionInteractionDamage = ContactInteractive.interact(
+                            attackerInteractiveWeapon,
+                            weaponDamage.type(),
+                            defenderInteractiveWeapon
+                    );
+                    if (attackerInteractiveWeapon.doesDamageSelf()) {
+                        if (!attackerInteractiveWeapon.damageSelf(deflectionInteractionDamage[0])) {
+                            //todo - destroy this weapon
+                        }
+                    } else {
+                        if (!attackerCombatant.adjustHealth(deflectionInteractionDamage[0])) {
+                            //an attacker may not die from deflection interaction damage to its innate weapons
+                            //but otherwise it must take this damage
+                            attacker.getCombatant().adjustHealth(-deflectionInteractionDamage[0]);
+                        }
+                    }
+                    if (defenderInteractiveWeapon.doesDamageSelf()) {
+                        if (!defenderInteractiveWeapon.damageSelf(deflectionInteractionDamage[1])) {
+                            //todo - destroy this weapon
+                        }
+                    } else {
+                        //add this amount to the final calculation
+                        defenderInnateSelfDamage += deflectionInteractionDamage[1];
+                    }
                 } else if (effectiveDefenderDeflection > 0 && (isAttackerPlayer || isDefenderPlayer)) {
                     updateMessage(
                             Grammar.configure(
@@ -403,7 +429,7 @@ public class MeleeResolver extends CombatResolver {
         }
         //todo - critical damage
         //todo - armor
-        if (!defenderCombatant.adjustHealth(-attackDamage)) {
+        if (!defenderCombatant.adjustHealth(-(attackDamage + defenderInnateSelfDamage))) {
             Session.killActor(defender);
             if (isAttackerPlayer) {
                 Dungeon d = Session.getCurrentDungeon();

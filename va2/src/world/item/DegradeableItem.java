@@ -1,10 +1,12 @@
 package world.item;
 
-public abstract class DegradeableItem extends Item {
+import world.item.material.Material;
+
+public class DegradeableItem extends InteractiveItem {
     private int durability;
 
-    public DegradeableItem(ItemTemplate it) {
-        super(it);
+    public DegradeableItem(ItemTemplate it, Material m) {
+        super(it, m);
         durability = it.DURABILITY;
     }
 
@@ -36,5 +38,10 @@ public abstract class DegradeableItem extends Item {
     }
     private int maxDurability() {
         return ((ItemTemplate)getTemplate()).DURABILITY;
+    }
+
+    @Override
+    public boolean damageSelf(int amount) {
+        return damage(amount);
     }
 }

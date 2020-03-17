@@ -1,12 +1,17 @@
 package combat;
 
-import world.item.DegradeableItem;
-import world.item.Material;
+import world.item.material.Material;
 
 public interface ContactInteractive {
     double INTERACTION_DAMAGE = 32.0;
     Material getMaterial();
     double getSelfDamageMultiplier();
+    boolean doesDamageSelf();
+
+    /**
+     * @return whether the ContactInteractive has not been destroyed
+     */
+    boolean damageSelf(int amount);
 
     static int[] interact(ContactInteractive ci1, DamageType t, ContactInteractive ci2) {
         Material m1 = ci1.getMaterial();
@@ -17,9 +22,5 @@ public interface ContactInteractive {
         int dam1 = (int)(INTERACTION_DAMAGE * mult1);
         int dam2 = (int)(INTERACTION_DAMAGE * mult2);
         return new int[]{dam1, dam2};
-    }
-
-    static boolean damageSelf(ContactInteractive ci) {
-        return ci instanceof DegradeableItem;
     }
 }

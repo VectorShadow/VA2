@@ -1,4 +1,4 @@
-package world.item;
+package world.item.material;
 
 import combat.DamageType;
 

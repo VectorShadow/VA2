@@ -5,6 +5,7 @@ import combat.WeaponDamage;
 import main.Session;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;
+import world.item.InteractiveItem;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class ResolvableMeleeWeapon extends CombatResolvable {
     private final Continuum<Color> COLOR_CONTINUUM;
 
     public ResolvableMeleeWeapon(
+            InteractiveItem ii,
             int damLim,
             int damVar,
             double strInf,
@@ -32,6 +34,7 @@ public class ResolvableMeleeWeapon extends CombatResolvable {
             MeleeWeaponClass mwc,
             Continuum<WeaponDamage> wdc
     ){
+        super(ii);
         if (damLim < damVar || strInf < 0 || strInf > .67 || adjAccPreStr.length != 3)
             throw new IllegalStateException("Arguments out of bounds.");
         DAMAGE_LIMIT = damLim;
@@ -44,6 +47,7 @@ public class ResolvableMeleeWeapon extends CombatResolvable {
         COLOR_CONTINUUM = buildColorContinuum();
     }
     public ResolvableMeleeWeapon(
+            InteractiveItem ii,
             int damLim,
             int damVar,
             double strInf,
@@ -52,10 +56,11 @@ public class ResolvableMeleeWeapon extends CombatResolvable {
             MeleeWeaponClass mwc,
             WeaponDamage wd
     ) {
-        this(damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(wd));
+        this(ii, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(wd));
     }
     public ResolvableMeleeWeapon(ResolvableMeleeWeapon mwt) {
         this(
+                mwt.getInteractiveItem(),
                 mwt.DAMAGE_LIMIT,
                 mwt.DAMAGE_VARIANCE,
                 mwt.STRENGTH_INFLUENCE,

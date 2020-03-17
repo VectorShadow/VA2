@@ -1,7 +1,6 @@
 package combat;
 
 import combat.melee.forms.Form;
-import combat.melee.weapons.WieldedMeleeWeapon;
 import combat.melee.weapons.ResolvableMeleeWeapon;
 import main.Session;
 import resources.continuum.Continuum;
@@ -29,7 +28,7 @@ public class Combatant implements Serializable {
 
     private Form meleeForm; //the form this combatant uses in melee combat
 
-    private Continuum<WieldedMeleeWeapon> combatantMeleeWeapons; //a continuum of melee weapons available to this combatant
+    private Continuum<ResolvableMeleeWeapon> combatantMeleeWeapons; //a continuum of melee weapons available to this combatant
     //todo - ranged weapons
 
     private boolean ignoreBonus = false; //whether this attacker has a bonus from ignoring the last incoming attack
@@ -44,7 +43,7 @@ public class Combatant implements Serializable {
             int def,
             int str,
             Form defaultForm,
-            WieldedMeleeWeapon defaultMeleeWeapon
+            ResolvableMeleeWeapon defaultMeleeWeapon
     ) {
         this(hea, acc, eva, pre, def, str, defaultForm, new Continuum<>(defaultMeleeWeapon, new ArrayList<>()));
     }
@@ -56,7 +55,7 @@ public class Combatant implements Serializable {
             int def,
             int str,
             Form defaultForm,
-            Continuum<WieldedMeleeWeapon> defaultMeleeWeapons
+            Continuum<ResolvableMeleeWeapon> defaultMeleeWeapons
     ) {
         combatStatistics = new int[] {hea, hea, acc, eva, pre, def, str};
         meleeForm = defaultForm;
@@ -97,13 +96,13 @@ public class Combatant implements Serializable {
     }
 
     public ResolvableMeleeWeapon selectMeleeWeapon() {
-        return combatantMeleeWeapons.getValue(Session.getRNG()).getResolvableMeleeWeapon();
+        return combatantMeleeWeapons.getValue(Session.getRNG());
     }
-    public void setMeleeWeapons(Continuum<WieldedMeleeWeapon> mwc) {
-        combatantMeleeWeapons = mwc;
+    public void setMeleeWeapons(Continuum<ResolvableMeleeWeapon> rmwc) {
+        combatantMeleeWeapons = rmwc;
     }
-    public void setMeleeWeapons(WieldedMeleeWeapon cmw) {
-        setMeleeWeapons(new Continuum<>(cmw, new ArrayList<>()));
+    public void setMeleeWeapons(ResolvableMeleeWeapon rmw) {
+        setMeleeWeapons(new Continuum<>(rmw, new ArrayList<>()));
     }
 
     public void setIgnoreBonus() {
