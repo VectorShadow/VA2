@@ -2,6 +2,11 @@ package world.item;
 
 import world.item.material.Material;
 
+/**
+ * This class specifies all contact interactive items which can degrade as a result of that contact.
+ * The combatant using this item is not damaged by such interaction - instead, all such damage is dealt
+ * directly to this item's durability.
+ */
 public class DegradeableItem extends InteractiveItem {
     private int durability;
 

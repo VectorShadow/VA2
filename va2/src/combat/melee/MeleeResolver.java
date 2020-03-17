@@ -217,7 +217,6 @@ public class MeleeResolver extends CombatResolver {
                         : (int)(0.5 * (double)defender.getAdjustedStatistic(ACCURACY)))); //halved if not shield or dual
         int effectiveDefenderDefense = (int)(defenderDefenseMultiplier *
                 (double)defender.getAdjustedStatistic(DEFENSE));
-        int defenderInnateSelfDamage = 0; //any additional damage the defender may sustain from innate weapon contact interactions
         if (attackerHasIgnoreBonus) { //apply the bonus from ignoring an incoming attack
             effectiveAttackerAccuracy = (int)(1.25 * (double)effectiveAttackerAccuracy);
             effectiveAttackerPrecision = (int)(1.25 * (double)effectiveAttackerPrecision);
@@ -252,7 +251,7 @@ public class MeleeResolver extends CombatResolver {
                                         isDefenderPlayer,
                                         "You",
                                         "The " + defenderName,
-                                        "counter&",
+                                        "counter$",
                                         "the " + attackerName + "'s attack.",
                                         "your attack."
                                 ),
@@ -280,7 +279,7 @@ public class MeleeResolver extends CombatResolver {
                                         isAttackerPlayer,
                                         "You",
                                         "The " + attackerName,
-                                        "anticipate&",
+                                        "anticipate$",
                                         "the " + defenderName + "'s counterattack.",
                                         "your counterattack."
                                 ),
@@ -293,7 +292,7 @@ public class MeleeResolver extends CombatResolver {
                                         isDefenderPlayer,
                                         "You",
                                         "The " + defenderName,
-                                        "fall& for",
+                                        "fall$ for",
                                         "the " + attackerName + "'s feint.",
                                         "your feint."
                                 ),
@@ -329,7 +328,7 @@ public class MeleeResolver extends CombatResolver {
                                         isDefenderPlayer,
                                         "You",
                                         "The " + defenderName,
-                                        "evade&",
+                                        "evade$",
                                         "the " + attackerName + "'s attack.",
                                         "your attack."
                                 ),
@@ -343,7 +342,7 @@ public class MeleeResolver extends CombatResolver {
                                     isDefenderPlayer,
                                     "You",
                                     "The " + defenderName,
-                                    "fail& to evade",
+                                    "fail$ to evade",
                                     "the " + attackerName + "'s attack.",
                                     "your attack."
                             ),
@@ -357,7 +356,7 @@ public class MeleeResolver extends CombatResolver {
                                         isDefenderPlayer,
                                         "You",
                                         "The " + defenderName,
-                                        "deflect&",
+                                        "deflect$",
                                         "the " + attackerName + "'s attack.",
                                         "your attack."
                                 ),
@@ -367,7 +366,8 @@ public class MeleeResolver extends CombatResolver {
                     int[] deflectionInteractionDamage = ContactInteractive.interact(
                             attackerInteractiveWeapon,
                             weaponDamage.type(),
-                            defenderInteractiveWeapon
+                            defenderInteractiveWeapon,
+                            false //deflection is not a direct impact
                     );
                     if (attackerInteractiveWeapon.doesDamageSelf()) {
                         if (!attackerInteractiveWeapon.damageSelf(deflectionInteractionDamage[0])) {
@@ -375,9 +375,7 @@ public class MeleeResolver extends CombatResolver {
                         }
                     } else {
                         if (!attackerCombatant.adjustHealth(deflectionInteractionDamage[0])) {
-                            //an attacker may not die from deflection interaction damage to its innate weapons
-                            //but otherwise it must take this damage
-                            attacker.getCombatant().adjustHealth(-deflectionInteractionDamage[0]);
+                            attacker.getCombatant().adjustHealth(-deflectionInteractionDamage[0]); //don't die from this type of damage
                         }
                     }
                     if (defenderInteractiveWeapon.doesDamageSelf()) {
@@ -385,16 +383,18 @@ public class MeleeResolver extends CombatResolver {
                             //todo - destroy this weapon
                         }
                     } else {
-                        //add this amount to the final calculation
-                        defenderInnateSelfDamage += deflectionInteractionDamage[1];
+                        if (!defenderCombatant.adjustHealth(deflectionInteractionDamage[0])) {
+                            defender.getCombatant().adjustHealth(-deflectionInteractionDamage[0]); //don't die from this type of damage
+                        }
                     }
+                    return message;
                 } else if (effectiveDefenderDeflection > 0 && (isAttackerPlayer || isDefenderPlayer)) {
                     updateMessage(
                             Grammar.configure(
                                     isDefenderPlayer,
                                     "You",
                                     "The " + defenderName,
-                                    "fail& to deflect",
+                                    "fail$ to deflect",
                                     "the " + attackerName + "'s attack.",
                                     "your attack."
                             ),
@@ -429,7 +429,7 @@ public class MeleeResolver extends CombatResolver {
         }
         //todo - critical damage
         //todo - armor
-        if (!defenderCombatant.adjustHealth(-(attackDamage + defenderInnateSelfDamage))) {
+        if (!defenderCombatant.adjustHealth(-attackDamage)) {
             Session.killActor(defender);
             if (isAttackerPlayer) {
                 Dungeon d = Session.getCurrentDungeon();

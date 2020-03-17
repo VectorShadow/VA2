@@ -6,7 +6,7 @@ import resources.continuum.Continuum;
 import resources.continuum.Pair;
 import util.ArrayListBuilder;
 import world.WorldObjectTemplateFactory;
-import world.item.InteractiveItem;
+import world.item.InnateItem;
 import world.item.material.MaterialDefinitions;
 
 /**
@@ -17,7 +17,7 @@ import world.item.material.MaterialDefinitions;
 public class WeaponDefinitions {
     public static final ResolvableMeleeWeapon BARE_HANDED =
             new ResolvableMeleeWeapon(
-                    new InteractiveItem(
+                    new InnateItem(
                         WorldObjectTemplateFactory
                                 .initialize()
                                 .setName("bare fists")
@@ -37,7 +37,7 @@ public class WeaponDefinitions {
 
     public static final ResolvableMeleeWeapon SPIDER_BITE =
             new ResolvableMeleeWeapon(
-                    new InteractiveItem(
+                    new InnateItem(
                             WorldObjectTemplateFactory
                                     .initialize()
                                     .setName("arachnid fangs")
@@ -57,7 +57,7 @@ public class WeaponDefinitions {
 
     public static final ResolvableMeleeWeapon WOLF_BITE =
             new ResolvableMeleeWeapon(
-                    new InteractiveItem(
+                    new InnateItem(
                             WorldObjectTemplateFactory
                                     .initialize()
                                     .setName("canine maw")
@@ -77,7 +77,7 @@ public class WeaponDefinitions {
 
     public static final ResolvableMeleeWeapon BEAR_SWAT =
             new ResolvableMeleeWeapon(
-                    new InteractiveItem(
+                    new InnateItem(
                             WorldObjectTemplateFactory
                                     .initialize()
                                     .setName("ursine paw")
@@ -100,7 +100,7 @@ public class WeaponDefinitions {
 
     public static final ResolvableMeleeWeapon BEAR_BITE =
             new ResolvableMeleeWeapon(
-                    new InteractiveItem(
+                    new InnateItem(
                             WorldObjectTemplateFactory
                                     .initialize()
                                     .setName("ursine maw")
@@ -119,7 +119,7 @@ public class WeaponDefinitions {
             );
     public static final ResolvableMeleeWeapon ACID_STING =
             new ResolvableMeleeWeapon(
-                    new InteractiveItem(
+                    new InnateItem(
                             WorldObjectTemplateFactory
                                     .initialize()
                                     .setName("barbed chitinous stinger")

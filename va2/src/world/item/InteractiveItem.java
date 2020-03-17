@@ -3,6 +3,11 @@ package world.item;
 import combat.ContactInteractive;
 import world.item.material.Material;
 
+/**
+ * This class specifies all items which may be used in a contact interaction.
+ * This default level assumes that neither the combatant using this item, nor the item itself,
+ * will be harmed by such an interaction.
+ */
 public class InteractiveItem extends Item implements ContactInteractive {
 
     private final Material MATERIAL;

@@ -1,11 +1,12 @@
 package world.item.material;
 
 import combat.DamageType;
+import main.extensible.Saveable;
 
 /**
  * Specifies the substances items are made from, and determines the interactions between them.
  */
-public class Material {
+public class Material extends Saveable {
     private final int HARDNESS;
     private final int VOLATILITY;
     private final double[] DAMAGE_TYPE_SUSCEPTIBILITIES;
