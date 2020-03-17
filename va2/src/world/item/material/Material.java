@@ -7,14 +7,27 @@ import main.extensible.Saveable;
  * Specifies the substances items are made from, and determines the interactions between them.
  */
 public class Material extends Saveable {
+    private static final int OXIDIZEABLE = 0;
+    private static final int OXIDIZER = 1;
+    private static final int[] VOLATILITY_FACTORS = new int[]{2, 3};
+    private static final int[] VOLATILITY_REACTIONS = new int[]{
+            OXIDIZEABLE * OXIDIZER,
+    };
+
+    private final String NAME;
     private final int HARDNESS;
-    private final int VOLATILITY;
+    private final int[] VOLATILITIES;
     private final double[] DAMAGE_TYPE_SUSCEPTIBILITIES;
 
-    public Material(int h, int v, double[] dts) {
+    public Material(String n, int h, int[] v, double[] dts) {
+        NAME = n;
         HARDNESS = h;
-        VOLATILITY = v;
+        VOLATILITIES = v;
         DAMAGE_TYPE_SUSCEPTIBILITIES = dts;
+    }
+
+    public String getName() {
+        return NAME;
     }
 
     /**
@@ -32,8 +45,18 @@ public class Material extends Saveable {
         return (double)(m.HARDNESS) / (double)HARDNESS ;
     }
 
-    //todo - volatility interactions
-    // this must be implemented so that it can go both ways, to any desired power. May need to be own class.
+    public double modifyByVolatility(Material m) {
+        int power = 0;
+        for (int v1 : VOLATILITIES) {
+            for (int v2 : m.VOLATILITIES) {
+                for (int r : VOLATILITY_REACTIONS) {
+                    if (v1 * v2 == r)
+                        ++power;
+                }
+            }
+        }
+        return Math.pow(2.0, (double)power);
+    }
 
     /**
      * Return the multiplier to damage an item made from this material receives when struck by that damage type.

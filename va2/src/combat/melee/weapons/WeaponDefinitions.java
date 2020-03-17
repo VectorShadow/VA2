@@ -6,7 +6,9 @@ import resources.continuum.Continuum;
 import resources.continuum.Pair;
 import util.ArrayListBuilder;
 import world.WorldObjectTemplateFactory;
+import world.item.EquippableDegradeableItem;
 import world.item.InnateItem;
+import world.item.loadout.Equippable;
 import world.item.material.MaterialDefinitions;
 
 /**
@@ -135,8 +137,31 @@ public class WeaponDefinitions {
                     MeleeStyle.DUAL_WEAPON,
                     MeleeWeaponClass.FIST_CLAW,
                     new Continuum<>(
-                    new WeaponDamage("viciously sting$", 1.33, DamageType.ACID),
-                    ArrayListBuilder.initialize().addElement(new Pair<>(0.8,
-                            new WeaponDamage("sting$", 0.75, DamageType.PUNCTURE))).build())
+                            new WeaponDamage("viciously sting$", 1.33, DamageType.ACID),
+                            ArrayListBuilder.initialize().addElement(new Pair<>(0.8,
+                                    new WeaponDamage("sting$", 0.75, DamageType.PUNCTURE))).build())
+            );
+    public static final ResolvableMeleeWeapon BRONZE_SHORT_SWORD =
+            new ResolvableMeleeWeapon(
+                    new EquippableDegradeableItem(
+                            WorldObjectTemplateFactory
+                                    .initialize()
+                                    .setName("bronze short sword")
+                                    .setDescription("a short straight sword made of bronze")
+                                    .manufactureItemTemplate(20_000),
+                            MaterialDefinitions.BRONZE,
+                            Equippable.EquipmentSlot.WIELDED
+                    ),
+                    48,
+                    32,
+                    .33,
+                    new int[] {0, 5, 15},
+                    MeleeStyle.ONE_HAND,
+                    MeleeWeaponClass.SHORT_BLADES,
+                    new Continuum<>(
+                            new WeaponDamage("slash&", 1.0, DamageType.REND),
+                            ArrayListBuilder.initialize().addElement(new Pair<>(0.33,
+                                    new WeaponDamage("stab", 1.0, DamageType.PUNCTURE))).build()
+                    )
             );
 }
