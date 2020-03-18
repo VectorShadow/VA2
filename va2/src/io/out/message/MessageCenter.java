@@ -5,20 +5,29 @@ import main.Session;
 
 public class MessageCenter {
 
+    public static final int PRIORITY_MAX = 0;
+    public static final int PRIORITY_HIGH = 1;
+    public static final int PRIORITY_LOW = 2;
+    public static final int PRIORITY_MIN = 3;
+
+
+    private int priorityThreshold = PRIORITY_MIN;
+
     private MessageRecall messageRecall = new MessageRecall();
     private Message onScreenMessages = new Message(MessageType.OLD);
     private Message lastMessage = new Message();
 
-    public void sendMessage(Message m) {
+    public void sendMessage(Message m, int priority) {
+        if (priority > priorityThreshold) return; //ignore this message
         if (lastMessage.length() > 0) onScreenMessages.prepend(lastMessage);
         lastMessage = trim(m);
         trimOnScreenMessages();
         messageRecall.add(m);
     }
 
-    public void sendMessage(String text, MessageType type) {
+    public void sendMessage(String text, MessageType type, int priority) {
         Message m = new Message(type.background, type.foreground, text);
-        sendMessage(m);
+        sendMessage(m, priority);
     }
     private Message trim(Message m) {
         String s = m.text;
@@ -49,4 +58,19 @@ public class MessageCenter {
         return lastMessage;
     }
 
+    public int getPriorityThreshold() {
+        return priorityThreshold;
+    }
+
+    private void setPriorityThreshold(int pt) {
+        priorityThreshold = pt;
+    }
+    public void increasePriorityThreshold(){
+        priorityThreshold++;
+        if (priorityThreshold > PRIORITY_MIN) priorityThreshold = PRIORITY_MIN;
+    }
+    public void decreasePriorityThreshold(){
+        priorityThreshold--;
+        if (priorityThreshold < PRIORITY_MAX) priorityThreshold = PRIORITY_MAX;
+    }
 }

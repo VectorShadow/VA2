@@ -1,5 +1,6 @@
 package world.dungeon;
 
+import io.out.message.MessageCenter;
 import io.out.message.MessageType;
 import main.Player;
 import main.Session;
@@ -32,7 +33,7 @@ public class Dungeon implements Serializable {
         rewards.add(r);
     }
     public void nextFloor() {
-        Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO);
+        Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO, MessageCenter.PRIORITY_MAX);
         Session.setCurrentFloor(new Floor(Session.getCurrentFloor().DEPTH + 1, DUNGEON_THEME));
         dispenseRewards(FLOOR_COMPLETION_REWARD); //partial reward payout for each cleared floor
     }
@@ -49,7 +50,8 @@ public class Dungeon implements Serializable {
                         ? Session.isFinalFloor()
                         ? MessageType.SUCCESS
                         : MessageType.INFO
-                        : MessageType.WARNING
+                        : MessageType.WARNING,
+                MessageCenter.PRIORITY_MAX
         );
         //todo - if Session.isFinalFloor(), add bonus rewards
         Session.setCurrentFloor(new Floor(0, ThemeDefinitions.YSIAN_ESTATE));
@@ -74,7 +76,8 @@ public class Dungeon implements Serializable {
         }
         for (int level = startLevel + 1; level <= experience.getLevel(); ++level) {
             Session.getMessageCenter().sendMessage(
-                    "You have reached level " + level + ".", MessageType.SUCCESS
+                    "You have reached level " + level + ".", MessageType.SUCCESS,
+                    level == experience.getLevel() ? MessageCenter.PRIORITY_MAX : MessageCenter.PRIORITY_HIGH
             );
         }
     }

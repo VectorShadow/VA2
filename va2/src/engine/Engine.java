@@ -3,6 +3,8 @@ package engine;
 import combat.melee.MeleeResolver;
 import engine.action.*;
 import io.out.message.Message;
+import io.out.message.MessageCenter;
+import main.extensible.Saveable;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
 import main.Session;
@@ -10,51 +12,51 @@ import util.Coordinate;
 import world.actor.Actor;
 import world.terrain.TerrainTemplate;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * This class is responsible for updating the game world based on player input.
  */
-public class Engine implements Serializable {
-
-    public static final int MAXIMUM_ENERGY = 1024;
+public class Engine extends Saveable {
 
     private long gameTurn = 0;
-    private ArrayList<Actor> actors;
+    private LinkedList<Actor> actors;
 
     public Engine() {
         resetActors();
     }
 
     public void resetActors() {
-        actors = new ArrayList<>();
+        actors = new LinkedList<>();
     }
     public void addActor(Actor a) {
         addActor(a, false);
     }
     public void addActor(Actor a, boolean isPlayer) {
         if (isPlayer)
-            actors.add(0, a);
+            actors.addLast(a);
         else
-            actors.add(a);
+            actors.addFirst(a);
     }
     public void removeActor(Actor a) {
         actors.remove(a);
     }
     public void execute(Action playerAction) {
-        actors.get(0).queueAction(playerAction);
-        Actor actor;
+        Actor player = Session.getPlayer().getActor();
+        if (player != actors.getLast())
+            throw new IllegalStateException("Player out of order in engine actor list.");
+        actors.getLast().queueAction(playerAction);
         Action action;
         int energyCost;
         while(true) {
-            for (int i = 0; i < actors.size(); ++i) {
-                actor = actors.get(i);
+            for (Actor actor : actors) {
+                //ensure player action messages are most recent at the end of each engine cycle
+                if (!player.hasQueuedAction()) return;
                 actor.gainEnergy(); //gain this turn's energy
                 if (!actor.hasEnoughEnergy(ActionDefinitions.MAXIMUM_ACTION_ENERGY)) //wait till we can take any action
                     continue;
                 if (!actor.hasQueuedAction()) {
-                    if (i == 0) return; //if the player has no queued action, we are done
+                    if (actor == player) return; //if the player has no queued action, we are done
                     actor.plan(); //else use the plan method to invoke the AI and queue an action
                 }
                 action = actor.checkQueuedAction();
@@ -71,7 +73,7 @@ public class Engine implements Serializable {
                     //throw new IllegalStateException("Unable to validate action " + action + " for actor " + actor);
                     //otherwise, attempt to resolve as follows:
                     actor.clearQueuedActions();
-                    if (i == 0) return; //if the player has no queued action, we are done
+                    if (actor == player) return; //if the player has no queued action, we are done
                     actor.plan(); //else use the plan method to invoke the AI and queue an action
                     action = actor.checkQueuedAction();
                 }
@@ -139,7 +141,7 @@ public class Engine implements Serializable {
             defender = f.tileAt(destRow, destCol).getActor();
             Message playerMessage = MeleeResolver.resolve(actor, aaa, defender);
             if (playerMessage != null)
-                Session.getMessageCenter().sendMessage(playerMessage);
+                Session.getMessageCenter().sendMessage(playerMessage, MessageCenter.PRIORITY_MAX);
         }
         //todo - else {} all other cases
     }

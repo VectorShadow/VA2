@@ -23,6 +23,8 @@ public class MetaData {
                 "\n\nMovement Commands:" +
                 "\n\tRest - Numpad 5" +
                 "\n\tWalk - Arrow Keys/Numpad" +
-                "\n\tChange Floor/Enter An Estate Room - </>";
+                "\n\tChange Floor/Enter An Estate Room - </>" +
+                "\n\nInfo Commands:" +
+                "\n\tAdjust Message Verbosity - v(less verbose)/V(more verbose)";
     }
 }

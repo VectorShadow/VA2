@@ -1,6 +1,7 @@
 package main.modes.menu;
 
 import io.out.GUIManager;
+import io.out.message.MessageCenter;
 import io.out.message.MessageType;
 import main.Session;
 import main.modes.ConfirmDeleteGameMode;
@@ -33,7 +34,7 @@ public class MainMenuMode extends MenuMode {
         String lore;
         switch (index) {
             case MenuDefinitions.MAIN_MENU_NEW_GAME:
-                Session.getMessageCenter().sendMessage("Welcome to Chronicles of the Abyss!", MessageType.GAME);
+                Session.getMessageCenter().sendMessage("Welcome to Chronicles of the Abyss!", MessageType.GAME, MessageCenter.PRIORITY_HIGH);
                 //hardcode - player should begin the game at the Library instead of the default spawn tile
                 Session.addActor(Session.getPlayer().getActor(), new Coordinate(9, 2));
                 OperatingMode targetMode = new MainGameViewMode();
@@ -46,7 +47,7 @@ public class MainMenuMode extends MenuMode {
                     Session.getModeManager().transitionTo(targetMode);
                 return;
             case MenuDefinitions.MAIN_MENU_LOAD_GAME:
-                Session.getMessageCenter().sendMessage("Welcome back.", MessageType.GAME);
+                Session.getMessageCenter().sendMessage("Welcome back.", MessageType.GAME, MessageCenter.PRIORITY_HIGH);
                 Session.getModeManager().transitionTo(new MainGameViewMode());
                 return;
             case MenuDefinitions.MAIN_MENU_DELETE_GAME:

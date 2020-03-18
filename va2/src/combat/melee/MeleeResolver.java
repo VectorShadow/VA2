@@ -20,6 +20,7 @@ import world.item.ContactInteractiveItem;
 import world.item.MeleeWeapon;
 
 import static combat.Combatant.*;
+import static io.out.message.MessageCenter.*;
 
 /**
  * CombatResolver for Melee combat interactions.
@@ -138,7 +139,7 @@ public class MeleeResolver extends CombatResolver {
                         attackerPrecisionMultiplier = AttackTactic.PROBE.basePrecisionMultiplier;
                         attackerDamageMultiplier = AttackTactic.PROBE.baseDamageMultiplier;
                         if (isAttackerPlayer)
-                            updateMessage("Your ignored feint is less effective.", MessageType.WARNING);
+                            updateMessage("Your ignored feint is less effective.", MessageType.WARNING, PRIORITY_MIN);
                         break;
                 }
                 break;
@@ -187,7 +188,8 @@ public class MeleeResolver extends CombatResolver {
                         if (isAttackerPlayer){
                             updateMessage(
                                     "You failed to anticipate the " + defenderName + "'s disdain.",
-                                    MessageType.WARNING
+                                    MessageType.WARNING,
+                                    PRIORITY_MIN
                             );
                         }
                         break;
@@ -255,7 +257,8 @@ public class MeleeResolver extends CombatResolver {
                                         "the " + attackerName + "'s attack.",
                                         "your attack."
                                 ),
-                                isAttackerPlayer ? MessageType.ERROR : MessageType.SUCCESS
+                                isAttackerPlayer ? MessageType.WARNING : MessageType.INFO,
+                                PRIORITY_LOW
                         );
                     }
                     if (!negateCounterStrike){
@@ -283,7 +286,8 @@ public class MeleeResolver extends CombatResolver {
                                         "the " + defenderName + "'s counterattack.",
                                         "your counterattack."
                                 ),
-                                isAttackerPlayer ? MessageType.SUCCESS : MessageType.WARNING
+                                isAttackerPlayer ? MessageType.INFO : MessageType.WARNING,
+                                PRIORITY_LOW
                         );
                     }
                 } else if (isAttackerPlayer || isDefenderPlayer) {
@@ -296,7 +300,8 @@ public class MeleeResolver extends CombatResolver {
                                         "the " + attackerName + "'s feint.",
                                         "your feint."
                                 ),
-                                isAttackerPlayer ? MessageType.ERROR : MessageType.SUCCESS
+                                isAttackerPlayer ? MessageType.WARNING : MessageType.INFO,
+                                PRIORITY_MIN
                         );
                 }
             } else if (cancelAttackUnlessCountered) {
@@ -311,7 +316,8 @@ public class MeleeResolver extends CombatResolver {
                                     "fails to provoke a counterattack.",
                                     "fails to provoke a counterattack."
                             ),
-                            MessageType.INFO
+                            MessageType.INFO,
+                            PRIORITY_MIN
                     );
                 }
             }
@@ -332,7 +338,8 @@ public class MeleeResolver extends CombatResolver {
                                         "the " + attackerName + "'s attack.",
                                         "your attack."
                                 ),
-                                isAttackerPlayer ? MessageType.WARNING : MessageType.SUCCESS
+                                isAttackerPlayer ? MessageType.WARNING : MessageType.INFO,
+                                PRIORITY_LOW
                         );
                     }
                     return message;
@@ -346,7 +353,8 @@ public class MeleeResolver extends CombatResolver {
                                     "the " + attackerName + "'s attack.",
                                     "your attack."
                             ),
-                            isDefenderPlayer ? MessageType.WARNING : MessageType.SUCCESS
+                            isDefenderPlayer ? MessageType.WARNING : MessageType.INFO,
+                            PRIORITY_LOW
                     );
                 }
                 if (!Functions.oppose(effectiveAttackerAccuracy, effectiveDefenderDeflection)) {
@@ -360,7 +368,8 @@ public class MeleeResolver extends CombatResolver {
                                         "the " + attackerName + "'s attack.",
                                         "your attack."
                                 ),
-                                isAttackerPlayer ? MessageType.WARNING : MessageType.SUCCESS
+                                isAttackerPlayer ? MessageType.WARNING : MessageType.INFO,
+                                PRIORITY_LOW
                         );
                     }
                     resolveContactInteraction(
@@ -381,7 +390,8 @@ public class MeleeResolver extends CombatResolver {
                                     "the " + attackerName + "'s attack.",
                                     "your attack."
                             ),
-                            isDefenderPlayer ? MessageType.WARNING : MessageType.SUCCESS
+                            isDefenderPlayer ? MessageType.WARNING : MessageType.INFO,
+                            PRIORITY_LOW
                     );
                 }
             }
@@ -429,7 +439,8 @@ public class MeleeResolver extends CombatResolver {
                             "damage.",
                             "damage."
                     ),
-                    isAttackerPlayer ? MessageType.SUCCESS : MessageType.ERROR
+                    isAttackerPlayer ? MessageType.INFO : MessageType.ERROR,
+                    PRIORITY_HIGH
             );
         }
         if (!defenderCombatant.adjustHealth(-attackDamage)) {
@@ -439,13 +450,25 @@ public class MeleeResolver extends CombatResolver {
                 Floor f = Session.getCurrentFloor();
                 ActorSet as = f.THEME.getActorSet();
                 if (as.isFloorBoss(defender)) {
-                    updateMessage("You have defeated " + defenderName + ", the guardian of this area.", MessageType.SUCCESS);
+                    updateMessage(
+                            "You have defeated " + defenderName + ", the guardian of this area.",
+                            MessageType.SUCCESS,
+                            PRIORITY_MAX
+                    );
                     f.killFloorBoss();
                 } else if (as.getDungeonBossSet().length > 0 && as.getDungeonBossSet()[0] == defender.getTemplate()) {
-                    updateMessage("You have defeated " + defenderName + ", the final guardian of this dungeon.", MessageType.SUCCESS);
+                    updateMessage(
+                            "You have defeated " + defenderName + ", the final guardian of this dungeon.",
+                            MessageType.SUCCESS,
+                            PRIORITY_MAX
+                    );
                     d.killDungeonBoss();
                 } else
-                    updateMessage("You have slain the " + defenderName + ".", MessageType.INFO);
+                    updateMessage(
+                            "You have slain the " + defenderName + ".",
+                            MessageType.INFO,
+                            PRIORITY_HIGH
+                    );
                 d.addReward(((ActorTemplate)defender.getTemplate()).getReward());
             }
         }
@@ -482,7 +505,8 @@ public class MeleeResolver extends CombatResolver {
             }
         }
     }
-    private static void updateMessage(String addition, MessageType type) {
+    private static void updateMessage(String addition, MessageType type, int priority) {
+        if (priority > Session.getMessageCenter().getPriorityThreshold()) return;
         message.append(new Message(type, addition));
         message.changeType(type);
     }

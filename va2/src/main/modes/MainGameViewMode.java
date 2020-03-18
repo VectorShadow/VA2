@@ -5,6 +5,7 @@ import engine.action.AdjacentMovementAction;
 import engine.action.PauseAction;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
+import io.out.message.MessageCenter;
 import io.out.message.MessageType;
 import main.MetaData;
 import main.Player;
@@ -103,7 +104,8 @@ public class MainGameViewMode implements OperatingMode {
                         if (Session.getCurrentFloor().isFloorBossAlive()) {
                             Session.getMessageCenter().sendMessage(
                                     "You may not enter the next floor before defeating the guardian of this floor.",
-                                    MessageType.ERROR);
+                                    MessageType.ERROR,
+                                    MessageCenter.PRIORITY_MAX);
                         } else
                             Session.getCurrentDungeon().nextFloor();
                     } else if(!Session.getCurrentDungeon().isDungeonBossAlive() &&
@@ -134,6 +136,12 @@ public class MainGameViewMode implements OperatingMode {
                     Session.getModeManager().transitionTo(new MessageRecallMode(Session.getMessageCenter().getMessageRecall()));
                 }
                 return;
+            case VK_V:
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                    Session.getMessageCenter().increasePriorityThreshold();
+                } else
+                    Session.getMessageCenter().decreasePriorityThreshold();
+                break;
             //todo - lots. breaks when we want to redraw the screen, returns if not
         }
         if (action != null)

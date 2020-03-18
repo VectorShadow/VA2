@@ -1,5 +1,6 @@
 package world.dungeon.floor;
 
+import io.out.message.MessageCenter;
 import io.out.message.MessageType;
 import main.Session;
 import util.Coordinate;
@@ -89,8 +90,9 @@ public class Floor implements Serializable {
             TerrainTemplate tt = (TerrainTemplate)floorTile.getTerrain().getTemplate();
             if (tt.isMessageOnMove())
                 Session.getMessageCenter().sendMessage(
-                        "You see " + tt.getName() + " here."
-                        , MessageType.INFO
+                        "You see " + tt.getName() + " here.",
+                        MessageType.INFO,
+                        MessageCenter.PRIORITY_LOW
                 );
         }
     }
