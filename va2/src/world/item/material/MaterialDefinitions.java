@@ -1,5 +1,7 @@
 package world.item.material;
 
+import util.InputSimplifier;
+
 public class MaterialDefinitions {
     /**
      * The standard for hardness is Iron, which has a hardness of 32. Common stone is half that, at 16,
@@ -19,18 +21,18 @@ public class MaterialDefinitions {
             "<placeholder>",
             1,
             new int[]{},
-            new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0}
+            InputSimplifier.getMultipliers(0, 0, 0, 0, 0, 0)
             );
     public static final Material BRONZE = new Material(
             "bronze",
             24,
             new int[]{},
-            new double[]{0.667, 1.0, 0.8, 1.0, 1.1, 0.9}
+            InputSimplifier.getMultipliers(+3, 0, +1, 0, -1, +1)
             );
     public static final Material SOFT_LEATHER = new Material(
             "soft leather",
             3,
             new int[]{Material.ORGANIC},
-            new double[]{1.33, 0.667, 0.9, 0.5, 1.25, 1.1}
+            InputSimplifier.getMultipliers(-3, +3, +1, +4, -2, -1)
     );
 }

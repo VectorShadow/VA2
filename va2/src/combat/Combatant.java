@@ -3,6 +3,7 @@ package combat;
 import combat.melee.forms.Form;
 import main.Session;
 import resources.continuum.Continuum;
+import util.InputSimplifier;
 import world.item.Armor;
 import world.item.MeleeWeapon;
 
@@ -25,7 +26,9 @@ public class Combatant implements Serializable {
     public static final int DEFENSE = 5;
     public static final int STRENGTH = 6;
 
-    private int[] combatStatistics;
+    public static final int COUNT_STATISTICS = 7; //todo - keep updated!
+
+    private int[] combatStatistics = new int[COUNT_STATISTICS];
 
     private Form meleeForm; //the form this combatant uses in melee combat
 
@@ -38,42 +41,27 @@ public class Combatant implements Serializable {
     //todo - we probably want damage type modifications here as well.
 
     public Combatant(
-            int hea,
-            int acc,
-            int eva,
-            int pre,
-            int def,
-            int str,
             Form defaultForm,
             MeleeWeapon defaultMeleeWeapon,
             Armor defaultArmor
     ) {
-        this(hea, acc, eva, pre, def, str, defaultForm, new Continuum<>(defaultMeleeWeapon, new ArrayList<>()), defaultArmor);
+        this(
+                defaultForm,
+                new Continuum<>(defaultMeleeWeapon, new ArrayList<>()),
+                defaultArmor
+        );
     }
     public Combatant(
-            int hea,
-            int acc,
-            int eva,
-            int pre,
-            int def,
-            int str,
             Form defaultForm,
             Continuum<MeleeWeapon> defaultMeleeWeapons,
             Armor defaultArmor
     ) {
-        combatStatistics = new int[] {hea, hea, acc, eva, pre, def, str};
         meleeForm = defaultForm;
         combatantMeleeWeapons = defaultMeleeWeapons;
         combatantArmor = defaultArmor;
     }
     private Combatant(Combatant c) {
         this(
-                c.getStatistic(HEALTH_CAPACITY),
-                c.getStatistic(ACCURACY),
-                c.getStatistic(EVASION),
-                c.getStatistic(PRECISION),
-                c.getStatistic(DEFENSE),
-                c.getStatistic(STRENGTH),
                 c.meleeForm,
                 c.combatantMeleeWeapons,
                 c.combatantArmor
@@ -132,12 +120,20 @@ public class Combatant implements Serializable {
     public int getStatistic(int index) {
         return combatStatistics[index] + ((index > HEALTH) ? meleeForm.adjustStatistic(index) : 0);
     }
-    public void setStatistic(int index, int value) {
+    private void setStatistic(int index, int value) {
         combatStatistics[index] = value;
+    }
+    public void setStatisticsByLevel(int[] levels) {
+        setStatistic(HEALTH_CAPACITY, InputSimplifier.getValue(levels[0]));
+        setStatistic(HEALTH, InputSimplifier.getValue(levels[0]));
+        for (int i = ACCURACY; i < COUNT_STATISTICS; ++i)
+            setStatistic(i, levels[i-1]);
     }
 
     @Override
     public Combatant clone() {
-        return new Combatant(this);
+        Combatant c = new Combatant(this);
+        c.combatStatistics = this.combatStatistics;
+        return c;
     }
 }

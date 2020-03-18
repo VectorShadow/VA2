@@ -2,7 +2,6 @@ package world;
 
 import ai.AI;
 import combat.Combatant;
-import io.out.DisplayStandards;
 import main.progression.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
@@ -95,16 +94,18 @@ public class WorldObjectTemplateFactory {
         if (backgroundColors.isEmpty()) backgroundColors.add(DEFAULT_BACKGROUND_COLOR);
         if (foregroundColors.isEmpty()) foregroundColors.add(DEFAULT_FOREGROUND_COLOR);
     }
-    public ActorTemplate manufactureActorTemplate(int energyPerTurn, Combatant combatant, Reward reward, AI ai) {
-        return manufactureActorTemplate(energyPerTurn, combatant, 1, reward, ai);
+    public ActorTemplate manufactureActorTemplate(int energyPerTurn, int[] statLevels, Combatant combatant, Reward reward, AI ai) {
+        return manufactureActorTemplate(energyPerTurn, statLevels, combatant, 1, reward, ai);
     }
     public ActorTemplate manufactureActorTemplate(
             int energyPerTurn,
+            int[] statLevels,
             Combatant combatant,
             int minimumDepth,
             Reward reward,
             AI ai
     ) {
+        combatant.setStatisticsByLevel(statLevels);
         forceNonEmptyLists();
         return new ActorTemplate(
                 description,

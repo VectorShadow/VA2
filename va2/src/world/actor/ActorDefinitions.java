@@ -27,13 +27,8 @@ public class ActorDefinitions {
                     .setSymbols('@')
                     .manufactureActorTemplate(
                             25,
+                            new int[]{60, 30, 30, 30, 30, 30},
                             new Combatant(
-                                    1_024,
-                                    128,
-                                    128,
-                                    128,
-                                    128,
-                                    128,
                                     FormDefinitions.UNTRAINED,
                                     MeleeWeaponDefinitions.BARE_HANDED,
                                     ArmorDefinitions.UNARMORED
@@ -53,18 +48,13 @@ public class ActorDefinitions {
                     )
                     .manufactureActorTemplate(
                             38,
+                            new int[] {0, 36, 36, 0, 0, 0},
                             new Combatant(
-                                    16,
-                                    196,
-                                    196,
-                                    8,
-                                    16,
-                                    8,
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
                                     ArmorDefinitions.UNARMORED
                             ),
-                            new Reward(2),
+                            new Reward(4),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate LARGE_HUNTING_SPIDER =
@@ -82,18 +72,13 @@ public class ActorDefinitions {
                     )
                     .manufactureActorTemplate(
                             37,
+                            new int[]{5, 39, 32, 0, 10, 2},
                             new Combatant(
-                                    24,
-                                    224,
-                                    144,
-                                    16,
-                                    32,
-                                    12,
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
                                     ArmorDefinitions.UNARMORED
                             ),
-                            new Reward(6),
+                            new Reward(8),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate GIANT_HUNTING_SPIDER =
@@ -114,13 +99,8 @@ public class ActorDefinitions {
                             )
                     .manufactureActorTemplate(
                             36,
+                            new int[] {16, 40, 30, 10, 10, 5},
                             new Combatant(
-                                    48,
-                                    256,
-                                    128,
-                                    32,
-                                    32,
-                                    16,
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
                                     ArmorDefinitions.UNARMORED
@@ -136,18 +116,13 @@ public class ActorDefinitions {
                     .setForegroundColors(Chroma.BROWN)
                     .manufactureActorTemplate(
                             32,
+                            new int[]{40, 24, 33, 30, 23, 20},
                             new Combatant(
-                                    256,
-                                    84,
-                                    155,
-                                    128,
-                                    72,
-                                    64,
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
                                     ArmorDefinitions.UNARMORED
                             ),
-                            new Reward(12),
+                            new Reward(20),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate SILVER_WOLF_TEMPLATE =
@@ -158,18 +133,13 @@ public class ActorDefinitions {
                     .setForegroundColors(Chroma.METALLIC_SILVER)
                     .manufactureActorTemplate(
                             30,
+                            new int[]{42, 26, 30, 33, 23, 22},
                             new Combatant(
-                                    300,
-                                    96,
-                                    128,
-                                    155,
-                                    84,
-                                    72,
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
                                     ArmorDefinitions.UNARMORED
                             ),
-                            new Reward(20),
+                            new Reward(32),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate BLACK_BEAR_TEMPLATE =
@@ -180,18 +150,13 @@ public class ActorDefinitions {
                     .setForegroundColors(ColorStandards.BLACK_BEAR_FUR)
                     .manufactureActorTemplate(
                             24,
+                            new int[] {50, 28, 16, 28, 25, 37},
                             new Combatant(
-                                    512,
-                                    112,
-                                    48,
-                                    112,
-                                    96,
-                                    192,
                                     FormDefinitions.LARGE_BEAST,
                                     MeleeWeaponDefinitions.BEAR_BITE,
                                     ArmorDefinitions.UNARMORED
                             ),
-                            new Reward(32),
+                            new Reward(48),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate CAVE_BEAR_TEMPLATE =
@@ -208,13 +173,8 @@ public class ActorDefinitions {
                             )
                     .manufactureActorTemplate(
                             24,
+                            new int[]{56, 28, 13, 30, 22, 40},
                             new Combatant(
-                                    768,
-                                    116,
-                                    40,
-                                    128,
-                                    72,
-                                    256,
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
                                             MeleeWeaponDefinitions.BEAR_SWAT,
@@ -230,7 +190,7 @@ public class ActorDefinitions {
                                             ),
                                     ArmorDefinitions.UNARMORED
                             ),
-                            new Reward(38),
+                            new Reward(72),
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate ANCIENT_WEB_CRAWLER_TEMPLATE =
@@ -250,13 +210,8 @@ public class ActorDefinitions {
                     )
                     .manufactureActorTemplate(
                             19,
+                            new int[]{70, 32, 26, 40, 25, 40},
                             new Combatant(
-                                    2_048,
-                                    144,
-                                    96,
-                                    256,
-                                    96,
-                                    256,
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
                                             MeleeWeaponDefinitions.SPIDER_BITE,
