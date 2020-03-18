@@ -1,6 +1,7 @@
 package world.item.loadout;
 
-import combat.melee.weapons.WeaponDefinitions;
+import combat.armor.ArmorDefinitions;
+import combat.melee.weapons.MeleeWeaponDefinitions;
 import main.extensible.Saveable;
 
 /**
@@ -14,20 +15,28 @@ public class Equipment extends Saveable {
     // and then upgrades to a more advanced pouch with space for four reagents, any grimoire and reagents currently
     // equipped in the pouch should be loaded into the new one, then the appropriate slot here loaded with that.
     private static final int WEAPON_BELT_MODULE = 0;
+    private static final int BODY_ARMOR_MODULE = 1;
 
-    private static final int LOADOUT_MODULE_COUNT = 1; //todo - keep updated!
+    private static final int LOADOUT_MODULE_COUNT = 2; //todo - keep updated!
 
     LoadoutModule[] loadoutModules = new LoadoutModule[LOADOUT_MODULE_COUNT];
 
     public WeaponsBelt getWeaponsBelt() {
         return (WeaponsBelt)loadoutModules[WEAPON_BELT_MODULE];
     }
+    public BodyArmor getBodyArmor() {
+        return (BodyArmor)loadoutModules[BODY_ARMOR_MODULE];
+    }
     public void setLoadoutModule(int index, LoadoutModule lm) {
         loadoutModules[index] = lm;
     }
     public void setStartingItems() {
         WeaponsBelt weaponsBelt = new WeaponsBelt(0);
-        weaponsBelt.wield(WeaponDefinitions.BRONZE_SHORT_SWORD);
+        weaponsBelt.wield(MeleeWeaponDefinitions.BRONZE_SHORT_SWORD);
         setLoadoutModule(WEAPON_BELT_MODULE, weaponsBelt);
+        BodyArmor bodyArmor = new BodyArmor();
+        bodyArmor.wear(ArmorDefinitions.LEATHER_VEST);
+        setLoadoutModule(BODY_ARMOR_MODULE, bodyArmor);
+        //todo - add more items!
     }
 }

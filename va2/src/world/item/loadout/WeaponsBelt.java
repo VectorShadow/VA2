@@ -1,6 +1,6 @@
 package world.item.loadout;
 
-import combat.melee.weapons.WeaponDefinitions;
+import combat.melee.weapons.MeleeWeaponDefinitions;
 import main.Session;
 import world.item.MeleeWeapon;
 
@@ -22,7 +22,7 @@ public class WeaponsBelt extends LoadoutModule {
         wieldedWeapon = mw;
         Session.getPlayer().getActor().getCombatant().setMeleeWeapons(
                 wieldedWeapon == null
-                        ? WeaponDefinitions.BARE_HANDED
+                        ? MeleeWeaponDefinitions.BARE_HANDED
                         : wieldedWeapon
         );
         return oldMeleeWeapon;

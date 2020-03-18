@@ -2,8 +2,9 @@ package world.actor;
 
 import ai.AIDefinitions;
 import combat.Combatant;
+import combat.armor.ArmorDefinitions;
 import combat.melee.forms.FormDefinitions;
-import combat.melee.weapons.WeaponDefinitions;
+import combat.melee.weapons.MeleeWeaponDefinitions;
 import main.progression.Reward;
 import resources.chroma.Chroma;
 import resources.continuum.Continuum;
@@ -34,7 +35,8 @@ public class ActorDefinitions {
                                     128,
                                     128,
                                     FormDefinitions.UNTRAINED,
-                                    WeaponDefinitions.BARE_HANDED
+                                    MeleeWeaponDefinitions.BARE_HANDED,
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(0),
                             AIDefinitions.PLAYER_AI
@@ -59,7 +61,8 @@ public class ActorDefinitions {
                                     16,
                                     8,
                                     FormDefinitions.SMALL_BEAST,
-                                    WeaponDefinitions.SPIDER_BITE
+                                    MeleeWeaponDefinitions.SPIDER_BITE,
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(2),
                             AIDefinitions.CCW_AI
@@ -87,7 +90,8 @@ public class ActorDefinitions {
                                     32,
                                     12,
                                     FormDefinitions.SMALL_BEAST,
-                                    WeaponDefinitions.SPIDER_BITE
+                                    MeleeWeaponDefinitions.SPIDER_BITE,
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(6),
                             AIDefinitions.CCW_AI
@@ -118,7 +122,8 @@ public class ActorDefinitions {
                                     32,
                                     16,
                                     FormDefinitions.SMALL_BEAST,
-                                    WeaponDefinitions.SPIDER_BITE
+                                    MeleeWeaponDefinitions.SPIDER_BITE,
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(16),
                             AIDefinitions.CCW_AI
@@ -139,7 +144,8 @@ public class ActorDefinitions {
                                     72,
                                     64,
                                     FormDefinitions.SMALL_BEAST,
-                                    WeaponDefinitions.WOLF_BITE
+                                    MeleeWeaponDefinitions.WOLF_BITE,
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(12),
                             AIDefinitions.CCW_AI
@@ -160,7 +166,8 @@ public class ActorDefinitions {
                                     84,
                                     72,
                                     FormDefinitions.SMALL_BEAST,
-                                    WeaponDefinitions.WOLF_BITE
+                                    MeleeWeaponDefinitions.WOLF_BITE,
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(20),
                             AIDefinitions.CCW_AI
@@ -181,7 +188,8 @@ public class ActorDefinitions {
                                     96,
                                     192,
                                     FormDefinitions.LARGE_BEAST,
-                                    WeaponDefinitions.BEAR_BITE
+                                    MeleeWeaponDefinitions.BEAR_BITE,
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(32),
                             AIDefinitions.CCW_AI
@@ -209,17 +217,18 @@ public class ActorDefinitions {
                                     256,
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
-                                            WeaponDefinitions.BEAR_SWAT,
+                                            MeleeWeaponDefinitions.BEAR_SWAT,
                                             ArrayListBuilder
                                                     .initialize()
                                                     .addElement(
                                                             new Pair<>(
                                                                     0.4,
-                                                                    WeaponDefinitions.BEAR_BITE
+                                                                    MeleeWeaponDefinitions.BEAR_BITE
                                                             )
                                                     )
                                                     .build()
-                                            )
+                                            ),
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(38),
                             AIDefinitions.CCW_AI
@@ -250,17 +259,18 @@ public class ActorDefinitions {
                                     256,
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
-                                            WeaponDefinitions.SPIDER_BITE,
+                                            MeleeWeaponDefinitions.SPIDER_BITE,
                                             ArrayListBuilder
                                                     .initialize()
                                                     .addElement(
                                                             new Pair<>(
                                                                     0.33,
-                                                                    WeaponDefinitions.ACID_STING
+                                                                    MeleeWeaponDefinitions.ACID_STING
                                                             )
                                                     )
                                                     .build()
-                                    )
+                                    ),
+                                    ArmorDefinitions.UNARMORED
                             ),
                             new Reward(256),
                             AIDefinitions.CCS_AI

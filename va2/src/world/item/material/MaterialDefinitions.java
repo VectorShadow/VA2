@@ -27,4 +27,10 @@ public class MaterialDefinitions {
             new int[]{},
             new double[]{0.667, 1.0, 0.8, 1.0, 1.1, 0.9}
             );
+    public static final Material SOFT_LEATHER = new Material(
+            "soft leather",
+            3,
+            new int[]{Material.ORGANIC},
+            new double[]{1.33, 0.667, 0.9, 0.5, 1.25, 1.1}
+    );
 }

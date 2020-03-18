@@ -14,7 +14,7 @@ import world.item.material.MaterialDefinitions;
  * Note that weapons which have multiple WeaponDamage values within a continuum should place the most
  * powerful value as the base, since Heavy Blows will resolve to the base rather than rolling a random value.
  */
-public class WeaponDefinitions {
+public class MeleeWeaponDefinitions {
     public static final MeleeWeapon BARE_HANDED =
             new MeleeWeapon(
                     WorldObjectTemplateFactory

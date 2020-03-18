@@ -3,6 +3,7 @@ package combat;
 import combat.melee.forms.Form;
 import main.Session;
 import resources.continuum.Continuum;
+import world.item.Armor;
 import world.item.MeleeWeapon;
 
 import java.io.Serializable;
@@ -30,6 +31,7 @@ public class Combatant implements Serializable {
 
     private Continuum<MeleeWeapon> combatantMeleeWeapons; //a continuum of melee weapons available to this combatant
     //todo - ranged weapons
+    private Armor combatantArmor;
 
     private boolean ignoreBonus = false; //whether this attacker has a bonus from ignoring the last incoming attack
 
@@ -43,9 +45,10 @@ public class Combatant implements Serializable {
             int def,
             int str,
             Form defaultForm,
-            MeleeWeapon defaultMeleeWeapon
+            MeleeWeapon defaultMeleeWeapon,
+            Armor defaultArmor
     ) {
-        this(hea, acc, eva, pre, def, str, defaultForm, new Continuum<>(defaultMeleeWeapon, new ArrayList<>()));
+        this(hea, acc, eva, pre, def, str, defaultForm, new Continuum<>(defaultMeleeWeapon, new ArrayList<>()), defaultArmor);
     }
     public Combatant(
             int hea,
@@ -55,11 +58,13 @@ public class Combatant implements Serializable {
             int def,
             int str,
             Form defaultForm,
-            Continuum<MeleeWeapon> defaultMeleeWeapons
+            Continuum<MeleeWeapon> defaultMeleeWeapons,
+            Armor defaultArmor
     ) {
         combatStatistics = new int[] {hea, hea, acc, eva, pre, def, str};
         meleeForm = defaultForm;
         combatantMeleeWeapons = defaultMeleeWeapons;
+        combatantArmor = defaultArmor;
     }
     private Combatant(Combatant c) {
         this(
@@ -70,7 +75,8 @@ public class Combatant implements Serializable {
                 c.getStatistic(DEFENSE),
                 c.getStatistic(STRENGTH),
                 c.meleeForm,
-                c.combatantMeleeWeapons
+                c.combatantMeleeWeapons,
+                c.combatantArmor
         );
     }
 
@@ -103,6 +109,13 @@ public class Combatant implements Serializable {
     }
     public void setMeleeWeapons(MeleeWeapon mw) {
         setMeleeWeapons(new Continuum<>(mw, new ArrayList<>()));
+    }
+    public Armor getArmor() {
+        return combatantArmor;
+    }
+
+    public void setArmor(Armor armor) {
+        combatantArmor = armor;
     }
 
     public void setIgnoreBonus() {

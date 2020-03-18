@@ -15,6 +15,7 @@ import world.actor.ActorTemplate;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.ActorSet;
+import world.item.Armor;
 import world.item.ContactInteractiveItem;
 import world.item.MeleeWeapon;
 
@@ -54,7 +55,8 @@ public class MeleeResolver extends CombatResolver {
                 ? defenderForm.selectDefenseTactic() //todo - use the player's set tactic
                 : defenderForm.selectDefenseTactic(); //select a random available tactic
         MeleeWeapon attackerMeleeWeapon = meleeAttackAction.getMeleeWeapon();
-        WeaponDamage weaponDamage = attackerMeleeWeapon.resolveWeaponDamage(attackTactic == AttackTactic.BLOW);
+        WeaponDamage attackerWeaponDamage =
+                attackerMeleeWeapon.resolveWeaponDamage(attackTactic == AttackTactic.BLOW);
         //counterattacks preserve any existing message - otherwise we need to reset it
         if (!(meleeAttackAction instanceof CounterAttackAction)){
             message = (isAttackerPlayer || isDefenderPlayer)
@@ -65,7 +67,7 @@ public class MeleeResolver extends CombatResolver {
                                 "You",
                                 "The " + attackerName,
                                 attackTactic == AttackTactic.STRIKE
-                                        ? weaponDamage.describe()
+                                        ? attackerWeaponDamage.describe()
                                         : attackTactic.message,
                                 "the " + defenderName + ".",
                                 "you."
@@ -361,30 +363,13 @@ public class MeleeResolver extends CombatResolver {
                                 isAttackerPlayer ? MessageType.WARNING : MessageType.SUCCESS
                         );
                     }
-                    int[] deflectionInteractionDamage = ContactInteractive.interact(
+                    resolveContactInteraction(
+                            attackerCombatant,
                             attackerMeleeWeapon,
-                            weaponDamage.type(),
-                            defenderMeleeWeapon,
-                            false //deflection is not a direct impact
+                            attackerWeaponDamage.type(),
+                            defenderCombatant,
+                            defenderMeleeWeapon
                     );
-                    if (attackerMeleeWeapon.doesDamageSelf()) {
-                        if (!attackerMeleeWeapon.damageSelf(deflectionInteractionDamage[0])) {
-                            //todo - destroy this weapon
-                        }
-                    } else {
-                        if (!attackerCombatant.adjustHealth(deflectionInteractionDamage[0])) {
-                            attacker.getCombatant().adjustHealth(-deflectionInteractionDamage[0]); //don't die from this type of damage
-                        }
-                    }
-                    if (defenderMeleeWeapon.doesDamageSelf()) {
-                        if (!defenderMeleeWeapon.damageSelf(deflectionInteractionDamage[1])) {
-                            //todo - destroy this weapon
-                        }
-                    } else {
-                        if (!defenderCombatant.adjustHealth(deflectionInteractionDamage[0])) {
-                            defender.getCombatant().adjustHealth(-deflectionInteractionDamage[0]); //don't die from this type of damage
-                        }
-                    }
                     return message;
                 } else if (effectiveDefenderDeflection > 0 && (isAttackerPlayer || isDefenderPlayer)) {
                     updateMessage(
@@ -409,9 +394,31 @@ public class MeleeResolver extends CombatResolver {
         int attackDamage =
                 (int)(attackerDamageMultiplier *
                         defenderDamageReductionMultiplier *
-                        weaponDamage.modify() *
+                        attackerWeaponDamage.modify() *
                         (double)(attackerMeleeWeapon.rollRawDamage(effectiveAttackerStrength)));
-        //hack - tell me how much damage I'm doing!
+        /**
+         * Apply armor.
+         */
+        Armor defenderArmor = defenderCombatant.getArmor();
+        //todo - critical hit value?
+        if (defenderArmor.applyArmor(effectiveAttackerAccuracy)) {
+            //todo - roll on the crit table and assign the result to something or apply it somehow - TBD
+            double critThresh = defenderArmor.criticalThreshold(effectiveAttackerPrecision, effectiveDefenderDefense);
+            attackDamage -= defenderArmor.flatReduction(attackerMeleeWeapon.getMaterial(), attackerWeaponDamage.type());
+            if (attackDamage < 0) {
+                attackDamage = 0;
+            } else {
+                attackDamage *= defenderArmor.percentReduction(attackerWeaponDamage.type());
+                resolveContactInteraction(
+                        attackerCombatant,
+                        attackerMeleeWeapon,
+                        attackerWeaponDamage.type(),
+                        defenderCombatant,
+                        defenderArmor
+                );
+            }
+        }
+        //todo - apply critical result
         if (isAttackerPlayer || isDefenderPlayer) {
             updateMessage(
                     Grammar.configure(
@@ -425,8 +432,6 @@ public class MeleeResolver extends CombatResolver {
                     isAttackerPlayer ? MessageType.SUCCESS : MessageType.ERROR
             );
         }
-        //todo - critical damage
-        //todo - armor
         if (!defenderCombatant.adjustHealth(-attackDamage)) {
             Session.killActor(defender);
             if (isAttackerPlayer) {
@@ -445,6 +450,37 @@ public class MeleeResolver extends CombatResolver {
             }
         }
         return message;
+    }
+    private static void resolveContactInteraction(
+            Combatant attackerCombatant,
+            ContactInteractiveItem attackerItem,
+            DamageType attackDamageType,
+            Combatant defenderCombatant,
+            ContactInteractiveItem defenderItem) {
+        int[] interactionDamage = ContactInteractive.interact(
+                attackerItem,
+                attackDamageType,
+                defenderItem,
+                defenderItem instanceof Armor
+        );
+        if (attackerItem.doesDamageSelf()) {
+            if (!attackerItem.damageSelf(interactionDamage[0])) {
+                //todo - destroy this weapon
+            }
+        } else {
+            if (!attackerCombatant.adjustHealth(interactionDamage[0])) {
+                attackerCombatant.adjustHealth(-interactionDamage[0]); //don't die from this type of damage
+            }
+        }
+        if (defenderItem.doesDamageSelf()) {
+            if (!defenderItem.damageSelf(interactionDamage[1])) {
+                //todo - destroy this weapon
+            }
+        } else {
+            if (!defenderCombatant.adjustHealth(interactionDamage[1])) {
+                defenderCombatant.adjustHealth(-interactionDamage[1]); //don't die from this type of damage
+            }
+        }
     }
     private static void updateMessage(String addition, MessageType type) {
         message.append(new Message(type, addition));

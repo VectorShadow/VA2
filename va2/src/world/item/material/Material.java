@@ -7,23 +7,26 @@ import main.extensible.Saveable;
  * Specifies the substances items are made from, and determines the interactions between them.
  */
 public class Material extends Saveable {
-    private static final int OXIDIZEABLE = 0;
-    private static final int OXIDIZER = 1;
-    private static final int[] VOLATILITY_FACTORS = new int[]{2, 3};
+    static final int OXIDIZEABLE = 0;
+    static final int OXIDIZER = 1;
+    static final int ORGANIC = 2;
+    static final int CORROSIVE = 3;
+    private static final int[] VOLATILITY_FACTORS = new int[]{2, 3, 5, 7};
     private static final int[] VOLATILITY_REACTIONS = new int[]{
             OXIDIZEABLE * OXIDIZER,
+            ORGANIC * CORROSIVE,
     };
 
     private final String NAME;
     private final int HARDNESS;
     private final int[] VOLATILITIES;
-    private final double[] DAMAGE_TYPE_SUSCEPTIBILITIES;
+    private final double[] DAMAGE_TYPE_MODIFICATIONS;
 
     public Material(String n, int h, int[] v, double[] dts) {
         NAME = n;
         HARDNESS = h;
         VOLATILITIES = v;
-        DAMAGE_TYPE_SUSCEPTIBILITIES = dts;
+        DAMAGE_TYPE_MODIFICATIONS = dts;
     }
 
     public String getName() {
@@ -61,8 +64,10 @@ public class Material extends Saveable {
     /**
      * Return the multiplier to damage an item made from this material receives when struck by that damage type.
      * For armor, this may also affect damage transmission(though it should never increase damage dealt past armor).
+     *
+     * The higher the multiplier, the worse the material holds up against that damage type.
      */
-    public double getSusceptibility(DamageType dt) {
-        return DAMAGE_TYPE_SUSCEPTIBILITIES[dt.ordinal()];
+    public double modifyByDamageType(DamageType dt) {
+        return DAMAGE_TYPE_MODIFICATIONS[dt.ordinal()];
     }
 }
