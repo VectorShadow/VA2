@@ -27,12 +27,12 @@ public class MaterialDefinitions {
             "bronze",
             24,
             new int[]{},
-            InputSimplifier.getMultipliers(+3, 0, +1, 0, -1, +1)
+            InputSimplifier.getMultipliers(+3, +2, +2, -1, -2, +1)
             );
     public static final Material SOFT_LEATHER = new Material(
             "soft leather",
             3,
             new int[]{Material.ORGANIC},
-            InputSimplifier.getMultipliers(-3, +3, +1, +4, -2, -1)
+            InputSimplifier.getMultipliers(-4, +3, +1, +3, -2, +1)
     );
 }

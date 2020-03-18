@@ -41,6 +41,7 @@ public class MainGameViewMode implements OperatingMode {
         Coordinate here;
         TerrainTemplate tt;
         Player player = Session.getPlayer();
+        MessageCenter mc = Session.getMessageCenter();
         switch (ke.getKeyCode()) {
             case VK_UP: case VK_NUMPAD8:
                 action = player.getMove(Direction.NORTH);
@@ -102,7 +103,7 @@ public class MainGameViewMode implements OperatingMode {
                         Session.getCurrentDungeon().nextFloor();
                     } else if (tt.equals(TerrainDefinitions.NEXT_FLOOR_STAIR)) {
                         if (Session.getCurrentFloor().isFloorBossAlive()) {
-                            Session.getMessageCenter().sendMessage(
+                            mc.sendMessage(
                                     "You may not enter the next floor before defeating the guardian of this floor.",
                                     MessageType.ERROR,
                                     MessageCenter.PRIORITY_MAX);
@@ -138,9 +139,30 @@ public class MainGameViewMode implements OperatingMode {
                 return;
             case VK_V:
                 if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
-                    Session.getMessageCenter().increasePriorityThreshold();
-                } else
-                    Session.getMessageCenter().decreasePriorityThreshold();
+                    mc.increasePriorityThreshold();
+                    mc.sendMessage(
+                            "Message Center - now displaying " +
+                                    (mc.getPriorityThreshold() == MessageCenter.PRIORITY_HIGH
+                                            ? "messages of priority [High] and above."
+                                            : mc.getPriorityThreshold() == MessageCenter.PRIORITY_LOW
+                                            ? "messages of priority [Low] and above."
+                                            : "all messages."),
+                            MessageType.GAME,
+                            MessageCenter.PRIORITY_MAX
+                    );
+                } else {
+                    mc.decreasePriorityThreshold();
+                    mc.sendMessage(
+                            "Message Center - now displaying messages of priority " +
+                                    (mc.getPriorityThreshold() == MessageCenter.PRIORITY_HIGH
+                                            ? "[High] and above."
+                                            : mc.getPriorityThreshold() == MessageCenter.PRIORITY_LOW
+                                            ? "[Low] and above."
+                                            : "[Maximum] only."),
+                            MessageType.GAME,
+                            MessageCenter.PRIORITY_MAX
+                    );
+                }
                 break;
             //todo - lots. breaks when we want to redraw the screen, returns if not
         }

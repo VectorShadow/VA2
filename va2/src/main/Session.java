@@ -9,6 +9,7 @@ import main.modes.ScrollingTextMode;
 import main.modes.TransitiveScrollingTextMode;
 import main.progression.Experience;
 import resources.chroma.ChromaSet;
+import util.InputSimplifier;
 import world.actor.ActorDefinitions;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
@@ -47,6 +48,7 @@ public class Session {
     private static Player player;
 
     static void start() {
+        InputSimplifier.testGetMultiplier();
         Experience.fillXPTable();
         colorScheme = DisplayStandards.THEME_THE_DARK_GROVE;
         fileManager = new FileManager();

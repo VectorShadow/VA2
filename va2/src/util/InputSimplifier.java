@@ -6,22 +6,27 @@ package util;
  */
 public class InputSimplifier {
     /**
-     * Take an integer value and return a double proportional to it.
-     * In practice, we have the following:
-     * 0 = 1.0
-     * +1 => 0.875 // +2 => 0.75 // +3 => 0.625 // +4 => 0.5 // --- // +7 => 0.125 // +8 => 0.0
-     * -1 => 1.125 // -2 => 1.25 // -3 => 1.375 // -4 => 1.5 // etc...
-     * @param i
-     * @return
+     * Take an integer value and return a double which corresponds to it.
+     * In general, each unit above or below zero takes the double 1/8th of its current value
+     * farther from 1.0 in the appropriate direction, so:
+     * +1 => 0.875, +2 => 0.765, +3 => 0.67, +4 => 0.586, etc.
+     * -1 => 1.125, -2 => 1.265, -3 => 1.42, -4 => 1.603, etc.
+     * with 0 => 1.0
      */
     public static double getMultiplier(int i) {
-        return i > 8 ? 0.0 : (8.0 - (double)i) / 8.0;
+        int absoluteI = Math.abs(i);
+        int unit = i == 0 ? 0 : i / absoluteI;
+        return Math.pow((8.0 - unit) / 8.0, absoluteI);
     }
     public static double[] getMultipliers(int... I) {
         double[] D = new double[I.length];
         for (int i = 0; i < I.length; ++i)
             D[i] = getMultiplier(I[i]);
         return D;
+    }
+    public static void testGetMultiplier() {
+        for (int i = -15; i < 16; ++i)
+            System.out.println("i: " + i + " = " + getMultiplier(i));
     }
 
     /**
