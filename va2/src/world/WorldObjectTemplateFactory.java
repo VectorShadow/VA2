@@ -94,18 +94,26 @@ public class WorldObjectTemplateFactory {
         if (backgroundColors.isEmpty()) backgroundColors.add(DEFAULT_BACKGROUND_COLOR);
         if (foregroundColors.isEmpty()) foregroundColors.add(DEFAULT_FOREGROUND_COLOR);
     }
-    public ActorTemplate manufactureActorTemplate(int energyPerTurn, int[] statLevels, Combatant combatant, Reward reward, AI ai) {
-        return manufactureActorTemplate(energyPerTurn, statLevels, combatant, 1, reward, ai);
+    public ActorTemplate manufactureActorTemplate(
+            int energyPerTurn,
+            int maxHealth,
+            int[] statLevels,
+            Combatant combatant,
+            Reward reward,
+            AI ai
+    ) {
+        return manufactureActorTemplate(energyPerTurn, maxHealth, statLevels, combatant, 1, reward, ai);
     }
     public ActorTemplate manufactureActorTemplate(
             int energyPerTurn,
+            int maxHealth,
             int[] statLevels,
             Combatant combatant,
             int minimumDepth,
             Reward reward,
             AI ai
     ) {
-        combatant.setStatisticsByLevel(statLevels);
+        combatant.setStatistics(maxHealth, statLevels);
         forceNonEmptyLists();
         return new ActorTemplate(
                 description,

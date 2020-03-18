@@ -12,6 +12,8 @@ import util.Coordinate;
 import world.actor.Actor;
 import world.terrain.TerrainTemplate;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -21,6 +23,7 @@ public class Engine extends Saveable {
 
     private long gameTurn = 0;
     private LinkedList<Actor> actors;
+    private ArrayList<Actor> deadActors;
 
     public Engine() {
         resetActors();
@@ -28,6 +31,7 @@ public class Engine extends Saveable {
 
     public void resetActors() {
         actors = new LinkedList<>();
+        deadActors = new ArrayList<>();
     }
     public void addActor(Actor a) {
         addActor(a, false);
@@ -39,17 +43,24 @@ public class Engine extends Saveable {
             actors.addFirst(a);
     }
     public void removeActor(Actor a) {
-        actors.remove(a);
+        deadActors.add(a);
     }
     public void execute(Action playerAction) {
         Actor player = Session.getPlayer().getActor();
         if (player != actors.getLast())
             throw new IllegalStateException("Player out of order in engine actor list.");
         actors.getLast().queueAction(playerAction);
+        Actor actor;
         Action action;
         int energyCost;
         while(true) {
-            for (Actor actor : actors) {
+            for (Actor a : deadActors) //cleanup dead actors
+                actors.remove(a);
+            deadActors = new ArrayList<>();
+            for (Iterator<Actor> i = actors.iterator(); i.hasNext();) {
+                actor = i.next();
+                if (deadActors.contains(actor)) //ignore dead actors
+                    continue;
                 //ensure player action messages are most recent at the end of each engine cycle
                 if (!player.hasQueuedAction()) return;
                 actor.gainEnergy(); //gain this turn's energy

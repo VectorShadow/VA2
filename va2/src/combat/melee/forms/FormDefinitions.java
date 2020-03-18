@@ -70,7 +70,7 @@ public class FormDefinitions {
                             .addElement(new Pair<>(0.25, DefenseTactic.BRACE))
                             .build()
             ),
-            new int[] {0,25,0,0,0}
+            new int[] {0,5,0,0,0}
     );
     /**
      * The default form used by large animals.
@@ -101,6 +101,6 @@ public class FormDefinitions {
                             .addElement(new Pair<>(0.85, DefenseTactic.IGNORE))
                             .build()
             ),
-            new int[] {10,0,0,0,35}
+            new int[] {3,0,0,0,8}
     );
 }

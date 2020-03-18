@@ -48,7 +48,6 @@ public class Session {
     private static Player player;
 
     static void start() {
-        InputSimplifier.testGetMultiplier();
         Experience.fillXPTable();
         colorScheme = DisplayStandards.THEME_THE_DARK_GROVE;
         fileManager = new FileManager();

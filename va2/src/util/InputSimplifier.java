@@ -24,10 +24,6 @@ public class InputSimplifier {
             D[i] = getMultiplier(I[i]);
         return D;
     }
-    public static void testGetMultiplier() {
-        for (int i = -15; i < 16; ++i)
-            System.out.println("i: " + i + " = " + getMultiplier(i));
-    }
 
     /**
      * Take an integer specifying a level, and return a statistic value suitable for opposed roles.

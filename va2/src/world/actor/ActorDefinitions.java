@@ -27,7 +27,8 @@ public class ActorDefinitions {
                     .setSymbols('@')
                     .manufactureActorTemplate(
                             25,
-                            new int[]{60, 30, 30, 30, 30, 30},
+                            1_024,
+                            new int[]{30, 30, 30, 30, 30},
                             new Combatant(
                                     FormDefinitions.UNTRAINED,
                                     MeleeWeaponDefinitions.BARE_HANDED,
@@ -48,7 +49,8 @@ public class ActorDefinitions {
                     )
                     .manufactureActorTemplate(
                             38,
-                            new int[] {0, 36, 36, 0, 0, 0},
+                            8,
+                            new int[] {36, 36, 0, 0, 0},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -72,7 +74,8 @@ public class ActorDefinitions {
                     )
                     .manufactureActorTemplate(
                             37,
-                            new int[]{5, 39, 32, 0, 10, 2},
+                            16,
+                            new int[]{39, 32, 0, 10, 2},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -99,7 +102,8 @@ public class ActorDefinitions {
                             )
                     .manufactureActorTemplate(
                             36,
-                            new int[] {16, 40, 30, 10, 10, 5},
+                            48,
+                            new int[] {40, 30, 10, 10, 5},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -116,7 +120,8 @@ public class ActorDefinitions {
                     .setForegroundColors(Chroma.BROWN)
                     .manufactureActorTemplate(
                             32,
-                            new int[]{40, 24, 33, 30, 23, 20},
+                            256,
+                            new int[]{24, 33, 30, 23, 20},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
@@ -133,7 +138,8 @@ public class ActorDefinitions {
                     .setForegroundColors(Chroma.METALLIC_SILVER)
                     .manufactureActorTemplate(
                             30,
-                            new int[]{42, 26, 30, 33, 23, 22},
+                            333,
+                            new int[]{26, 30, 33, 23, 22},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
@@ -150,7 +156,8 @@ public class ActorDefinitions {
                     .setForegroundColors(ColorStandards.BLACK_BEAR_FUR)
                     .manufactureActorTemplate(
                             24,
-                            new int[] {50, 28, 16, 28, 25, 37},
+                            484,
+                            new int[] {28, 16, 28, 25, 37},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     MeleeWeaponDefinitions.BEAR_BITE,
@@ -173,7 +180,8 @@ public class ActorDefinitions {
                             )
                     .manufactureActorTemplate(
                             24,
-                            new int[]{56, 28, 13, 30, 22, 40},
+                            716,
+                            new int[]{28, 13, 30, 22, 40},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
@@ -210,7 +218,8 @@ public class ActorDefinitions {
                     )
                     .manufactureActorTemplate(
                             19,
-                            new int[]{70, 32, 26, 40, 25, 40},
+                            2255,
+                            new int[]{32, 26, 40, 25, 40},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(

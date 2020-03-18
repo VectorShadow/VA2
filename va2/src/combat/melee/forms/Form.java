@@ -18,7 +18,7 @@ public class Form extends TextDisplayable {
     private final MeleeWeaponClass meleeWeaponClass;
     private final Continuum<AttackTactic> attackTactics;
     private final Continuum<DefenseTactic> defenseTactics;
-    private final int[] statModifiers;
+    private final int[] statLevelModifiers;
 
     //todo - special abilities
 
@@ -39,7 +39,7 @@ public class Form extends TextDisplayable {
         defenseTactics = dt;
         if (adjAccEvaPreDefStr.length != 5)
             throw new IllegalStateException("Malformed statModification array");
-        statModifiers = adjAccEvaPreDefStr;
+        statLevelModifiers = adjAccEvaPreDefStr;
     }
 
     /**
@@ -69,6 +69,6 @@ public class Form extends TextDisplayable {
     }
 
     public int adjustStatistic(int combatantStatisticIndex) {
-        return statModifiers[combatantStatisticIndex - 2];
+        return statLevelModifiers[combatantStatisticIndex];
     }
 }

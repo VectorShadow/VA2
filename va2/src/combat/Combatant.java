@@ -18,16 +18,16 @@ import java.util.ArrayList;
  */
 public class Combatant implements Serializable {
 
-    public static final int HEALTH_CAPACITY = 0;
-    public static final int HEALTH = 1;
-    public static final int ACCURACY = 2;
-    public static final int EVASION = 3;
-    public static final int PRECISION = 4;
-    public static final int DEFENSE = 5;
-    public static final int STRENGTH = 6;
+    public static final int ACCURACY = 0;
+    public static final int EVASION = 1;
+    public static final int PRECISION = 2;
+    public static final int DEFENSE = 3;
+    public static final int STRENGTH = 4;
 
     public static final int COUNT_STATISTICS = 7; //todo - keep updated!
 
+    private int healthCapacity;
+    private int health;
     private int[] combatStatistics = new int[COUNT_STATISTICS];
 
     private Form meleeForm; //the form this combatant uses in melee combat
@@ -74,15 +74,15 @@ public class Combatant implements Serializable {
      * @return whether this combatant is still alive.
      */
     public boolean adjustHealth(int adjustment) {
-        setStatistic(HEALTH, getStatistic(HEALTH) + adjustment);
-        if (getStatistic(HEALTH) > getStatistic(HEALTH_CAPACITY)) renewHealth();
-        return getStatistic(HEALTH) > 0;
+        health += adjustment;
+        if (health > healthCapacity) renewHealth();
+        return health > 0;
     }
     public void renewHealth() {
-        setStatistic(HEALTH, getStatistic(HEALTH_CAPACITY));
+        health = healthCapacity;
     }
     public double getHealthPercent() {
-        return 100.0 * (double)getStatistic(HEALTH) / (double)getStatistic(HEALTH_CAPACITY);
+        return 100.0 * (double)health / (double)healthCapacity;
     }
 
     public Form getMeleeForm() {
@@ -118,22 +118,20 @@ public class Combatant implements Serializable {
     }
 
     public int getStatistic(int index) {
-        return combatStatistics[index] + ((index > HEALTH) ? meleeForm.adjustStatistic(index) : 0);
+        return InputSimplifier.getValue(combatStatistics[index] + meleeForm.adjustStatistic(index));
     }
     private void setStatistic(int index, int value) {
         combatStatistics[index] = value;
     }
-    public void setStatisticsByLevel(int[] levels) {
-        setStatistic(HEALTH_CAPACITY, InputSimplifier.getValue(levels[0]));
-        setStatistic(HEALTH, InputSimplifier.getValue(levels[0]));
-        for (int i = ACCURACY; i < COUNT_STATISTICS; ++i)
-            setStatistic(i, levels[i-1]);
+    public void setStatistics(int healthValue, int[] statLevels) {
+        health = healthCapacity = healthValue;
+        combatStatistics = statLevels;
     }
 
     @Override
     public Combatant clone() {
         Combatant c = new Combatant(this);
-        c.combatStatistics = this.combatStatistics;
+        c.setStatistics(healthCapacity, combatStatistics);
         return c;
     }
 }
