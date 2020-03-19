@@ -30,7 +30,7 @@ public class Combatant implements Serializable {
     private int health;
     private int[] combatStatistics = new int[COUNT_STATISTICS];
 
-    private Form meleeForm; //the form this combatant uses in melee combat
+    protected Form meleeForm; //the form this combatant uses in melee combat
 
     private Continuum<MeleeWeapon> combatantMeleeWeapons; //a continuum of melee weapons available to this combatant
     //todo - ranged weapons
@@ -75,14 +75,18 @@ public class Combatant implements Serializable {
      */
     public boolean adjustHealth(int adjustment) {
         health += adjustment;
-        if (health > healthCapacity) renewHealth();
+        if (health > getHealthCapacity()) renewHealth();
         return health > 0;
     }
     public void renewHealth() {
-        health = healthCapacity;
+        health = getHealthCapacity();
     }
     public double getHealthPercent() {
-        return 100.0 * (double)health / (double)healthCapacity;
+        return 100.0 * (double)health / (double)getHealthCapacity();
+    }
+
+    public int getHealthCapacity() {
+        return healthCapacity;
     }
 
     public Form getMeleeForm() {

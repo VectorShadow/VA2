@@ -65,6 +65,7 @@ public class Session {
         player = new Player();
         player.setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
         player.getEquipment().setStartingItems();
+        player.getActor().getCombatant().renewHealth();
         currentFloor.generate();
     }
     public static void loadProfile(LoreTree loreTree) {
