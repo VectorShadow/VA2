@@ -6,6 +6,7 @@ import core.DualityGUI;
 import error.ErrorLogger;
 import io.out.message.Message;
 import main.MetaData;
+import main.Player;
 import main.Session;
 import main.progression.Experience;
 import resources.DualityContext;
@@ -15,6 +16,9 @@ import resources.glyph.Glyph;
 import resources.glyph.GlyphString;
 import resources.glyph.image.ImageManager;
 import util.Format;
+import world.item.Armor;
+import world.item.MeleeWeapon;
+import world.item.loadout.Equipment;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -302,19 +306,27 @@ public class GUIManager {
         );
     }
     public void printPlayerStatistics() {
-        int playerLevel = Session.getPlayer().getExperience().getLevel();
-        long playerExperience = Session.getPlayer().getExperience().getExp();
+        Player player = Session.getPlayer();
+        Experience experience = player.getExperience();
+        Equipment equipment = player.getEquipment();
+        int playerLevel = experience.getLevel();
+        long playerExperience = experience.getExp();
         double xpPercent = 100.0 * ((double)playerExperience / (double)Experience.calculateXP(playerLevel + 1));
         String xpString = Format.percent(
                 xpPercent,
                 0
         );
-        double healthPercent = Session.getPlayer().getActor().getCombatant().getHealthPercent();
+        double healthPercent = player.getActor().getCombatant().getHealthPercent();
+        MeleeWeapon meleeWeapon = equipment.getWeaponsBelt().showWielded();
+        Armor armor = equipment.getBodyArmor().showArmor();
+        double weaponPercent = meleeWeapon.getDurabilityPercent();
+        double armorPercent = armor.getDurabilityPercent();
         GUI.clear(ZONE_PLAYER_STATS);
-        int row = 1;
+        int row = 0;
+        Point last;
         GUI.print(
                 ZONE_PLAYER_STATS,
-                row++,
+                ++row,
                 1,
                 new GlyphString(
                         "Level: " + playerLevel,
@@ -324,7 +336,7 @@ public class GUIManager {
         );
         GUI.print(
                 ZONE_PLAYER_STATS,
-                row++,
+                ++row,
                 1,
                 new GlyphString(
                         "Progress: " + xpString,
@@ -332,11 +344,53 @@ public class GUIManager {
                         Session.getColorScheme().getForeground()
                 )
         );
+        last = GUI.print(
+                ZONE_PLAYER_STATS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Health: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
         GUI.print(
                 ZONE_PLAYER_STATS,
-                row++,
+                last.y,
+                last.x,
+                Format.colorCode("", healthPercent, 0)
+        );
+        last = GUI.print(
+                ZONE_PLAYER_STATS,
+                ++row,
                 1,
-                Format.colorCode("Health: ", healthPercent, 0)
+                new GlyphString(
+                        "Weapon: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_PLAYER_STATS,
+                last.y,
+                last.x,
+                Format.colorCode("", weaponPercent, 0)
+        );
+        last = GUI.print(
+                ZONE_PLAYER_STATS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Armor: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_PLAYER_STATS,
+                last.y,
+                last.x,
+                Format.colorCode("", armorPercent, 0)
         );
     }
 

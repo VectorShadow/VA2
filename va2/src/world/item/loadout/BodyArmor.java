@@ -17,4 +17,8 @@ public class BodyArmor extends LoadoutModule {
         );
         return oldArmor;
     }
+
+    public Armor showArmor() {
+        return armor;
+    }
 }

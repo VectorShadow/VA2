@@ -29,15 +29,18 @@ public class Armor extends ContactInteractiveItem {
      * If we strike an unarmored region, the armor will not reduce the damage, and no material interaction will take place.
      * However, we assume that armor covers all vital areas(even with a low coverage value), so critical hits
      * will not be assessed. The exception to this is the special case where coverage is exactly 0.0, which we use to
-     * indicate a completely unarmored status. This remains susceptible to critical hits.
-     * Note that because we use an opposition roll, even 100% coverage does not guarantee armor will apply.
-     * We multiply by 2 to give an even chance of armor application at 50% coverage(Opposition n vs n is 50%).
+     * indicate a completely unarmored status. This remains susceptible to critical hits, so we treat it as successfully
+     * applied.
+     *
+     * We multiply by 8 to guarantee armor coverage at 100%. Note that while this would seem to inflate armor coverage 
+     * values below 100%, armor is designed specifically to protect the likeliest strike zones and critical areas, so
+     * the odds of striking an armored area of a target will always be higher than the percent of area the armor covers.
      *
      * @param accuracyValue the attacker's final adjusted accuracy value
      * @return whether the attacker struck the defender's armor or not.
      */
     public boolean applyArmor(int accuracyValue) {
-        return COVERAGE == 0.0 || Functions.oppose(coverageValue(2 * accuracyValue), accuracyValue);
+        return COVERAGE == 0.0 || Functions.oppose(coverageValue(8 * accuracyValue), accuracyValue);
     }
 
     /**

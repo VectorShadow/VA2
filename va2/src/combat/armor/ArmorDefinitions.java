@@ -4,10 +4,11 @@ import world.WorldObjectTemplateFactory;
 import world.item.Armor;
 import world.item.loadout.EquipmentSlot;
 import world.item.material.MaterialDefinitions;
+import static world.item.ItemQuality.*;
 
 public class ArmorDefinitions {
     public static final Armor UNARMORED = new Armor(
-            WorldObjectTemplateFactory.initialize().setName("<no armor>").setDescription("<no armor>").manufactureItemTemplate(1),
+            WorldObjectTemplateFactory.initialize().setName("<no armor>").setDescription("<no armor>").manufactureItemTemplate(1, INNATE_ITEM),
             false,
             MaterialDefinitions.PLACEHOLDER,
             EquipmentSlot.WORN,
@@ -20,12 +21,12 @@ public class ArmorDefinitions {
                     .initialize()
                     .setName("leather vest")
                     .setDescription("a protective vest of supple leather")
-                    .manufactureItemTemplate(25_000),
+                    .manufactureItemTemplate(5_000, MUNDANE_PRODUCT),
             true,
             MaterialDefinitions.SOFT_LEATHER,
             EquipmentSlot.WORN,
-            true,
-            0.33,
+            false,
+            0.4,
             5
     );
 }

@@ -27,4 +27,7 @@ public class WeaponsBelt extends LoadoutModule {
         );
         return oldMeleeWeapon;
     }
+    public MeleeWeapon showWielded() {
+        return wieldedWeapon;
+    }
 }

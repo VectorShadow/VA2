@@ -68,4 +68,9 @@ public class DegradableItem extends Item {
     public DegradableItem clone() {
         return new DegradableItem(this);
     }
+
+    @Override
+    public double getIntegrityPercent() {
+        return getDurabilityPercent();
+    }
 }

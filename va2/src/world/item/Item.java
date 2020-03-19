@@ -10,4 +10,10 @@ public abstract class Item extends WorldObject {
 
     @Override
     public abstract Item clone();
+
+    public abstract double getIntegrityPercent();
+
+    public ItemQuality getQuality() {
+        return ((ItemTemplate)getTemplate()).QUALITY;
+    }
 }

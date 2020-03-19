@@ -8,6 +8,7 @@ import util.ArrayListBuilder;
 import world.WorldObjectTemplateFactory;
 import world.item.MeleeWeapon;
 import world.item.material.MaterialDefinitions;
+import static world.item.ItemQuality.*;
 
 /**
  * Define all weapons for use in the game.
@@ -22,7 +23,7 @@ public class MeleeWeaponDefinitions {
                             .setName("bare fists")
                             .setDescription("<unarmed>")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1),
+                            .manufactureItemTemplate(1, INNATE_ITEM),
                     false,
                     MaterialDefinitions.PLACEHOLDER,
                     true,
@@ -42,7 +43,7 @@ public class MeleeWeaponDefinitions {
                             .setName("arachnid fangs")
                             .setDescription("spider bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1),
+                            .manufactureItemTemplate(1, INNATE_ITEM),
                     false,
                     MaterialDefinitions.PLACEHOLDER,
                     true,
@@ -62,7 +63,7 @@ public class MeleeWeaponDefinitions {
                             .setName("canine maw")
                             .setDescription("wolf bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1),
+                            .manufactureItemTemplate(1, INNATE_ITEM),
                     false,
                     MaterialDefinitions.PLACEHOLDER,
                     true,
@@ -82,7 +83,7 @@ public class MeleeWeaponDefinitions {
                             .setName("ursine paw")
                             .setDescription("bear swat")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1),
+                            .manufactureItemTemplate(1, INNATE_ITEM),
                     false,
                     MaterialDefinitions.PLACEHOLDER,
                     true,
@@ -105,7 +106,7 @@ public class MeleeWeaponDefinitions {
                             .setName("ursine maw")
                             .setDescription("bear bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1),
+                            .manufactureItemTemplate(1, INNATE_ITEM),
                     false,
                     MaterialDefinitions.PLACEHOLDER,
                     true,
@@ -124,7 +125,7 @@ public class MeleeWeaponDefinitions {
                             .setName("barbed chitinous stinger")
                             .setDescription("acidic sting")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1),
+                            .manufactureItemTemplate(1, INNATE_ITEM),
                     false,
                     MaterialDefinitions.PLACEHOLDER,
                     true,
@@ -145,7 +146,7 @@ public class MeleeWeaponDefinitions {
                             .initialize()
                             .setName("bronze short sword")
                             .setDescription("a short straight sword made of bronze")
-                            .manufactureItemTemplate(20_000),
+                            .manufactureItemTemplate(20_000, MUNDANE_PRODUCT),
                     true,
                     MaterialDefinitions.BRONZE,
                     false,

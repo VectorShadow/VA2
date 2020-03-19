@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public enum ItemQuality {
+    INNATE_ITEM,
     MUNDANE_PRODUCT,
     GOOD_PRODUCT,
     SUPERIOR_PRODUCT,
@@ -34,6 +35,7 @@ public enum ItemQuality {
     public BalancedGlyphTemplate getBalancedGlyphTemplate() {
         ArrayList<Color> foregrounds = new ArrayList<>();
         switch (this) {
+            case INNATE_ITEM: foregrounds.add(Chroma.FLESH);
             case MUNDANE_PRODUCT: foregrounds.add(Chroma.METALLIC_IRON); break;
             case GOOD_PRODUCT: foregrounds.add(Chroma.METALLIC_BRONZE); break;
             case SUPERIOR_PRODUCT: foregrounds.add(Chroma.METALLIC_SILVER); break;

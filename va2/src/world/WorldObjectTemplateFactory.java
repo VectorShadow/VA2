@@ -5,6 +5,7 @@ import combat.Combatant;
 import main.progression.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
+import world.item.ItemQuality;
 import world.item.ItemTemplate;
 import world.terrain.TerrainTemplate;
 
@@ -131,7 +132,7 @@ public class WorldObjectTemplateFactory {
                 ai
         );
     }
-    public ItemTemplate manufactureItemTemplate(int durability) {
+    public ItemTemplate manufactureItemTemplate(int durability, ItemQuality quality) {
         forceNonEmptyLists();
         return new ItemTemplate(
                 description,
@@ -141,7 +142,8 @@ public class WorldObjectTemplateFactory {
                         backgroundColors,
                         foregroundColors
                 ),
-                durability
+                durability,
+                quality
         );
     }
     public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {
