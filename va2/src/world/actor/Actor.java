@@ -3,9 +3,13 @@ package world.actor;
 import combat.Combatant;
 import engine.action.Action;
 import engine.action.ActionDefinitions;
+import io.out.VisibleCoordinate;
+import main.Session;
 import util.Coordinate;
 import world.WorldObject;
+import world.light.Light;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -95,5 +99,16 @@ public class Actor extends WorldObject {
         int combatantStatistic = combatant.getStatistic(combatantStatisticIndex);
         //todo - use the index to check status array and adjust with any that apply
         return combatantStatistic;
+    }
+
+    public Light getLight() {
+        //hack - todo: Actors need lights, player uses equipped light
+        if (this == Session.getPlayer().getActor())
+            return Light.TORCH;
+        return null;
+    }
+    public int getSight() {
+        //hack - todo: Actors need vision scores
+        return 10;
     }
 }

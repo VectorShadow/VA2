@@ -32,14 +32,6 @@ public class Player implements Serializable {
     public void setActor(Actor actor) {
         this.actor = actor;
     }
-    public Light getLight() {
-        //todo - hack!
-        return Light.TORCH;
-    }
-    public int getSightRadius() {
-        //todo - hack!
-        return 8;
-    }
     public AdjacentMovementAction getMove(Direction d) {
         //hack - todo: ask the player actor what it's move energy multiplier is
         return new AdjacentMovementAction(d, actor.getMoveEnergyMultiplier());

@@ -42,6 +42,9 @@ public class Engine extends Saveable {
         else
             actors.addFirst(a);
     }
+    public LinkedList<Actor> listActors() {
+        return actors;
+    }
     public void removeActor(Actor a) {
         deadActors.add(a);
     }
