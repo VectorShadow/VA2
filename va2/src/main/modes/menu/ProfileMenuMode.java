@@ -25,6 +25,9 @@ public class ProfileMenuMode extends MenuMode {
             case MenuDefinitions.PROFILE_MENU_EXIT:
                 Session.getModeManager().revert();
                 return;
+            case MenuDefinitions.PROFILE_MENU_LORE:
+                Session.getModeManager().transitionTo(new LoreMenuMode());
+                return;
             default:
                 out();
         }

@@ -38,7 +38,7 @@ public class MainMenuMode extends MenuMode {
                 //hardcode - player should begin the game at the Library instead of the default spawn tile
                 Session.addActor(Session.getPlayer().getActor(), new Coordinate(9, 2));
                 OperatingMode targetMode = new MainGameViewMode();
-                if (((LockLeaf)Session.getLore().get(
+                if (((LockLeaf)LoreDefinitions.getLockTree().get(
                         LoreDefinitions.THEME_GENERAL,
                         LoreDefinitions.GENERAL_NEW_CHARACTER
                 )).isLocked()) {

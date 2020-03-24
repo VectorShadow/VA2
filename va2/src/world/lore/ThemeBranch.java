@@ -2,8 +2,9 @@ package world.lore;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class ThemeBranch implements Serializable {
+public class ThemeBranch implements Iterable<LoreLeaf>, Serializable {
     private final String name;
     private ArrayList<LoreLeaf> loreLeaves;
 
@@ -26,5 +27,10 @@ public class ThemeBranch implements Serializable {
 
     public int size() {
         return loreLeaves.size();
+    }
+
+    @Override
+    public Iterator<LoreLeaf> iterator() {
+        return loreLeaves.iterator();
     }
 }

@@ -4,6 +4,7 @@ import contract.menu.Menu;
 import contract.menu.MenuBuilder;
 import contract.menu.MenuOption;
 import main.Session;
+import world.lore.*;
 
 /**
  * Contains the definitions for each Menu which exists in the game.
@@ -31,13 +32,34 @@ public class MenuDefinitions {
                 .addOption(exit)
                 .build();
     }
+    static Menu getLoreMenu(int themeBranchIndex) {
+        LoreTree lt = LoreDefinitions.getLockTree();
+        MenuBuilder mb;
+        if (themeBranchIndex < 0) {
+            mb = MenuBuilder.newMenu("Lore - Select Theme:");
+            for (int i = 0; i < lt.size(); ++i) {
+                boolean available = LoreDefinitions.anyUnlocked(i);
+                mb.addOption(new MenuOption(available ? lt.getBranch(i).name() : "<locked>", available));
+            }
+        } else {
+            mb = MenuBuilder.newMenu("Select Lore:");
+            ThemeBranch tb = lt.getBranch(themeBranchIndex);
+            for (int i = 0; i < tb.size(); ++i) {
+                LockLeaf ll = (LockLeaf)tb.get(i);
+                mb.addOption(new MenuOption(ll.isLocked() ? "<locked>" : LoreDefinitions.nameAt(themeBranchIndex, i), !ll.isLocked()));
+            }
+        }
+        mb.addOption(new MenuOption("Exit", true));
+        return mb.build();
+    }
 
     static final int PROFILE_MENU_KNOWN_LANGUAGES = 0;
     static final int PROFILE_MENU_KNOWN_RECIPES = 1;
     static final int PROFILE_MENU_KILL_COUNT_AND_ENEMY_INFO = 2;
     static final int PROFILE_MENU_FULL_SCORES = 3;
     static final int PROFILE_MENU_RESOURCES_AND_UPGRADES = 4;
-    static final int PROFILE_MENU_EXIT = 5;
+    static final int PROFILE_MENU_LORE = 5;
+    static final int PROFILE_MENU_EXIT = 6;
 
     static Menu getProfileMenu() {
         MenuOption languages = new MenuOption("Review Known Languages", false);
@@ -45,6 +67,7 @@ public class MenuDefinitions {
         MenuOption kills = new MenuOption("Review Monster Kills & Info", false);
         MenuOption scores = new MenuOption("Review Game Scores & Progress", false);
         MenuOption legacy = new MenuOption("Review Legacy Resources & Room Upgrades", false);
+        MenuOption lore = new MenuOption("Review Discovered Lore", true);
         MenuOption exit = new MenuOption("Exit");
         return MenuBuilder.newMenu("Player Profile Menu")
                 .addOption(languages)
@@ -52,6 +75,7 @@ public class MenuDefinitions {
                 .addOption(kills)
                 .addOption(scores)
                 .addOption(legacy)
+                .addOption(lore)
                 .addOption(exit)
                 .build();
     }
@@ -64,7 +88,7 @@ public class MenuDefinitions {
 
     public static Menu getLibraryOptions() {
         MenuOption studyTexts = new MenuOption("Study New Texts", false);
-        MenuOption browseLore = new MenuOption("Browse Known Lore", false);
+        MenuOption browseLore = new MenuOption("Browse Known Lore", true);
         MenuOption studyLanguages = new MenuOption("Study Languages", false);
         MenuOption upgrade = new MenuOption("Upgrade Library", false);
         MenuOption exitLibrary = new MenuOption("Exit Library", true);

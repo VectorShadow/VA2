@@ -42,7 +42,6 @@ public class Session {
     private static Engine engine;
     private static FileManager fileManager;
     private static GUIManager guiManager;
-    private static LoreTree lore;
     private static MessageCenter messageCenter;
     private static ModeManager modeManager;
     private static Player player;
@@ -53,7 +52,6 @@ public class Session {
         fileManager = new FileManager();
         guiManager = new GUIManager();
         modeManager = new ModeManager();
-        lore = LoreDefinitions.LOCK_TREE;
         reset();
     }
     public static void reset() {
@@ -67,9 +65,6 @@ public class Session {
         player.getEquipment().setStartingItems();
         player.getActor().getCombatant().renewHealth();
         currentFloor.generate();
-    }
-    public static void loadProfile(LoreTree loreTree) {
-        lore = loreTree;
     }
     public static void loadSavedGame(Camera c, Dungeon d, Floor f, Engine e, Player p) {
         camera = c;
@@ -118,11 +113,8 @@ public class Session {
     public static ModeManager getModeManager() {
         return modeManager;
     }
-    public static LoreTree getLore() {
-        return lore;
-    }
     public static void unlockLore(int themeIndex, int loreIndex, OperatingMode targetMode) {
-        ((LockLeaf)lore.get(themeIndex, loreIndex)).unlock();
+        ((LockLeaf)LoreDefinitions.getLockTree().get(themeIndex, loreIndex)).unlock();
         if (targetMode == null)
             modeManager.transitionTo(
                     new ScrollingTextMode(LoreDefinitions.loreAt(themeIndex, loreIndex)));

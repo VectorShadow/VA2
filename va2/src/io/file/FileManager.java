@@ -7,6 +7,7 @@ import main.Player;
 import main.Session;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
+import world.lore.LoreDefinitions;
 import world.lore.LoreTree;
 
 import java.io.*;
@@ -111,7 +112,7 @@ public class FileManager {
             fin = new FileInputStream(PROFILE_FILE.toString());
             ois = new ObjectInputStream(fin);
             LoreTree unlockedLore = (LoreTree)ois.readObject();
-            Session.loadProfile(unlockedLore);
+            LoreDefinitions.setLockTree(unlockedLore);
         } catch (EOFException eofe) {
             return false; //tried to load an empty profile - it was created but never written to
         } catch (Exception ex) {
@@ -150,7 +151,7 @@ public class FileManager {
         try {
             fout = new FileOutputStream(PROFILE_FILE.toString());
             oos = new ObjectOutputStream(fout);
-            oos.writeObject(Session.getLore());
+            oos.writeObject(LoreDefinitions.getLockTree());
         } catch (Exception e) {
             ErrorLogger.logFatalException(e);
         } finally {

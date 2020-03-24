@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
 
 public abstract class MenuMode implements OperatingMode {
-    private Menu menu;
+    protected Menu menu;
 
     @Override
     public void in(KeyEvent ke) {

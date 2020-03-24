@@ -32,7 +32,7 @@ public class Armor extends ContactInteractiveItem {
      * indicate a completely unarmored status. This remains susceptible to critical hits, so we treat it as successfully
      * applied.
      *
-     * We multiply by 8 to guarantee armor coverage at 100%. Note that while this would seem to inflate armor coverage 
+     * We multiply by 8 to guarantee armor coverage at 100%. Note that while this would seem to inflate armor coverage
      * values below 100%, armor is designed specifically to protect the likeliest strike zones and critical areas, so
      * the odds of striking an armored area of a target will always be higher than the percent of area the armor covers.
      *

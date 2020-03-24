@@ -7,7 +7,10 @@ public class LoreDefinitions {
     public static final int GENERAL_NEW_PLAYER = 0;
     public static final int GENERAL_NEW_CHARACTER = 1;
     public static final int GENERAL_ESTATE_MESSAGE = 2;
+    public static final int GENERAL_HISTORY = 3;
+    public static final int GENERAL_MYTHS = 4;
     public static final int THEME_DARK_GROVE = 1;
+    public static final int DARK_GROVE_JOURNAL_PAGE_ONE = 0;
 
     private static final LoreTreeBuilder LORE_TREE_BUILDER =
             LoreTreeBuilder
@@ -224,15 +227,71 @@ public class LoreDefinitions {
                                     "whatever function it may have had, since it will be a long time yet before " +
                                     "Samhein comes this year..."
                         )
+                        .addLeaf(
+                                "Common Knowledge: History of Ys",
+                                "\t<todo>"
+                        )
+                        .addLeaf(
+                                "Common Knowledge: Myths of Wyrdys",
+                                "\t<todo>"
+                        )
                         .growTheme()
-                    .addTheme("The Dark Grove"); //todo - add leaves
+                    .addTheme("The Dark Grove")
+                        .addLeaf(
+                                "Journal Page 1",
+                                "\t[a page torn from a journal]" +
+                                        "\n\n\t...todo"
+                        )
+                        .growTheme()
+                    .addTheme("The Desolation of Avalon")
+                        .growTheme()
+                    .addTheme("The Sunken Metropolis")
+                        .growTheme()
+                    .addTheme("The Catacombs of Ur-Eden")
+                        .growTheme()
+                    .addTheme("The Ophidian Temple")
+                        .growTheme()
+                    .addTheme("The Well of Corruption")
+                        .growTheme()
+                    .addTheme(" The Typhonian Inferno")
+                        .growTheme()
+                    .addTheme("The Crypt of Capac Urcu")
+                        .growTheme()
+                    .addTheme("The Realm of Eternal Night")
+                        .growTheme()
+                    .addTheme("The Bathyscape of Centaurus")
+                        .growTheme()
+                    .addTheme("The Glacial Prison")
+                        .growTheme();
     private static final LoreTree STRING_TREE = LORE_TREE_BUILDER.getStringTree();
-    public static final LoreTree LOCK_TREE = LORE_TREE_BUILDER.getLockTree();
+    private static LoreTree lockTree = LORE_TREE_BUILDER.getLockTree();
+
+    public static LoreTree getLockTree() {
+        return lockTree;
+    }
+
+    public static void setLockTree(LoreTree loreTree) {
+        lockTree = loreTree;
+    }
 
     public static String nameAt(int themeIndex, int loreIndex) {
         return ((StringLeaf)STRING_TREE.get(themeIndex, loreIndex)).NAME;
     }
     public static String loreAt(int themeIndex, int loreIndex) {
         return ((StringLeaf)STRING_TREE.get(themeIndex, loreIndex)).LORE;
+    }
+
+    /**
+     * Used to unlock lore without displaying it via Session.unlockLore().
+     */
+    public static void silentUnlock(int themeIndex, int loreIndex) {
+        ((LockLeaf)getLockTree().getBranch(themeIndex).get(loreIndex)).unlock();
+    }
+    public static boolean anyUnlocked(int themeIndex) {
+        ThemeBranch tb = lockTree.getBranch(themeIndex);
+        for (LoreLeaf ll : tb) {
+            if (!((LockLeaf)ll).isLocked()) return true;
+        }
+        return false;
     }
 }

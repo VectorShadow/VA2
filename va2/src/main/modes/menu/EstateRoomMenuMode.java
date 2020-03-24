@@ -29,11 +29,13 @@ public abstract class EstateRoomMenuMode extends MenuMode {
     public static EstateRoomMenuMode interpretTerrain(TerrainTemplate tt) {
         if (tt.equals(TerrainDefinitions.LIBRARY_PORTAL)) {
             EstateRoomMenuMode targetMode = new LibraryMenuMode();
-            if (((LockLeaf)Session.getLore().get(
+            if (((LockLeaf)LoreDefinitions.getLockTree().get(
                     LoreDefinitions.THEME_GENERAL,
                     LoreDefinitions.GENERAL_ESTATE_MESSAGE
             )).isLocked()) {
                 Session.unlockLore(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_ESTATE_MESSAGE, targetMode);
+                LoreDefinitions.silentUnlock(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_HISTORY);
+                LoreDefinitions.silentUnlock(LoreDefinitions.THEME_GENERAL, LoreDefinitions.GENERAL_MYTHS);
                 return null;
             } else
                 return targetMode;

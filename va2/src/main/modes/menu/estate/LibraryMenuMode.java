@@ -2,6 +2,7 @@ package main.modes.menu.estate;
 
 import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
+import main.modes.menu.LoreMenuMode;
 import main.modes.menu.MenuDefinitions;
 
 public class LibraryMenuMode extends EstateRoomMenuMode {
@@ -18,7 +19,7 @@ public class LibraryMenuMode extends EstateRoomMenuMode {
                 //todo
                 return;
             case MenuDefinitions.LIBRARY_OPTIONS_LORE:
-                //todo
+                Session.getModeManager().transitionTo(new LoreMenuMode());
                 return;
             case MenuDefinitions.LIBRARY_OPTIONS_LANGUAGES:
                 //todo
