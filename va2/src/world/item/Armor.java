@@ -10,8 +10,8 @@ public class Armor extends ContactInteractiveItem {
     private final double COVERAGE;
     private final int THICKNESS;
 
-    public Armor(ItemTemplate it, boolean doesDegrade, Material m, EquipmentSlot es, boolean innate, double c, int t) {
-        super(it, doesDegrade, m, es, innate);
+    public Armor(ItemTemplate it, boolean doesDegrade, Material m, boolean innate, double c, int t) {
+        super(it, doesDegrade, m, EquipmentSlot.WORN, innate);
         if (c < 0.0 || c > 1.0)
             throw new IllegalArgumentException("Coverage out of bounds: " + c);
         if (t < 0)

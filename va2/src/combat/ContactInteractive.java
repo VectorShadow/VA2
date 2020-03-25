@@ -30,11 +30,10 @@ public interface ContactInteractive {
         double mult2 = (directImpact && ci1.doesDamageSelf() //contact is direct and item does not damage its combatant
                 ? DIRECT_IMPACT_MULTIPLIER //multiply the damage to the armor
                 : 1.0) //otherwise no adjustment - a non-direct hit or an actor damaging direct hit is not increased here
-                * m1.modifyByDamageType(t) //defending weapon receives damage of the type the attack possessed
+                * m2.modifyByDamageType(t) //defending weapon receives damage of the type the attack possessed
                 * Math.min((1.0 / h), MAXIMUM_HARDNESS_MULTIPLIER) //defending weapon gets inverse hardness modification
                 * ci2.getSelfDamageMultiplier() //as above
                 * v; //as above
-        //todo - volatility
         int dam1 = (int)(INTERACTION_DAMAGE * mult1);
         int dam2 = (int)(INTERACTION_DAMAGE * mult2);
         return new int[]{dam1, dam2};

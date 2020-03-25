@@ -51,7 +51,7 @@ public class ActorDefinitions {
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.ARACHNID_EXOSKELETON
                             ),
                             new Reward(4),
                             AIDefinitions.CCW_AI
@@ -76,7 +76,7 @@ public class ActorDefinitions {
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.ARACHNID_EXOSKELETON
                             ),
                             new Reward(8),
                             AIDefinitions.CCW_AI
@@ -104,7 +104,7 @@ public class ActorDefinitions {
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.ARACHNID_EXOSKELETON
                             ),
                             new Reward(16),
                             AIDefinitions.CCW_AI
@@ -231,7 +231,7 @@ public class ActorDefinitions {
                                                     )
                                                     .build()
                                     ),
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.ANCIENT_ARACHNID_EXOSKELETON
                             ),
                             new Reward(256),
                             AIDefinitions.CCS_AI

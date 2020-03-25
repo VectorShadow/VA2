@@ -11,7 +11,6 @@ public class ArmorDefinitions {
             WorldObjectTemplateFactory.initialize().setName("<no armor>").setDescription("<no armor>").manufactureItemTemplate(1, INNATE_ITEM),
             false,
             MaterialDefinitions.PLACEHOLDER,
-            EquipmentSlot.WORN,
             true,
             0.0,
             0
@@ -24,9 +23,32 @@ public class ArmorDefinitions {
                     .manufactureItemTemplate(5_000, MUNDANE_PRODUCT),
             true,
             MaterialDefinitions.SOFT_LEATHER,
-            EquipmentSlot.WORN,
             false,
             0.4,
             5
+    );
+    public static final Armor ARACHNID_EXOSKELETON = new Armor(
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("arachnid exoskeleton")
+                    .setDescription("the natural armor of a spider")
+                    .manufactureItemTemplate(1, INNATE_ITEM),
+            false,
+            MaterialDefinitions.CHITIN,
+            true,
+            0.92,
+            3
+    );
+    public static final Armor ANCIENT_ARACHNID_EXOSKELETON = new Armor(
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("ancient arachnid exoskeleton")
+                    .setDescription("the natural armor of an ancient spider")
+                    .manufactureItemTemplate(1, INNATE_ITEM),
+            false,
+            MaterialDefinitions.ANCIENT_CHITIN,
+            true,
+            0.92,
+            8
     );
 }

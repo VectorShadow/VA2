@@ -35,4 +35,16 @@ public class MaterialDefinitions {
             new int[]{Material.ORGANIC},
             InputSimplifier.getMultipliers(-4, +3, +1, +3, -2, +1)
     );
+    public static final Material CHITIN = new Material(
+            "chitin",
+            9,
+            new int[]{Material.ORGANIC},
+            InputSimplifier.getMultipliers(+2, -5, -3, -3, +3, +4)
+    );
+    public static final Material ANCIENT_CHITIN = new Material(
+            "ancient chitin",
+            13,
+            new int[]{Material.ORGANIC},
+            InputSimplifier.getMultipliers(+7, -5, -3, -1, +3, +4)
+    );
 }

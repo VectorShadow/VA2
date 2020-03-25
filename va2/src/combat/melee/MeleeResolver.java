@@ -491,8 +491,8 @@ public class MeleeResolver extends CombatResolver {
                 //todo - destroy this weapon
             }
         } else {
-            if (!attackerCombatant.adjustHealth(interactionDamage[0])) {
-                attackerCombatant.adjustHealth(-interactionDamage[0]); //don't die from this type of damage
+            if (!attackerCombatant.adjustHealth(-interactionDamage[0])) {
+                attackerCombatant.adjustHealth(interactionDamage[0]); //don't die from this type of damage
             }
         }
         if (defenderItem.doesDamageSelf()) {
@@ -500,8 +500,8 @@ public class MeleeResolver extends CombatResolver {
                 //todo - destroy this weapon
             }
         } else {
-            if (!defenderCombatant.adjustHealth(interactionDamage[1])) {
-                defenderCombatant.adjustHealth(-interactionDamage[1]); //don't die from this type of damage
+            if (!defenderCombatant.adjustHealth(-interactionDamage[1])) {
+                defenderCombatant.adjustHealth(interactionDamage[1]); //don't die from this type of damage
             }
         }
     }
