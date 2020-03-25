@@ -138,6 +138,8 @@ public class MainGameViewMode implements OperatingMode {
                 return;
             case VK_L:
                 if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                    Session.getModeManager().transitionTo(new MainGameCameraMode());
+                } else {
                     Session.getModeManager().transitionTo(new MainGameCursorMode());
                 }
                 return;

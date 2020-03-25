@@ -50,7 +50,7 @@ public class FloorRenderer {
         Glyph g;
         FloorTile ft;
         WorldObjectTemplate wot;
-        Coordinate camera = Session.getCamera().getAt();
+        Coordinate camera = Session.getCamera().at();
         rowOffset = camera.getRow() - SCREEN_CENTER_ROW;
         colOffset = camera.getColumn() - SCREEN_CENTER_COL;
         for (int i = 0; i < glyphMap.getRows(); ++i) {

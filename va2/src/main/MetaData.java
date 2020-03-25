@@ -26,9 +26,9 @@ public class MetaData {
                 "\n\tChange Floor/Enter An Estate Room - </>" +
                 "\n\nInfo Commands:" +
                 "\n\tAdjust Message Verbosity - v(less verbose)/V(more verbose)" +
-                "\n\tLook Around - Shift l" +
-                "\n\t\tMove Cursor - Arrow Keys/Numpad" +
-                "\n\t\tCycle Targets - Numpad +/-" +
-                "\n\t\tCenter Cursor on Player - Numpad 5";
+                "\n\tLook Around - l(Cursor) / Shift l(Camera)" +
+                "\n\t\tMove View - Arrow Keys/Numpad" +
+                "\n\t\tCycle Targets(Cursor only) - Numpad +/-" +
+                "\n\t\tCenter View on Player - Numpad 5";
     }
 }
