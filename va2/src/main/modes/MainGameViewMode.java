@@ -1,7 +1,6 @@
 package main.modes;
 
 import engine.action.Action;
-import engine.action.AdjacentMovementAction;
 import engine.action.PauseAction;
 import io.out.FloorRenderer;
 import io.out.GUIManager;
@@ -24,14 +23,14 @@ import static java.awt.event.KeyEvent.*;
  */
 public class MainGameViewMode implements OperatingMode {
 
-    FloorRenderer floorRenderer;
-
     @Override
     public void to() {
+        Session.getCamera().trackPlayer();
         GUIManager gm = Session.getGuiManager();
         gm.changeChannelToGameDisplay();
-        floorRenderer = new FloorRenderer();
+        Session.startFloorRenderer();
         out();
+        Session.newTargetList();
     }
 
     @Override
@@ -137,6 +136,11 @@ public class MainGameViewMode implements OperatingMode {
                     Session.getModeManager().transitionTo(new MessageRecallMode(Session.getMessageCenter().getMessageRecall()));
                 }
                 return;
+            case VK_L:
+                if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
+                    Session.getModeManager().transitionTo(new MainGameCursorMode());
+                }
+                return;
             case VK_V:
                 if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
                     mc.increasePriorityThreshold();
@@ -166,15 +170,18 @@ public class MainGameViewMode implements OperatingMode {
                 break;
             //todo - lots. breaks when we want to redraw the screen, returns if not
         }
-        if (action != null)
+        if (action != null) {
             Session.getEngine().execute(action);
+            Session.getTargetList().reset(); //update the target list
+        }
         out();
     }
 
     @Override
     public void out() {
         GUIManager gm = Session.getGuiManager();
-        //update the renderer's glyphMap from the current world.dungeon.floor before drawing it to the screen
+        FloorRenderer floorRenderer = Session.getFloorRenderer();
+        //update the renderer's glyphMap from the current floor before drawing it to the screen
         floorRenderer.update(Session.getCurrentFloor());
         for (int r = 0; r < floorRenderer.countRows(); ++r) {
             for (int c = 0; c < floorRenderer.countColumns(); ++c) {

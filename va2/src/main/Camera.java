@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class Camera implements Serializable {
     private Coordinate at;
-    private boolean trackPlayer = true;
+    private boolean trackPlayer = false;
 
     public Camera() {
         at = new Coordinate(0,0);

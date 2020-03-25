@@ -20,18 +20,23 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class FloorRenderer {
+    final int SCREEN_CENTER_ROW;
+    final int SCREEN_CENTER_COL;
+    int rowOffset;
+    int colOffset;
     private GlyphMap glyphMap;
     private ArrayList<VisibleCoordinate> playerView = new ArrayList<>();
 
     public FloorRenderer() {
         initialize();
+        SCREEN_CENTER_ROW = (glyphMap.getRows() - Session.getGuiManager().getMessageWindowRows()) / 2;
+        SCREEN_CENTER_COL = glyphMap.getCols() / 2;
     }
 
     private void initialize() {
         Dimension d = Session.getGuiManager().getScreenDimension();
         glyphMap = new GlyphMap(d.height, d.width);
     }
-
     private void clear() {
         for (int i = 0; i < glyphMap.getRows(); ++i) {
             for (int j = 0; j < glyphMap.getCols(); ++j) {
@@ -40,22 +45,18 @@ public class FloorRenderer {
         }
     }
     public void update(Floor f) {
-        //todo - access the camera position and calculate row and column offsets such that the camera location
-        // corresponds to the center of the glyphMap.
-        Coordinate camera = Session.getCamera().getAt();
-        final int SCREEN_CENTER_ROW = (glyphMap.getRows() - Session.getGuiManager().getMessageWindowRows()) / 2;
-        final int SCREEN_CENTER_COL = glyphMap.getCols() / 2;
-        final int ROW_OFFSET = camera.getRow() - SCREEN_CENTER_ROW;
-        final int COL_OFFSET = camera.getColumn() - SCREEN_CENTER_COL;
         int floorRow, floorCol;
         Glyph g;
         FloorTile ft;
         WorldObjectTemplate wot;
+        Coordinate camera = Session.getCamera().getAt();
+        rowOffset = camera.getRow() - SCREEN_CENTER_ROW;
+        colOffset = camera.getColumn() - SCREEN_CENTER_COL;
         for (int i = 0; i < glyphMap.getRows(); ++i) {
             for (int j = 0; j < glyphMap.getCols(); ++j) {
                 g = SimpleGlyph.EMPTY_GLYPH;
-                floorRow = i + ROW_OFFSET;
-                floorCol = j + COL_OFFSET;
+                floorRow = i + rowOffset;
+                floorCol = j + colOffset;
                 if (f.inFloor(floorRow, floorCol)) {
                     ft = f.tileAt(floorRow, floorCol);
                     wot = ft.getTerrain().getTemplate();
@@ -77,8 +78,8 @@ public class FloorRenderer {
             actorVision = listVisibleCoordinates(a);
             if (actorIsPlayer) setPlayerView(actorVision);
             for (VisibleCoordinate vc : actorVision) {
-                floorRow = vc.getCoordinate().getRow();
-                floorCol = vc.getCoordinate().getColumn();
+                floorRow = vc.getRow();
+                floorCol = vc.getColumn();
                 ft = f.tileAt(floorRow, floorCol);
                 wot = ft.getTerrain().getTemplate();
                 lightAtTile = (actorLight != null && vc.getDistance() <= actorLight.getBrightness())
@@ -99,7 +100,7 @@ public class FloorRenderer {
                         );
                     }
                     g = gb.build(DualityMode.TILE);
-                    setGlyphAt(floorRow - ROW_OFFSET, floorCol - COL_OFFSET, g);
+                    setGlyphAt(floorRow - rowOffset, floorCol - colOffset, g);
                 }
             }
         }
@@ -125,7 +126,7 @@ public class FloorRenderer {
     private void addAtNearestDistance(VisibleCoordinate check, ArrayList<VisibleCoordinate> existing) {
         boolean needToAdd = true;
         for (VisibleCoordinate vc : existing) {
-            if (vc.getCoordinate().equals(check.getCoordinate())) {
+            if (vc.equals(check)) {
                 if (check.getDistance() < vc.getDistance())
                     existing.remove(vc);
                 else
@@ -165,7 +166,7 @@ public class FloorRenderer {
         vision.add(origin);
         for (Direction direction : Direction.values()) {
             if (direction == Direction.SELF) continue;
-            Coordinate c = direction.shift(origin.getCoordinate());
+            Coordinate c = direction.shift(origin);
                 vision.add(new VisibleCoordinate(c, 0.0));
                 if (continuePropogation(a, c, 1.0, floor))
                     propogate(a, floor, c, direction, 1.0, vision);
@@ -179,8 +180,26 @@ public class FloorRenderer {
     public int countColumns() {
         return glyphMap.getCols();
     }
+
+    /**
+     * Return whether the specified indices are within the display.
+     */
     private boolean inBounds(int row, int col) {
         return row >= 0 && col >= 0 && row < glyphMap.getRows() && col < glyphMap.getCols();
+    }
+
+    /**
+     * Returns whether a coordinate within a floor is within the display.
+     */
+    public boolean onScreen(Coordinate c) {
+        return inBounds(c.getRow() - rowOffset, c.getColumn() - colOffset);
+    }
+
+    /**
+     * Convert a coordinate within a floor to a coordinate on the display.
+     */
+    public Coordinate floorToDisplay(Coordinate c) {
+        return new Coordinate(c.getRow() - rowOffset, c.getColumn() - colOffset);
     }
     public Glyph getGlyphAt(int row, int col) {
         return inBounds(row, col) ? glyphMap.getGlyph(row, col) : SimpleGlyph.EMPTY_GLYPH;

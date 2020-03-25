@@ -5,7 +5,6 @@ import main.progression.Experience;
 import util.Direction;
 import world.actor.Actor;
 import world.item.loadout.Equipment;
-import world.light.Light;
 
 import java.io.Serializable;
 

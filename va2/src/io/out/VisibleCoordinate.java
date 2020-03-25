@@ -5,17 +5,15 @@ import util.Coordinate;
 /**
  * An object which pairs a coordinate with a double distance, for tracking sight and light.
  */
-public class VisibleCoordinate {
-    private final Coordinate coordinate;
+public class VisibleCoordinate extends Coordinate {
     private final double distance;
 
-    VisibleCoordinate(Coordinate c, double d) {
-        coordinate = c;
+    public VisibleCoordinate(int r, int c, double d) {
+        super(r, c);
         distance = d;
     }
-
-    Coordinate getCoordinate() {
-        return coordinate;
+    public VisibleCoordinate(Coordinate c, double d) {
+        this(c.getRow(), c.getColumn(), d);
     }
 
     double getDistance() {
@@ -24,6 +22,6 @@ public class VisibleCoordinate {
 
     @Override
     public String toString() {
-        return coordinate + "@" + distance;
+        return super.toString() + "@" + distance;
     }
 }

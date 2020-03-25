@@ -3,6 +3,7 @@ package main;
 import engine.Engine;
 import engine.action.ActionDefinitions;
 import io.out.DisplayStandards;
+import io.out.FloorRenderer;
 import io.out.message.MessageCenter;
 import main.modes.OperatingMode;
 import main.modes.ScrollingTextMode;
@@ -41,10 +42,12 @@ public class Session {
     private static Floor currentFloor;
     private static Engine engine;
     private static FileManager fileManager;
+    private static FloorRenderer floorRenderer;
     private static GUIManager guiManager;
     private static MessageCenter messageCenter;
     private static ModeManager modeManager;
     private static Player player;
+    private static TargetList targetList;
 
     static void start() {
         Experience.fillXPTable();
@@ -102,6 +105,10 @@ public class Session {
         return fileManager;
     }
 
+    public static FloorRenderer getFloorRenderer() {
+        return floorRenderer;
+    }
+
     public static GUIManager getGuiManager() {
         return guiManager;
     }
@@ -127,6 +134,13 @@ public class Session {
         return player;
     }
 
+    public static TargetList getTargetList() {
+        return targetList;
+    }
+    public static void newTargetList() {
+        targetList = new TargetList();
+    }
+
     public static void setColorScheme(ChromaSet colorScheme) {
         Session.colorScheme = colorScheme;
     }
@@ -143,6 +157,9 @@ public class Session {
     public static void setCurrentDungeon(Dungeon d) {
         currentDungeon = d;
         currentDungeon.nextFloor();
+    }
+    public static void startFloorRenderer() {
+        floorRenderer = new FloorRenderer();
     }
     public static void addActor(Actor a, Coordinate c) {
         currentFloor.placeActor(a, c);
