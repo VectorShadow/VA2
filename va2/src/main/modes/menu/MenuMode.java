@@ -1,6 +1,7 @@
 package main.modes.menu;
 
 import contract.menu.Menu;
+import io.in.InputCommandList;
 import io.in.KeyCodeInterpreter;
 import io.out.GUIManager;
 import main.Session;
@@ -12,6 +13,11 @@ import static java.awt.event.KeyEvent.*;
 
 public abstract class MenuMode implements OperatingMode {
     protected Menu menu;
+
+    @Override
+    public InputCommandList getInput() {
+        return null;
+    }
 
     @Override
     public void in(KeyEvent ke) {

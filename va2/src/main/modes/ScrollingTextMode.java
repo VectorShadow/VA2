@@ -1,5 +1,6 @@
 package main.modes;
 
+import io.in.InputCommandList;
 import io.out.GUIManager;
 import main.Session;
 import resources.glyph.GlyphString;
@@ -33,6 +34,11 @@ public class ScrollingTextMode implements OperatingMode {
         }
         breakByNewLine.add(text); //ensure we add the line after the final line break
         displayedText = breakByNewLine;
+    }
+
+    @Override
+    public InputCommandList getInput() {
+        return null;
     }
 
     @Override

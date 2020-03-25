@@ -1,5 +1,6 @@
 package main.modes;
 
+import io.in.InputCommandList;
 import io.out.GUIManager;
 import io.out.message.MessageRecall;
 import main.Session;
@@ -16,6 +17,11 @@ public class MessageRecallMode implements OperatingMode {
 
     public MessageRecallMode(MessageRecall mr){
         messageRecall = mr;
+    }
+
+    @Override
+    public InputCommandList getInput() {
+        return null;
     }
 
     @Override

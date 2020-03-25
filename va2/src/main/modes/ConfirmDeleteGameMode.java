@@ -1,5 +1,6 @@
 package main.modes;
 
+import io.in.InputCommandList;
 import io.out.GUIManager;
 import main.Session;
 
@@ -9,6 +10,11 @@ import static java.awt.event.KeyEvent.*;
 import static java.awt.event.InputEvent.ALT_DOWN_MASK;
 
 public class ConfirmDeleteGameMode implements OperatingMode {
+    @Override
+    public InputCommandList getInput() {
+        return null;
+    }
+
     @Override
     public void to() {
         GUIManager gm = Session.getGuiManager();

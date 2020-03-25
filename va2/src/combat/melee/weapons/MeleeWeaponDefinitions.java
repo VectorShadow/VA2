@@ -167,7 +167,7 @@ public class MeleeWeaponDefinitions {
                     WorldObjectTemplateFactory
                             .initialize()
                             .setName("water moccasin fangs")
-                            .setDescription("needle sharp fangs of a venemous snake")
+                            .setDescription("needle sharp fangs of a venomous snake")
                             .manufactureItemTemplate(1, INNATE_ITEM),
                     false,
                     MaterialDefinitions.PLACEHOLDER,

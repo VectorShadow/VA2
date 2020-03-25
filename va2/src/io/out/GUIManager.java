@@ -4,6 +4,8 @@ import contract.Gui;
 import contract.menu.Menu;
 import core.DualityGUI;
 import error.ErrorLogger;
+import io.in.InputCommand;
+import io.in.InputCommandList;
 import io.out.message.Message;
 import main.MetaData;
 import main.Player;
@@ -465,6 +467,32 @@ public class GUIManager {
                 last.x,
                 Format.colorCode("", healthPercent, 0)
         );
+    }
+    public void printPlayerActions() {
+        InputCommandList icl = Session.getModeManager().getCurrentMode().getInput();
+        Point last = new Point();
+        for (InputCommand ic : icl) {
+            last = GUI.print(
+                    ZONE_PLAYER_ACTIONS,
+                    last.y+1,
+                    1,
+                    new GlyphString(
+                            ic + ": ",
+                            Session.getColorScheme().getBackground(),
+                            Session.getColorScheme().getHighlight()
+                    )
+            );
+            last = GUI.print(
+                    ZONE_PLAYER_ACTIONS,
+                    last.y,
+                    last.x,
+                    new GlyphString(
+                            ic.getName(),
+                            Session.getColorScheme().getBackground(),
+                            Session.getColorScheme().getForeground()
+                    )
+            );
+        }
     }
 
     public void toggleFullScreenMode() {

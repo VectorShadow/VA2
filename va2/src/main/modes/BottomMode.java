@@ -1,5 +1,6 @@
 package main.modes;
 
+import io.in.InputCommandList;
 import io.out.GUIManager;
 import main.MetaData;
 import main.Session;
@@ -15,6 +16,11 @@ import static java.awt.event.KeyEvent.*;
 public class BottomMode implements OperatingMode {
 
     private boolean isNewSession = true;
+
+    @Override
+    public InputCommandList getInput() {
+        return null;
+    }
 
     @Override
     public void to() {

@@ -1,5 +1,6 @@
 package main.modes;
 
+import io.in.InputCommandList;
 import main.Session;
 
 import java.awt.event.KeyEvent;
@@ -9,6 +10,10 @@ import static java.awt.event.KeyEvent.*;
  * This interface specifies the behavior for the mode the program is operating in.
  */
 public interface OperatingMode {
+    /**
+     * Access the InputCommandList for this Mode.
+     */
+    InputCommandList getInput();
     /**
      * Handle transition to this mode.
      */

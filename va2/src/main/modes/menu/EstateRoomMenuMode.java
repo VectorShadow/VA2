@@ -1,5 +1,6 @@
 package main.modes.menu;
 
+import io.in.InputCommandList;
 import io.out.GUIManager;
 import main.Session;
 import main.modes.OperatingMode;
@@ -12,6 +13,11 @@ import world.terrain.TerrainTemplate;
 public abstract class EstateRoomMenuMode extends MenuMode {
 
     abstract protected void setEstateMenu();
+
+    @Override
+    public InputCommandList getInput() {
+        return null;
+    }
 
     @Override
     public void to() {
