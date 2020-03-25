@@ -51,4 +51,16 @@ public class ArmorDefinitions {
             0.92,
             8
     );
+    public static final Armor SNAKESKIN_SCALE_ARMOR = new Armor(
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("scale covered snakeskin")
+                    .setDescription("the natural armor of a serpent")
+                    .manufactureItemTemplate(1, INNATE_ITEM),
+            false,
+            MaterialDefinitions.SNAKESKIN,
+            true,
+            1,
+            5
+    );
 }

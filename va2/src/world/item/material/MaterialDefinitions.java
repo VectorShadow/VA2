@@ -47,4 +47,10 @@ public class MaterialDefinitions {
             new int[]{Material.ORGANIC},
             InputSimplifier.getMultipliers(+7, -5, -3, -1, +3, +4)
     );
+    public static final Material SNAKESKIN = new Material(
+            "snakeskin",
+            4,
+            new int[]{Material.ORGANIC},
+            InputSimplifier.getMultipliers(+2, -4, -1, +1, +2, 0)
+    );
 }

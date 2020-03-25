@@ -236,4 +236,34 @@ public class ActorDefinitions {
                             new Reward(256),
                             AIDefinitions.CCS_AI
                     );
+    public static final ActorTemplate GIANT_WATER_MOCCASIN =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("giant water moccasin")
+                    .setSymbols('S')
+                    .setForegroundColors(
+                            new Color[]{
+                                    Chroma.BROWN,
+                                    Chroma.BROWN,
+                                    Chroma.BROWN,
+                                    Chroma.BROWN,
+                                    ColorStandards.FOREST_STREAM,
+                                    ColorStandards.FOREST_STREAM,
+                                    Chroma.VENOM_GREEN
+                            }
+                    )
+                    .manufactureActorTemplate(
+                            30,
+                            300,
+                            new int[]{16, 12, 16, 10, 10},
+                            new Combatant(
+                                    FormDefinitions.STRIKING_SERPENT,
+                                    new Continuum<MeleeWeapon>(
+                                            MeleeWeaponDefinitions.MOCCASIN_FANG
+                                    ),
+                                    ArmorDefinitions.SNAKESKIN_SCALE_ARMOR
+                            ),
+                            new Reward(196),
+                            AIDefinitions.CCW_AI
+                    );
 }

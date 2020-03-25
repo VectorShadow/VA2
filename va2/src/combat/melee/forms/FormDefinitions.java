@@ -8,6 +8,9 @@ import util.ArrayListBuilder;
 
 import java.awt.*;
 
+import static combat.melee.AttackTactic.*;
+import static combat.melee.DefenseTactic.*;
+
 public class FormDefinitions {
     /**
      * An untrained melee weapon form, usable with any style and weapon class.
@@ -24,19 +27,19 @@ public class FormDefinitions {
                     AttackTactic.STRIKE,
                     ArrayListBuilder
                             .initialize()
-                            .addElement(new Pair<>(0.25, AttackTactic.BLOW))
-                            .addElement(new Pair<>(0.4, AttackTactic.PROBE))
-                            .addElement(new Pair<>(0.55, AttackTactic.FEINT))
-                            .addElement(new Pair<>(0.65, AttackTactic.ANTICIPATE))
+                            .addElement(new Pair<>(0.25, BLOW))
+                            .addElement(new Pair<>(0.4, PROBE))
+                            .addElement(new Pair<>(0.55, FEINT))
+                            .addElement(new Pair<>(0.65, ANTICIPATE))
                             .build()
             ),
             new Continuum<>(
                     DefenseTactic.EVADE,
                     ArrayListBuilder
                             .initialize()
-                            .addElement(new Pair<>(0.3, DefenseTactic.DEFLECT))
-                            .addElement(new Pair<>(0.55, DefenseTactic.RIPOSTE))
-                            .addElement(new Pair<>(0.65, DefenseTactic.BRACE))
+                            .addElement(new Pair<>(0.3, DEFLECT))
+                            .addElement(new Pair<>(0.55, RIPOSTE))
+                            .addElement(new Pair<>(0.65, BRACE))
                             .build()
             ),
             new int[] {0,0,0,0,0}
@@ -57,17 +60,17 @@ public class FormDefinitions {
                     AttackTactic.STRIKE,
                     ArrayListBuilder
                             .initialize()
-                            .addElement(new Pair<>(0.33, AttackTactic.BLOW))
-                            .addElement(new Pair<>(0.43, AttackTactic.PROBE))
-                            .addElement(new Pair<>(0.50, AttackTactic.FEINT))
+                            .addElement(new Pair<>(0.33, BLOW))
+                            .addElement(new Pair<>(0.43, PROBE))
+                            .addElement(new Pair<>(0.50, FEINT))
                             .build()
             ),
             new Continuum<>(
                     DefenseTactic.EVADE,
                     ArrayListBuilder
                             .initialize()
-                            .addElement(new Pair<>(0.05, DefenseTactic.RIPOSTE))
-                            .addElement(new Pair<>(0.25, DefenseTactic.BRACE))
+                            .addElement(new Pair<>(0.05, RIPOSTE))
+                            .addElement(new Pair<>(0.25, BRACE))
                             .build()
             ),
             new int[] {0,5,0,0,0}
@@ -89,18 +92,43 @@ public class FormDefinitions {
                     AttackTactic.STRIKE,
                     ArrayListBuilder
                             .initialize()
-                            .addElement(new Pair<>(0.4, AttackTactic.BLOW))
-                            .addElement(new Pair<>(0.6, AttackTactic.ANTICIPATE))
+                            .addElement(new Pair<>(0.4, BLOW))
+                            .addElement(new Pair<>(0.6, ANTICIPATE))
                             .build()
             ),
             new Continuum<>(
                     DefenseTactic.EVADE,
                     ArrayListBuilder
                             .initialize()
-                            .addElement(new Pair<>(0.6, DefenseTactic.BRACE))
-                            .addElement(new Pair<>(0.85, DefenseTactic.IGNORE))
+                            .addElement(new Pair<>(0.6, BRACE))
+                            .addElement(new Pair<>(0.85, IGNORE))
                             .build()
             ),
             new int[] {3,0,0,0,8}
+    );
+    public static final Form STRIKING_SERPENT = new Form(
+            "A combat style used by striking serpents.",
+            "<Striking Serpent>",
+            Color.WHITE, //todo - Color Standards!
+            null,
+            null,
+            new Continuum<>(
+                    STRIKE,
+                    ArrayListBuilder
+                            .initialize()
+                            .addElement(new Pair<>(0.25, PROBE))
+                            .addElement(new Pair<>(0.4, ANTICIPATE))
+                            .build()
+            ),
+            new Continuum<>(
+                    EVADE,
+                    ArrayListBuilder
+                            .initialize()
+                            .addElement(new Pair<>(0.25, RIPOSTE))
+                            .addElement(new Pair<>(0.35, BRACE))
+                            .addElement(new Pair<>(0.4, IGNORE))
+                            .build()
+            ),
+            new int[]{0, 5, 10, 0, 0}
     );
 }

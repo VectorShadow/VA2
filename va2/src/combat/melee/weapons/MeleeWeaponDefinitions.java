@@ -162,4 +162,24 @@ public class MeleeWeaponDefinitions {
                                     new WeaponDamage("stab", 1.0, DamageType.PUNCTURE))).build()
                     )
             );
+    public static final MeleeWeapon MOCCASIN_FANG =
+            new MeleeWeapon(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("water moccasin fangs")
+                            .setDescription("needle sharp fangs of a venemous snake")
+                            .manufactureItemTemplate(1, INNATE_ITEM),
+                    false,
+                    MaterialDefinitions.PLACEHOLDER,
+                    true,
+                    57,
+                    22,
+                    .25,
+                    new int[]{0, 10, 0},
+                    MeleeStyle.DUAL_WEAPON,
+                    MeleeWeaponClass.FIST_CLAW,
+                    new Continuum<>(
+                            new WeaponDamage("bite$", 1.0, DamageType.PUNCTURE)
+                    )
+            );
 }
