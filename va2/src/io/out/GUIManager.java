@@ -8,6 +8,7 @@ import io.out.message.Message;
 import main.MetaData;
 import main.Player;
 import main.Session;
+import main.TargetList;
 import main.progression.Experience;
 import resources.DualityContext;
 import resources.DualityMode;
@@ -16,6 +17,7 @@ import resources.glyph.Glyph;
 import resources.glyph.GlyphString;
 import resources.glyph.image.ImageManager;
 import util.Format;
+import world.actor.Actor;
 import world.item.Armor;
 import world.item.MeleeWeapon;
 import world.item.loadout.Equipment;
@@ -68,8 +70,9 @@ public class GUIManager {
     public static final int CHANNEL_FULLSCREEN_TEXT = 1;
 
     public static final int ZONE_MESSAGE_CENTER = 0;
-    public static final int ZONE_PLAYER_STATS = 1;
-    public static final int ZONE_PLAYER_ACTIONS = 2;
+    public static final int ZONE_PLAYER_STATUS = 1;
+    public static final int ZONE_TARGET_STATUS = 2;
+    public static final int ZONE_PLAYER_ACTIONS = 3;
 
     private final Gui GUI = new DualityGUI();
 
@@ -119,33 +122,44 @@ public class GUIManager {
         new ScreenRefresherDaemon().start();
     }
     private void setupChannels() {
-        final double MESSAGE_WINDOW_START = 0.78;
+        final double TARGET_WINDOW_VERTICAL_ORIGIN = 0.39;
+        final double MESSAGE_WINDOW_VERTICAL_ORIGIN = 0.78;
         int messageZone =
                 GUI.addZone(
                         CHANNEL_GAME,
-                        MESSAGE_WINDOW_START,
-                        1.0 - MESSAGE_WINDOW_START,
+                        MESSAGE_WINDOW_VERTICAL_ORIGIN,
+                        1.0 - MESSAGE_WINDOW_VERTICAL_ORIGIN,
                         0.0,
                         1.0,
                         DualityMode.MESSAGES
                 );
         //calculate the number of rows and columns available to display messages:
-        messageWindowRows = GUI.countRows() - GUI.rowAtPercent(MESSAGE_WINDOW_START);
+        messageWindowRows = GUI.countRows() - GUI.rowAtPercent(MESSAGE_WINDOW_VERTICAL_ORIGIN);
         messageWindowCols = GUI.colAtPercent(ZONE_MESSAGE_CENTER, 1.0);
         int statsZone =
                 GUI.addZone(
                         CHANNEL_GAME,
                         0.0,
-                        MESSAGE_WINDOW_START,
+                        TARGET_WINDOW_VERTICAL_ORIGIN,
                         0.0,
                         0.2,
                         DualityMode.SHORT_TEXT
+                );
+        int targetZone =
+                GUI.addZone(
+                        CHANNEL_GAME,
+                        TARGET_WINDOW_VERTICAL_ORIGIN,
+                        MESSAGE_WINDOW_VERTICAL_ORIGIN - TARGET_WINDOW_VERTICAL_ORIGIN,
+                        0.0,
+                        0.2,
+                        DualityMode.SHORT_TEXT
+
                 );
         int actionsZone =
                 GUI.addZone(
                         CHANNEL_GAME,
                         0.0,
-                        MESSAGE_WINDOW_START,
+                        MESSAGE_WINDOW_VERTICAL_ORIGIN,
                         0.8,
                         0.2,
                         DualityMode.SHORT_TEXT
@@ -155,9 +169,12 @@ public class GUIManager {
         if (ZONE_MESSAGE_CENTER != messageZone)
             throw new IllegalStateException("Invalid zone index for Message Center - expected " +
                     ZONE_MESSAGE_CENTER + " but was " + messageZone);
-        if (ZONE_PLAYER_STATS != statsZone)
-            throw new IllegalStateException("Invalid zone index for Player Stats - expected " +
-                    ZONE_PLAYER_STATS + " but was " + statsZone);
+        if (ZONE_PLAYER_STATUS != statsZone)
+            throw new IllegalStateException("Invalid zone index for Player Status - expected " +
+                    ZONE_PLAYER_STATUS + " but was " + statsZone);
+        if (ZONE_TARGET_STATUS != targetZone)
+            throw new IllegalStateException("Invalid zone index for Target Status - expected " +
+                    ZONE_TARGET_STATUS + " but was " + targetZone);
         if (ZONE_PLAYER_ACTIONS != actionsZone)
             throw new IllegalStateException("Invalid zone index for Player Actions - expected " +
                     ZONE_PLAYER_ACTIONS + " but was " + actionsZone);
@@ -176,7 +193,8 @@ public class GUIManager {
             }
         }
         GUI.setBorder(CHANNEL_GAME, ZONE_MESSAGE_CENTER, DisplayStandards.getMessageWindowBorder());
-        GUI.setBorder(CHANNEL_GAME, ZONE_PLAYER_STATS, DisplayStandards.getPlayerStatsBorder());
+        GUI.setBorder(CHANNEL_GAME, ZONE_PLAYER_STATUS, DisplayStandards.getPlayerStatsBorder());
+        GUI.setBorder(CHANNEL_GAME, ZONE_TARGET_STATUS, DisplayStandards.getTargetStatsBorder());
         GUI.setBorder(CHANNEL_GAME, ZONE_PLAYER_ACTIONS, DisplayStandards.getPlayerActionsBorder());
     }
 
@@ -321,11 +339,11 @@ public class GUIManager {
         Armor armor = equipment.getBodyArmor().showArmor();
         double weaponPercent = meleeWeapon.getDurabilityPercent();
         double armorPercent = armor.getDurabilityPercent();
-        GUI.clear(ZONE_PLAYER_STATS);
+        GUI.clear(ZONE_PLAYER_STATUS);
         int row = 0;
         Point last;
         GUI.print(
-                ZONE_PLAYER_STATS,
+                ZONE_PLAYER_STATUS,
                 ++row,
                 1,
                 new GlyphString(
@@ -335,7 +353,7 @@ public class GUIManager {
                 )
         );
         GUI.print(
-                ZONE_PLAYER_STATS,
+                ZONE_PLAYER_STATUS,
                 ++row,
                 1,
                 new GlyphString(
@@ -345,7 +363,7 @@ public class GUIManager {
                 )
         );
         last = GUI.print(
-                ZONE_PLAYER_STATS,
+                ZONE_PLAYER_STATUS,
                 ++row,
                 1,
                 new GlyphString(
@@ -355,13 +373,13 @@ public class GUIManager {
                 )
         );
         GUI.print(
-                ZONE_PLAYER_STATS,
+                ZONE_PLAYER_STATUS,
                 last.y,
                 last.x,
                 Format.colorCode("", healthPercent, 0)
         );
         last = GUI.print(
-                ZONE_PLAYER_STATS,
+                ZONE_PLAYER_STATUS,
                 ++row,
                 1,
                 new GlyphString(
@@ -371,13 +389,13 @@ public class GUIManager {
                 )
         );
         GUI.print(
-                ZONE_PLAYER_STATS,
+                ZONE_PLAYER_STATUS,
                 last.y,
                 last.x,
                 Format.colorCode("", weaponPercent, 0)
         );
         last = GUI.print(
-                ZONE_PLAYER_STATS,
+                ZONE_PLAYER_STATUS,
                 ++row,
                 1,
                 new GlyphString(
@@ -387,10 +405,65 @@ public class GUIManager {
                 )
         );
         GUI.print(
-                ZONE_PLAYER_STATS,
+                ZONE_PLAYER_STATUS,
                 last.y,
                 last.x,
                 Format.colorCode("", armorPercent, 0)
+        );
+    }
+    public void printTargetStatistics() {
+        TargetList tl = Session.getTargetList();
+        if (tl == null) return;
+        Actor target = tl.get();
+        GUI.clear(ZONE_TARGET_STATUS);
+        int row = 0;
+        Point last;
+        if (target == null || target == Session.getPlayer().getActor()) {
+            GUI.print(
+                    ZONE_TARGET_STATUS,
+                    ++row,
+                    1,
+                    new GlyphString(
+                            "<no target>",
+                            Session.getColorScheme().getBackground(),
+                            Session.getColorScheme().subdueForeground()
+                    )
+            );
+            return;
+        }
+        double healthPercent = target.getCombatant().getHealthPercent();
+        last = GUI.print(
+                ZONE_TARGET_STATUS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Target: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        last = GUI.print(
+                ZONE_TARGET_STATUS,
+                last.y,
+                last.x,
+                target.getTemplate().getColoredName()
+        );
+        row = last.y;
+        last = GUI.print(
+                ZONE_TARGET_STATUS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Health: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_TARGET_STATUS,
+                last.y,
+                last.x,
+                Format.colorCode("", healthPercent, 0)
         );
     }
 

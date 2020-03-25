@@ -24,6 +24,7 @@ public class FloorRenderer {
     final int SCREEN_CENTER_COL;
     int rowOffset;
     int colOffset;
+    private Floor lastFloor;
     private GlyphMap glyphMap;
     private ArrayList<VisibleCoordinate> playerView = new ArrayList<>();
 
@@ -109,7 +110,7 @@ public class FloorRenderer {
         int enhanceRow =
                 gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_MESSAGE_CENTER, true, true);
         int enhancementColumn =
-                gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_STATS, false, false);
+                gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_STATUS, false, false);
         glyphMap.setGlyph(enhanceRow, enhancementColumn, DisplayStandards.getEnhancementGlyph());
         //todo - display enhancement glyphs above this
         glyphMap.setGlyph(0, enhancementColumn, DisplayStandards.getWardGlyph());
@@ -118,6 +119,10 @@ public class FloorRenderer {
                 gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_ACTIONS, false, true);
         glyphMap.setGlyph(0, afflictionColumn, DisplayStandards.getAfflictionGlyph());
         //todo - display affliction glyphs below this
+        if (lastFloor != f) { //we just drew a new floor for the first time, refresh the target list now
+            Session.newTargetList();
+            lastFloor = f;
+        }
     }
     private boolean continuePropogation(Actor a, Coordinate c, double d, Floor f) {
         return d < a.getSight() &&

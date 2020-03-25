@@ -36,7 +36,6 @@ public class Dungeon implements Serializable {
         Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO, MessageCenter.PRIORITY_MAX);
         Session.setCurrentFloor(new Floor(Session.getCurrentFloor().DEPTH + 1, DUNGEON_THEME));
         dispenseRewards(FLOOR_COMPLETION_REWARD); //partial reward payout for each cleared floor
-        Session.newTargetList();
     }
     public void exitDungeon(boolean fullRewards) {
         Player player = Session.getPlayer();
@@ -59,7 +58,6 @@ public class Dungeon implements Serializable {
         dispenseRewards(fullRewards ? 1.0 : EARLY_EXIT_PENALTY); //full reward payout, with or without exit penalty
         rewards = new ArrayList<>(); //then zero out the remaining rewards
         dungeonBossAlive = true; //and reset boss kill
-        Session.newTargetList();
     }
 
     public DungeonTheme getTheme() {

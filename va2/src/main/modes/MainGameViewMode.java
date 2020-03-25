@@ -189,6 +189,7 @@ public class MainGameViewMode implements OperatingMode {
             }
         }
         gm.printPlayerStatistics();
+        gm.printTargetStatistics();
         gm.printMessages();
     }
 
