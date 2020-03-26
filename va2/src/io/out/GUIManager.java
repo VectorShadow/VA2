@@ -365,7 +365,7 @@ public class GUIManager {
                 ++row,
                 1,
                 new GlyphString(
-                        "Level: " + playerLevel,
+                        "Experience: " + playerLevel,
                         Session.getColorScheme().getBackground(),
                         Session.getColorScheme().getForeground()
                 )

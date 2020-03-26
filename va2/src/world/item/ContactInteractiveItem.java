@@ -2,8 +2,6 @@ package world.item;
 
 import combat.ContactInteractive;
 import world.item.loadout.EquipmentSlot;
-import world.item.material.Material;
-
 /**
  * This class specifies all items which may be used in a contact interaction.
  * This default level assumes that neither the combatant using this item, nor the item itself,
@@ -32,6 +30,12 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
         return INNATE ? 0.125 : 1.0;
     }
 
+    /**
+     * Innate items damage their actors, not themselves. If an innate item ought not damage its actor(for example,
+     * a projected attack like spider silk, where the projection is not actually a part of the actor's body, even if it
+     * is an innate item rather than an equipped one), instead set innate to false, as well as does degrade to false.
+     * This way it will neither damage itself nor its actor.
+     */
     @Override
     public boolean doesDamageSelf() {
         return !INNATE;

@@ -11,7 +11,7 @@ public class ArmorDefinitions {
                     .initialize()
                     .setName("<no armor>")
                     .setDescription("<no armor>")
-                    .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                    .manufactureItemTemplate(1, MaterialDefinitions.FLESH, INNATE_ITEM),
             false,
             true,
             0.0,

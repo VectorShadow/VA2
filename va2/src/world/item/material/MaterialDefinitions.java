@@ -17,18 +17,24 @@ public class MaterialDefinitions {
      * reaction that results, the damage is doubled. Two iron weapons, with the oxidization subject of 2, will not
      * react, since those factors will mutliply together to result in 4, which does not specify a reaction.
      */
-    public static final Material PLACEHOLDER = new Material(
-            "<placeholder>",
-            1,
-            new int[]{},
-            InputSimplifier.getMultipliers(0, 0, 0, 0, 0, 0)
-            );
+    public static final Material FLESH = new Material(
+            "flesh",
+            3,
+            new int[] {Material.ORGANIC},
+            InputSimplifier.getMultipliers(-2, +2, +1, +1, +0, -1)
+    );
+    public static final Material TOOTH = new Material(
+            "tooth",
+            12,
+            new int[]{Material.ORGANIC},
+            InputSimplifier.getMultipliers(+4, +4, +4, -2, +10, +10)
+    );
     public static final Material BRONZE = new Material(
             "bronze",
             24,
             new int[]{},
             InputSimplifier.getMultipliers(+3, +2, +2, -1, -2, +1)
-            );
+    );
     public static final Material SOFT_LEATHER = new Material(
             "soft leather",
             3,

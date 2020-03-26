@@ -24,7 +24,7 @@ public class MeleeWeaponDefinitions {
                             .setName("bare fists")
                             .setDescription("<unarmed>")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.FLESH, INNATE_ITEM),
                     false,
                     true,
                     25,
@@ -43,7 +43,7 @@ public class MeleeWeaponDefinitions {
                             .setName("arachnid fangs")
                             .setDescription("spider bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.TOOTH, INNATE_ITEM),
                     false,
                     true,
                     8,
@@ -62,7 +62,7 @@ public class MeleeWeaponDefinitions {
                             .setName("canine maw")
                             .setDescription("wolf bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.TOOTH, INNATE_ITEM),
                     false,
                     true,
                     15,
@@ -80,7 +80,7 @@ public class MeleeWeaponDefinitions {
                             .setName("frothing canine maw")
                             .setDescription("rabid wolf bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.TOOTH, INNATE_ITEM),
                     false,
                     true,
                     15,
@@ -110,7 +110,7 @@ public class MeleeWeaponDefinitions {
                             .setName("ursine paw")
                             .setDescription("bear swat")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.FLESH, INNATE_ITEM),
                     false,
                     true,
                     30,
@@ -133,7 +133,7 @@ public class MeleeWeaponDefinitions {
                             .setName("ursine maw")
                             .setDescription("bear bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.TOOTH, INNATE_ITEM),
                     false,
                     true,
                     22,
@@ -151,7 +151,7 @@ public class MeleeWeaponDefinitions {
                             .setName("barbed chitinous stinger")
                             .setDescription("acidic sting")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.ANCIENT_CHITIN, INNATE_ITEM),
                     false,
                     true,
                     63,
@@ -192,7 +192,7 @@ public class MeleeWeaponDefinitions {
                             .initialize()
                             .setName("water moccasin fangs")
                             .setDescription("needle sharp fangs of a venomous snake")
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.TOOTH, INNATE_ITEM),
                     false,
                     true,
                     57,
@@ -211,9 +211,9 @@ public class MeleeWeaponDefinitions {
                             .initialize()
                             .setName("heavy silken strand")
                             .setDescription("a sticky strand of heavy silk webbing")
-                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.SPIDER_SILK, INNATE_ITEM),
                     false,
-                    true,
+                    false,
                     96,
                     32,
                     .33,
