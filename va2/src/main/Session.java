@@ -176,7 +176,8 @@ public class Session {
         if (player.getActor() == a) {
             System.exit(0);
             //todo - terminate the game appropriately
-        }
+        } else if (a == targetList.get())
+            targetList.clearTarget();
     }
     public static boolean isPlaying() {
         return player.getActor() != null;

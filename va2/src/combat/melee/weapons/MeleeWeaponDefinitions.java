@@ -4,6 +4,7 @@ import combat.DamageType;
 import combat.WeaponDamage;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;
+import status.StatusType;
 import util.ArrayListBuilder;
 import world.WorldObjectTemplateFactory;
 import world.item.MeleeWeapon;
@@ -179,7 +180,7 @@ public class MeleeWeaponDefinitions {
                     MeleeStyle.DUAL_WEAPON,
                     MeleeWeaponClass.FIST_CLAW,
                     new Continuum<>(
-                            new WeaponDamage("bite$", 1.0, DamageType.PUNCTURE)
+                            new WeaponDamage("bite$", 1.0, DamageType.PUNCTURE, StatusType.VENOM_0, 0.4)
                     )
             );
 }

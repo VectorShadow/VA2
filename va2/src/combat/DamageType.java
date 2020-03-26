@@ -47,10 +47,10 @@ public enum DamageType {
      * Pulled from ResolvableMeleeWeapon after deprecation for possible future use.
      */
     public static Continuum<Color> buildColorContinuum(Continuum<WeaponDamage> wdc) {
-        Color base = wdc.getBase().type().getColor();
+        Color base = wdc.getBase().damageType().getColor();
         ArrayList<Pair<Color>> list = new ArrayList<>();
         for (Pair<WeaponDamage> wdp : wdc.getPairList()) {
-            list.add(new Pair<>(wdp.probability, wdp.element.type().getColor()));
+            list.add(new Pair<>(wdp.probability, wdp.element.damageType().getColor()));
         }
         return new Continuum<>(base, list);
     }

@@ -5,6 +5,7 @@ import engine.action.*;
 import io.out.message.Message;
 import io.out.message.MessageCenter;
 import main.extensible.Saveable;
+import status.StatusType;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
 import main.Session;
@@ -16,10 +17,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import static status.StatusType.*;
+import static io.out.message.MessageType.*;
+import static io.out.message.MessageCenter.*;
+
 /**
  * This class is responsible for updating the game world based on player input.
  */
 public class Engine extends Saveable {
+    private static final long STATUS_INTERVAL = 32;
+    private static final long SAVE_INTERVAL = 1_024;
 
     private long gameTurn = 0;
     private LinkedList<Actor> actors;
@@ -62,6 +69,8 @@ public class Engine extends Saveable {
             deadActors = new ArrayList<>();
             for (Iterator<Actor> i = actors.iterator(); i.hasNext();) {
                 actor = i.next();
+                if (gameTurn % STATUS_INTERVAL == 0) //apply all relevant status checks before the death check, in case they kill the actor.
+                    handleStatus(actor);
                 if (deadActors.contains(actor)) //ignore dead actors
                     continue;
                 //ensure player action messages are most recent at the end of each engine cycle
@@ -99,7 +108,7 @@ public class Engine extends Saveable {
                 }
             }
             //increment the game turn and automatically save every so often
-            if (++gameTurn % 1_024 == 0) Session.getFileManager().saveGameState();
+            if (++gameTurn % SAVE_INTERVAL == 0) Session.getFileManager().saveGameState();
         }
     }
     public boolean validate(Actor actor, Action action) {
@@ -177,5 +186,23 @@ public class Engine extends Saveable {
         if (da instanceof AdjacentAttackAction && ft.getActor() == null) //if we try to attack but there is no actor
             return new AdjacentMovementAction(da.getDirection(), actor.getMoveEnergyMultiplier());
         return da; //no problems were encountered
+    }
+    private void handleStatus(Actor a) {
+        boolean isPlayer = a == Session.getPlayer().getActor();
+        MessageCenter mc = Session.getMessageCenter();
+        for (StatusType st : StatusType.values()) {
+            if (st.affectsEngineInterval()) {
+                if (a.checkStatus(st)) {
+                    if (isPlayer)
+                        mc.sendMessage(st.CHECK_MESSAGE, st.isPositive() ? SUCCESS : WARNING, PRIORITY_LOW);
+                    if (!a.getCombatant().adjustHealth(st.AFFECTS[DAMAGE] ? -st.FLAT : st.FLAT))
+                        Session.killActor(a);
+                }
+            }
+        }
+    }
+
+    public long getGameTurn() {
+        return gameTurn;
     }
 }

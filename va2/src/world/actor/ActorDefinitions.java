@@ -47,7 +47,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             38,
                             8,
-                            new int[] {2, 2, 0, 0, 0},
+                            new int[] {4, 4, 1, 1, 1},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -72,7 +72,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             37,
                             16,
-                            new int[]{3, 5, 0, 1, 1},
+                            new int[]{3, 6, 1, 1, 2},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -100,7 +100,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             36,
                             48,
-                            new int[] {6, 4, 1, 1, 3},
+                            new int[] {8, 6, 2, 2, 5},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -118,7 +118,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             32,
                             128,
-                            new int[]{3, 6, 4, 3, 5},
+                            new int[]{10, 7, 3, 3, 8},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
@@ -136,7 +136,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             30,
                             196,
-                            new int[]{4, 6, 4, 4, 6},
+                            new int[]{11, 6, 4, 3, 9},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
@@ -154,7 +154,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             24,
                             225,
-                            new int[] {4, 3, 4, 4, 9},
+                            new int[] {9, 5, 10, 8, 12},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     MeleeWeaponDefinitions.BEAR_BITE,
@@ -178,7 +178,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             24,
                             333,
-                            new int[]{4, 3, 4, 4, 12},
+                            new int[]{10, 4, 10, 10, 16},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
@@ -216,7 +216,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             19,
                             512,
-                            new int[]{10, 4, 12, 9, 14},
+                            new int[]{12, 8, 12, 9, 18},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
@@ -258,7 +258,7 @@ public class ActorDefinitions {
                             new int[]{16, 12, 16, 10, 10},
                             new Combatant(
                                     FormDefinitions.STRIKING_SERPENT,
-                                    new Continuum<MeleeWeapon>(
+                                    new Continuum<>(
                                             MeleeWeaponDefinitions.MOCCASIN_FANG
                                     ),
                                     ArmorDefinitions.SNAKESKIN_SCALE_ARMOR

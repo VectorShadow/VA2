@@ -19,12 +19,12 @@ public class MetaData {
                 "\n\tHelp Menu - ?" +
                 "\n\tSave Game - Ctrl s" +
                 "\n\tDelete Game - Ctrl q" +
-                "\n\tRecall Messages - Shift r" +
                 "\n\nMovement Commands:" +
                 "\n\tRest - Numpad 5" +
                 "\n\tWalk - Arrow Keys/Numpad" +
                 "\n\tChange Floor/Enter An Estate Room - </>" +
                 "\n\nInfo Commands:" +
+                "\n\tRecall Messages - Shift r" +
                 "\n\tAdjust Message Verbosity - v(less verbose)/V(more verbose)" +
                 "\n\tLook Around - l(Cursor) / Shift l(Camera)" +
                 "\n\t\tMove View - Arrow Keys/Numpad" +

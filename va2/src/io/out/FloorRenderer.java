@@ -1,6 +1,7 @@
 package io.out;
 
 import resources.continuum.Pair;
+import status.StatusType;
 import util.Coordinate;
 import world.actor.Actor;
 import world.dungeon.floor.Floor;
@@ -107,18 +108,29 @@ public class FloorRenderer {
         }
 
         GUIManager gm = Session.getGuiManager();
-        int enhanceRow =
+        int enhancementRow =
                 gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_MESSAGE_CENTER, true, true);
         int enhancementColumn =
                 gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_STATUS, false, false);
-        glyphMap.setGlyph(enhanceRow, enhancementColumn, DisplayStandards.getEnhancementGlyph());
-        //todo - display enhancement glyphs above this
+        glyphMap.setGlyph(enhancementRow, enhancementColumn, DisplayStandards.getEnhancementGlyph());
+        for (StatusType st : StatusType.values()) {
+            if (st.ordinal() < StatusType.FIRST_POSITIVE_STATUS) continue;
+            if (Session.getPlayer().getActor().inEffect(st)) {
+                glyphMap.setGlyph(--enhancementRow, enhancementColumn, st.GLYPH);
+            }
+        }
         glyphMap.setGlyph(0, enhancementColumn, DisplayStandards.getWardGlyph());
         //todo - display ward glyphs left of this
+        int afflictionRow = 0;
         int afflictionColumn =
                 gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_ACTIONS, false, true);
-        glyphMap.setGlyph(0, afflictionColumn, DisplayStandards.getAfflictionGlyph());
-        //todo - display affliction glyphs below this
+        glyphMap.setGlyph(afflictionRow, afflictionColumn, DisplayStandards.getAfflictionGlyph());
+        for (StatusType st : StatusType.values()) {
+            if (st.ordinal() >= StatusType.FIRST_POSITIVE_STATUS) break;
+            if (Session.getPlayer().getActor().inEffect(st)) {
+                glyphMap.setGlyph(++afflictionRow, afflictionColumn, st.GLYPH);
+            }
+        }
         if (lastFloor != f) { //we just drew a new floor for the first time, refresh the target list now
             Session.newTargetList();
             lastFloor = f;

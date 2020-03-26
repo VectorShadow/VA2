@@ -9,6 +9,7 @@ import engine.action.MeleeAttackAction;
 import io.out.message.Message;
 import io.out.message.MessageType;
 import main.Session;
+import status.StatusType;
 import util.Grammar;
 import world.actor.Actor;
 import world.actor.ActorTemplate;
@@ -375,7 +376,7 @@ public class MeleeResolver extends CombatResolver {
                     resolveContactInteraction(
                             attackerCombatant,
                             attackerMeleeWeapon,
-                            attackerWeaponDamage.type(),
+                            attackerWeaponDamage.damageType(),
                             defenderCombatant,
                             defenderMeleeWeapon
                     );
@@ -414,21 +415,22 @@ public class MeleeResolver extends CombatResolver {
         if (defenderArmor.applyArmor(effectiveAttackerAccuracy)) {
             //todo - roll on the crit table and assign the result to something or apply it somehow - TBD
             double critThresh = defenderArmor.criticalThreshold(effectiveAttackerPrecision, effectiveDefenderDefense);
-            attackDamage -= defenderArmor.flatReduction(attackerMeleeWeapon.getMaterial(), attackerWeaponDamage.type());
+            attackDamage -= defenderArmor.flatReduction(attackerMeleeWeapon.getMaterial(), attackerWeaponDamage.damageType());
             if (attackDamage < 0) {
                 attackDamage = 0;
             } else {
-                attackDamage *= defenderArmor.percentReduction(attackerWeaponDamage.type());
+                attackDamage *= defenderArmor.percentReduction(attackerWeaponDamage.damageType());
                 resolveContactInteraction(
                         attackerCombatant,
                         attackerMeleeWeapon,
-                        attackerWeaponDamage.type(),
+                        attackerWeaponDamage.damageType(),
                         defenderCombatant,
                         defenderArmor
                 );
             }
         }
-        //todo - apply critical result
+        //todo - apply critical result - modify damage and assign this variable:
+        StatusType criticalStatus = null;
         if (isAttackerPlayer || isDefenderPlayer) {
             updateMessage(
                     Grammar.configure(
@@ -470,6 +472,17 @@ public class MeleeResolver extends CombatResolver {
                             PRIORITY_HIGH
                     );
                 d.addReward(((ActorTemplate)defender.getTemplate()).getReward());
+            }
+        } else {
+            /**
+             * If the defender survives, attempt to apply any status effects provided by its weapon damage.
+             */
+            //todo - also check forms for status, and apply any critical status here. Maybe use a status array and iterate it?
+            StatusType st = attackerWeaponDamage.getStatusType();
+            if (st != null) {
+                defender.applyStatus(st);
+                if (isAttackerPlayer)
+                    updateMessage(st.APPLY_MESSAGE, st.isPositive() ? MessageType.SUCCESS : MessageType.WARNING, PRIORITY_HIGH);
             }
         }
         return message;
