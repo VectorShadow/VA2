@@ -9,16 +9,28 @@ public enum StatusType {
             new boolean[]{true, false, true, false, false, false, false, false, true, false},
             "You feel a burning as venom enters your bloodstream.",
             "You feel venom coursing through your veins.",
-            GlyphBuilder.buildGlyph().setDefaults(Chroma.BROWN, Chroma.VENOM_GREEN, '~').build()),
+            GlyphBuilder.buildGlyph().setDefaults(Chroma.VENOM_GREEN, Chroma.BLUE, '~').build()),
+    WEBBED(true, 12, 4, 0, 0.33,
+            new boolean[]{true, true, true, true, true, true, false, false, false, false},
+            "You are covered in sticky webs.",
+            "",
+            GlyphBuilder.buildGlyph().setDefaults(Chroma.BLACK, Chroma.WHITE, '&').build()),
+    RABIES(false, 640, 64, 1, 0.67,
+            new boolean[]{true, true, true, true, false, true, false, false, true, false},
+            "You feel feverish.",
+            "Your illness takes a toll on you.",
+            GlyphBuilder.buildGlyph().setDefaults(Chroma.ORANGE, Chroma.CRIMSON, 'x').build()),
+    //todo  - more negative status here - update FIRST_POSITIVE_STATUS!
+    //todo - more positive status here
     ;
 
-    public static final int FIRST_POSITIVE_STATUS = 1; //the index of the first positive status effect.
+    public static final int FIRST_POSITIVE_STATUS = 3; //the index of the first positive status effect.
 
 
     //affect indices for accuracy, evasion, precision, defense, and strength are the same as for combatants
-    public static final int ENERGY_GAIN = 5;
-    public static final int MOVE_ENERGY = 6;
-    public static final int ATTACK_ENERGY = 7;
+    public static final int ENERGY_GAIN = 5; // <1.0 = slower
+    public static final int MOVE_ENERGY = 6; // <1.0 = faster
+    public static final int ATTACK_ENERGY = 7; //<1.0 = faster
     public static final int DAMAGE = 8;
     public static final int HEALING = 9;
 

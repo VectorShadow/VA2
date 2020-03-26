@@ -53,4 +53,10 @@ public class MaterialDefinitions {
             new int[]{Material.ORGANIC},
             InputSimplifier.getMultipliers(+2, -4, -1, +1, +2, 0)
     );
+    public static final Material SPIDER_SILK = new Material(
+            "spider silk",
+            2,
+            new int[]{Material.ORGANIC},
+            InputSimplifier.getMultipliers(-5, +5, +2, +2, -2, +4)
+    );
 }

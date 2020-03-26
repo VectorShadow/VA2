@@ -24,9 +24,8 @@ public class MeleeWeaponDefinitions {
                             .setName("bare fists")
                             .setDescription("<unarmed>")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
                     false,
-                    MaterialDefinitions.PLACEHOLDER,
                     true,
                     25,
                     10,
@@ -44,9 +43,8 @@ public class MeleeWeaponDefinitions {
                             .setName("arachnid fangs")
                             .setDescription("spider bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
                     false,
-                    MaterialDefinitions.PLACEHOLDER,
                     true,
                     8,
                     3,
@@ -64,9 +62,8 @@ public class MeleeWeaponDefinitions {
                             .setName("canine maw")
                             .setDescription("wolf bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
                     false,
-                    MaterialDefinitions.PLACEHOLDER,
                     true,
                     15,
                     3,
@@ -76,6 +73,35 @@ public class MeleeWeaponDefinitions {
                     MeleeWeaponClass.FIST_CLAW,
                     new WeaponDamage("bite$", 1.0, DamageType.PUNCTURE)
             );
+    public static final MeleeWeapon RABID_WOLF_BITE =
+            new MeleeWeapon(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("frothing canine maw")
+                            .setDescription("rabid wolf bite")
+                            .setSymbols(',')
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                    false,
+                    true,
+                    15,
+                    3,
+                    .33,
+                    new int[] {0,0,0},
+                    MeleeStyle.DUAL_WEAPON,
+                    MeleeWeaponClass.FIST_CLAW,
+                    new Continuum<>(
+                            new WeaponDamage("bite$", 1.0, DamageType.PUNCTURE),
+                            ArrayListBuilder.initialize().addElement(new Pair<>(0.75,
+                                    new WeaponDamage(
+                                            "frantically bite$",
+                                            0.75,
+                                            DamageType.PUNCTURE,
+                                            StatusType.RABIES,
+                                            0.5
+                                    )
+                            )).build()
+                    )
+            );
 
     public static final MeleeWeapon BEAR_SWAT =
             new MeleeWeapon(
@@ -84,9 +110,8 @@ public class MeleeWeaponDefinitions {
                             .setName("ursine paw")
                             .setDescription("bear swat")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
                     false,
-                    MaterialDefinitions.PLACEHOLDER,
                     true,
                     30,
                     12,
@@ -95,9 +120,10 @@ public class MeleeWeaponDefinitions {
                     MeleeStyle.DUAL_WEAPON,
                     MeleeWeaponClass.FIST_CLAW,
                     new Continuum<>(
-                    new WeaponDamage("claw$", 1.25, DamageType.REND),
-                    ArrayListBuilder.initialize().addElement(new Pair<>(0.66,
-                            new WeaponDamage("swat$", 0.9, DamageType.IMPACT))).build())
+                            new WeaponDamage("claw$", 1.25, DamageType.REND),
+                            ArrayListBuilder.initialize().addElement(new Pair<>(0.66,
+                                    new WeaponDamage("swat$", 0.9, DamageType.IMPACT))).build()
+                    )
             );
 
     public static final MeleeWeapon BEAR_BITE =
@@ -107,9 +133,8 @@ public class MeleeWeaponDefinitions {
                             .setName("ursine maw")
                             .setDescription("bear bite")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
                     false,
-                    MaterialDefinitions.PLACEHOLDER,
                     true,
                     22,
                     4,
@@ -126,9 +151,8 @@ public class MeleeWeaponDefinitions {
                             .setName("barbed chitinous stinger")
                             .setDescription("acidic sting")
                             .setSymbols(',')
-                            .manufactureItemTemplate(1, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
                     false,
-                    MaterialDefinitions.PLACEHOLDER,
                     true,
                     63,
                     15,
@@ -147,9 +171,8 @@ public class MeleeWeaponDefinitions {
                             .initialize()
                             .setName("bronze short sword")
                             .setDescription("a short straight sword made of bronze")
-                            .manufactureItemTemplate(20_000, MUNDANE_PRODUCT),
+                            .manufactureItemTemplate(20_000, MaterialDefinitions.BRONZE, MUNDANE_PRODUCT),
                     true,
-                    MaterialDefinitions.BRONZE,
                     false,
                     48,
                     32,
@@ -169,9 +192,8 @@ public class MeleeWeaponDefinitions {
                             .initialize()
                             .setName("water moccasin fangs")
                             .setDescription("needle sharp fangs of a venomous snake")
-                            .manufactureItemTemplate(1, INNATE_ITEM),
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
                     false,
-                    MaterialDefinitions.PLACEHOLDER,
                     true,
                     57,
                     22,
@@ -181,6 +203,25 @@ public class MeleeWeaponDefinitions {
                     MeleeWeaponClass.FIST_CLAW,
                     new Continuum<>(
                             new WeaponDamage("bite$", 1.0, DamageType.PUNCTURE, StatusType.VENOM_0, 0.4)
+                    )
+            );
+    public static final MeleeWeapon WEB_STRIKE =
+            new MeleeWeapon(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("heavy silken strand")
+                            .setDescription("a sticky strand of heavy silk webbing")
+                            .manufactureItemTemplate(1, MaterialDefinitions.PLACEHOLDER, INNATE_ITEM),
+                    false,
+                    true,
+                    96,
+                    32,
+                    .33,
+                    new int[]{10, 0, 0},
+                    MeleeStyle.DUAL_WEAPON,
+                    MeleeWeaponClass.FIST_CLAW,
+                    new Continuum<>(
+                            new WeaponDamage("throw$ a silken web at", 1.0, DamageType.IMPACT, StatusType.WEBBED, 0.15)
                     )
             );
 }

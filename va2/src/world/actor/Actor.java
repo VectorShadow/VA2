@@ -52,7 +52,6 @@ public class Actor extends WorldObject {
         for (StatusType st : StatusType.values()) {
             if (st.AFFECTS[ENERGY_GAIN]) {
                 multiplier = st.SCALE;
-                return;
             }
         }
         currentEnergy += (int)((double)energyGainPerTurn * multiplier);

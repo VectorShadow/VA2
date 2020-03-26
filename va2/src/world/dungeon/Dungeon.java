@@ -39,7 +39,6 @@ public class Dungeon implements Serializable {
     }
     public void exitDungeon(boolean fullRewards) {
         Player player = Session.getPlayer();
-        player.getActor().getCombatant().renewHealth();
         Session.getMessageCenter().sendMessage(
                 fullRewards
                         ? Session.isFinalFloor()
@@ -56,6 +55,7 @@ public class Dungeon implements Serializable {
         //todo - if Session.isFinalFloor(), add bonus rewards
         Session.setCurrentFloor(new Floor(0, ThemeDefinitions.YSIAN_ESTATE));
         dispenseRewards(fullRewards ? 1.0 : EARLY_EXIT_PENALTY); //full reward payout, with or without exit penalty
+        player.getActor().getCombatant().renewHealth();
         rewards = new ArrayList<>(); //then zero out the remaining rewards
         dungeonBossAlive = true; //and reset boss kill
     }

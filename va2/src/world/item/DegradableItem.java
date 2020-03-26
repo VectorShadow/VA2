@@ -1,11 +1,7 @@
 package world.item;
 
-import world.item.material.Material;
-
 /**
  * This class specifies all items which can degrade for any reason, whether in combat or via burning fuel.
- * Material specifies either the material the combat item is made of, for combat interactions, or the material
- * it consumes as fuel (or both, since combat items can be repaired via the material they are made of).
  *
  * Note that not all DegradeableItems necessarily degrade, but since the ones this mostly concerns, weapons and armor,
  * must implement contact interactivity which requires a material, we implement that field at this level to avoid
@@ -14,23 +10,14 @@ import world.item.material.Material;
 public class DegradableItem extends Item {
     protected final boolean DOES_DEGRADE;
     private int durability;
-    private final Material MATERIAL;
 
-    public DegradableItem(ItemTemplate it, boolean doesDegrade, Material m) {
+    public DegradableItem(ItemTemplate it, boolean doesDegrade) {
         super(it);
         DOES_DEGRADE = doesDegrade;
         durability = it.DURABILITY;
-        MATERIAL = m;
     }
     DegradableItem(DegradableItem di) {
-        this(((ItemTemplate)di.getTemplate()), di.DOES_DEGRADE, di.MATERIAL);
-    }
-
-    /**
-     * ContactInteractive, implemented at ContactInteractiveItem and below, simply uses this method.
-     */
-    public Material getMaterial() {
-        return MATERIAL;
+        this(((ItemTemplate)di.getTemplate()), di.DOES_DEGRADE);
     }
 
     /**

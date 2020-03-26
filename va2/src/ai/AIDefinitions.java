@@ -6,4 +6,5 @@ public class AIDefinitions {
     public static final SleepingAI SLEEPING_AI = new SleepingAI();
     public static final CloseCombatAI CCW_AI = new CloseCombatWanderer();
     public static final CloseCombatAI CCS_AI = new CloseCombatSentinel();
+    public static final CloseCombatAI CC_RABID_AI = new CloseCombatErraticAI(.33);
 }

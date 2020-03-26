@@ -48,6 +48,10 @@ public class Material extends Saveable {
         return (double)(m.HARDNESS) / (double)HARDNESS ;
     }
 
+    public int getHardness() {
+        return HARDNESS;
+    }
+
     public double modifyByVolatility(Material m) {
         int power = 0;
         for (int v1 : VOLATILITIES) {

@@ -481,7 +481,7 @@ public class MeleeResolver extends CombatResolver {
             StatusType st = attackerWeaponDamage.getStatusType();
             if (st != null) {
                 defender.applyStatus(st);
-                if (isAttackerPlayer)
+                if (isDefenderPlayer)
                     updateMessage(st.APPLY_MESSAGE, st.isPositive() ? MessageType.SUCCESS : MessageType.WARNING, PRIORITY_HIGH);
             }
         }

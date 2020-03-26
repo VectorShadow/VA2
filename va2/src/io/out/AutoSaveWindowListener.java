@@ -1,6 +1,7 @@
 package io.out;
 
 import main.Session;
+import main.modes.BottomMode;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -16,6 +17,8 @@ public class AutoSaveWindowListener implements WindowListener {
      */
     @Override
     public void windowClosing(WindowEvent e) {
+        if (Session.getModeManager().getCurrentMode() instanceof BottomMode)
+            return; //nothing has been loaded which needs to be saved at this point.
         if (Session.isPlaying())//if we've begun a game, save it
             Session.getFileManager().saveGameState();
         else //otherwise just save the profile

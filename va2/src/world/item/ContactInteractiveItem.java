@@ -13,12 +13,12 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
 
     protected final boolean INNATE;
 
-    public ContactInteractiveItem(ItemTemplate it, boolean doesDegrade, Material m, EquipmentSlot es, boolean innate) {
-        super(it, doesDegrade, m, es);
+    public ContactInteractiveItem(ItemTemplate it, boolean doesDegrade, EquipmentSlot es, boolean innate) {
+        super(it, doesDegrade, es);
         INNATE = innate;
     }
     ContactInteractiveItem(ContactInteractiveItem cii) {
-        this(((ItemTemplate)cii.getTemplate()), cii.DOES_DEGRADE, cii.getMaterial(), cii.getEquipmentSlot(), cii.INNATE);
+        this(((ItemTemplate)cii.getTemplate()), cii.DOES_DEGRADE, cii.getEquipmentSlot(), cii.INNATE);
     }
 
 

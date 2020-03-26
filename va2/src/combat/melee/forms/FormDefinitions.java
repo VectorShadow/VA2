@@ -106,6 +106,9 @@ public class FormDefinitions {
             ),
             new int[] {3,0,0,0,8}
     );
+    /**
+     * A form for striking type serpents.
+     */
     public static final Form STRIKING_SERPENT = new Form(
             "A combat style used by striking serpents.",
             "<Striking Serpent>",
@@ -130,5 +133,30 @@ public class FormDefinitions {
                             .build()
             ),
             new int[]{0, 5, 10, 0, 0}
+    );
+    /**
+     * A form for shambling undead.
+     */
+    public static final Form SHAMBLER = new Form(
+            "A combat style used by the shambling undead",
+            "<Shambler>",
+            Color.WHITE, //todo - Color standards!
+            null,
+            null,
+            new Continuum<>(
+                    BLOW,
+                    ArrayListBuilder
+                            .initialize()
+                            .addElement(new Pair<>(0.35, STRIKE))
+                            .build()
+            ),
+            new Continuum<>(
+                    IGNORE,
+                    ArrayListBuilder
+                            .initialize()
+                            .addElement(new Pair<>(0.35, BRACE))
+                            .build()
+            ),
+            new int[]{0, 0, 0, 0, 5}
     );
 }

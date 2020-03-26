@@ -1,8 +1,13 @@
 package world.dungeon.theme;
 
+import io.out.DisplayStandards;
+import main.Session;
+import resources.chroma.Chroma;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;
+import resources.glyph.GlyphString;
 import util.ArrayListBuilder;
+import world.ColorStandards;
 import world.actor.Actor;
 import world.actor.ActorDefinitions;
 import world.actor.ActorTemplate;
@@ -28,6 +33,7 @@ public class ThemeDefinitions {
                     1,
                     0,
                     0,
+                    new GlyphString("Ysian Estate", Session.getColorScheme().getBackground(), Chroma.WHITE),
                     new String[] {
                             "                           ",
                             "                           ",
@@ -123,6 +129,7 @@ public class ThemeDefinitions {
                     7,
                     4,
                     5,
+                    new GlyphString("The Dark Grove", Session.getColorScheme().getBackground(), DisplayStandards.THEME_THE_DARK_GROVE.getForeground()),
                     new String[] {
                             "                                                      ",
                             "                                                      ",
@@ -158,8 +165,8 @@ public class ThemeDefinitions {
                             "                                                      ",
                             "                                                      ",
                             "                                                      ",
-                            "       5 5                                    3  3    ",
-                            "        0                                             ",
+                            "       505                                    3  3    ",
+                            "                                                      ",
                             "                                                      ",
                             "                                                      "
                     },
@@ -195,7 +202,7 @@ public class ThemeDefinitions {
                             "!###############.#######..####################.######!",
                             "!################..#######.###################..#####!",
                             "!##########....####.######.####################.#####!",
-                            "!##########.##..###.######..#######..##########.#####!",
+                            "!##########.##..###.######..######...##########.#####!",
                             "!#########..###..#.#######..#####.###..########.#####!",
                             "!######....######.##########..####.####.#####.....###!",
                             "!######.$.####################.###.#####...........##!",
@@ -220,6 +227,7 @@ public class ThemeDefinitions {
                                     ActorDefinitions.FOREST_WOLF_TEMPLATE,
                                     ArrayListBuilder
                                             .initialize()
+                                            .addElement(new Pair<>(0.075, ActorDefinitions.RABID_WOLF_TEMPLATE))
                                             .addElement(new Pair<>(0.25, ActorDefinitions.SILVER_WOLF_TEMPLATE))
                                             .build()
                             ),
@@ -232,7 +240,7 @@ public class ThemeDefinitions {
                                     new ArrayList<>()
                             ),
                             new Continuum<>(
-                                    ActorDefinitions.FOREST_WOLF_TEMPLATE,
+                                    ActorDefinitions.GIANT_WATER_MOCCASIN,
                                     new ArrayList<>()
                             ),
                             new Continuum<>(
@@ -243,7 +251,7 @@ public class ThemeDefinitions {
                                             .build()
                             ),
                             new ActorTemplate[]{
-                                    ActorDefinitions.GIANT_WATER_MOCCASIN, //todo - placeholder!
+                                    ActorDefinitions.SILK_MUMMY_TEMPLATE,
                                     ActorDefinitions.GIANT_HUNTING_SPIDER,
                                     ActorDefinitions.SILVER_WOLF_TEMPLATE,
                                     ActorDefinitions.CAVE_BEAR_TEMPLATE,

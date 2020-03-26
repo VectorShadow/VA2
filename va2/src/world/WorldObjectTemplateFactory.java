@@ -7,6 +7,7 @@ import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
 import world.item.ItemQuality;
 import world.item.ItemTemplate;
+import world.item.material.Material;
 import world.terrain.TerrainTemplate;
 
 import java.awt.*;
@@ -132,7 +133,7 @@ public class WorldObjectTemplateFactory {
                 ai
         );
     }
-    public ItemTemplate manufactureItemTemplate(int durability, ItemQuality quality) {
+    public ItemTemplate manufactureItemTemplate(int durability, Material material, ItemQuality quality) {
         forceNonEmptyLists();
         return new ItemTemplate(
                 description,
@@ -143,6 +144,7 @@ public class WorldObjectTemplateFactory {
                         foregroundColors
                 ),
                 durability,
+                material,
                 quality
         );
     }

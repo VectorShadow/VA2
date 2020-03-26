@@ -2,6 +2,7 @@ package world.dungeon.theme;
 
 import main.Session;
 import resources.continuum.Continuum;
+import resources.glyph.GlyphString;
 import world.dungeon.generate.FloorGenerator;
 import world.light.Light;
 
@@ -22,6 +23,7 @@ public class DungeonTheme implements Serializable {
     private final int ENEMY_VARIANCE;
     private final int DUNGEON_DEPTH;
     private final int DUNGEON_DIFFICULTY;
+    private final GlyphString DUNGEON_NAME;
 
     private final String[] FINAL_FLOOR_ACTORS;
     private final String[] FINAL_FLOOR_MAP;
@@ -43,6 +45,7 @@ public class DungeonTheme implements Serializable {
             int enemyVar,
             int depth,
             int diff,
+            GlyphString name,
             String[] actors,
             String[] map,
             Continuum<FloorGenerator> floorGen,
@@ -60,6 +63,7 @@ public class DungeonTheme implements Serializable {
         ENEMY_VARIANCE = enemyVar;
         DUNGEON_DEPTH = depth;
         DUNGEON_DIFFICULTY = diff;
+        DUNGEON_NAME = name;
         FINAL_FLOOR_ACTORS = actors;
         FINAL_FLOOR_MAP = map;
         GENERATORS = floorGen;
@@ -110,5 +114,9 @@ public class DungeonTheme implements Serializable {
 
     public int getDifficulty() {
         return DUNGEON_DIFFICULTY;
+    }
+
+    public GlyphString getName() {
+        return DUNGEON_NAME;
     }
 }

@@ -21,7 +21,6 @@ public class MeleeWeapon extends ContactInteractiveItem {
     public MeleeWeapon(
             ItemTemplate it,
             boolean doesDegrade,
-            Material m,
             boolean innate,
             int damLim,
             int damVar,
@@ -30,7 +29,7 @@ public class MeleeWeapon extends ContactInteractiveItem {
             MeleeStyle ms,
             MeleeWeaponClass mwc,
             Continuum<WeaponDamage> wdc) {
-        super(it, doesDegrade, m, EquipmentSlot.WIELDED, innate);
+        super(it, doesDegrade, EquipmentSlot.WIELDED, innate);
         if (damLim < damVar || strInf < 0 || strInf > .67 || adjAccPreStr.length != 3)
             throw new IllegalStateException("Arguments out of bounds.");
         DAMAGE_LIMIT = damLim;
@@ -44,7 +43,6 @@ public class MeleeWeapon extends ContactInteractiveItem {
     public MeleeWeapon(
             ItemTemplate it,
             boolean doesDegrade,
-            Material m,
             boolean innate,
             int damLim,
             int damVar,
@@ -53,13 +51,12 @@ public class MeleeWeapon extends ContactInteractiveItem {
             MeleeStyle ms,
             MeleeWeaponClass mwc,
             WeaponDamage wd) {
-        this(it, doesDegrade, m, innate, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(wd));
+        this(it, doesDegrade, innate, damLim, damVar, strInf, adjAccPreStr, ms, mwc, new Continuum<>(wd));
     }
     MeleeWeapon(MeleeWeapon mw) {
         this(
                 ((ItemTemplate)mw.getTemplate()),
                 mw.DOES_DEGRADE,
-                mw.getMaterial(),
                 mw.INNATE,
                 mw.DAMAGE_LIMIT,
                 mw.DAMAGE_VARIANCE,

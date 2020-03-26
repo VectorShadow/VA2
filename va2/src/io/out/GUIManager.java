@@ -348,6 +348,22 @@ public class GUIManager {
                 ZONE_PLAYER_STATUS,
                 ++row,
                 1,
+                Session.getCurrentFloor().THEME.getName()
+        );
+        GUI.print(
+                ZONE_PLAYER_STATUS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Depth: " + Session.getCurrentFloor().DEPTH,
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_PLAYER_STATUS,
+                ++row,
+                1,
                 new GlyphString(
                         "Level: " + playerLevel,
                         Session.getColorScheme().getBackground(),

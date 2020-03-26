@@ -72,7 +72,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             37,
                             16,
-                            new int[]{3, 6, 1, 1, 2},
+                            new int[]{6, 6, 1, 1, 2},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -118,7 +118,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             32,
                             128,
-                            new int[]{10, 7, 3, 3, 8},
+                            new int[]{16, 7, 8, 3, 10},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
@@ -136,7 +136,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             30,
                             196,
-                            new int[]{11, 6, 4, 3, 9},
+                            new int[]{18, 6, 10, 5, 12},
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
@@ -144,6 +144,31 @@ public class ActorDefinitions {
                             ),
                             new Reward(32),
                             AIDefinitions.CCW_AI
+                    );
+    public static final ActorTemplate RABID_WOLF_TEMPLATE =
+            WorldObjectTemplateFactory
+                    .initialize(false)
+                    .setName("rabid wolf")
+                    .setSymbols('w')
+                    .setForegroundColors(
+                            new Color[] {
+                                    Chroma.BROWN,
+                                    Chroma.BROWN,
+                                    Chroma.BROWN,
+                                    Chroma.BROWN,
+                                    Chroma.CRIMSON
+                            })
+                    .manufactureActorTemplate(
+                            33,
+                            116,
+                            new int[]{16, 7, 8, 3, 10},
+                            new Combatant(
+                                    FormDefinitions.SMALL_BEAST,
+                                    MeleeWeaponDefinitions.RABID_WOLF_BITE,
+                                    ArmorDefinitions.UNARMORED
+                            ),
+                            new Reward(28),
+                            AIDefinitions.CC_RABID_AI
                     );
     public static final ActorTemplate BLACK_BEAR_TEMPLATE =
             WorldObjectTemplateFactory
@@ -153,8 +178,8 @@ public class ActorDefinitions {
                     .setForegroundColors(ColorStandards.BLACK_BEAR_FUR)
                     .manufactureActorTemplate(
                             24,
-                            225,
-                            new int[] {9, 5, 10, 8, 12},
+                            400,
+                            new int[] {9, 5, 10, 16, 12},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     MeleeWeaponDefinitions.BEAR_BITE,
@@ -177,8 +202,8 @@ public class ActorDefinitions {
                             )
                     .manufactureActorTemplate(
                             24,
-                            333,
-                            new int[]{10, 4, 10, 10, 16},
+                            555,
+                            new int[]{10, 4, 10, 20, 20},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
@@ -214,9 +239,9 @@ public class ActorDefinitions {
                             }
                     )
                     .manufactureActorTemplate(
-                            19,
-                            512,
-                            new int[]{12, 8, 12, 9, 18},
+                            21,
+                            650,
+                            new int[]{12, 8, 24, 8, 18},
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
@@ -254,8 +279,8 @@ public class ActorDefinitions {
                     )
                     .manufactureActorTemplate(
                             30,
-                            300,
-                            new int[]{16, 12, 16, 10, 10},
+                            325,
+                            new int[]{21, 20, 8, 15, 12},
                             new Combatant(
                                     FormDefinitions.STRIKING_SERPENT,
                                     new Continuum<>(
@@ -265,5 +290,48 @@ public class ActorDefinitions {
                             ),
                             new Reward(196),
                             AIDefinitions.CCW_AI
+                    );
+    public static final ActorTemplate SILK_MUMMY_TEMPLATE =
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("silken mummy")
+                    .setDescription("a shambling humanoid figure, wrapped in heavy layers of what appears to be spider silk")
+                    .setSymbols('M')
+                    .setForegroundColors(
+                            new Color[]{
+                                    Chroma.WHITE,
+                                    Chroma.WHITE,
+                                    Chroma.WHITE,
+                                    Chroma.WHITE,
+                                    Chroma.WHITE,
+                                    Chroma.GREY,
+                                    Chroma.GREY,
+                                    Chroma.BROWN,
+                                    Chroma.BROWN,
+                                    Chroma.FLESH
+                            }
+                    )
+                    .manufactureActorTemplate(
+                            19,
+                            2_048,
+                            new int[]{32, 12, 16, 32, 28},
+                            new Combatant(
+                                    FormDefinitions.SHAMBLER,
+                                    new Continuum<MeleeWeapon>(
+                                            MeleeWeaponDefinitions.BARE_HANDED,
+                                            ArrayListBuilder
+                                                    .initialize()
+                                                    .addElement(
+                                                            new Pair<>(
+                                                                    0.25,
+                                                                    MeleeWeaponDefinitions.WEB_STRIKE
+                                                            )
+                                                    )
+                                                    .build()
+                                    ),
+                                    ArmorDefinitions.SPIDERSILK_COCOON
+                            ),
+                            new Reward(1_024),
+                            AIDefinitions.CCS_AI
                     );
 }
