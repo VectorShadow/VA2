@@ -6,7 +6,7 @@ import resources.glyph.GlyphBuilder;
 
 public enum StatusType {
     VENOM_0(true, 16, 6, 4, 0.95,
-            new boolean[]{true, false, true, false, false, false, false, true, false},
+            new boolean[]{true, false, true, false, false, false, false, false, true, false},
             "You feel a burning as venom enters your bloodstream.",
             "You feel venom coursing through your veins.",
             GlyphBuilder.buildGlyph().setDefaults(Chroma.BROWN, Chroma.VENOM_GREEN, '~').build()),
@@ -16,10 +16,11 @@ public enum StatusType {
 
 
     //affect indices for accuracy, evasion, precision, defense, and strength are the same as for combatants
-    public static final int MOVE_ENERGY = 5;
-    public static final int ATTACK_ENERGY = 6;
-    public static final int DAMAGE = 7;
-    public static final int HEALING = 8;
+    public static final int ENERGY_GAIN = 5;
+    public static final int MOVE_ENERGY = 6;
+    public static final int ATTACK_ENERGY = 7;
+    public static final int DAMAGE = 8;
+    public static final int HEALING = 9;
 
     public final boolean COUNTER; //describes whether this status expires by removing counters(true), or checking engine time(false)
     public final int DURATION_LIMIT; //describes the maximum duration of this effect in terms of its expiration principle.

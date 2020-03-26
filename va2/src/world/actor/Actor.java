@@ -48,7 +48,14 @@ public class Actor extends WorldObject {
             currentEnergy = ActionDefinitions.MAXIMUM_ACTOR_ENERGY;
     }
     public void gainEnergy() {
-        currentEnergy += energyGainPerTurn;
+        double multiplier = 1.0;
+        for (StatusType st : StatusType.values()) {
+            if (st.AFFECTS[ENERGY_GAIN]) {
+                multiplier = st.SCALE;
+                return;
+            }
+        }
+        currentEnergy += (int)((double)energyGainPerTurn * multiplier);
         if (currentEnergy > ActionDefinitions.MAXIMUM_ACTOR_ENERGY)
             currentEnergy = ActionDefinitions.MAXIMUM_ACTOR_ENERGY;
     }
