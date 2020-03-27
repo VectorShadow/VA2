@@ -26,7 +26,7 @@ import static io.out.message.MessageCenter.*;
  */
 public class Engine extends Saveable {
     private static final long STATUS_INTERVAL = 32;
-    private static final long SAVE_INTERVAL = 1_024;
+    private static final long SAVE_INTERVAL = 8_192;
 
     private long gameTurn = 0;
     private LinkedList<Actor> actors;
