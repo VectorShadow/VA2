@@ -1,0 +1,5 @@
+TBD - Version [a.0.1]:
+-Changed webbed oak display symbol from & -> * to differentiate it further from the Tangled Portal.
+-Fixed a bug where player equipment would remain degraded between characters.
+27 MAR 2020 - Version [a.0.0]:
+-Initial release!
