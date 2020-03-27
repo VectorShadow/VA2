@@ -11,6 +11,8 @@ import main.MetaData;
 import main.Player;
 import main.Session;
 import main.TargetList;
+import main.modes.MainGameCursorMode;
+import main.modes.OperatingMode;
 import main.progression.Experience;
 import resources.DualityContext;
 import resources.DualityMode;
@@ -436,13 +438,17 @@ public class GUIManager {
         GUI.clear(ZONE_TARGET_STATUS);
         int row = 0;
         Point last;
+        OperatingMode om = Session.getModeManager().getCurrentMode();
         if (target == null || target == Session.getPlayer().getActor()) {
+            String out = (om instanceof MainGameCursorMode)
+                    ? ((MainGameCursorMode) om).describeCursor()
+                    : "<no target>";
             GUI.print(
                     ZONE_TARGET_STATUS,
                     ++row,
                     1,
                     new GlyphString(
-                            "<no target>",
+                            out,
                             Session.getColorScheme().getBackground(),
                             Session.getColorScheme().subdueForeground()
                     )
@@ -464,7 +470,13 @@ public class GUIManager {
                 ZONE_TARGET_STATUS,
                 last.y,
                 last.x,
-                target.getTemplate().getColoredName()
+                om instanceof MainGameCursorMode
+                ? new GlyphString(
+                        ((MainGameCursorMode) om).describeCursor(),
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+                        : target.getTemplate().getColoredName()
         );
         row = last.y;
         last = GUI.print(

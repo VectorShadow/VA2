@@ -31,7 +31,6 @@ public class MainMenuMode extends MenuMode {
 
     @Override
     protected void handleMenuOptionIndex(int index) {
-        String lore;
         switch (index) {
             case MenuDefinitions.MAIN_MENU_NEW_GAME:
                 Session.getMessageCenter().sendMessage("Welcome to Chronicles of the Abyss!", MessageType.GAME, MessageCenter.PRIORITY_HIGH);

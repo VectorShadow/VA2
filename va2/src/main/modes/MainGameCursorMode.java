@@ -6,6 +6,7 @@ import main.Cursor;
 import main.Session;
 import util.Coordinate;
 import util.Direction;
+import world.dungeon.floor.FloorTile;
 
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
@@ -88,5 +89,11 @@ public class MainGameCursorMode extends MainGameViewMode {
     @Override
     public void from() {
         //override - no need to reset
+    }
+    public String describeCursor() {
+        FloorTile ft = Session.getCurrentFloor().tileAt(cursor.at().getRow(), cursor.at().getColumn());
+        return ft.getActor() == null
+                ? ft.getTerrain().getTemplate().getDescription()
+                : ft.getActor().getTemplate().getDescription();
     }
 }

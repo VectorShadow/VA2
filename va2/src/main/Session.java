@@ -5,9 +5,7 @@ import engine.action.ActionDefinitions;
 import io.out.DisplayStandards;
 import io.out.FloorRenderer;
 import io.out.message.MessageCenter;
-import main.modes.OperatingMode;
-import main.modes.ScrollingTextMode;
-import main.modes.TransitiveScrollingTextMode;
+import main.modes.*;
 import main.progression.Experience;
 import resources.chroma.ChromaSet;
 import util.InputSimplifier;
@@ -16,7 +14,6 @@ import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
 import io.file.FileManager;
 import io.out.GUIManager;
-import main.modes.ModeManager;
 import util.Coordinate;
 import world.actor.Actor;
 import world.dungeon.floor.FloorTile;
@@ -153,6 +150,15 @@ public class Session {
         playerActor.consumeEnergy(0 - ActionDefinitions.MAXIMUM_ACTION_ENERGY); //give the player the initiative
         currentFloor.placeActor(playerActor, currentFloor.getPlayerSpawn());
         engine.addActor(playerActor, true);
+        if (((LockLeaf)LoreDefinitions.getLockTree().get(
+                LoreDefinitions.themeIndex(f.THEME),
+                LoreDefinitions.arrivalIndex(f.THEME)
+        )).isLocked()) {
+            unlockLore(
+                    LoreDefinitions.themeIndex(f.THEME),
+                    LoreDefinitions.arrivalIndex(f.THEME),
+                    null);
+        }
     }
     public static void setCurrentDungeon(Dungeon d) {
         currentDungeon = d;
@@ -172,10 +178,25 @@ public class Session {
         ft.setActor(null);
     }
     public static void killActor(Actor a) {
+        killActor(a, false);
+    }
+    public static void killActor(Actor a, boolean win) {
+        a.clearQueuedActions();
         removeActor(a);
         if (player.getActor() == a) {
-            System.exit(0);
-            //todo - terminate the game appropriately
+            getFileManager().saveProfile();
+            getFileManager().deleteSavedGame();
+            reset();
+            getModeManager().revert();
+            getModeManager().transitionTo(
+                    new ScrollingTextMode(
+                            win
+                                    ? "Congratulations! You have completed this version of Chronicles of the Abyss! " +
+                                    "The story will continue in future releases."
+                                    : "You have died!"
+                    )
+            );
+            //todo - generate an autopsy file, score the game, etc.
         } else if (a == targetList.get())
             targetList.clearTarget();
     }

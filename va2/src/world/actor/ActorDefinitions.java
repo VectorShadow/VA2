@@ -122,7 +122,7 @@ public class ActorDefinitions {
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.WOLF_HIDE
                             ),
                             new Reward(20),
                             AIDefinitions.CCW_AI
@@ -140,7 +140,7 @@ public class ActorDefinitions {
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.WOLF_HIDE
                             ),
                             new Reward(32),
                             AIDefinitions.CCW_AI
@@ -165,7 +165,7 @@ public class ActorDefinitions {
                             new Combatant(
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.RABID_WOLF_BITE,
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.WOLF_HIDE
                             ),
                             new Reward(28),
                             AIDefinitions.CC_RABID_AI
@@ -183,7 +183,7 @@ public class ActorDefinitions {
                             new Combatant(
                                     FormDefinitions.LARGE_BEAST,
                                     MeleeWeaponDefinitions.BEAR_BITE,
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.BEAR_HIDE
                             ),
                             new Reward(48),
                             AIDefinitions.CCW_AI
@@ -218,7 +218,7 @@ public class ActorDefinitions {
                                                     )
                                                     .build()
                                             ),
-                                    ArmorDefinitions.UNARMORED
+                                    ArmorDefinitions.BEAR_HIDE
                             ),
                             new Reward(72),
                             AIDefinitions.CCW_AI
@@ -283,9 +283,7 @@ public class ActorDefinitions {
                             new int[]{21, 20, 8, 15, 12},
                             new Combatant(
                                     FormDefinitions.STRIKING_SERPENT,
-                                    new Continuum<>(
-                                            MeleeWeaponDefinitions.MOCCASIN_FANG
-                                    ),
+                                    MeleeWeaponDefinitions.MOCCASIN_FANG,
                                     ArmorDefinitions.SNAKESKIN_SCALE_ARMOR
                             ),
                             new Reward(196),

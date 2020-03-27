@@ -9,6 +9,8 @@ import main.progression.Reward;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.ThemeDefinitions;
+import world.lore.LockLeaf;
+import world.lore.LoreDefinitions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,7 +54,26 @@ public class Dungeon implements Serializable {
                         : MessageType.WARNING,
                 MessageCenter.PRIORITY_MAX
         );
-        //todo - if Session.isFinalFloor(), add bonus rewards
+        if (fullRewards && Session.isFinalFloor()) {
+            //todo - add bonus rewards
+            if (((LockLeaf) LoreDefinitions.getLockTree().get(
+                    LoreDefinitions.themeIndex(getTheme()),
+                    LoreDefinitions.completionIndex(getTheme())
+            )).isLocked()) {
+                Session.unlockLore(
+                        LoreDefinitions.themeIndex(getTheme()),
+                        LoreDefinitions.completionIndex(getTheme()),
+                        null);
+            }
+            /**
+             * If the player clears the final dungeon, end the game as a win.
+             * todo : keep this updated as we add themes!
+             */
+            if (getTheme().getDifficulty() == 5) {
+                Session.getModeManager().revert();
+                Session.killActor(Session.getPlayer().getActor(), true);
+            }
+        }
         Session.setCurrentFloor(new Floor(0, ThemeDefinitions.YSIAN_ESTATE));
         dispenseRewards(fullRewards ? 1.0 : EARLY_EXIT_PENALTY); //full reward payout, with or without exit penalty
         player.getActor().getCombatant().renewHealth();

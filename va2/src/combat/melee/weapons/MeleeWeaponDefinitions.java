@@ -198,11 +198,11 @@ public class MeleeWeaponDefinitions {
                     57,
                     22,
                     .25,
-                    new int[]{0, 10, 0},
+                    new int[]{5, 10, 0},
                     MeleeStyle.DUAL_WEAPON,
                     MeleeWeaponClass.FIST_CLAW,
                     new Continuum<>(
-                            new WeaponDamage("bite$", 1.0, DamageType.PUNCTURE, StatusType.VENOM_0, 0.4)
+                            new WeaponDamage("bite$", 1.0, DamageType.PUNCTURE, StatusType.VENOM_0, 0.67)
                     )
             );
     public static final MeleeWeapon WEB_STRIKE =

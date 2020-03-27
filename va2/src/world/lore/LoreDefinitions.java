@@ -1,6 +1,7 @@
 package world.lore;
 
 import main.MetaData;
+import world.dungeon.theme.DungeonTheme;
 
 public class LoreDefinitions {
     public static final int THEME_GENERAL = 0;
@@ -10,7 +11,9 @@ public class LoreDefinitions {
     public static final int GENERAL_HISTORY = 3;
     public static final int GENERAL_MYTHS = 4;
     public static final int THEME_DARK_GROVE = 1;
-    public static final int DARK_GROVE_JOURNAL_PAGE_ONE = 0;
+    public static final int DARK_GROVE_ARRIVAL = 0;
+    public static final int DARK_GROVE_JOURNAL_PAGE_ONE = 1;
+    public static final int DARK_GROVE_COMPLETION = 2; //todo - update as we add journal pages/other lore
 
     private static final LoreTreeBuilder LORE_TREE_BUILDER =
             LoreTreeBuilder
@@ -229,18 +232,247 @@ public class LoreDefinitions {
                         )
                         .addLeaf(
                                 "Common Knowledge: History of Ys",
-                                "\t<todo>"
+                                "\tThe history of the great empire of Ys goes back almost 3000 years, to the " +
+                                        "founding of the fabled city of Avalon. These founders were greater than " +
+                                        "ordinary humans in terms of intellect, physical prowess, and lifespan, " +
+                                        "and became the benevolent rulers of the native men of Ys. The rustic tribal " +
+                                        "peoples of Ys followed an ancient religion of earth magic led by mystical " +
+                                        "nature priests called Druids, while the lords of Avalon followed a " +
+                                        "sky-religion and revered vanished gods they called the Annunaki, and to a " +
+                                        "lesser extent, their angelic servants, the Nephilim. This new faith slowly " +
+                                        "replaced the old, and became the dominant religion of the island. " +
+                                        "\n\n\tFor over a thousand years, the empire of Avalon grew in size and " +
+                                        "power, expanding to cover a large part of the great continent south of the " +
+                                        "island, as well as the frozen lands away to the north, over the western sea." +
+                                        "This rise continued until the year 1263 in the Avalonian " +
+                                        "Reckoning(henceforth A.R.), when Avalonian scholars made a disturbing " +
+                                        "connection between a series of ancient scrolls preserved by a tribal people " +
+                                        "from the desert lands far to the south and east of the continental colonies " +
+                                        "carried back to Avalon by explorers and traders in those lands, and certain " +
+                                        "artifacts discovered by archaeologists excavating the ancient ruins in the " +
+                                        "north of frozen western lands. Certain mages in the Imperial House of Avalon " +
+                                        "made use of the insights derived from this connection to attempt to unseal " +
+                                        "certain places best left alone, and met with mixed success. Those who did " +
+                                        "not perish in their attempts eventually tried to use their new powers to " +
+                                        "take control of the Imperial House, resulting in a massive civil war that " +
+                                        "led to the destruction of the Imperial House, the shattering of the empire, " +
+                                        "and the isolation and abandonment of the more distant colonies. " +
+                                        "\n\n\tFollowing the civil war was a dark age marked by continuous war " +
+                                        "between the remaining noble and lesser royal houses of the empire. One of " +
+                                        "these, the house of Vor-Nyryk, eventually triumphed by making use of the " +
+                                        "same dark powers which had led to the civil war. Rumors unsubstantiated " +
+                                        "by any credible historical records claim they employed strange hybrid " +
+                                        "monsters, and even the walking dead, against their enemies. In any event, " +
+                                        "they were able to destroy their enemies and sieze control of the empire, " +
+                                        "relocating to and rebuilding the former capital of Avalon, thus beginning " +
+                                        "what became known as the Dark Reign. These Tyrants continued the researches " +
+                                        "of the evil mages of old Avalon, eventually exceeding even their most " +
+                                        "terrible discoveries. They sent expeditions led by corrupt mages to even " +
+                                        "more distant corners of the earth in search of even greater power drawn " +
+                                        "from the buried secrets of earlier cycles, until finally their empire " +
+                                        "suffered a catastrophic collapse. The cause of the collapse is unknown, " +
+                                        "but modern historians and mages who have pursued some of the same avenues " +
+                                        "with the intent of discovering that cause - rather than the lust for power " +
+                                        "which drove the Tyrants - believe that they uncovered a power more " +
+                                        "terrible than they could control, and were themselves destroyed." +
+                                        "\n\n\tWhatever the cause, the collapse left the island of Ys in an even " +
+                                        "darker age than that following the civil war. Avalon itself was transformed " +
+                                        "into a nightmare ruin of lurking darkness and horror, and few who visited it " +
+                                        "returned alive - and even fewer returned sane. After four hundred years of " +
+                                        "relative darkness, though, the spirit of the Ysian empire rose again from " +
+                                        "the ashes of its past in the form of the House of Ker. This house had a " +
+                                        "a coastal holding on the southeastern shore of Ys, far from the ruins of " +
+                                        "Avalon in the northwest, and least touched by the evils of the Dark Reign. " +
+                                        "The house of Ker founded the nation of Ker-Ys, and slowly and peacefully " +
+                                        "expanded their borders, unifying, stabilising, and enlightening the rest " +
+                                        "of the isle as they brought the scattered and fragmented settlements back " +
+                                        "into the fold. The new kingdom re-established the old Avalonian Reckoning, " +
+                                        "rejecting the Black Calendar of the Tyrants, and marked its founding in the " +
+                                        "year 2004 A.R., although this date is in some doubt due to the loss of " +
+                                        "records during the Dark Reign and the prior and subsequent dark ages. Still, " +
+                                        "it is accepted as at least generally accurate, to within a few decades, by " +
+                                        "modern historians. " +
+                                        "\n\n\tThe Kingdom of Ker-Ys continued to grow slowly, and once it again " +
+                                        "covered the entire isle of Ys, it became known as the Empire of Ys, as it " +
+                                        "remains to this day. Its rulers continued to style themselves as Kings, " +
+                                        "rather than the Emperors of old Avalon, and employed a policy of " +
+                                        "deliberate assimilation, internal growth of infrastructure, and focused " +
+                                        "scientific and magical research, rather than the far-flung expansion " +
+                                        "undertaken by Avalon. One consequence of this approach was the diffusion of " +
+                                        "the higher blood of the founders of Avalon, which still ran strong in the " +
+                                        "High Houses of Ys, throughout the general population, resulting in longer " +
+                                        "and more productive lives by a larger proportion of its citizens. This came " +
+                                        "with a corresponding increase in general magical ability, and in modern " +
+                                        "times, magically able individuals come from all backgrounds, rather than " +
+                                        "strictly noble and royal houses as in the past. " +
+                                        "\n\n\tModern Ys has begun to slowly recover the old extent of the Avalonian " +
+                                        "Empire, with coastal settlements on the continent, and a few distant " +
+                                        "trading outposts in the eastern deserts, and south across the western " +
+                                        "ocean near the distant and mysterious land of Mu. The old sky religion of " +
+                                        "Avalon has merged to some extent with the nature worship of the old Druids, " +
+                                        "presumably as a result of their significant aid in rebuilding the nation " +
+                                        "from the ruins of the Dark Reign, and cleansing most of the rampant evil " +
+                                        "that had spread beyond the nest of horror that Avalon had become. Avalon " +
+                                        "itself remains shunned as a place of fear and loathing, but the rest " +
+                                        "of Ys is a bright, prosperous land where the people work hard, yet have " +
+                                        "time for leisure, worshipping, researching and exploring as they choose. "
                         )
                         .addLeaf(
                                 "Common Knowledge: Myths of Wyrdys",
-                                "\t<todo>"
+                                "\tTen thousand years ago, the great Annunaki Gods descended from Heaven and " +
+                                        "created the Earth and the Seas and the Skies and everything within them, " +
+                                        "including the first men. They ruled the earth, and the men who dwelt there, " +
+                                        "for two thousand years. This was the Golden Age at the dawn of time, when " +
+                                        "the World was young and bright and all was good and peaceful." +
+                                        "\n\n\tAt the end of this age, the Gods returned to Heaven, though no tale " +
+                                        "tells why. In their absence, the Spirits of Earth took up the guidance of " +
+                                        "men, and the great servants of the Gods, the giants called the Nephilim, " +
+                                        "dwelt in a land of paradise across the sea, seeking the reason they had " +
+                                        "been abandoned by their Gods. This was the Silver Ages, when the world was " +
+                                        "in its adolescence. Much that was good remained, but not all was peaceful, " +
+                                        "and men began to war against men without the Gods to guide them, for the " +
+                                        "Spirits of Earth were not revered as the gods were, and the children of " +
+                                        "Gods were all gone over the sea." +
+                                        "\n\n\tFive thousand years ago, the Nephilim came back over the sea - or " +
+                                        "what few of them were left. For some tragedy had befallen them, some great " +
+                                        "evil which they refused to tell to men. They settled in the ancient land " +
+                                        "of Wyrden - a great island far larger than Ys, believed to have been to " +
+                                        "the west of Ys. Here the greatest among men dwelt, and with the aid of the " +
+                                        "Nephilim, they became even greater. Indeed, the Nephilim were created by " +
+                                        "the Gods from the same substance as Men, and through them the very blood " +
+                                        "of the Gods came among men on earth. These Nephilim were too few, and " +
+                                        "eventually all of pure blood died, but their children among men became " +
+                                        "the greatest among the men of earth, and continued to rule Wyrdys in their " +
+                                        "name and the names of the Gods. In Ys itself, the ancestors of the modern " +
+                                        "tribes arose in the forests, and worshipped the old Earth spirits, while " +
+                                        "the Wyrden worshipped the true Gods. This was the Age of Bronze, or the " +
+                                        "coming of age of the World. The old Gods and even their children were gone, " +
+                                        "the old spirits of Nature had faded, and the time of Men was upon the " +
+                                        "Earth. It was not all good, for much that was good had perished, and " +
+                                        "Men fought many wars against other Men, with no living god but Himself to " +
+                                        "guide him. " +
+                                        "\n\n\tThree thousand years ago, a great tragedy befell the island continent " +
+                                        "of Wyrdys, and it sank beneath the waves of the western ocean, but for a " +
+                                        "tiny remnant, an inhospitable land of mountains, ice, and fire. No legend " +
+                                        "tells of the reason for or the specific nature of this tragedy, but of " +
+                                        "few among the Kings of Men who escaped it came the blood of Avalon. And for " +
+                                        "these last three thousand years, the children of the Kings of Men, who were " +
+                                        "the children of the Nephilim, who were the children of the Gods, have " +
+                                        "fought terrible wars against one another. This is the Age of Iron, the old " +
+                                        "age of the World. Most of that which was good in the beginning is now lost, " +
+                                        "and the darkness ever encroaches. We live now in a time of relative piece, " +
+                                        "with the brave and noble Kings of Ys holding this darkness at bay - for " +
+                                        "the time being. The End of the World draws nigh, and men pray for the " +
+                                        "of the Gods and the rebirth of the cycle of time."
                         )
                         .growTheme()
                     .addTheme("The Dark Grove")
                         .addLeaf(
+                                "Dark Grove Arrival",
+                                "\tAs you pass through the gate from the estate garden into the forest, you are " +
+                                        "overcome with a sense of incredible age. This forest is full of ancient oak " +
+                                        "trees, some of such massive size that they must have been growing for " +
+                                        "centuries. " +
+                                        "\n\n\tThe faint moonlight barely penetrates the canopy, and you can see only " +
+                                        "by the light you carry with you. Beyond the glow of your torch, you fancy " +
+                                        "that you can see the glow of hostile eyes staring in at you - and you can " +
+                                        "hear faint scuttling and scurrying noises which surely are not fancy." +
+                                        "\n\n\tYou remember the descriptions of some of the forest creatures from " +
+                                        "old letters, and repress a shudder as you imagine spiders of the size those " +
+                                        "letters suggested creeping about in this shadowed twilight... not to mention " +
+                                        "the larger, and probably even more dangerous, predators which dwell in such " +
+                                        "forests as these elsewhere in Ys. Here, in this ancient, undisturbed place, " +
+                                        "it seems probable that they could grow to sizes unrivaled in forests closer " +
+                                        "to human habitation." +
+                                        "\n\n\tYou are glad of your sturdy bronze sword and leather armor as you set " +
+                                        "forth into the darkness..."
+                        )
+                        .addLeaf(
                                 "Journal Page 1",
                                 "\t[a page torn from a journal]" +
                                         "\n\n\t...todo"
+                        )
+                        .addLeaf(
+                                "Dark Grove Completion",
+                                "\tThe silk wrapped abomination finally ceases its unwholesome lurching and " +
+                                        "thrashing, and lies still. Its humanoid aspect chills you, and, suspecting " +
+                                        "the worst, you steel yourself and clear away the silk over where the face " +
+                                        "ought to be. " +
+                                        "\n\n\tThough you had suspected, the shock is still very great and terrible, " +
+                                        "and it takes a supreme effort of will to stifle the scream that threatens " +
+                                        "to escape your tightly clenched jaw. For the face under that vile silken " +
+                                        "wraps is indeed familiar to you - and now you know what terrible end your " +
+                                        "old relative and friend had come to. " +
+                                        "\n\n\tYet clearly some unholy force is at work here - despite the partial " +
+                                        "mummification induced by the wrapping, there is evidence of some slight " +
+                                        "decay - and the behavior you encountered was certainly not that of a living " +
+                                        "human being, unless entirely mad... and even then, blinded as it was, no " +
+                                        "human could have fought you so capably unless guided by powers other than " +
+                                        "natural sight - nor indeed would any human have been able to use those " +
+                                        "awful silken cords to attack as this abomination did. And the way it moved - " +
+                                        "there was something terrible, almost spider-like, in that action." +
+                                        "\n\n\tOn the corpse is what remains of a journal, battered and missing many " +
+                                        "pages, and it confirms the identity of the thing. It also contains a truly " +
+                                        "terrifying account of what must have been the last moments of its author: " +
+                                        "\n\n\t\"I have succeeded in my attempt to reactivate the ancient mechanism " +
+                                        "deep in that accursed wood, and, as I suspected, it has indeed proved to be " +
+                                        "a gateway of sorts. A gateway to where, though, I have yet to determine. " +
+                                        "Upon entering it, I found myself in this strange, terrible, and " +
+                                        "frighteningly ancient place - if I am still on the Earth, it is not any part " +
+                                        "of our normal understanding of it. I believe that this is somehow a space " +
+                                        "inside of, or in between, the normal space of Earth, and perhaps it serves " +
+                                        "as a sort of conduit or shortcut between locations within our natural world. " +
+                                        "\n\n\tThis must be how the network functions - by entering this awful limbo, " +
+                                        "a traveller should then be able to seek out other nodes like the one back in " +
+                                        "that old forest behind my estate, and re-emerge in some location that would " +
+                                        "take far longer to travel to by ordinary means. I believed I had found such " +
+                                        "a node, and began making my way towards it, when I saw the most horrifying " +
+                                        "creature I could have ever imagined ahead of me. It was like some vast " +
+                                        "spider, greater even than the most monstrous spiders lurking in the grove " +
+                                        "back in the outer world, but with a subtly different outline and form - " +
+                                        "different in some way that evoked in me a creeping dread beyond the " +
+                                        "natural loathsomeness inspired in some by ay spider, or the mortal fear of " +
+                                        "a likely predatory monster of this size - I feel as though something out " +
+                                        "of forgotten aeons has awoken and now hunts me in the present. " +
+                                        "\n\n\tThat is, if this other world can still be considered to be a part of " +
+                                        "that present. The walls and floor of this place seem woven from vines and " +
+                                        "thorns of ancient plants, like those sometimes found frozen in stone, but " +
+                                        "never alive and growing. Yet here, while they cannot still be growing, or " +
+                                        "even alive in the normal sense, they are certainly not petrified, " +
+                                        "suggesting instead a wooden construction, only made of the dead plants and " +
+                                        "trees directly, rather than processed lumber. Covering these walls, though, " +
+                                        "are terrible webs greater than anything I've ever seen in the natural " +
+                                        "world - just the sort of web one might expect a creature like that arachnid " +
+                                        "horror would weave. " +
+                                        "\n\n\tIn any case, I retreated back towards the node from which I had " +
+                                        "entered - only to find, to my growing terror, yet another of the giant " +
+                                        "spider-horrors. I fled deeper into the darkness of this tangled realm, " +
+                                        "hoping for some other escape... yet in the end, I found myself in a blind " +
+                                        "corner. And now, as I write in the flickering light of my fading torch, " +
+                                        "I can here a creaking, scuttling noise - enough to suggest that several " +
+                                        "of those monstrosities are closing in on me. I shall prepare myself for a " +
+                                        "final stand, but I fear that I will not prevail against such creatures...\"" +
+                                        "\n\n\tSo that is how it ended. What an awful fate - trapped in the dark, " +
+                                        "with unknown horrors encroaching - and to then be captured, mummified, and " +
+                                        "horribly re-animated... You cannot help but shudder involuntarily. Yet " +
+                                        "you yourself risk a similar fate. You have been fortunate to have faced " +
+                                        "those monsters in smaller numbers - for certainly the horrors described " +
+                                        "in the journal and the ones accompanying that shambling mummy were the same " +
+                                        "class of entity. You can only hope that your experiences in combat so far " +
+                                        "will increase your abilities, and allow you to prevail against stronger " +
+                                        "opponents. " +
+                                        "\n\n\tFor you cannot let your predecessor's quest end here. This discovery " +
+                                        "is too great, too portentous to abandon in terror. Though the risk, and " +
+                                        "the creeping, aeons-old horror, are great, you believe you can rise to the " +
+                                        "task - or at least, you feel the need to make the attempt. You peer into the " +
+                                        "gaping maw of the unholy ancient gateway before you, and look upon that " +
+                                        "same nightmare realm described in the journal. But before braving its " +
+                                        "dangers, known, unknown, and suspected, you decide to return to the estate " +
+                                        "to make further preparations, as you can. There is also a younger relative, " +
+                                        "from another branch of the family, who shares the same interests and " +
+                                        "inclinations that led both you and your older relative to this dark, " +
+                                        "time-lost realm of elder mystery. Perhaps you should send a similar missive, " +
+                                        "in case you meet a similar end in your own future explorations. "
                         )
                         .growTheme()
                     .addTheme("The Desolation of Avalon")
@@ -293,5 +525,35 @@ public class LoreDefinitions {
             if (!((LockLeaf)ll).isLocked()) return true;
         }
         return false;
+    }
+    public static int themeIndex(DungeonTheme dt) {
+        switch (dt.getDifficulty()) {
+            case 0:
+                return THEME_GENERAL;
+            case 5:
+                return THEME_DARK_GROVE;
+            default:
+                    throw new IllegalArgumentException("Unsupported theme " + dt.getName());
+        }
+    }
+    public static int arrivalIndex(DungeonTheme dt) {
+        switch (dt.getDifficulty()) {
+            case 0:
+                return GENERAL_NEW_PLAYER;
+            case 5:
+                return DARK_GROVE_ARRIVAL;
+            default:
+                throw new IllegalArgumentException("Unsupported theme " + dt.getName());
+        }
+    }
+    public static int completionIndex(DungeonTheme dt) {
+        switch (dt.getDifficulty()) {
+            case 0:
+                return GENERAL_NEW_CHARACTER;
+            case 5:
+                return DARK_GROVE_COMPLETION;
+            default:
+                throw new IllegalArgumentException("Unsupported theme " + dt.getName());
+        }
     }
 }

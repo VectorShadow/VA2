@@ -55,6 +55,26 @@ public class TerrainDefinitions {
                     .setSymbols('#')
                     .setForegroundColors(ColorStandards.ANCIENT_OAK)
                     .manufactureTerrainTemplate(true, false, false);
+    public static TerrainTemplate WEB_COVERED_OAK =
+            WorldObjectTemplateFactory
+                    .initialize(true)
+                    .setName("an ancient oak tree covered in spider webs")
+                    .setSymbols(
+                            new char[]{
+                                    '#',
+                                    '&'
+                            }
+                    )
+                    .setForegroundColors(
+                            new Color[]{
+                                    Chroma.WHITE,
+                                    Chroma.WHITE,
+                                    Chroma.WHITE,
+                                    ColorStandards.ANCIENT_OAK,
+                                    ColorStandards.ANCIENT_OAK
+                            }
+                    )
+                    .manufactureTerrainTemplate(true, false, false);
     public static TerrainTemplate FOREST_GATE =
             WorldObjectTemplateFactory
                     .initialize()

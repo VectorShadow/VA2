@@ -188,8 +188,10 @@ public class MainGameViewMode implements OperatingMode {
         }
         if (action != null)
             Session.getEngine().execute(action);
-        out();
-        Session.getTargetList().reset(); //update the target list
+        if (Session.getModeManager().getCurrentMode() == this) {
+            out();
+            Session.getTargetList().reset();
+        }
     }
 
     @Override

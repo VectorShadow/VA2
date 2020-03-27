@@ -69,6 +69,7 @@ public class FloorRenderer {
             }
         }
         ArrayList<VisibleCoordinate> actorVision;
+        ArrayList<VisibleCoordinate> lightedVision = new ArrayList<>();
         Light actorLight;
         Light lightAtTile;
         boolean actorIsPlayer;
@@ -78,7 +79,6 @@ public class FloorRenderer {
             //only run lights for actors that have them, unless the player has no light, in which case he still tries to see.
             if (actorLight == null && !actorIsPlayer) continue;
             actorVision = listVisibleCoordinates(a);
-            if (actorIsPlayer) setPlayerView(actorVision);
             for (VisibleCoordinate vc : actorVision) {
                 floorRow = vc.getRow();
                 floorCol = vc.getColumn();
@@ -87,26 +87,29 @@ public class FloorRenderer {
                 lightAtTile = (actorLight != null && vc.getDistance() <= actorLight.getBrightness())
                         ? Light.brighterOf(actorLight, ft.getLight())
                         : ft.getLight();
-                if (actorIsPlayer && lightAtTile.compareTo(Light.UNLIGHTED) > 0) {
-                    ft.setSeen(true);
-                    if (ft.getActor() != null) {
-                        wot = ft.getActor().getTemplate();
+                if (lightAtTile.compareTo(Light.UNLIGHTED) > 0) {
+                    lightedVision.add(vc);
+                    if (actorIsPlayer) {
+                        ft.setSeen(true);
+                        if (ft.getActor() != null) {
+                            wot = ft.getActor().getTemplate();
+                        }
+                        GlyphBuilder gb = wot.partialVisualImage();
+                        if (wot.reflectsLight() && lightAtTile.doesFlicker()) {
+                            gb.addReflection(
+                                    new Pair<>(
+                                            lightAtTile.getFlicker(),
+                                            lightAtTile.getColor()
+                                    )
+                            );
+                        }
+                        g = gb.build(DualityMode.TILE);
+                        setGlyphAt(floorRow - rowOffset, floorCol - colOffset, g);
                     }
-                    GlyphBuilder gb = wot.partialVisualImage();
-                    if (wot.reflectsLight() && lightAtTile.doesFlicker()) {
-                        gb.addForegroundColor(
-                                new Pair<>(
-                                        lightAtTile.getFlicker(),
-                                        lightAtTile.getColor()
-                                )
-                        );
-                    }
-                    g = gb.build(DualityMode.TILE);
-                    setGlyphAt(floorRow - rowOffset, floorCol - colOffset, g);
                 }
             }
+            if (actorIsPlayer) setPlayerView(lightedVision);
         }
-
         GUIManager gm = Session.getGuiManager();
         int enhancementRow =
                 gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_MESSAGE_CENTER, true, true);

@@ -65,4 +65,10 @@ public class MaterialDefinitions {
             new int[]{Material.ORGANIC},
             InputSimplifier.getMultipliers(-5, +5, +2, +2, -2, +4)
     );
+    public static final Material BEAST_HIDE_AND_FUR = new Material(
+            "furry beast hide",
+            4,
+            new int[]{Material.ORGANIC},
+            InputSimplifier.getMultipliers(-2, +8, +2, +2, -1, -3)
+    );
 }

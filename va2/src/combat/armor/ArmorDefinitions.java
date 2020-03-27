@@ -69,7 +69,29 @@ public class ArmorDefinitions {
                     .manufactureItemTemplate(1, MaterialDefinitions.SPIDER_SILK, INNATE_ITEM),
             false,
             true,
-            0.85,
+            0.95,
             10
+    );
+    public static final Armor WOLF_HIDE = new Armor(
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("wolf hide and fur")
+                    .setDescription("wolf skin covered in thick fur")
+                    .manufactureItemTemplate(1, MaterialDefinitions.BEAST_HIDE_AND_FUR, INNATE_ITEM),
+            false,
+            true,
+            0.8,
+            6
+    );
+    public static final Armor BEAR_HIDE = new Armor(
+            WorldObjectTemplateFactory
+                    .initialize()
+                    .setName("bear hide and fur")
+                    .setDescription("bear fat and skin covered in thick fur")
+                    .manufactureItemTemplate(1, MaterialDefinitions.BEAST_HIDE_AND_FUR, INNATE_ITEM),
+            false,
+            true,
+            0.8,
+            9
     );
 }
