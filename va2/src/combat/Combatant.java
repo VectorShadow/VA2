@@ -3,6 +3,7 @@ package combat;
 import combat.melee.forms.Form;
 import main.Session;
 import resources.continuum.Continuum;
+import resources.continuum.Pair;
 import util.InputSimplifier;
 import world.item.Armor;
 import world.item.MeleeWeapon;
@@ -24,11 +25,11 @@ public class Combatant implements Serializable {
     public static final int DEFENSE = 3;
     public static final int STRENGTH = 4;
 
-    public static final int COUNT_STATISTICS = 7; //todo - keep updated!
+    public static final int COUNT_STATISTICS = 5; //todo - keep updated!
 
     private int healthCapacity;
     private int health;
-    private int[] combatStatistics = new int[COUNT_STATISTICS];
+    private int[] combatStatistics;
 
     protected Form meleeForm; //the form this combatant uses in melee combat
 
@@ -41,27 +42,44 @@ public class Combatant implements Serializable {
     //todo - we probably want damage type modifications here as well.
 
     public Combatant(
+            int healthCap,
+            int[] combatStats,
             Form defaultForm,
             MeleeWeapon defaultMeleeWeapon,
             Armor defaultArmor
     ) {
         this(
+                healthCap,
+                combatStats,
                 defaultForm,
                 new Continuum<>(defaultMeleeWeapon, new ArrayList<>()),
                 defaultArmor
         );
     }
     public Combatant(
+            int healthCap,
+            int[] combatStats,
             Form defaultForm,
             Continuum<MeleeWeapon> defaultMeleeWeapons,
             Armor defaultArmor
     ) {
+        if (combatStats.length != COUNT_STATISTICS)
+            throw new IllegalArgumentException("Invalid stat count: " + combatStats.length + ", expected: " +COUNT_STATISTICS);
+        health = healthCapacity = healthCap;
+        combatStatistics = combatStats;
         meleeForm = defaultForm;
-        combatantMeleeWeapons = defaultMeleeWeapons;
-        combatantArmor = defaultArmor;
+        MeleeWeapon clonedBase = defaultMeleeWeapons.getBase().clone();
+        ArrayList<Pair<MeleeWeapon>> pairs = defaultMeleeWeapons.getPairList();
+        ArrayList<Pair<MeleeWeapon>> clonedPairs = new ArrayList<>();
+        for (Pair<MeleeWeapon> mwp : pairs)
+            clonedPairs.add(mwp.clone());
+        combatantMeleeWeapons = new Continuum<>(clonedBase, clonedPairs);
+        combatantArmor = defaultArmor.clone();
     }
     private Combatant(Combatant c) {
         this(
+                c.healthCapacity,
+                c.combatStatistics,
                 c.meleeForm,
                 c.combatantMeleeWeapons,
                 c.combatantArmor
@@ -127,15 +145,9 @@ public class Combatant implements Serializable {
     private void setStatistic(int index, int value) {
         combatStatistics[index] = value;
     }
-    public void setStatistics(int healthValue, int[] statLevels) {
-        health = healthCapacity = healthValue;
-        combatStatistics = statLevels;
-    }
 
     @Override
     public Combatant clone() {
-        Combatant c = new Combatant(this);
-        c.setStatistics(healthCapacity, combatStatistics);
-        return c;
+        return new Combatant(this);
     }
 }

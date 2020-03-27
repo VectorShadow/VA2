@@ -17,7 +17,7 @@ public class DegradableItem extends Item {
         durability = it.DURABILITY;
     }
     DegradableItem(DegradableItem di) {
-        this(((ItemTemplate)di.getTemplate()), di.DOES_DEGRADE);
+        this(((ItemTemplate)di.getTEMPLATE()), di.DOES_DEGRADE);
     }
 
     /**
@@ -48,7 +48,7 @@ public class DegradableItem extends Item {
         if (durability > maxDurability()) durability = maxDurability();
     }
     private int maxDurability() {
-        return ((ItemTemplate)getTemplate()).DURABILITY;
+        return ((ItemTemplate) getTEMPLATE()).DURABILITY;
     }
 
     @Override

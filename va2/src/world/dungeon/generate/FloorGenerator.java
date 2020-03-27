@@ -7,7 +7,6 @@ import world.actor.Actor;
 import world.actor.ActorTemplate;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
-import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.TerrainSet;
 import world.terrain.Terrain;
 import world.terrain.TerrainDefinitions;
@@ -133,7 +132,7 @@ public abstract class FloorGenerator implements Serializable {
         while (enemyPotential > 0) {
             Coordinate c = randomInterior();
             FloorTile ft = floor.tileAt(c.getRow(), c.getColumn());
-            if (ft.getActor() == null && ((TerrainTemplate)ft.getTerrain().getTemplate()).permitsMovement()) {
+            if (ft.getActor() == null && ((TerrainTemplate)ft.getTerrain().getTEMPLATE()).permitsMovement()) {
                 --enemyPotential;
                 Session.addActor(new Actor(floor.THEME.getActorSet().randomizeEnemy(floor.DEPTH)), c);
             }

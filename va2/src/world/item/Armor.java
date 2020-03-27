@@ -19,6 +19,9 @@ public class Armor extends ContactInteractiveItem {
         COVERAGE = c;
         THICKNESS = t;
     }
+    private Armor(Armor a) {
+        this((ItemTemplate)a.getTEMPLATE(), a.DOES_DEGRADE, a.INNATE, a.COVERAGE, a.THICKNESS);
+    }
 
     private int coverageValue(int oppositionValue) {
         return (int)(COVERAGE * ((double)oppositionValue));
@@ -102,5 +105,10 @@ public class Armor extends ContactInteractiveItem {
     @Override
     public boolean doesDamageSelf() {
         return COVERAGE == 0.0 || super.doesDamageSelf();
+    }
+
+    @Override
+    public Armor clone() {
+        return new Armor(this);
     }
 }

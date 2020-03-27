@@ -18,6 +18,16 @@ public class ItemTemplate extends WorldObjectTemplate {
         MATERIAL = m;
         QUALITY = iq;
     }
+    private ItemTemplate(ItemTemplate it) {
+        this(
+                it.DESCRIPTION,
+                it.NAME,
+                it.BALANCED_GLYPH_TEMPLATE.clone(),
+                it.DURABILITY / it.MATERIAL.getHardness(),
+                it.MATERIAL,
+                it.QUALITY
+        );
+    }
 
     public int getDurability() {
         return DURABILITY;
@@ -32,5 +42,10 @@ public class ItemTemplate extends WorldObjectTemplate {
 
     public ItemQuality getQuality() {
         return QUALITY;
+    }
+
+    @Override
+    public ItemTemplate clone() {
+        return new ItemTemplate(this);
     }
 }

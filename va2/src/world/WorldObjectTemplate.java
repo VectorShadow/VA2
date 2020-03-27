@@ -23,4 +23,7 @@ public abstract class WorldObjectTemplate extends GlyphDisplayable {
     public boolean reflectsLight() {
         return reflectsLight;
     }
+
+    @Override
+    public abstract WorldObjectTemplate clone();
 }

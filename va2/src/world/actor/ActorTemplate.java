@@ -11,11 +11,11 @@ import world.WorldObjectTemplate;
  * Contains information required to describe and represent a generic type of actor.
  */
 public class ActorTemplate extends WorldObjectTemplate {
-    private final int energyGainPerTurn;
-    private final Combatant combatant;
-    private final int minimumDepth;
-    private final Reward reward;
-    private final AI ai;
+    private final int ENERGY_GAIN_PER_TURN;
+    private final Combatant COMBATANT;
+    private final int MINIMUM_DEPTH;
+    private final Reward REWARD;
+    private final AI AI;
 
     public ActorTemplate(
             String d,
@@ -25,34 +25,51 @@ public class ActorTemplate extends WorldObjectTemplate {
             int e,
             Combatant c,
             int md,
-            Reward reward,
-            AI ai) {
+            Reward REWARD,
+            AI AI) {
         super(d, n, bgt, reflect);
-        energyGainPerTurn = e;
-        combatant = c;
-        minimumDepth = md;
-        this.reward = reward;
-        this.ai = ai;
+        ENERGY_GAIN_PER_TURN = e;
+        COMBATANT = c;
+        MINIMUM_DEPTH = md;
+        this.REWARD = REWARD;
+        this.AI = AI;
+    }
+    private ActorTemplate(ActorTemplate at) {
+        this(
+                at.DESCRIPTION,
+                at.NAME,
+                at.BALANCED_GLYPH_TEMPLATE.clone(),
+                at.reflectsLight(),
+                at.ENERGY_GAIN_PER_TURN,
+                at.COMBATANT.clone(),
+                at.MINIMUM_DEPTH,
+                at.REWARD,
+                at.AI);
     }
 
 
     public int getEnergyGainPerTurn() {
-        return energyGainPerTurn;
+        return ENERGY_GAIN_PER_TURN;
     }
 
     public Combatant getCombatant() {
-        return combatant;
+        return COMBATANT;
     }
 
     public int getMinimumDepth() {
-        return minimumDepth;
+        return MINIMUM_DEPTH;
     }
 
     public Reward getReward() {
-        return reward;
+        return REWARD;
     }
 
     public AI getAi() {
-        return ai;
+        return AI;
+    }
+
+    @Override
+    public ActorTemplate clone() {
+        return new ActorTemplate(this);
     }
 }

@@ -34,7 +34,7 @@ public abstract class CloseCombatAI extends AI implements SecondaryAI {
                 distance = targetCoordinate.distanceTo(cp);
                 targetTile = Session.getCurrentFloor().tileAt(targetCoordinate.getRow(), targetCoordinate.getColumn());
                 if (distance < bestDistance &&
-                        ((TerrainTemplate)targetTile.getTerrain().getTemplate()).permitsMovement() &&
+                        ((TerrainTemplate)targetTile.getTerrain().getTEMPLATE()).permitsMovement() &&
                         targetTile.getActor() == null) {
                     bestDirection = d;
                     bestDistance = distance;

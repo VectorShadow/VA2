@@ -32,10 +32,10 @@ public class Equipment extends Saveable {
     }
     public void setStartingItems() {
         WeaponsBelt weaponsBelt = new WeaponsBelt(0);
-        weaponsBelt.wield(MeleeWeaponDefinitions.BRONZE_SHORT_SWORD);
+        weaponsBelt.wield(MeleeWeaponDefinitions.BRONZE_SHORT_SWORD.clone());
         setLoadoutModule(WEAPON_BELT_MODULE, weaponsBelt);
         BodyArmor bodyArmor = new BodyArmor();
-        bodyArmor.wear(ArmorDefinitions.LEATHER_VEST);
+        bodyArmor.wear(ArmorDefinitions.LEATHER_VEST.clone());
         setLoadoutModule(BODY_ARMOR_MODULE, bodyArmor);
         //todo - add more items!
     }

@@ -16,7 +16,7 @@ public class EquipableItem extends DegradableItem {
         EQUIPMENT_SLOT = es;
     }
     EquipableItem(EquipableItem ei) {
-        this (((ItemTemplate)ei.getTemplate()), ei.DOES_DEGRADE, ei.getEquipmentSlot());
+        this (((ItemTemplate)ei.getTEMPLATE()), ei.DOES_DEGRADE, ei.getEquipmentSlot());
     }
 
 

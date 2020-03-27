@@ -476,7 +476,7 @@ public class GUIManager {
                         Session.getColorScheme().getBackground(),
                         Session.getColorScheme().getForeground()
                 )
-                        : target.getTemplate().getColoredName()
+                        : target.getTEMPLATE().getColoredName()
         );
         row = last.y;
         last = GUI.print(

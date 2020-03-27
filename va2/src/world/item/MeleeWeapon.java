@@ -6,7 +6,6 @@ import combat.melee.weapons.MeleeWeaponClass;
 import main.Session;
 import resources.continuum.Continuum;
 import world.item.loadout.EquipmentSlot;
-import world.item.material.Material;
 
 public class MeleeWeapon extends ContactInteractiveItem {
 
@@ -55,7 +54,7 @@ public class MeleeWeapon extends ContactInteractiveItem {
     }
     MeleeWeapon(MeleeWeapon mw) {
         this(
-                ((ItemTemplate)mw.getTemplate()),
+                ((ItemTemplate)mw.getTEMPLATE()),
                 mw.DOES_DEGRADE,
                 mw.INNATE,
                 mw.DAMAGE_LIMIT,

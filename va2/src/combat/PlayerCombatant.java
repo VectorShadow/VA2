@@ -13,6 +13,8 @@ public class PlayerCombatant extends Combatant {
 
     public PlayerCombatant() {
         super(
+                0,
+                new int[]{0,0,0,0,0},
                 FormDefinitions.UNTRAINED,
                 MeleeWeaponDefinitions.BARE_HANDED,
                 ArmorDefinitions.UNARMORED

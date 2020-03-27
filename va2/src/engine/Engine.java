@@ -130,7 +130,7 @@ public class Engine extends Saveable {
             destCol = destination.getColumn();
             ft = f.tileAt(destRow, destCol);
             return f.inFloor(destRow, destCol) && ft.getActor() == null &&
-                    ((TerrainTemplate)ft.getTerrain().getTemplate()).permitsMovement();
+                    ((TerrainTemplate)ft.getTerrain().getTEMPLATE()).permitsMovement();
         } else if (action instanceof AdjacentAttackAction) {
             AdjacentAttackAction aaa = (AdjacentAttackAction)action;
             destination = aaa.getDirection().shift(actor.getLocation());

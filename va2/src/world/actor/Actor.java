@@ -3,8 +3,6 @@ package world.actor;
 import combat.Combatant;
 import engine.action.Action;
 import engine.action.ActionDefinitions;
-import io.out.message.MessageCenter;
-import io.out.message.MessageType;
 import main.Session;
 import status.StatusType;
 import util.Coordinate;
@@ -86,7 +84,7 @@ public class Actor extends WorldObject {
     }
     public void plan() {
         //todo - hack! call the template's AI and use it to generate an action or set of actions
-        queueAction(((ActorTemplate)getTemplate()).getAi().decide(this));
+        queueAction(((ActorTemplate) getTEMPLATE()).getAi().decide(this));
     }
     public void queueAction(Action a) {
         queuedActions.addLast(a);

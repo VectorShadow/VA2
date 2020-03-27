@@ -3,13 +3,13 @@ package world;
 import java.io.Serializable;
 
 public abstract class WorldObject implements Serializable {
-    private final WorldObjectTemplate template;
+    private final WorldObjectTemplate TEMPLATE;
 
     public WorldObject(WorldObjectTemplate wot) {
-        template = wot;
+        TEMPLATE = wot.clone();
     }
 
-    public WorldObjectTemplate getTemplate() {
-        return template;
+    public WorldObjectTemplate getTEMPLATE() {
+        return TEMPLATE;
     }
 }

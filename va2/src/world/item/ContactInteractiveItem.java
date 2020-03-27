@@ -16,7 +16,7 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
         INNATE = innate;
     }
     ContactInteractiveItem(ContactInteractiveItem cii) {
-        this(((ItemTemplate)cii.getTemplate()), cii.DOES_DEGRADE, cii.getEquipmentSlot(), cii.INNATE);
+        this(((ItemTemplate)cii.getTEMPLATE()), cii.DOES_DEGRADE, cii.getEquipmentSlot(), cii.INNATE);
     }
 
 

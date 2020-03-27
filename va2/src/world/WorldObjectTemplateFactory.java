@@ -98,24 +98,19 @@ public class WorldObjectTemplateFactory {
     }
     public ActorTemplate manufactureActorTemplate(
             int energyPerTurn,
-            int maxHealth,
-            int[] statLevels,
             Combatant combatant,
             Reward reward,
             AI ai
     ) {
-        return manufactureActorTemplate(energyPerTurn, maxHealth, statLevels, combatant, 1, reward, ai);
+        return manufactureActorTemplate(energyPerTurn, combatant, 1, reward, ai);
     }
     public ActorTemplate manufactureActorTemplate(
             int energyPerTurn,
-            int maxHealth,
-            int[] statLevels,
             Combatant combatant,
             int minimumDepth,
             Reward reward,
             AI ai
     ) {
-        combatant.setStatistics(maxHealth, statLevels);
         forceNonEmptyLists();
         return new ActorTemplate(
                 description,
@@ -127,7 +122,7 @@ public class WorldObjectTemplateFactory {
                 ),
                 reflectLight,
                 energyPerTurn,
-                combatant,
+                combatant.clone(),
                 minimumDepth,
                 reward,
                 ai

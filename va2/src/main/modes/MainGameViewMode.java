@@ -86,7 +86,7 @@ public class MainGameViewMode implements OperatingMode {
                         if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
                             here = player.getActor().getLocation();
                             tt = (TerrainTemplate)
-                                    Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
+                                    Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTEMPLATE();
                             if (tt.equals(TerrainDefinitions.FLIGHT_STAIR) ||
                                     (tt.equals(TerrainDefinitions.REWARD_STAIR) &&
                                             Session.getCurrentFloor().isFloorBossAlive())) { //kill floor boss for rewards!
@@ -109,7 +109,7 @@ public class MainGameViewMode implements OperatingMode {
                         if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
                             here = player.getActor().getLocation();
                             tt = (TerrainTemplate)
-                                    Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTemplate();
+                                    Session.getCurrentFloor().tileAt(here.getRow(), here.getColumn()).getTerrain().getTEMPLATE();
                             if (tt.equals(TerrainDefinitions.FOREST_GATE)) {
                                 //todo - open a menu here once we have cleared Dark Grove
                                 Session.getCurrentDungeon().nextFloor();

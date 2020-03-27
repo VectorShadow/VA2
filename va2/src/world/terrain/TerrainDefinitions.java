@@ -62,7 +62,7 @@ public class TerrainDefinitions {
                     .setSymbols(
                             new char[]{
                                     '#',
-                                    '&'
+                                    '*'
                             }
                     )
                     .setForegroundColors(

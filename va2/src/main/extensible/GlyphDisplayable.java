@@ -12,7 +12,7 @@ import java.awt.*;
 
 public abstract class GlyphDisplayable extends TextDisplayable {
 
-    private final BalancedGlyphTemplate balancedGlyphTemplate;
+    protected final BalancedGlyphTemplate BALANCED_GLYPH_TEMPLATE;
 
     public GlyphDisplayable(
             String d,
@@ -20,11 +20,7 @@ public abstract class GlyphDisplayable extends TextDisplayable {
             BalancedGlyphTemplate bgt
     ) {
         super(d, n, new Continuum<>(bgt.getForegroundColors()));
-        balancedGlyphTemplate = bgt;
-    }
-
-    public BalancedGlyphTemplate getBalancedGlyphTemplate() {
-        return balancedGlyphTemplate;
+        BALANCED_GLYPH_TEMPLATE = bgt;
     }
 
     public Glyph memoryImage() {
@@ -32,12 +28,12 @@ public abstract class GlyphDisplayable extends TextDisplayable {
                 .buildGlyph()
                 .setDefaults(
                         DisplayStandards.GAME_DEFAULT_BACKGROUND,
-                        Chroma.dim(balancedGlyphTemplate.getBaseForegroundColor()),
-                        balancedGlyphTemplate.getBaseSymbol()
+                        Chroma.dim(BALANCED_GLYPH_TEMPLATE.getBaseForegroundColor()),
+                        BALANCED_GLYPH_TEMPLATE.getBaseSymbol()
                 )
                 .build(DualityMode.TILE);
     }
     public GlyphBuilder partialVisualImage() {
-        return balancedGlyphTemplate.partialBalancedGlyph();
+        return BALANCED_GLYPH_TEMPLATE.partialBalancedGlyph();
     }
 }

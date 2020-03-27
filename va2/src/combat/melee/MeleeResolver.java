@@ -37,8 +37,8 @@ public class MeleeResolver extends CombatResolver {
          */
         boolean isAttackerPlayer = attacker == Session.getPlayer().getActor();
         boolean isDefenderPlayer = defender == Session.getPlayer().getActor();
-        String attackerName = attacker.getTemplate().getName();
-        String defenderName = defender.getTemplate().getName();
+        String attackerName = attacker.getTEMPLATE().getName();
+        String defenderName = defender.getTEMPLATE().getName();
         Combatant attackerCombatant = attacker.getCombatant();
         Combatant defenderCombatant = defender.getCombatant();
         Form attackerForm = attackerCombatant.getMeleeForm();
@@ -458,7 +458,7 @@ public class MeleeResolver extends CombatResolver {
                             PRIORITY_MAX
                     );
                     f.killFloorBoss();
-                } else if (as.getDungeonBossSet().length > 0 && as.getDungeonBossSet()[0] == defender.getTemplate()) {
+                } else if (as.getDungeonBossSet().length > 0 && as.getDungeonBossSet()[0] == defender.getTEMPLATE()) {
                     updateMessage(
                             "You have defeated " + defenderName + ", the final guardian of this dungeon.",
                             MessageType.SUCCESS,
@@ -471,7 +471,7 @@ public class MeleeResolver extends CombatResolver {
                             MessageType.INFO,
                             PRIORITY_HIGH
                     );
-                d.addReward(((ActorTemplate)defender.getTemplate()).getReward());
+                d.addReward(((ActorTemplate)defender.getTEMPLATE()).getReward());
             }
         } else {
             /**

@@ -18,10 +18,10 @@ public abstract class Item extends WorldObject {
      * ContactInteractive, implemented at ContactInteractiveItem and below, simply uses this method.
      */
     public Material getMaterial() {
-        return ((ItemTemplate)getTemplate()).MATERIAL;
+        return ((ItemTemplate) getTEMPLATE()).MATERIAL;
     }
 
     public ItemQuality getQuality() {
-        return ((ItemTemplate)getTemplate()).QUALITY;
+        return ((ItemTemplate) getTEMPLATE()).QUALITY;
     }
 }
