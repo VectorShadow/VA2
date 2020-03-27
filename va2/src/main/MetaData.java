@@ -8,7 +8,7 @@ public class MetaData {
         return "Vector Shadow Digital Labs";
     }
     public static String version() {
-        return "[a.0.0]";
+        return "[a.0.1 - 27 MAR 2020]";
     }
     public static String contact() {
         return "vectorshadowdigitallabs@gmail.com";
