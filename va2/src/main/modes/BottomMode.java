@@ -53,7 +53,8 @@ public class BottomMode implements OperatingMode {
             gm.printCenteredBlock(0.2, new String[] {
                     MetaData.gameTitle(),
                     "by " + MetaData.studio(),
-                    "Version: " + MetaData.version()
+                    "Version: " + MetaData.version(),
+                    "(" + MetaData.lastUpdated() + ")"
             });
             gm.printCenteredLine(0.75, "[Press any key to continue.]");
         } else {
