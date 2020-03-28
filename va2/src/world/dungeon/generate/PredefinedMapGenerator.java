@@ -21,7 +21,7 @@ public class PredefinedMapGenerator extends FloorGenerator {
     @Override
     public Floor generate(Floor f) {
         floor = f;
-        if (floor.THEME == ThemeDefinitions.YSIAN_ESTATE) {
+        if (ThemeDefinitions.getIndex(floor.THEME) == ThemeDefinitions.YSIAN_ESTATE) {
             for (int i = 0; i < floor.ROWS; ++i) {
                 for (int j = 0; j < floor.COLS; ++j) {
                     floor.tileAt(i, j).setSeen(true); //the player remembers his own house

@@ -56,8 +56,8 @@ public class Session {
     }
     public static void reset() {
         camera = new Camera();
-        currentDungeon = new Dungeon(ThemeDefinitions.DARK_GROVE);
-        currentFloor = new Floor(0, ThemeDefinitions.YSIAN_ESTATE);
+        currentDungeon = new Dungeon(ThemeDefinitions.DUNGEON_THEMES[ThemeDefinitions.DARK_GROVE]);
+        currentFloor = new Floor(0, ThemeDefinitions.DUNGEON_THEMES[ThemeDefinitions.YSIAN_ESTATE]);
         engine = new Engine();
         messageCenter = new MessageCenter();
         player = new Player();
@@ -152,11 +152,11 @@ public class Session {
         engine.addActor(playerActor, true);
         if (((LockLeaf)LoreDefinitions.getLockTree().get(
                 LoreDefinitions.themeIndex(f.THEME),
-                LoreDefinitions.arrivalIndex(f.THEME)
+                LoreDefinitions.bracketLoreIndex(f.THEME, true)
         )).isLocked()) {
             unlockLore(
                     LoreDefinitions.themeIndex(f.THEME),
-                    LoreDefinitions.arrivalIndex(f.THEME),
+                    LoreDefinitions.bracketLoreIndex(f.THEME, true),
                     null);
         }
     }
