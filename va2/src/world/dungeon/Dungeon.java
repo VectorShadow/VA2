@@ -58,23 +58,23 @@ public class Dungeon implements Serializable {
             //todo - add bonus rewards
             if (((LockLeaf) LoreDefinitions.getLockTree().get(
                     LoreDefinitions.themeIndex(getTheme()),
-                    LoreDefinitions.completionIndex(getTheme())
+                    LoreDefinitions.bracketLoreIndex(getTheme(), false)
             )).isLocked()) {
                 Session.unlockLore(
                         LoreDefinitions.themeIndex(getTheme()),
-                        LoreDefinitions.completionIndex(getTheme()),
+                        LoreDefinitions.bracketLoreIndex(getTheme(), false),
                         null);
             }
             /**
              * If the player clears the final dungeon, end the game as a win.
              * todo : keep this updated as we add themes!
              */
-            if (getTheme().getDifficulty() == 5) {
+            if (ThemeDefinitions.getIndex(getTheme()) == ThemeDefinitions.DARK_GROVE) {
                 Session.getModeManager().revert();
                 Session.killActor(Session.getPlayer().getActor(), true);
             }
         }
-        Session.setCurrentFloor(new Floor(0, ThemeDefinitions.YSIAN_ESTATE));
+        Session.setCurrentFloor(new Floor(0, ThemeDefinitions.DUNGEON_THEMES[ThemeDefinitions.YSIAN_ESTATE]));
         dispenseRewards(fullRewards ? 1.0 : EARLY_EXIT_PENALTY); //full reward payout, with or without exit penalty
         player.getActor().getCombatant().renewHealth();
         rewards = new ArrayList<>(); //then zero out the remaining rewards

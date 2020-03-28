@@ -22,7 +22,6 @@ public class DungeonTheme implements Serializable {
     private final int COL_VARIANCE;
     private final int ENEMY_VARIANCE;
     private final int DUNGEON_DEPTH;
-    private final int DUNGEON_DIFFICULTY;
     private final GlyphString DUNGEON_NAME;
 
     private final String[] FINAL_FLOOR_ACTORS;
@@ -44,7 +43,6 @@ public class DungeonTheme implements Serializable {
             int colVar,
             int enemyVar,
             int depth,
-            int diff,
             GlyphString name,
             String[] actors,
             String[] map,
@@ -62,7 +60,6 @@ public class DungeonTheme implements Serializable {
         COL_VARIANCE = colVar;
         ENEMY_VARIANCE = enemyVar;
         DUNGEON_DEPTH = depth;
-        DUNGEON_DIFFICULTY = diff;
         DUNGEON_NAME = name;
         FINAL_FLOOR_ACTORS = actors;
         FINAL_FLOOR_MAP = map;
@@ -110,10 +107,6 @@ public class DungeonTheme implements Serializable {
 
     public int getDepth() {
         return DUNGEON_DEPTH;
-    }
-
-    public int getDifficulty() {
-        return DUNGEON_DIFFICULTY;
     }
 
     public GlyphString getName() {

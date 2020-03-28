@@ -22,7 +22,47 @@ import java.util.ArrayList;
  * Contains the definitions for each available dungeon theme.
  */
 public class ThemeDefinitions {
-    public static final DungeonTheme YSIAN_ESTATE =
+    public static final int UNIVERSAL = 0;
+    public static final int YSIAN_ESTATE = 1;
+    public static final int DARK_GROVE = 2;
+
+    public static int getIndex(DungeonTheme dt) {
+        for (int i = 0; i < DUNGEON_THEMES.length; ++i) {
+            if (DUNGEON_THEMES[i].getName().getText().equals(dt.getName().getText())) return i;
+        }
+        throw new IllegalArgumentException("Dungeon Theme " + dt.getName().getText() + " unknown!");
+    }
+
+    /**
+     * For Reward XP calculations, etc.
+     */
+    public static int getDifficulty(DungeonTheme dt) {
+        switch (getIndex(dt)) {
+            case YSIAN_ESTATE: return 0;
+            case DARK_GROVE: return 5;
+            default: throw new IllegalArgumentException("Theme " + dt.getName().getText() + " has no rated difficulty.");
+        }
+    }
+    public static final DungeonTheme[] DUNGEON_THEMES = new DungeonTheme[]{
+            new DungeonTheme(
+                    null,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    -1,
+                    new GlyphString("UNIVERSAL", Session.getColorScheme().getBackground(), Chroma.WHITE),
+                    new String[]{},
+                    new String[]{},
+                    new Continuum<>(
+                            null,
+                            new ArrayList<>()
+                    ),
+                    new ActorSet(null, null, null, null, null, null, new ActorTemplate[]{}),
+                    new TerrainSet(null, null, null, null, null)
+            ),
             new DungeonTheme(
                     Light.DIM_LAMP,
                     23,
@@ -31,7 +71,6 @@ public class ThemeDefinitions {
                     1,
                     1,
                     1,
-                    0,
                     0,
                     new GlyphString("Ysian Estate", Session.getColorScheme().getBackground(), Chroma.WHITE),
                     new String[] {
@@ -117,8 +156,7 @@ public class ThemeDefinitions {
                             TerrainDefinitions.FOREST_GATE,
                             null
                     )
-            );
-    public static final DungeonTheme DARK_GROVE =
+            ),
             new DungeonTheme(
                     Light.UNLIGHTED,
                     87,
@@ -128,7 +166,6 @@ public class ThemeDefinitions {
                     33,
                     7,
                     4,
-                    5,
                     new GlyphString("The Dark Grove", Session.getColorScheme().getBackground(), DisplayStandards.THEME_THE_DARK_GROVE.getForeground()),
                     new String[] {
                             "                                                      ",
@@ -276,7 +313,7 @@ public class ThemeDefinitions {
                                     ArrayListBuilder
                                             .initialize()
                                             .addElement(new Pair<>(0.0125, TerrainDefinitions.TOADSTOOLS))
-                                    .build()
+                                            .build()
                             ),
                             new Continuum<>(
                                     TerrainDefinitions.SHALLOW_WATER,
@@ -284,5 +321,6 @@ public class ThemeDefinitions {
                             ),
                             TerrainDefinitions.TANGLED_PORTAL
                     )
-            );
+            ),
+    };
 }

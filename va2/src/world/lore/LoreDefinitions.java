@@ -2,6 +2,7 @@ package world.lore;
 
 import main.MetaData;
 import world.dungeon.theme.DungeonTheme;
+import world.dungeon.theme.ThemeDefinitions;
 
 public class LoreDefinitions {
     public static final int THEME_GENERAL = 0;
@@ -527,33 +528,23 @@ public class LoreDefinitions {
         return false;
     }
     public static int themeIndex(DungeonTheme dt) {
-        switch (dt.getDifficulty()) {
-            case 0:
-                return THEME_GENERAL;
-            case 5:
-                return THEME_DARK_GROVE;
-            default:
-                    throw new IllegalArgumentException("Unsupported theme " + dt.getName());
-        }
+        return ThemeDefinitions.getIndex(dt) - 1; //UNIVERSAL/YSIAN_ESTATE both equate to GENERAL, here.
     }
-    public static int arrivalIndex(DungeonTheme dt) {
-        switch (dt.getDifficulty()) {
-            case 0:
-                return GENERAL_NEW_PLAYER;
-            case 5:
-                return DARK_GROVE_ARRIVAL;
+
+    /**
+     * Get the bracket lore for a theme. This refers to the Lore unlocked on first arrival, and on final completion.
+     * @param dt the theme in question
+     * @param onArrival true if arrival, false if completion
+     * @return the appropriate Lore index
+     */
+    public static int bracketLoreIndex(DungeonTheme dt, boolean onArrival) {
+        switch (ThemeDefinitions.getIndex(dt)) {
+            case ThemeDefinitions.YSIAN_ESTATE:
+                return onArrival ? GENERAL_NEW_PLAYER : GENERAL_NEW_CHARACTER;
+            case ThemeDefinitions.DARK_GROVE:
+                return onArrival ? DARK_GROVE_ARRIVAL : DARK_GROVE_COMPLETION;
             default:
-                throw new IllegalArgumentException("Unsupported theme " + dt.getName());
-        }
-    }
-    public static int completionIndex(DungeonTheme dt) {
-        switch (dt.getDifficulty()) {
-            case 0:
-                return GENERAL_NEW_CHARACTER;
-            case 5:
-                return DARK_GROVE_COMPLETION;
-            default:
-                throw new IllegalArgumentException("Unsupported theme " + dt.getName());
+                throw new IllegalArgumentException("Unsupported theme " + dt.getName().getText());
         }
     }
 }

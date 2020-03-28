@@ -2,6 +2,7 @@ package main.progression;
 
 import main.Session;
 import main.extensible.Saveable;
+import world.dungeon.theme.ThemeDefinitions;
 
 public class Reward extends Saveable {
     private final long REWARD_EXPERIENCE;
@@ -14,7 +15,7 @@ public class Reward extends Saveable {
     public long evaluateExperience(int playerLevel) {
         //the deeper the floor in a given dungeon, the better the experience todo - loot rewards should use this too
         double difference = playerLevel -
-                (Session.getCurrentDungeon().getTheme().getDifficulty() + Session.getCurrentFloor().DEPTH);
+                (ThemeDefinitions.getDifficulty(Session.getCurrentDungeon().getTheme()) + Session.getCurrentFloor().DEPTH);
         double multiplier = 1.0 * Math.pow(0.92, difference);
         return (long)((double)REWARD_EXPERIENCE * multiplier);
     }
