@@ -7,7 +7,7 @@ import world.item.loadout.EquipmentSlot;
  * Such items generally either interact in combat, degrade for other reasons, such as by consuming fuel,
  * so this class extend Degradeable. If an equipped item need not degrade for any reason, set doesDegrade to false.
  */
-public class EquipableItem extends DegradableItem {
+public abstract class EquipableItem extends DegradableItem {
 
     private final EquipmentSlot EQUIPMENT_SLOT;
 
@@ -22,10 +22,5 @@ public class EquipableItem extends DegradableItem {
 
     public EquipmentSlot getEquipmentSlot() {
         return EQUIPMENT_SLOT;
-    }
-
-    @Override
-    public EquipableItem clone() {
-        return new EquipableItem(this);
     }
 }
