@@ -16,7 +16,7 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
         INNATE = innate;
     }
     ContactInteractiveItem(ContactInteractiveItem cii) {
-        this(((ItemTemplate)cii.getTEMPLATE()), cii.DOES_DEGRADE, cii.getEquipmentSlot(), cii.INNATE);
+        this(((ItemTemplate)cii.getTemplate()), cii.DOES_DEGRADE, cii.getEquipmentSlot(), cii.INNATE);
     }
 
 
@@ -27,7 +27,7 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
      */
     @Override
     public double getSelfDamageMultiplier() {
-        return INNATE ? 0.125 : 1.0;
+        return INNATE ? (1.0 / 16.0) : 1.0;
     }
 
     /**

@@ -22,11 +22,11 @@ public class Material extends Saveable {
     private final int[] VOLATILITIES;
     private final double[] DAMAGE_TYPE_MODIFICATIONS;
 
-    public Material(String n, int h, int[] v, double[] dts) {
+    public Material(String n, int h, int[] v, double[] dtm) {
         NAME = n;
         HARDNESS = h;
         VOLATILITIES = v;
-        DAMAGE_TYPE_MODIFICATIONS = dts;
+        DAMAGE_TYPE_MODIFICATIONS = dtm;
     }
 
     public String getName() {

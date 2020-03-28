@@ -93,7 +93,7 @@ public class MainGameCursorMode extends MainGameViewMode {
     public String describeCursor() {
         FloorTile ft = Session.getCurrentFloor().tileAt(cursor.at().getRow(), cursor.at().getColumn());
         return ft.getActor() == null
-                ? ft.getTerrain().getTEMPLATE().getDescription()
-                : ft.getActor().getTEMPLATE().getDescription();
+                ? ft.getTerrain().getTemplate().getDescription()
+                : ft.getActor().getTemplate().getDescription();
     }
 }

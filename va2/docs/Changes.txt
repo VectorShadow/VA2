@@ -1,3 +1,15 @@
+TBD - Version [a.1.0]:
+ [Bug Fix]:
+  -Fixed a bug that was causing far more damage in combat than intended.
+  -Fixed a bug that allowed Actors to occasionally attack themselves.
+ [Change]:
+  -Combat interaction damage lowered and multipliers adjusted.
+  -Starting leather armor is now more durable.
+ [New]:
+  -Added new DamageTypes Arcane, Eldritch, Lightning, Psychic, True.
+  -Combatant life is now divided into Health(Body), Sanity(Mind), and Soul.
+  -Information about the game in general, life, and melee combat added to the Manual.
+
 27 MAR 2020 - Version [a.0.1]:
  [Bug Fix]:
   -Fixed a bug where player equipment would remain degraded between characters.

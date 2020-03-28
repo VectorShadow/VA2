@@ -14,24 +14,23 @@ public class Format {
         double value = (double)((int)(pct * scalingFactor)) / scalingFactor;
         return (precision > 0 ? value : ((int)value + "")) + "%";
     }
-    public static GlyphString colorCode(String name, double pct, int precision) {
-        String pctString = name + percent(pct, precision);
+    public static GlyphString colorCode(String name, double pct) {
         Color background = Session.getColorScheme().getBackground();
-        Color foreground = pct > 100
+        Color foreground = pct > 1.0
                 ? Chroma.BLUE
-                : pct > 90
+                : pct > .9
                 ? Chroma.GREEN
-                : pct > 66.667
+                : pct > .667
                 ? Chroma.YELLOW
-                : pct > 33.333
+                : pct > .333
                 ? Chroma.ORANGE
                 : Chroma.RED;
         return new GlyphString(
-                pctString,
+                name,
                 background,
                 foreground,
                 new ArrayList<>(),
-                pct > 10
+                pct > 0.1
                 ? new ArrayList<>()
                 : ArrayListBuilder
                         .initialize()

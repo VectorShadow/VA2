@@ -61,7 +61,7 @@ public class FloorRenderer {
                 floorCol = j + colOffset;
                 if (f.inFloor(floorRow, floorCol)) {
                     ft = f.tileAt(floorRow, floorCol);
-                    wot = ft.getTerrain().getTEMPLATE();
+                    wot = ft.getTerrain().getTemplate();
                     if (ft.isSeen())
                         g = wot.memoryImage();
                 }
@@ -83,7 +83,7 @@ public class FloorRenderer {
                 floorRow = vc.getRow();
                 floorCol = vc.getColumn();
                 ft = f.tileAt(floorRow, floorCol);
-                wot = ft.getTerrain().getTEMPLATE();
+                wot = ft.getTerrain().getTemplate();
                 lightAtTile = (actorLight != null && vc.getDistance() <= actorLight.getBrightness())
                         ? Light.brighterOf(actorLight, ft.getLight())
                         : ft.getLight();
@@ -92,7 +92,7 @@ public class FloorRenderer {
                     if (actorIsPlayer) {
                         ft.setSeen(true);
                         if (ft.getActor() != null) {
-                            wot = ft.getActor().getTEMPLATE();
+                            wot = ft.getActor().getTemplate();
                         }
                         GlyphBuilder gb = wot.partialVisualImage();
                         if (wot.reflectsLight() && lightAtTile.doesFlicker()) {
@@ -141,7 +141,7 @@ public class FloorRenderer {
     }
     private boolean continuePropogation(Actor a, Coordinate c, double d, Floor f) {
         return d < a.getSight() &&
-                ((TerrainTemplate)f.tileAt(c.getRow(), c.getColumn()).getTerrain().getTEMPLATE()).permitsLight();
+                ((TerrainTemplate)f.tileAt(c.getRow(), c.getColumn()).getTerrain().getTemplate()).permitsLight();
     }
     private void addAtNearestDistance(VisibleCoordinate check, ArrayList<VisibleCoordinate> existing) {
         boolean needToAdd = true;

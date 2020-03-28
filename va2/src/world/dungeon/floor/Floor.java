@@ -87,7 +87,7 @@ public class Floor implements Serializable {
         floorTile = floorTiles[currentRow][currentCol];
         floorTile.setActor(actor);
         if (actor == Session.getPlayer().getActor()) {
-            TerrainTemplate tt = (TerrainTemplate)floorTile.getTerrain().getTEMPLATE();
+            TerrainTemplate tt = (TerrainTemplate)floorTile.getTerrain().getTemplate();
             if (tt.isMessageOnMove())
                 Session.getMessageCenter().sendMessage(
                         "You see " + tt.getName() + " here.",

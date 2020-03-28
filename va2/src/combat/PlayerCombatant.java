@@ -24,7 +24,7 @@ public class PlayerCombatant extends Combatant {
     }
 
     @Override
-    public int getHealthCapacity() {
+    protected int getHealthCapacity() {
         return 128 + InputSimplifier.getValue(Session.getPlayer().getExperience().getLevel());
     }
 

@@ -37,8 +37,10 @@ public class MeleeResolver extends CombatResolver {
          */
         boolean isAttackerPlayer = attacker == Session.getPlayer().getActor();
         boolean isDefenderPlayer = defender == Session.getPlayer().getActor();
-        String attackerName = attacker.getTEMPLATE().getName();
-        String defenderName = defender.getTEMPLATE().getName();
+        if (!isAttackerPlayer && !isDefenderPlayer || attacker == defender)
+            throw new IllegalStateException("Non-player or self combat: " + attacker + " attacking " + defender);
+        String attackerName = attacker.getTemplate().getName();
+        String defenderName = defender.getTemplate().getName();
         Combatant attackerCombatant = attacker.getCombatant();
         Combatant defenderCombatant = defender.getCombatant();
         Form attackerForm = attackerCombatant.getMeleeForm();
@@ -209,6 +211,7 @@ public class MeleeResolver extends CombatResolver {
         int effectiveAttackerStrength = attacker.getAdjustedStatistic(STRENGTH) +
                 attackerMeleeWeapon.adjustStrength();
         MeleeWeapon defenderMeleeWeapon = defenderCombatant.selectMeleeWeapon();
+        DamageType attackerDamageType = attackerWeaponDamage.damageType();
         MeleeStyle defenderStyle = defenderMeleeWeapon.getMeleeStyle();
         int effectiveDefenderEvasion = (int)(defenderEvasionMultiplier *
                 (double)defender.getAdjustedStatistic(EVASION));
@@ -376,7 +379,7 @@ public class MeleeResolver extends CombatResolver {
                     resolveContactInteraction(
                             attackerCombatant,
                             attackerMeleeWeapon,
-                            attackerWeaponDamage.damageType(),
+                            attackerDamageType,
                             defenderCombatant,
                             defenderMeleeWeapon
                     );
@@ -411,27 +414,33 @@ public class MeleeResolver extends CombatResolver {
          * Apply armor.
          */
         Armor defenderArmor = defenderCombatant.getArmor();
-        //todo - critical hit value?
+        double attackPercentBody = attackerDamageType.getPercentBody();
+        double attackPercentMind = attackerDamageType.getPercentMind();
+        double attackPercentSoul = attackerDamageType.getPercentSoul();
+        int damageToBody = (int)((double)attackDamage * attackPercentBody);
+        int damageToMind = (int)((double)attackDamage * attackPercentMind);
+        int damageToSoul = (int)((double)attackDamage * attackPercentSoul);
         if (defenderArmor.applyArmor(effectiveAttackerAccuracy)) {
             //todo - roll on the crit table and assign the result to something or apply it somehow - TBD
             double critThresh = defenderArmor.criticalThreshold(effectiveAttackerPrecision, effectiveDefenderDefense);
-            attackDamage -= defenderArmor.flatReduction(attackerMeleeWeapon.getMaterial(), attackerWeaponDamage.damageType());
-            if (attackDamage < 0) {
-                attackDamage = 0;
+            damageToBody -= defenderArmor.flatReduction(attackerMeleeWeapon.getMaterial(), attackerWeaponDamage.damageType());
+            if (damageToBody < 0) {
+                damageToBody = 0;
             } else {
-                attackDamage *= defenderArmor.percentReduction(attackerWeaponDamage.damageType());
+                damageToBody *= defenderArmor.percentReduction(attackerWeaponDamage.damageType());
                 resolveContactInteraction(
                         attackerCombatant,
                         attackerMeleeWeapon,
-                        attackerWeaponDamage.damageType(),
+                        attackerDamageType,
                         defenderCombatant,
                         defenderArmor
                 );
             }
         }
+        //todo - apply any equipment-based protection against damage to Mind and Soul
         //todo - apply critical result - modify damage and assign this variable:
         StatusType criticalStatus = null;
-        if (isAttackerPlayer || isDefenderPlayer) {
+        if (damageToBody > 0 && (isAttackerPlayer || isDefenderPlayer)) {
             updateMessage(
                     Grammar.configure(
                             isAttackerPlayer,
@@ -445,7 +454,12 @@ public class MeleeResolver extends CombatResolver {
                     PRIORITY_HIGH
             );
         }
-        if (!defenderCombatant.adjustHealth(-attackDamage)) {
+        //todo - if (damageToMind/Soul > 0 && isPlayer) updateMessage
+        if ( //we can short circuit damage dealing by type if the defender dies from any type:
+                !defenderCombatant.adjustHealth(-damageToBody) ||
+                !defenderCombatant.adjustSanity(-damageToMind) ||
+                !defenderCombatant.adjustSoul(-damageToSoul)
+        ) {
             Session.killActor(defender);
             if (isAttackerPlayer) {
                 Dungeon d = Session.getCurrentDungeon();
@@ -458,7 +472,7 @@ public class MeleeResolver extends CombatResolver {
                             PRIORITY_MAX
                     );
                     f.killFloorBoss();
-                } else if (as.getDungeonBossSet().length > 0 && as.getDungeonBossSet()[0] == defender.getTEMPLATE()) {
+                } else if (as.getDungeonBossSet().length > 0 && as.getDungeonBossSet()[0] == defender.getTemplate()) {
                     updateMessage(
                             "You have defeated " + defenderName + ", the final guardian of this dungeon.",
                             MessageType.SUCCESS,
@@ -471,14 +485,15 @@ public class MeleeResolver extends CombatResolver {
                             MessageType.INFO,
                             PRIORITY_HIGH
                     );
-                d.addReward(((ActorTemplate)defender.getTEMPLATE()).getReward());
+                d.addReward(((ActorTemplate)defender.getTemplate()).getReward());
             }
         } else {
             /**
              * If the defender survives, attempt to apply any status effects provided by its weapon damage.
+             * If the attacker lands a heavy blow, this chance is increased.
              */
             //todo - also check forms for status, and apply any critical status here. Maybe use a status array and iterate it?
-            StatusType st = attackerWeaponDamage.getStatusType();
+            StatusType st = attackerWeaponDamage.getStatusType(boostCounterStrike);
             if (st != null) {
                 defender.applyStatus(st);
                 if (isDefenderPlayer)

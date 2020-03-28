@@ -64,6 +64,8 @@ public class Session {
         player.setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
         player.getEquipment().setStartingItems();
         player.getActor().getCombatant().renewHealth();
+        player.getActor().getCombatant().renewSanity();
+        player.getActor().getCombatant().renewSoul();
         currentFloor.generate();
     }
     public static void loadSavedGame(Camera c, Dungeon d, Floor f, Engine e, Player p) {

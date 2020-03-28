@@ -3,9 +3,9 @@ package combat;
 import world.item.material.Material;
 
 public interface ContactInteractive {
-    double INTERACTION_DAMAGE = 32.0;
-    double DIRECT_IMPACT_MULTIPLIER = 8.0;
-    double MAXIMUM_HARDNESS_MULTIPLIER = 4.0;
+    double INTERACTION_DAMAGE = 10.0;
+    double DIRECT_IMPACT_MULTIPLIER = 4.0;
+    double MAXIMUM_HARDNESS_MULTIPLIER = 2.5;
     Material getMaterial();
     double getSelfDamageMultiplier();
     boolean doesDamageSelf();
@@ -27,7 +27,7 @@ public interface ContactInteractive {
                 * Math.min(h, MAXIMUM_HARDNESS_MULTIPLIER) //attacking weapon gets base hardness modification
                 * ci1.getSelfDamageMultiplier() //damage to actors caused by innate weapon impacts is reduced here, but damage to degradable items is not
                 * v; //increase damage if there is a chemical or other volatile reaction between the materials
-        double mult2 = (directImpact && ci1.doesDamageSelf() //contact is direct and item does not damage its combatant
+        double mult2 = (directImpact && ci2.doesDamageSelf() //contact is direct and item does not damage its combatant
                 ? DIRECT_IMPACT_MULTIPLIER //multiply the damage to the armor
                 : 1.0) //otherwise no adjustment - a non-direct hit or an actor damaging direct hit is not increased here
                 * m2.modifyByDamageType(t) //defending weapon receives damage of the type the attack possessed

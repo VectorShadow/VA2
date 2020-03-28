@@ -1,5 +1,6 @@
 package io.out;
 
+import combat.Combatant;
 import contract.Gui;
 import contract.menu.Menu;
 import core.DualityGUI;
@@ -16,6 +17,7 @@ import main.modes.OperatingMode;
 import main.progression.Experience;
 import resources.DualityContext;
 import resources.DualityMode;
+import resources.chroma.Chroma;
 import resources.chroma.ChromaSet;
 import resources.glyph.Glyph;
 import resources.glyph.GlyphString;
@@ -331,6 +333,7 @@ public class GUIManager {
         Player player = Session.getPlayer();
         Experience experience = player.getExperience();
         Equipment equipment = player.getEquipment();
+        Combatant combatant = player.getActor().getCombatant();
         int playerLevel = experience.getLevel();
         long playerExperience = experience.getExp();
         double xpPercent = 100.0 * ((double)playerExperience / (double)Experience.calculateXP(playerLevel + 1));
@@ -338,7 +341,6 @@ public class GUIManager {
                 xpPercent,
                 0
         );
-        double healthPercent = player.getActor().getCombatant().getHealthPercent();
         MeleeWeapon meleeWeapon = equipment.getWeaponsBelt().showWielded();
         Armor armor = equipment.getBodyArmor().showArmor();
         double weaponPercent = meleeWeapon.getDurabilityPercent();
@@ -396,7 +398,39 @@ public class GUIManager {
                 ZONE_PLAYER_STATUS,
                 last.y,
                 last.x,
-                Format.colorCode("", healthPercent, 0)
+                combatant.printHealth()
+        );
+        last = GUI.print(
+                ZONE_PLAYER_STATUS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Sanity: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_PLAYER_STATUS,
+                last.y,
+                last.x,
+                combatant.printSanity()
+        );
+        last = GUI.print(
+                ZONE_PLAYER_STATUS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Soul: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_PLAYER_STATUS,
+                last.y,
+                last.x,
+                combatant.printSoul()
         );
         last = GUI.print(
                 ZONE_PLAYER_STATUS,
@@ -412,7 +446,7 @@ public class GUIManager {
                 ZONE_PLAYER_STATUS,
                 last.y,
                 last.x,
-                Format.colorCode("", weaponPercent, 0)
+                Format.colorCode(Format.percent(100 * weaponPercent, 0), weaponPercent)
         );
         last = GUI.print(
                 ZONE_PLAYER_STATUS,
@@ -428,7 +462,7 @@ public class GUIManager {
                 ZONE_PLAYER_STATUS,
                 last.y,
                 last.x,
-                Format.colorCode("", armorPercent, 0)
+                Format.colorCode(Format.percent(100 * armorPercent, 0), armorPercent)
         );
     }
     public void printTargetStatistics() {
@@ -455,7 +489,7 @@ public class GUIManager {
             );
             return;
         }
-        double healthPercent = target.getCombatant().getHealthPercent();
+        Combatant combatant = target.getCombatant();
         last = GUI.print(
                 ZONE_TARGET_STATUS,
                 ++row,
@@ -476,7 +510,7 @@ public class GUIManager {
                         Session.getColorScheme().getBackground(),
                         Session.getColorScheme().getForeground()
                 )
-                        : target.getTEMPLATE().getColoredName()
+                        : target.getTemplate().getColoredName()
         );
         row = last.y;
         last = GUI.print(
@@ -493,7 +527,39 @@ public class GUIManager {
                 ZONE_TARGET_STATUS,
                 last.y,
                 last.x,
-                Format.colorCode("", healthPercent, 0)
+                combatant.printHealth()
+        );
+        last = GUI.print(
+                ZONE_TARGET_STATUS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Sanity: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_TARGET_STATUS,
+                last.y,
+                last.x,
+                combatant.printSanity()
+        );
+        last = GUI.print(
+                ZONE_TARGET_STATUS,
+                ++row,
+                1,
+                new GlyphString(
+                        "Soul: ",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
+        GUI.print(
+                ZONE_TARGET_STATUS,
+                last.y,
+                last.x,
+                combatant.printSoul()
         );
     }
     public void printPlayerActions() {

@@ -22,7 +22,7 @@ public class ArmorDefinitions {
                     .initialize()
                     .setName("leather vest")
                     .setDescription("a protective vest of supple leather")
-                    .manufactureItemTemplate(5_000, MaterialDefinitions.SOFT_LEATHER, MUNDANE_PRODUCT),
+                    .manufactureItemTemplate(8_000, MaterialDefinitions.SOFT_LEATHER, MUNDANE_PRODUCT),
             true,
             false,
             0.4,
