@@ -1,5 +1,3 @@
-28 MAR 2020 - Version [a.1.0]:
-
 27 MAR 2020 - Version [a.0.1]:
  [Bug Fix]:
   -Fixed a bug where player equipment would remain degraded between characters.
