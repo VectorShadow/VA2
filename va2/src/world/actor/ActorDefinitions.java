@@ -46,6 +46,8 @@ public class ActorDefinitions {
                             38,
                             new Combatant(
                                     8,
+                                    -1,
+                                    -1,
                                     new int[] {4, 4, 1, 1, 1},
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -71,6 +73,8 @@ public class ActorDefinitions {
                             37,
                             new Combatant(
                                     16,
+                                    -1,
+                                    -1,
                                     new int[]{6, 6, 1, 1, 2},
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -99,6 +103,8 @@ public class ActorDefinitions {
                             36,
                             new Combatant(
                                     48,
+                                    -1,
+                                    -1,
                                     new int[] {8, 6, 2, 2, 5},
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.SPIDER_BITE,
@@ -117,6 +123,8 @@ public class ActorDefinitions {
                             32,
                             new Combatant(
                                     128,
+                                    32,
+                                    16,
                                     new int[]{16, 7, 8, 3, 10},
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
@@ -135,6 +143,8 @@ public class ActorDefinitions {
                             30,
                             new Combatant(
                                     196,
+                                    32,
+                                    16,
                                     new int[]{18, 6, 10, 5, 12},
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.WOLF_BITE,
@@ -160,6 +170,8 @@ public class ActorDefinitions {
                             33,
                             new Combatant(
                                     116,
+                                    32,
+                                    16,
                                     new int[]{16, 7, 8, 3, 10},
                                     FormDefinitions.SMALL_BEAST,
                                     MeleeWeaponDefinitions.RABID_WOLF_BITE,
@@ -178,6 +190,8 @@ public class ActorDefinitions {
                             24,
                             new Combatant(
                                     400,
+                                    32,
+                                    16,
                                     new int[] {9, 5, 10, 16, 12},
                                     FormDefinitions.LARGE_BEAST,
                                     MeleeWeaponDefinitions.BEAR_BITE,
@@ -202,6 +216,8 @@ public class ActorDefinitions {
                             24,
                             new Combatant(
                                     555,
+                                    32,
+                                    16,
                                     new int[]{10, 4, 10, 20, 20},
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
@@ -240,6 +256,8 @@ public class ActorDefinitions {
                             21,
                             new Combatant(
                                     650,
+                                    425,
+                                    128,
                                     new int[]{12, 8, 24, 8, 18},
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
@@ -279,6 +297,8 @@ public class ActorDefinitions {
                             30,
                             new Combatant(
                                     325,
+                                    24,
+                                    12,
                                     new int[]{21, 20, 8, 15, 12},
                                     FormDefinitions.STRIKING_SERPENT,
                                     MeleeWeaponDefinitions.MOCCASIN_FANG,
@@ -311,6 +331,8 @@ public class ActorDefinitions {
                             19,
                             new Combatant(
                                     2_048,
+                                    -1,
+                                    -1,
                                     new int[]{32, 12, 16, 32, 28},
                                     FormDefinitions.SHAMBLER,
                                     new Continuum<MeleeWeapon>(

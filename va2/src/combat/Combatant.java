@@ -29,6 +29,10 @@ public class Combatant implements Serializable {
 
     private int healthCapacity;
     private int health;
+    private int sanityCapacity;
+    private int sanity;
+    private int soulCapacity;
+    private int soul;
     private int[] combatStatistics;
 
     protected Form meleeForm; //the form this combatant uses in melee combat
@@ -43,6 +47,8 @@ public class Combatant implements Serializable {
 
     public Combatant(
             int healthCap,
+            int sanityCap,
+            int soulCap,
             int[] combatStats,
             Form defaultForm,
             MeleeWeapon defaultMeleeWeapon,
@@ -50,6 +56,8 @@ public class Combatant implements Serializable {
     ) {
         this(
                 healthCap,
+                sanityCap,
+                soulCap,
                 combatStats,
                 defaultForm,
                 new Continuum<>(defaultMeleeWeapon, new ArrayList<>()),
@@ -58,6 +66,8 @@ public class Combatant implements Serializable {
     }
     public Combatant(
             int healthCap,
+            int sanityCap,
+            int soulCap,
             int[] combatStats,
             Form defaultForm,
             Continuum<MeleeWeapon> defaultMeleeWeapons,
@@ -66,6 +76,8 @@ public class Combatant implements Serializable {
         if (combatStats.length != COUNT_STATISTICS)
             throw new IllegalArgumentException("Invalid stat count: " + combatStats.length + ", expected: " +COUNT_STATISTICS);
         health = healthCapacity = healthCap;
+        sanity = sanityCapacity = sanityCap;
+        soul = soulCapacity = soulCap;
         combatStatistics = combatStats;
         meleeForm = defaultForm;
         MeleeWeapon clonedBase = defaultMeleeWeapons.getBase().clone();
@@ -79,6 +91,8 @@ public class Combatant implements Serializable {
     private Combatant(Combatant c) {
         this(
                 c.healthCapacity,
+                c.sanityCapacity,
+                c.soulCapacity,
                 c.combatStatistics,
                 c.meleeForm,
                 c.combatantMeleeWeapons,
@@ -87,11 +101,12 @@ public class Combatant implements Serializable {
     }
 
     /**
-     * Adjust the health of this combatant.
-     * @param adjustment the amount to adjust the health value by. May be positive(healing) or negative(damage).
+     * Adjust the health/sanity/soul of this combatant.
+     * @param adjustment the amount to adjust the value by. May be positive(healing) or negative(damage).
      * @return whether this combatant is still alive.
      */
     public boolean adjustHealth(int adjustment) {
+        if (healthCapacity < 0) return true; //this Combatant has no Body and cannot die from a loss of health
         health += adjustment;
         if (health > getHealthCapacity()) renewHealth();
         return health > 0;
@@ -99,12 +114,41 @@ public class Combatant implements Serializable {
     public void renewHealth() {
         health = getHealthCapacity();
     }
+    public boolean adjustSanity(int adjustment) {
+        if (sanityCapacity < 0) return true; //this Combatant has no Mind and cannot die from a loss of sanity
+        sanity += adjustment;
+        if (sanity > getSanityCapacity()) renewSanity();
+        return sanity > 0;
+    }
+    public void renewSanity() {
+        sanity = getSanityCapacity();
+    }
+    public boolean adjustSoul(int adjustment) {
+        if (soulCapacity < 0) return true; //this Combatant has no Soul and cannot die by sundering body from mind
+        soul += adjustment;
+        if (soul > getSoulCapacity()) renewSoul();
+        return soul > 0;
+    }
+    public void renewSoul() {
+        soul = getSoulCapacity();
+    }
+    protected int getHealthCapacity() {
+        return healthCapacity;
+    }
+    protected int getSanityCapacity() {
+        return healthCapacity;
+    }
+    protected int getSoulCapacity() {
+        return healthCapacity;
+    }
     public double getHealthPercent() {
         return 100.0 * (double)health / (double)getHealthCapacity();
     }
-
-    public int getHealthCapacity() {
-        return healthCapacity;
+    public double getSanityPercent() {
+        return 100.0 * (double)sanity / (double)getSanityCapacity();
+    }
+    public double getSoulPercent() {
+        return 100.0 * (double)soul / (double)getSoulCapacity();
     }
 
     public Form getMeleeForm() {
