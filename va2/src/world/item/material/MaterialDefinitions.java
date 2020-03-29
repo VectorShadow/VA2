@@ -20,54 +20,54 @@ public class MaterialDefinitions {
     public static final Material FLESH = new Material(
             "flesh",
             3,
-            damageTypeArray(-2, 0, +2, null, +1, +1, +2, null, 0, -1, null),
+            damageTypeArray(-1, 0, 0, null, 0, +1, 0, null, 0, -1, null),
             ORGANIC
     );
     public static final Material TOOTH = new Material(
             "tooth",
             12,
-            damageTypeArray(+4, 0, +4, null, +4, -2, +4, null, +8, +8, null),
+            damageTypeArray(+2, 0, +1, null, +1, 0, +2, null, +3, +3, null),
             ORGANIC
     );
     public static final Material BRONZE = new Material(
             "bronze",
             24,
-            damageTypeArray(+3, -3, +2, null, +2, -1, -2, null, -2, +1, null)
+            damageTypeArray(+3, -3, 0, null, 0, 0, -2, null, -1, +1, null)
     );
     public static final Material SOFT_LEATHER = new Material(
             "soft leather",
             3,
-            damageTypeArray(-4, +2, +3, null, +1, +3, +8, null, -2, +1, null),
+            damageTypeArray(-3, +2, +2, null, 0, +2, +4, null, -1, 0, null),
             ORGANIC
     );
     public static final Material CHITIN = new Material(
             "chitin",
             9,
-            damageTypeArray(+2, +1, -5, null, -3, -3, +2, null, +3, +4, null),
+            damageTypeArray(+2, +1, -3, null, -2, -1, 0, null, +1, +2, null),
             ORGANIC
     );
     public static final Material ANCIENT_CHITIN = new Material(
             "ancient chitin",
             13,
-            damageTypeArray(+7, +3, -5, null, -3, -1, +3, null, +3, +4, null),
+            damageTypeArray(+4, +2, -3, null, -2, -1, 0, null, +2, +3, null),
             ORGANIC
     );
     public static final Material SNAKESKIN = new Material(
             "snakeskin",
             4,
-            damageTypeArray(+2, +1, -4, null, -1, +1, -2, null, +2, 0, null),
+            damageTypeArray(+2, +1, -2, null, 0, 0, -2, null, 0, +1, null),
             ORGANIC
     );
     public static final Material SPIDER_SILK = new Material(
             "spider silk",
             2,
-            damageTypeArray(-5, +4, +5, null, -1, +2, +2, null, -2, +2, null),
+            damageTypeArray(-3, +2, +2, null, 0, +3, +2, null, -1, 0, null),
             ORGANIC
     );
     public static final Material BEAST_HIDE_AND_FUR = new Material(
             "furry beast hide",
             4,
-            damageTypeArray(-2, -1, +8, null, +2, +2, -2, null, -1, -3, null),
+            damageTypeArray(-2, +1, +4, null, 0, +1, 0, null, -1, -3, null),
             ORGANIC
     );
 }
