@@ -5,7 +5,6 @@ import combat.Combatant;
 import main.progression.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
-import world.item.ItemQuality;
 import world.item.ItemTemplate;
 import world.item.material.Material;
 import world.terrain.TerrainTemplate;
