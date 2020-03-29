@@ -10,7 +10,7 @@ public class MetaData {
     public static String version() {
         return "[a.0.1]";
     }
-    public static String lastUpdated() {return "27 March 2020";}
+    public static String lastUpdated() {return "29 March 2020";}
     public static String contact() {
         return "vectorshadowdigitallabs@gmail.com";
     }
