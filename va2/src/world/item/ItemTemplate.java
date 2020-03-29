@@ -14,7 +14,7 @@ public class ItemTemplate extends WorldObjectTemplate {
 
     public ItemTemplate(String d, String n, BalancedGlyphTemplate bgt, int dur, Material m, int id) {
         super(d, n, bgt, false);
-        DURABILITY = dur * m.getHardness();
+        DURABILITY = m == null ? 0 : dur * m.getHardness();
         MATERIAL = m;
         ITEM_ID = id;
     }
@@ -23,7 +23,7 @@ public class ItemTemplate extends WorldObjectTemplate {
                 it.DESCRIPTION,
                 it.NAME,
                 it.BALANCED_GLYPH_TEMPLATE.clone(),
-                it.DURABILITY / it.MATERIAL.getHardness(),
+                it.DURABILITY == 0 ? 0 : it.DURABILITY / it.MATERIAL.getHardness(),
                 it.MATERIAL,
                 it.ITEM_ID
         );

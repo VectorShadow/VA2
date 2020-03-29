@@ -68,11 +68,14 @@ public abstract class Item extends WorldObject {
     public int getID() {
         return ((ItemTemplate)getTemplate()).getItemID();
     }
-    protected int getItemQuality() {
-        return getID() & ITEM_QUALITY;
+    public int getItemFamily() {
+        return getID() & ITEM_FAMILY;
     }
     public int getThemeIndex() {
         return (getID() & ITEM_THEME) >> 12;
+    }
+    public int getItemQuality() {
+        return getID() & ITEM_QUALITY;
     }
     protected GlyphString getQualityColoredName() {
         return new GlyphString(getTemplate().getName(), getQualityColor(getItemQuality()));

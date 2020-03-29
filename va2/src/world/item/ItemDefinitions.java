@@ -21,7 +21,43 @@ import static world.dungeon.theme.ThemeDefinitions.*;
  */
 public class ItemDefinitions {
     private static final Item[] ORDERED_ITEMS = {
-            //todo - legacy resources,
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Lumber")
+                            .setDescription("common lumber")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_MUNDANE | 0x00)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Stone")
+                            .setDescription("common stone")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_MUNDANE | 0x01)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Cloth")
+                            .setDescription("rough cloth")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_MUNDANE | 0x02)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Simple tools")
+                            .setDescription("simple tools")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_MUNDANE | 0x03)
+            ),
+            //todo - intermediate, advanced legacy resources
             //todo - transient resources,
             /*
              * Define all weapons for use in the game.
