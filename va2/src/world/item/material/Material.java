@@ -2,6 +2,7 @@ package world.item.material;
 
 import combat.DamageType;
 import main.extensible.Saveable;
+import util.InputSimplifier;
 
 /**
  * Specifies the substances items are made from, and determines the interactions between them.
@@ -20,13 +21,14 @@ public class Material extends Saveable {
     private final String NAME;
     private final int HARDNESS;
     private final int[] VOLATILITIES;
-    private final double[] DAMAGE_TYPE_MODIFICATIONS;
+    private final Integer[] DAMAGE_TYPE_MODIFICATIONS;
 
-    public Material(String n, int h, int[] v, double[] dtm) {
+    public Material(String n, int h, Integer[] dtm, int... V) {
         NAME = n;
         HARDNESS = h;
-        VOLATILITIES = v;
         DAMAGE_TYPE_MODIFICATIONS = dtm;
+        VOLATILITIES = new int[V.length];
+        for (int i = 0; i < V.length; ++i) VOLATILITIES[i] = VOLATILITY_FACTORS[V[i]];
     }
 
     public String getName() {
@@ -72,6 +74,22 @@ public class Material extends Saveable {
      * The higher the multiplier, the worse the material holds up against that damage type.
      */
     public double modifyByDamageType(DamageType dt) {
-        return DAMAGE_TYPE_MODIFICATIONS[dt.ordinal()];
+        return InputSimplifier.getMultiplier(DAMAGE_TYPE_MODIFICATIONS[dt.ordinal()]);
+    }
+
+    static Integer[] damageTypeArray(
+            Integer aci,
+            Integer arc,
+            Integer col,
+            Integer eld,
+            Integer fir,
+            Integer imp,
+            Integer lig,
+            Integer psy,
+            Integer pun,
+            Integer ren,
+            Integer tru
+    ) {
+        return new Integer[]{aci, arc, col, eld, fir, imp, lig, psy, pun, ren, tru};
     }
 }

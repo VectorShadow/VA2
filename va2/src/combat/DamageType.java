@@ -97,20 +97,4 @@ public enum DamageType {
         }
         return new Continuum<>(base, list);
     }
-
-    public static double[] multipliersByDamageType(
-            Integer aci,
-            Integer arc,
-            Integer col,
-            Integer eld,
-            Integer fir,
-            Integer imp,
-            Integer lig,
-            Integer psy,
-            Integer pun,
-            Integer ren,
-            Integer tru
-    ) {
-        return InputSimplifier.getMultipliers(aci, arc, col, eld, fir, imp, lig, psy, pun, ren, tru);
-    }
 }

@@ -1,6 +1,6 @@
 package world.item.material;
 
-import combat.DamageType;
+import static world.item.material.Material.*;
 
 public class MaterialDefinitions {
     /**
@@ -20,55 +20,54 @@ public class MaterialDefinitions {
     public static final Material FLESH = new Material(
             "flesh",
             3,
-            new int[] {Material.ORGANIC},
-            DamageType.multipliersByDamageType(-2, 0, +2, null, +1, +1, +2, null, 0, -1, null)
+            damageTypeArray(-2, 0, +2, null, +1, +1, +2, null, 0, -1, null),
+            ORGANIC
     );
     public static final Material TOOTH = new Material(
             "tooth",
             12,
-            new int[]{Material.ORGANIC},
-            DamageType.multipliersByDamageType(+4, 0, +4, null, +4, -2, +4, null, +8, +8, null)
+            damageTypeArray(+4, 0, +4, null, +4, -2, +4, null, +8, +8, null),
+            ORGANIC
     );
     public static final Material BRONZE = new Material(
             "bronze",
             24,
-            new int[]{},
-            DamageType.multipliersByDamageType(+3, -3, +2, null, +2, -1, -2, null, -2, +1, null)
+            damageTypeArray(+3, -3, +2, null, +2, -1, -2, null, -2, +1, null)
     );
     public static final Material SOFT_LEATHER = new Material(
             "soft leather",
             3,
-            new int[]{Material.ORGANIC},
-            DamageType.multipliersByDamageType(-4, +2, +3, null, +1, +3, +8, null, -2, +1, null)
+            damageTypeArray(-4, +2, +3, null, +1, +3, +8, null, -2, +1, null),
+            ORGANIC
     );
     public static final Material CHITIN = new Material(
             "chitin",
             9,
-            new int[]{Material.ORGANIC},
-            DamageType.multipliersByDamageType(+2, +1, -5, null, -3, -3, +2, null, +3, +4, null)
+            damageTypeArray(+2, +1, -5, null, -3, -3, +2, null, +3, +4, null),
+            ORGANIC
     );
     public static final Material ANCIENT_CHITIN = new Material(
             "ancient chitin",
             13,
-            new int[]{Material.ORGANIC},
-            DamageType.multipliersByDamageType(+7, +3, -5, null, -3, -1, +3, null, +3, +4, null)
+            damageTypeArray(+7, +3, -5, null, -3, -1, +3, null, +3, +4, null),
+            ORGANIC
     );
     public static final Material SNAKESKIN = new Material(
             "snakeskin",
             4,
-            new int[]{Material.ORGANIC},
-            DamageType.multipliersByDamageType(+2, +1, -4, null, -1, +1, -2, null, +2, 0, null)
+            damageTypeArray(+2, +1, -4, null, -1, +1, -2, null, +2, 0, null),
+            ORGANIC
     );
     public static final Material SPIDER_SILK = new Material(
             "spider silk",
             2,
-            new int[]{Material.ORGANIC},
-            DamageType.multipliersByDamageType(-5, +4, +5, null, -1, +2, +2, null, -2, +2, null)
+            damageTypeArray(-5, +4, +5, null, -1, +2, +2, null, -2, +2, null),
+            ORGANIC
     );
     public static final Material BEAST_HIDE_AND_FUR = new Material(
             "furry beast hide",
             4,
-            new int[]{Material.ORGANIC},
-            DamageType.multipliersByDamageType(-2, -1, +8, null, +2, +2, -2, null, -1, -3, null)
+            damageTypeArray(-2, -1, +8, null, +2, +2, -2, null, -1, -3, null),
+            ORGANIC
     );
 }
