@@ -50,8 +50,8 @@ public class ActorDefinitions {
                                     -1,
                                     new int[] {4, 4, 1, 1, 1},
                                     FormDefinitions.SMALL_BEAST,
-                                    MeleeWeaponDefinitions.SPIDER_BITE,
-                                    ArmorDefinitions.ARACHNID_EXOSKELETON
+                                    MeleeWeaponDefinitions.SPIDER_BITE(),
+                                    ArmorDefinitions.ARACHNID_EXOSKELETON()
                             ),
                             new Reward(4),
                             AIDefinitions.CCW_AI
@@ -77,8 +77,8 @@ public class ActorDefinitions {
                                     -1,
                                     new int[]{6, 6, 1, 1, 2},
                                     FormDefinitions.SMALL_BEAST,
-                                    MeleeWeaponDefinitions.SPIDER_BITE,
-                                    ArmorDefinitions.ARACHNID_EXOSKELETON
+                                    MeleeWeaponDefinitions.SPIDER_BITE(),
+                                    ArmorDefinitions.ARACHNID_EXOSKELETON()
                             ),
                             new Reward(8),
                             AIDefinitions.CCW_AI
@@ -107,8 +107,8 @@ public class ActorDefinitions {
                                     -1,
                                     new int[] {8, 6, 2, 2, 5},
                                     FormDefinitions.SMALL_BEAST,
-                                    MeleeWeaponDefinitions.SPIDER_BITE,
-                                    ArmorDefinitions.ARACHNID_EXOSKELETON
+                                    MeleeWeaponDefinitions.SPIDER_BITE(),
+                                    ArmorDefinitions.ARACHNID_EXOSKELETON()
                             ),
                             new Reward(16),
                             AIDefinitions.CCW_AI
@@ -127,8 +127,8 @@ public class ActorDefinitions {
                                     16,
                                     new int[]{16, 7, 8, 3, 10},
                                     FormDefinitions.SMALL_BEAST,
-                                    MeleeWeaponDefinitions.WOLF_BITE,
-                                    ArmorDefinitions.WOLF_HIDE
+                                    MeleeWeaponDefinitions.WOLF_BITE(),
+                                    ArmorDefinitions.WOLF_HIDE()
                             ),
                             new Reward(20),
                             AIDefinitions.CCW_AI
@@ -147,8 +147,8 @@ public class ActorDefinitions {
                                     16,
                                     new int[]{18, 6, 10, 5, 12},
                                     FormDefinitions.SMALL_BEAST,
-                                    MeleeWeaponDefinitions.WOLF_BITE,
-                                    ArmorDefinitions.WOLF_HIDE
+                                    MeleeWeaponDefinitions.WOLF_BITE(),
+                                    ArmorDefinitions.WOLF_HIDE()
                             ),
                             new Reward(32),
                             AIDefinitions.CCW_AI
@@ -174,8 +174,8 @@ public class ActorDefinitions {
                                     16,
                                     new int[]{16, 7, 8, 3, 10},
                                     FormDefinitions.SMALL_BEAST,
-                                    MeleeWeaponDefinitions.RABID_WOLF_BITE,
-                                    ArmorDefinitions.WOLF_HIDE
+                                    MeleeWeaponDefinitions.RABID_WOLF_BITE(),
+                                    ArmorDefinitions.WOLF_HIDE()
                             ),
                             new Reward(28),
                             AIDefinitions.CC_RABID_AI
@@ -194,8 +194,8 @@ public class ActorDefinitions {
                                     16,
                                     new int[] {9, 5, 10, 16, 12},
                                     FormDefinitions.LARGE_BEAST,
-                                    MeleeWeaponDefinitions.BEAR_BITE,
-                                    ArmorDefinitions.BEAR_HIDE
+                                    MeleeWeaponDefinitions.BEAR_BITE(),
+                                    ArmorDefinitions.BEAR_HIDE()
                             ),
                             new Reward(48),
                             AIDefinitions.CCW_AI
@@ -221,18 +221,18 @@ public class ActorDefinitions {
                                     new int[]{10, 4, 10, 20, 20},
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
-                                            MeleeWeaponDefinitions.BEAR_SWAT,
+                                            MeleeWeaponDefinitions.BEAR_SWAT(),
                                             ArrayListBuilder
                                                     .initialize()
                                                     .addElement(
                                                             new Pair<>(
                                                                     0.4,
-                                                                    MeleeWeaponDefinitions.BEAR_BITE
+                                                                    MeleeWeaponDefinitions.BEAR_BITE()
                                                             )
                                                     )
                                                     .build()
                                             ),
-                                    ArmorDefinitions.BEAR_HIDE
+                                    ArmorDefinitions.BEAR_HIDE()
                             ),
                             new Reward(72),
                             AIDefinitions.CCW_AI
@@ -261,18 +261,18 @@ public class ActorDefinitions {
                                     new int[]{12, 8, 24, 8, 18},
                                     FormDefinitions.LARGE_BEAST,
                                     new Continuum<MeleeWeapon>(
-                                            MeleeWeaponDefinitions.SPIDER_BITE,
+                                            MeleeWeaponDefinitions.SPIDER_BITE(),
                                             ArrayListBuilder
                                                     .initialize()
                                                     .addElement(
                                                             new Pair<>(
                                                                     0.33,
-                                                                    MeleeWeaponDefinitions.ACID_STING
+                                                                    MeleeWeaponDefinitions.ACID_STING()
                                                             )
                                                     )
                                                     .build()
                                     ),
-                                    ArmorDefinitions.ANCIENT_ARACHNID_EXOSKELETON
+                                    ArmorDefinitions.ANCIENT_ARACHNID_EXOSKELETON()
                             ),
                             new Reward(256),
                             AIDefinitions.CCS_AI
@@ -301,8 +301,8 @@ public class ActorDefinitions {
                                     12,
                                     new int[]{21, 20, 8, 15, 12},
                                     FormDefinitions.STRIKING_SERPENT,
-                                    MeleeWeaponDefinitions.MOCCASIN_FANG,
-                                    ArmorDefinitions.SNAKESKIN_SCALE_ARMOR
+                                    MeleeWeaponDefinitions.MOCCASIN_FANG(),
+                                    ArmorDefinitions.SNAKESKIN_SCALE_ARMOR()
                             ),
                             new Reward(196),
                             AIDefinitions.CCW_AI
@@ -336,18 +336,18 @@ public class ActorDefinitions {
                                     new int[]{32, 12, 16, 32, 28},
                                     FormDefinitions.SHAMBLER,
                                     new Continuum<MeleeWeapon>(
-                                            MeleeWeaponDefinitions.BARE_HANDED,
+                                            MeleeWeaponDefinitions.BARE_HANDED(),
                                             ArrayListBuilder
                                                     .initialize()
                                                     .addElement(
                                                             new Pair<>(
                                                                     0.25,
-                                                                    MeleeWeaponDefinitions.WEB_STRIKE
+                                                                    MeleeWeaponDefinitions.WEB_STRIKE()
                                                             )
                                                     )
                                                     .build()
                                     ),
-                                    ArmorDefinitions.SPIDERSILK_COCOON
+                                    ArmorDefinitions.SPIDER_SILK_COCOON()
                             ),
                             new Reward(1_024),
                             AIDefinitions.CCS_AI

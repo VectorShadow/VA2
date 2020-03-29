@@ -12,7 +12,7 @@ public class BodyArmor extends LoadoutModule {
         armor = a;
         Session.getPlayer().getActor().getCombatant().setArmor(
                 armor == null
-                        ? ArmorDefinitions.UNARMORED //todo - change to an armor!
+                        ? ArmorDefinitions.UNARMORED()
                         : armor
         );
         return oldArmor;

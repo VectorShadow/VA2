@@ -18,6 +18,8 @@ import util.Coordinate;
 import world.actor.Actor;
 import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.ThemeDefinitions;
+import world.item.Item;
+import world.item.ItemDefinitions;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 import world.lore.LoreTree;
@@ -47,6 +49,7 @@ public class Session {
     private static TargetList targetList;
 
     static void start() {
+        ItemDefinitions.checkOrder();
         Experience.fillXPTable();
         colorScheme = DisplayStandards.THEME_THE_DARK_GROVE;
         fileManager = new FileManager();

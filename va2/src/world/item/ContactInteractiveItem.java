@@ -7,7 +7,7 @@ import world.item.loadout.EquipmentSlot;
  * This default level assumes that neither the combatant using this item, nor the item itself,
  * will be harmed by such an interaction.
  */
-public class ContactInteractiveItem extends EquipableItem implements ContactInteractive {
+public abstract class ContactInteractiveItem extends EquipableItem implements ContactInteractive {
 
     protected final boolean INNATE;
 
@@ -49,10 +49,5 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
     @Override
     public boolean damageSelf(int amount) {
         return INNATE || damage(amount);
-    }
-
-    @Override
-    public ContactInteractiveItem clone() {
-        return new ContactInteractiveItem(this);
     }
 }

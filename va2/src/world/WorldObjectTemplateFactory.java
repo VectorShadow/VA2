@@ -128,7 +128,7 @@ public class WorldObjectTemplateFactory {
                 ai
         );
     }
-    public ItemTemplate manufactureItemTemplate(int durability, Material material, ItemQuality quality) {
+    public ItemTemplate manufactureItemTemplate(int durability, Material material, int itemID) {
         forceNonEmptyLists();
         return new ItemTemplate(
                 description,
@@ -140,7 +140,7 @@ public class WorldObjectTemplateFactory {
                 ),
                 durability,
                 material,
-                quality
+                itemID
         );
     }
     public TerrainTemplate manufactureTerrainTemplate(boolean permitLight, boolean permitMovement, boolean messageOnMove) {

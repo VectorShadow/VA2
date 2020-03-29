@@ -22,7 +22,7 @@ public class WeaponsBelt extends LoadoutModule {
         wieldedWeapon = mw;
         Session.getPlayer().getActor().getCombatant().setMeleeWeapons(
                 wieldedWeapon == null
-                        ? MeleeWeaponDefinitions.BARE_HANDED
+                        ? MeleeWeaponDefinitions.BARE_HANDED()
                         : wieldedWeapon
         );
         return oldMeleeWeapon;

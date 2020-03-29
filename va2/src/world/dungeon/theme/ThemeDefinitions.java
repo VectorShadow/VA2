@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Contains the definitions for each available dungeon theme.
  */
 public class ThemeDefinitions {
-    public static final int UNIVERSAL = 0;
+    public static final int INNATE = 0;
     public static final int YSIAN_ESTATE = 1;
     public static final int DARK_GROVE = 2;
 
@@ -53,7 +53,7 @@ public class ThemeDefinitions {
                     0,
                     0,
                     -1,
-                    new GlyphString("UNIVERSAL", Session.getColorScheme().getBackground(), Chroma.WHITE),
+                    new GlyphString("INNATE", Session.getColorScheme().getBackground(), Chroma.WHITE),
                     new String[]{},
                     new String[]{},
                     new Continuum<>(
