@@ -92,4 +92,17 @@ public class Material extends Saveable {
     ) {
         return new Integer[]{aci, arc, col, eld, fir, imp, lig, psy, pun, ren, tru};
     }
+
+    @Override
+    public String toString() {
+        String s = NAME + "[" + HARDNESS + "]{";
+        for (DamageType dt : DamageType.values()) {
+            Integer dtv = DAMAGE_TYPE_MODIFICATIONS[dt.ordinal()];
+            if (dtv == null) s += dt.abbreviate() + "(X)";
+            else if (dtv != 0) {
+                s += dt.abbreviate() + "(" + (dtv > 0 ? "+" : "") + dtv + ")";
+            }
+        }
+        return s + "}";
+    }
 }
