@@ -4,7 +4,7 @@ package world.item;
  * Legacy resources have Material of null,
  * Transient have a specific resource type(in fact this is their sole definition and purpose).
  */
-public class Resource extends Item {
+public class Resource extends StackableItem {
 
     public Resource(ItemTemplate it) {
         super(it);
