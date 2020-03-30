@@ -14,34 +14,51 @@ import java.util.LinkedList;
  */
 public class Inventory {
     private LinkedList<ItemSlot> itemSlots;
+    int capacity;
 
-    public Inventory() {
+    public Inventory(int cap) {
+        capacity = cap;
         itemSlots = new LinkedList<>();
     }
 
+    public Inventory() {
+        this(-1);
+    }
+
+    public void setCapacity(int i) {
+        capacity = i;
+    }
     public void add(Item i){
         add(i, 1);
     }
 
     /**
      * Add the specified number of items to the inventory.
+     * Return false if not all items could be added because of a capacity limit.
      */
-    public void add(Item i, int count) {
+    public boolean add(Item i, int count) {
         int index = find(i.getID()); //find where this item should go
+        ItemSlot itemSlot;
+        int addLimit;
         if (itemSlots.size() == 0 || index < 0) { //either this is our first item, or it should go before the first
             itemSlots.add(++index, ItemSlot.make(i)); //put it in the first place
-            if (i instanceof StackableItem)
-                itemSlots.get(index).addItem(count - 1); //add the rest to this slot
-            else {
+            if (i instanceof StackableItem) {
+                itemSlot = itemSlots.get(index);
+                addLimit = capacity < 0 ? count - 1 : Math.min(count - 1, capacity - itemSlot.count()); //respect capacity
+                itemSlot.addItem(addLimit); //add the rest to this slot
+                return (addLimit == count - 1);
+            } else {
                 while (--count > 0)
                     itemSlots.add(++index, ItemSlot.make(i)); //add the rest to new slots at the front of the list
             }
         } else {
-            ItemSlot itemSlot = itemSlots.get(index); //get the slot there
+            itemSlot = itemSlots.get(index); //get the slot there
             if (i instanceof StackableItem) //if it stacks
-                if (itemSlot.peekID() == i.getID()) //if the ID is the same
-                    itemSlot.addItem(count); //add the full count to this slot
-                else {
+                if (itemSlot.peekID() == i.getID()) {//if the ID is the same
+                    addLimit = capacity < 0 ? count - 1 : Math.min(count - 1, capacity - itemSlot.count()); //respect capacity
+                    itemSlot.addItem(addLimit); //add the full count to this slot
+                    return (addLimit == count - 1);
+                } else {
                     itemSlots.add(++index, ItemSlot.make(i)); //otherwise insert a new slot for this item
                     itemSlots.get(index).addItem(count - 1); //and add the remaining count to it
                 }
@@ -50,6 +67,7 @@ public class Inventory {
                     itemSlots.add(++index, ItemSlot.make(i)); //otherwise add new slots until we run out of items
             }
         }
+        return true;
     }
     public Item remove(int index) {
         return remove(index, 1);
@@ -86,7 +104,7 @@ public class Inventory {
     }
 
     public static void test() {
-        Inventory i = new Inventory();
+        Inventory i = new Inventory(55);
         i.add(ItemDefinitions.get(MeleeWeaponDefinitions.BRONZE_SHORT_SWORD().getID()), 5);
         i.add(ItemDefinitions.get(ArmorDefinitions.LEATHER_VEST().getID()));
         i.add(ItemDefinitions.get(MeleeWeaponDefinitions.BRONZE_SHORT_SWORD().getID()));
@@ -96,6 +114,8 @@ public class Inventory {
         i.remove(1);
         i.remove(0, 36);
         i.remove(5);
+        i.setCapacity(1024);
+        System.out.println(i.add(ItemDefinitions.get(0xf102), 77));
         for (ItemSlot is : i.itemSlots)
             System.out.println(is.peekItem().getTemplate().getName() + " x" + is.count());
         try {
