@@ -62,10 +62,10 @@ public class ActorSet implements Serializable {
         return at;
     }
     public boolean isFloorBoss(Actor a) {
-        return FLOOR_BOSS_SET.contains((ActorTemplate)a.getTEMPLATE());
+        return FLOOR_BOSS_SET.contains((ActorTemplate)a.getTemplate());
     }
     public boolean isDungeonBoss(Actor a) {
-        return DUNGEON_BOSS_SET.length > 0 && DUNGEON_BOSS_SET[0] == a.getTEMPLATE();
+        return DUNGEON_BOSS_SET.length > 0 && DUNGEON_BOSS_SET[0] == a.getTemplate();
     }
     public ActorTemplate[] getDungeonBossSet() {
         return DUNGEON_BOSS_SET;

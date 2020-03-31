@@ -9,7 +9,7 @@ public abstract class WorldObject implements Serializable {
         TEMPLATE = wot.clone();
     }
 
-    public WorldObjectTemplate getTEMPLATE() {
+    public WorldObjectTemplate getTemplate() {
         return TEMPLATE;
     }
 }

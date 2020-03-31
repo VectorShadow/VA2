@@ -1,25 +1,31 @@
 package status;
 
+import resources.DualityMode;
 import resources.chroma.Chroma;
 import resources.glyph.Glyph;
 import resources.glyph.GlyphBuilder;
+
+import static io.out.GUIManager.*;
 
 public enum StatusType {
     VENOM_0(true, 16, 6, 4, 0.95,
             new boolean[]{true, false, true, false, false, false, false, false, true, false},
             "You feel a burning as venom enters your bloodstream.",
             "You feel venom coursing through your veins.",
-            GlyphBuilder.buildGlyph().setDefaults(Chroma.VENOM_GREEN, Chroma.BLUE, '~').build()),
+            GlyphBuilder.buildGlyph().setDefaults(Chroma.VENOM_GREEN, Chroma.BLUE, '~')
+                    .setImageRowAndColumn(GFX_ROW_ADMIN, 8)),
     WEBBED(true, 12, 4, 0, 0.33,
             new boolean[]{true, true, true, true, true, true, false, false, false, false},
             "You are covered in sticky webs.",
             "",
-            GlyphBuilder.buildGlyph().setDefaults(Chroma.BLACK, Chroma.WHITE, '&').build()),
+            GlyphBuilder.buildGlyph().setDefaults(Chroma.BLACK, Chroma.WHITE, '&')
+                    .setImageRowAndColumn(GFX_ROW_ADMIN, 9)),
     RABIES(false, 640, 64, 1, 0.67,
             new boolean[]{true, true, true, true, false, true, false, false, true, false},
             "You feel feverish.",
             "Your illness takes a toll on you.",
-            GlyphBuilder.buildGlyph().setDefaults(Chroma.ORANGE, Chroma.CRIMSON, 'x').build()),
+            GlyphBuilder.buildGlyph().setDefaults(Chroma.ORANGE, Chroma.CRIMSON, 'x')
+                    .setImageRowAndColumn(GFX_ROW_ADMIN, 10)),
     //todo  - more negative status here - update FIRST_POSITIVE_STATUS!
     //todo - more positive status here
     ;
@@ -42,10 +48,10 @@ public enum StatusType {
     public final boolean[] AFFECTS; //describes whether this status affects certain values.
     public final String APPLY_MESSAGE; //describes what message the player receives when this status is applied to them.
     public final String CHECK_MESSAGE; //describes what message the player receives when this status is checked successfully on them.
-    public final Glyph GLYPH; //describe the glyph we use to display this status
+    public final GlyphBuilder GLYPH_BUILDER; //describe the glyph we use to display this status
 
 
-    StatusType(boolean ctr, int lim, int var, int flt, double scl, boolean[] aff, String ams, String cms, Glyph gly) {
+    StatusType(boolean ctr, int lim, int var, int flt, double scl, boolean[] aff, String ams, String cms, GlyphBuilder gly) {
         COUNTER = ctr;
         DURATION_LIMIT = lim;
         DURATION_VARIANCE = var;
@@ -54,12 +60,16 @@ public enum StatusType {
         AFFECTS = aff;
         APPLY_MESSAGE = ams;
         CHECK_MESSAGE = cms;
-        GLYPH = gly;
+        GLYPH_BUILDER = gly;
     }
     public boolean isPositive() {
         return this.ordinal() >= FIRST_POSITIVE_STATUS;
     }
     public boolean affectsEngineInterval() {
         return AFFECTS[DAMAGE] || AFFECTS[HEALING];
+    }
+
+    public Glyph GLYPH() {
+        return GLYPH_BUILDER.build(DualityMode.TILE);
     }
 }

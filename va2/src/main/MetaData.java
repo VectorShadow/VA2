@@ -8,9 +8,9 @@ public class MetaData {
         return "Vector Shadow Digital Labs";
     }
     public static String version() {
-        return "[a.0.1]";
+        return "[a.1.0]";
     }
-    public static String lastUpdated() {return "27 March 2020";}
+    public static String lastUpdated() {return "31 March 2020";}
     public static String contact() {
         return "vectorshadowdigitallabs@gmail.com";
     }
@@ -20,6 +20,9 @@ public class MetaData {
                 "\n\tHelp Menu - ?" +
                 "\n\tSave Game - Ctrl s" +
                 "\n\tDelete Game - Ctrl q" +
+                "\n\nDisplay Commands:" +
+                "\n\tToggle Fullscreen Mode - Alt Enter" +
+                "\n\tToggle Graphics Mode - Alt g" +
                 "\n\nMovement Commands:" +
                 "\n\tRest - Numpad 5" +
                 "\n\tWalk - Arrow Keys/Numpad" +

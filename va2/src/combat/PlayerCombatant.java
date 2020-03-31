@@ -14,17 +14,29 @@ public class PlayerCombatant extends Combatant {
     public PlayerCombatant() {
         super(
                 0,
+                0,
+                0,
                 new int[]{0,0,0,0,0},
                 FormDefinitions.UNTRAINED,
-                MeleeWeaponDefinitions.BARE_HANDED,
-                ArmorDefinitions.UNARMORED
+                MeleeWeaponDefinitions.BARE_HANDED(),
+                ArmorDefinitions.UNARMORED()
         );
     }
 
     @Override
-    public int getHealthCapacity() {
+    protected int getHealthCapacity() {
         return 128 + InputSimplifier.getValue(Session.getPlayer().getExperience().getLevel());
     }
+
+    @Override
+    protected int getSanityCapacity() {
+        return 64 + InputSimplifier.getValue(Session.getPlayer().getExperience().getLevel()) / 2;
+    }
+    @Override
+    protected int getSoulCapacity() {
+        return 16 + InputSimplifier.getValue(Session.getPlayer().getExperience().getLevel()) / 8;
+    }
+
     @Override
     public int getStatistic(int index) {
         return InputSimplifier.getValue(

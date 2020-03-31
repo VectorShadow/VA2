@@ -132,7 +132,7 @@ public abstract class FloorGenerator implements Serializable {
         while (enemyPotential > 0) {
             Coordinate c = randomInterior();
             FloorTile ft = floor.tileAt(c.getRow(), c.getColumn());
-            if (ft.getActor() == null && ((TerrainTemplate)ft.getTerrain().getTEMPLATE()).permitsMovement()) {
+            if (ft.getActor() == null && ((TerrainTemplate)ft.getTerrain().getTemplate()).permitsMovement()) {
                 --enemyPotential;
                 Session.addActor(new Actor(floor.THEME.getActorSet().randomizeEnemy(floor.DEPTH)), c);
             }

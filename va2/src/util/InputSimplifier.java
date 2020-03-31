@@ -12,13 +12,15 @@ public class InputSimplifier {
      * +1 => 0.875, +2 => 0.765, +3 => 0.67, +4 => 0.586, etc.
      * -1 => 1.125, -2 => 1.265, -3 => 1.42, -4 => 1.603, etc.
      * with 0 => 1.0
+     * We also have the special case of null, which results in a return of 0.0, which is otherwise unreachable.
      */
-    public static double getMultiplier(int i) {
+    public static double getMultiplier(Integer i) {
+        if (i == null) return 0.0;
         int absoluteI = Math.abs(i);
         int unit = i == 0 ? 0 : i / absoluteI;
         return Math.pow((8.0 - unit) / 8.0, absoluteI);
     }
-    public static double[] getMultipliers(int... I) {
+    public static double[] getMultipliers(Integer... I) {
         double[] D = new double[I.length];
         for (int i = 0; i < I.length; ++i)
             D[i] = getMultiplier(I[i]);
@@ -27,8 +29,7 @@ public class InputSimplifier {
 
     /**
      * Take an integer specifying a level, and return a statistic value suitable for opposed roles.
-     * Start at level 0 corresponding to 16, level 10 to 32, level 20 to 64, and so on, and interpolate between
-     * via logarithms.
+     * Start at level 0 corresponding to 16, level 10 to 32, level 20 to 64, and so on, and interpolate between.
      * @param level
      * @return
      */

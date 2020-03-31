@@ -2,6 +2,7 @@ package main.modes;
 
 import io.in.InputCommandList;
 import main.Session;
+import resources.glyph.image.ImageManager;
 
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
@@ -36,11 +37,18 @@ public interface OperatingMode {
      */
     void from();
 
-    static boolean overrideHandleInput(KeyEvent ke) {
+    static boolean overrideHandleInput(OperatingMode om, KeyEvent ke) {
         switch (ke.getKeyCode()) {
             case VK_ENTER:
                 if (ke.getModifiersEx() == ALT_DOWN_MASK) {
                     Session.getGuiManager().toggleFullScreenMode();
+                    return true;
+                }
+                break;
+            case VK_G:
+                if (ke.getModifiersEx() == ALT_DOWN_MASK) {
+                    ImageManager.toggleGraphics();
+                    om.out();
                     return true;
                 }
                 break;

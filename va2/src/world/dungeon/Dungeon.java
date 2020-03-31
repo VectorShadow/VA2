@@ -74,11 +74,17 @@ public class Dungeon implements Serializable {
                 Session.killActor(Session.getPlayer().getActor(), true);
             }
         }
-        Session.setCurrentFloor(new Floor(0, ThemeDefinitions.DUNGEON_THEMES[ThemeDefinitions.YSIAN_ESTATE]));
         dispenseRewards(fullRewards ? 1.0 : EARLY_EXIT_PENALTY); //full reward payout, with or without exit penalty
+        //player recuperates at their estate until they reach full health.
         player.getActor().getCombatant().renewHealth();
+        //player recovers 5% sanity for each completed floor this dungeon.
+        player.getActor().getCombatant().renewSanity(
+                0.05 * (Session.getCurrentFloor().DEPTH - (fullRewards ? 0 : 1)));
+        //player recovers 50% soul for clearing a dungeon.
+        if (Session.isFinalFloor() && fullRewards) player.getActor().getCombatant().renewSoul(.5);
         rewards = new ArrayList<>(); //then zero out the remaining rewards
         dungeonBossAlive = true; //and reset boss kill
+        Session.setCurrentFloor(new Floor(0, ThemeDefinitions.DUNGEON_THEMES[ThemeDefinitions.YSIAN_ESTATE]));
     }
 
     public DungeonTheme getTheme() {

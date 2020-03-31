@@ -1,6 +1,6 @@
 package world.item.material;
 
-import util.InputSimplifier;
+import static world.item.material.Material.*;
 
 public class MaterialDefinitions {
     /**
@@ -20,55 +20,54 @@ public class MaterialDefinitions {
     public static final Material FLESH = new Material(
             "flesh",
             3,
-            new int[] {Material.ORGANIC},
-            InputSimplifier.getMultipliers(-2, +2, +1, +1, +0, -1)
+            damageTypeArray(-1, 0, 0, null, 0, +1, 0, null, 0, -1, null),
+            ORGANIC
     );
     public static final Material TOOTH = new Material(
             "tooth",
             12,
-            new int[]{Material.ORGANIC},
-            InputSimplifier.getMultipliers(+4, +4, +4, -2, +10, +10)
+            damageTypeArray(+2, 0, +1, null, +1, 0, +2, null, +3, +3, null),
+            ORGANIC
     );
     public static final Material BRONZE = new Material(
             "bronze",
             24,
-            new int[]{},
-            InputSimplifier.getMultipliers(+3, +2, +2, -1, -2, +1)
+            damageTypeArray(+3, -3, 0, null, 0, 0, -2, null, -1, +1, null)
     );
     public static final Material SOFT_LEATHER = new Material(
             "soft leather",
             3,
-            new int[]{Material.ORGANIC},
-            InputSimplifier.getMultipliers(-4, +3, +1, +3, -2, +1)
+            damageTypeArray(-3, +2, +2, null, 0, +2, +4, null, -1, 0, null),
+            ORGANIC
     );
     public static final Material CHITIN = new Material(
             "chitin",
             9,
-            new int[]{Material.ORGANIC},
-            InputSimplifier.getMultipliers(+2, -5, -3, -3, +3, +4)
+            damageTypeArray(+2, +1, -3, null, -2, -1, 0, null, +1, +2, null),
+            ORGANIC
     );
     public static final Material ANCIENT_CHITIN = new Material(
             "ancient chitin",
             13,
-            new int[]{Material.ORGANIC},
-            InputSimplifier.getMultipliers(+7, -5, -3, -1, +3, +4)
+            damageTypeArray(+4, +2, -3, null, -2, -1, 0, null, +2, +3, null),
+            ORGANIC
     );
     public static final Material SNAKESKIN = new Material(
             "snakeskin",
             4,
-            new int[]{Material.ORGANIC},
-            InputSimplifier.getMultipliers(+2, -4, -1, +1, +2, 0)
+            damageTypeArray(+2, +1, -2, null, 0, 0, -2, null, 0, +1, null),
+            ORGANIC
     );
     public static final Material SPIDER_SILK = new Material(
             "spider silk",
             2,
-            new int[]{Material.ORGANIC},
-            InputSimplifier.getMultipliers(-5, +5, +2, +2, -2, +4)
+            damageTypeArray(-3, +2, +2, null, 0, +3, +2, null, -1, 0, null),
+            ORGANIC
     );
     public static final Material BEAST_HIDE_AND_FUR = new Material(
             "furry beast hide",
             4,
-            new int[]{Material.ORGANIC},
-            InputSimplifier.getMultipliers(-2, +8, +2, +2, -1, -3)
+            damageTypeArray(-2, +1, +4, null, 0, +1, 0, null, -1, -3, null),
+            ORGANIC
     );
 }

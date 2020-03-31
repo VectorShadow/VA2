@@ -10,22 +10,22 @@ import world.item.material.Material;
 public class ItemTemplate extends WorldObjectTemplate {
     final int DURABILITY; //the maximum durability of this item. also used for fuel or other "charged" items
     final Material MATERIAL; //the primary material this item is made from
-    final ItemQuality QUALITY; //the quality classification of this item
+    final int ITEM_ID; //the unique serial ID of this template.
 
-    public ItemTemplate(String d, String n, BalancedGlyphTemplate bgt, int dur, Material m, ItemQuality iq) {
+    public ItemTemplate(String d, String n, BalancedGlyphTemplate bgt, int dur, Material m, int id) {
         super(d, n, bgt, false);
-        DURABILITY = dur * m.getHardness();
+        DURABILITY = m == null ? 0 : dur * m.getHardness();
         MATERIAL = m;
-        QUALITY = iq;
+        ITEM_ID = id;
     }
     private ItemTemplate(ItemTemplate it) {
         this(
                 it.DESCRIPTION,
                 it.NAME,
                 it.BALANCED_GLYPH_TEMPLATE.clone(),
-                it.DURABILITY / it.MATERIAL.getHardness(),
+                it.DURABILITY == 0 ? 0 : it.DURABILITY / it.MATERIAL.getHardness(),
                 it.MATERIAL,
-                it.QUALITY
+                it.ITEM_ID
         );
     }
 
@@ -40,8 +40,8 @@ public class ItemTemplate extends WorldObjectTemplate {
         return MATERIAL;
     }
 
-    public ItemQuality getQuality() {
-        return QUALITY;
+    public int getItemID() {
+        return ITEM_ID;
     }
 
     @Override

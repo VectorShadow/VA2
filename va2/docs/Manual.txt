@@ -1,1 +1,68 @@
-The manual has not yet been implemented. It will be added in a later version.
+[Introduction]
+    Chronicles of the Abyss is a roguelike dungeoncrawl with an emphasis on base-building, strategic planning and risk balancing, and tactical combat. It also features a rich plot set in the universe of Viridian Abyss, an alternate Earth history.
+    Play progresses across gameplay sessions and characters as the player builds up his home base, the Estate, by expanding rooms, researching new recipes, abilities, and techniques, and converting unwanted items to raw resources, and resources back into desireable items.
+    Each individual character makes use of the Armory within his estate to plan and prepare for his upcoming adventurers, selecting a loadout consisting of equipment and consumable resources which he's found during his travels or manufactured himself. He then enters the dungeon, exploring floor after floor, and making decisions about whether to flee to escape with his life, complete one or more floors to return with new resources and experience, or forge onward to the final confrontation with the dungeon guardian.
+    Combat offers multiple tactical options, featuring many different enemies with unique abilities, strengths, and weaknesses. Melee combat Forms and Weapons offer various advantages and disadvantages, while Ranged offers increased tactical flexibility, and Magic allowing the player to shape the situation in the dungeon to his advantage, either directly with powerful battle magic, or indirectly with information gathering spells, curses which reduce his enemies' effectiveness, or powerful effects which can change the entire battlefield.
+    The game begins in the distant past of the world revealed in Viridian Abyss, in the land of Ys, and the story progresses from there to the far corners of the Earth, revealing more and more of the secrets of Earth's long history, and sheds ever more light on the lurking peril which threatens all of humanity.
+[The Estate]
+    -todo
+[The Dungeon]
+    <Layout>
+        Dungeons consist of multiple floors. Each floor is guarded by various enemies, which must be defeated or avoided to progress through the floor. Defeating enemies awards potential experience and items, which are critical to character progression, but combat can often be dangerous, wounding the player to an extent where he cannot continue to explore the dungeon safely.
+        Rewards improve the deeper in the dungeon you explore, but so does the difficulty of the guardians, so the player must find a balance between making his way to as deep a floor as possible in relative safety, and fighting and killing within a floor.
+        Many dungeons also have special rooms with additional item or experience rewards available, and some floors will be protected by a floor guardian, an enemy far stronger than the average for a floor. Every dungeon also has a dungeon guardian on the final floor. Defeating these guardians is always necessary to explore deeper floors or complete a dungeon.
+    <Rewards>
+        A player can claim his rewards from dungeon exploration in three ways, each related to a different stair available on each floor. The first stair is the one the player enters the dungeon from. This stair represents a quick escape from the dungeon, allowing the player to flee to safety with relative ease, but requiring him to sacrifice more than half of his accumulate rewards for the entire dungeon(not just that floor).
+        The second option for claiming rewards is to use the exit stair, found near the end of the dungeon. This stair awards full rewards for all floors completed in the dungeon so far, but it is often far from the entry stair, and if a floor guardian resides on the level, will function as a flight stair unless that guardian is defeated, causing the player to lose just as much of his reward as leaving via the entry stair.
+        The final option is the stair downward to the next floor within the dungeon. Taking this stair awards approximately 15% of the player's accumulated rewards from the dungeon so far, securing them permanently, even if he later takes a flight stair. It also progresses the character down to another brand new level, full of enemies and other opportunities to gain further rewards. If a floor guardian resides on the level, this stair may not be taken until it is defeated.
+        The final floor of each dungeon is special. It has a guaranteed floor guardian, who also serves as the final guardian of the entire dungeon, and a special completion exit, which replaces both the exit and next floor stairs. Final dungeon floors are pre-generated and usually pose a much greater challenge than ordinary floors, but also provide much greater rewards, and allow the player to move on to other, more rewarding dungeons.
+[Combat]
+    <Life and Attributes>
+        Life is divided into three primary components: Health, Sanity, and Soul.
+        Health represents the physical body and can be damaged through illness and injuries. Most combat and other effects which damage life focus on the physical body.
+        Sanity represents the mind, and can be damaged by psychic attacks or sights and other experiences so disturbing that they drive the subject towards madness.
+        Soul represents the essence of being which binds the Mind and Body to each other. Very few effects can cause direct damage to the Soul, but those that do are often very effective, since the bonds of the Soul are generally rather weak compared to the relative strength of either mind or body.
+        Not every being you encounter will have all of these components - animals have only rudimentary minds which do not require a soul to unite with their bodies, and certain lesser animals such as insects may not even have minds that can be affected in the ways described above. Certain beings might also be incorporeal, lacking a physical body and only subject to attacks on their mind or soul(which doesn't necessarily require a body to bind the mind to, but still serves as the basic essence of being for such beings).
+        None of these will regenerate automatically, although various forms of healing and restoration exist in game. The player is assumed to rest and recuperate to restore his health whenever he returns to his estate, making health the easiest of these to manage. Completing floors within a dungeon helps to re-focus the mind and restore confidence and will, and upon leaving a dungeon, the player's sanity may be restored by this process. It's also rumored that completing an entire dungeon has a similar effect on the very soul.
+
+        -todo : Attributes
+    <Combat Equipment>
+        -todo
+    <Forms>
+        -todo
+    <Tactics>
+        Combatants in the dungeons have a variety of offensive and defensive tactics to choose from during a fight. Offensive tactics describe the combatant's approach to attacking his enemy, and consist of Probe, Feint, Strike, Blow, and Anticipate.
+        Probe is a simple, safe tactic which seeks to explore the enemy defenses. It is most effective against opponents who choose to ignore their own defense. It's also a safe tactic against opponents who favor counterattacks.
+        Feint is a deceptive attack designed to throw the opponent off balance. It is most effective against opponents who focus on counterattacks, since it draws out and negates these counters and increases its own effectiveness. However, it's weaker than normal against opponents who ignore defense, and completely ineffective against more standard defenses.
+        Strike is the most ordinary form of attack. It is least effective against opponents who prepare to take and mitigate incoming attacks, and slightly stronger against enemies who disregard defense. Unfortunately, it is susceptible to counterattacks.
+        Blow is a more powerful attack than a strike, focused on increasing damage and other potential afflictions, such as critical hits and special statuses. It shares the strengths and weaknesses of the Strike, enhancing both. It's also more easily defended against than a Strike.
+        Anticipate is a tactic which attempts to read the opponent's defenses and exploit them. As a result, if the opponent is not defending, it is ineffective, and if the opponent is only defending by absorbing and mitigating incoming hits, it is less effective. It is powerful against traditional defenses, and also works well against a counter based defense.
+
+        Evade is the most basic form of defense. It attempts to dodge an incoming attack entirely. It is strong against traditional attacks like Strikes and Blows, has minor disadvantages against exploratory and deceptive attacks, and is weakest when the attacker manages to anticipate it.
+        Deflect is the next most basic defensive option. It focuses on shifting an incoming attack away from the defender, either by blocking with a shield or parrying with a melee weapon. It shares the strengths and weaknesses of Evade.
+        Brace is a tactic which prepares the defender to receive the incoming blow, reducing the incoming damage and other negative effects as much as possible. It's a fairly effective option against almost all forms of attack - the primary disadvantage is that it sacrifices most of its ability to avoid damage completely.
+        Riposte is a tactic designed to counter incoming attacks. It offers the defender the opportunity of striking back directly against the attacker, usually also negating that attack. It is effective against most types of attacks, but weak to deceptive attackers who seek to intentionally draw and exploit counterattacks.
+        Ignore is the choice of berserkers and other aggressive combatants. Defenders who ignore the attacks of their enemies have no chance to evade, deflect, or counter incoming attacks, and are much more susceptible to critical hits and other dangerous effects. However, they gain significant boosts to their own upcoming attacks, benefiting from an increase in accuracy, critical chance, and damage. Additionally, while they can still be hit by counterattacks, their own attacks are not negated by them.
+
+        In general, every attack can potentially be evaded, deflected, or countered, but the chance of successfully doing so is much better with the right tactical choices. The complex interactions of different tactics will be described in detail in the [Numbers and Formulae] section.
+    <Special Attacks>
+        -unimplemented
+    <Flow of Melee Combat>
+        Melee Combat follows a specific and fixed order of execution. First, special interactions between the Attack tactic and the Defense tactic are assessed. Then adjusted values for all involved combat attributes are calculated based on default values, adjustments from status effects, melee forms, weapons, and other sources. Once all these are calculated, the defender is allowed to react if he has the energy to do so.
+        The first reaction is the counterattack. This requires an additional energy cost(although the total for reacting and countering together is less than making an initial attack, so counters can be a very efficient strategy). If the defender wins the counter roll, he immediately makes his own attack, which is resolved first. This can result in yet another counter, which proceeds in the same way. Once all counter interactions are resolved, the initial attack resumes evaluation.
+        If the counter roll fails, or the attacker is allowed to proceed regardless of being countered due to special interaction rules or other effects, evasion is the next reaction to be checked. If the defender wins the evasion roll, the attack is terminated.
+        If the attacker wins the evasion roll, the defender is then permitted to make a deflection roll. If the deflection roll succeeds, a small amount of damage is dealt to both the attacking weapon and the defending weapon or shield, and the attack is terminated.
+        At this point, if the attack has not been prematurely terminated, attack damage is calculated based on the attacker's weapon, adjusted attribute values, and other applicable factors. At this point, the attack comes in contact with any armor worn by the defender.
+        The first part of the interaction of attack with armor is a coverage roll. If this roll fails, the attack is assumed to have struck an area not covered by the defender's armor, and proceeds unreduced.
+        Since armor is assumed to cover all critical areas of the defender's body, a critical roll can only be made if the attack strikes armor. The armor will then make a roll to determine the threshold required on the the Critical Hit scale required to add any bonus damage or additional effects.
+        The critical hit table is currently unimplemented.
+        The armor then applies first a flat reduction to the attack damage, followed by a scaling reduction if any damage remains, based on the properties of the armor. Now another interaction is calculated between the attacker's weapon and the defender's armor in a similar fashion to a successful deflection, except since an attack against armor is assumed to land with full force, the damage to both weapon and armor is much higher than a deflection.
+        Finally, the damage is applied directly to the defender's health, and the engine evaluates whether he is still alive, disposing of him or ending the game(if it was the player who died) as appropriate. This completes the melee combat flow for the attack.
+    <Ranged Combat>
+        -unimplemented
+    <Battle Magic>
+        -see [Magic and Grimoires]
+[Magic and Grimoires]
+    -unimplemented
+[Numbers and Formulae]
+    -todo

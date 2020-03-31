@@ -54,7 +54,7 @@ public class MeleeWeapon extends ContactInteractiveItem {
     }
     MeleeWeapon(MeleeWeapon mw) {
         this(
-                ((ItemTemplate)mw.getTEMPLATE()),
+                ((ItemTemplate)mw.getTemplate()),
                 mw.DOES_DEGRADE,
                 mw.INNATE,
                 mw.DAMAGE_LIMIT,

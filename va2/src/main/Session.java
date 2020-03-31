@@ -18,6 +18,8 @@ import util.Coordinate;
 import world.actor.Actor;
 import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.ThemeDefinitions;
+import world.item.Item;
+import world.item.ItemDefinitions;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 import world.lore.LoreTree;
@@ -47,6 +49,7 @@ public class Session {
     private static TargetList targetList;
 
     static void start() {
+        ItemDefinitions.checkOrder();
         Experience.fillXPTable();
         colorScheme = DisplayStandards.THEME_THE_DARK_GROVE;
         fileManager = new FileManager();
@@ -64,6 +67,8 @@ public class Session {
         player.setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
         player.getEquipment().setStartingItems();
         player.getActor().getCombatant().renewHealth();
+        player.getActor().getCombatant().renewSanity();
+        player.getActor().getCombatant().renewSoul();
         currentFloor.generate();
     }
     public static void loadSavedGame(Camera c, Dungeon d, Floor f, Engine e, Player p) {

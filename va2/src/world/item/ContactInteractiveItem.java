@@ -7,7 +7,7 @@ import world.item.loadout.EquipmentSlot;
  * This default level assumes that neither the combatant using this item, nor the item itself,
  * will be harmed by such an interaction.
  */
-public class ContactInteractiveItem extends EquipableItem implements ContactInteractive {
+public abstract class ContactInteractiveItem extends EquipableItem implements ContactInteractive {
 
     protected final boolean INNATE;
 
@@ -16,7 +16,7 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
         INNATE = innate;
     }
     ContactInteractiveItem(ContactInteractiveItem cii) {
-        this(((ItemTemplate)cii.getTEMPLATE()), cii.DOES_DEGRADE, cii.getEquipmentSlot(), cii.INNATE);
+        this(((ItemTemplate)cii.getTemplate()), cii.DOES_DEGRADE, cii.getEquipmentSlot(), cii.INNATE);
     }
 
 
@@ -27,7 +27,7 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
      */
     @Override
     public double getSelfDamageMultiplier() {
-        return INNATE ? 0.125 : 1.0;
+        return INNATE ? (1.0 / 16.0) : 1.0;
     }
 
     /**
@@ -49,10 +49,5 @@ public class ContactInteractiveItem extends EquipableItem implements ContactInte
     @Override
     public boolean damageSelf(int amount) {
         return INNATE || damage(amount);
-    }
-
-    @Override
-    public ContactInteractiveItem clone() {
-        return new ContactInteractiveItem(this);
     }
 }

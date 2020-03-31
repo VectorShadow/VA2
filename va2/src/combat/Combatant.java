@@ -4,6 +4,8 @@ import combat.melee.forms.Form;
 import main.Session;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;
+import resources.glyph.GlyphString;
+import util.Format;
 import util.InputSimplifier;
 import world.item.Armor;
 import world.item.MeleeWeapon;
@@ -29,6 +31,10 @@ public class Combatant implements Serializable {
 
     private int healthCapacity;
     private int health;
+    private int sanityCapacity;
+    private int sanity;
+    private int soulCapacity;
+    private int soul;
     private int[] combatStatistics;
 
     protected Form meleeForm; //the form this combatant uses in melee combat
@@ -43,6 +49,8 @@ public class Combatant implements Serializable {
 
     public Combatant(
             int healthCap,
+            int sanityCap,
+            int soulCap,
             int[] combatStats,
             Form defaultForm,
             MeleeWeapon defaultMeleeWeapon,
@@ -50,6 +58,8 @@ public class Combatant implements Serializable {
     ) {
         this(
                 healthCap,
+                sanityCap,
+                soulCap,
                 combatStats,
                 defaultForm,
                 new Continuum<>(defaultMeleeWeapon, new ArrayList<>()),
@@ -58,6 +68,8 @@ public class Combatant implements Serializable {
     }
     public Combatant(
             int healthCap,
+            int sanityCap,
+            int soulCap,
             int[] combatStats,
             Form defaultForm,
             Continuum<MeleeWeapon> defaultMeleeWeapons,
@@ -66,6 +78,8 @@ public class Combatant implements Serializable {
         if (combatStats.length != COUNT_STATISTICS)
             throw new IllegalArgumentException("Invalid stat count: " + combatStats.length + ", expected: " +COUNT_STATISTICS);
         health = healthCapacity = healthCap;
+        sanity = sanityCapacity = sanityCap;
+        soul = soulCapacity = soulCap;
         combatStatistics = combatStats;
         meleeForm = defaultForm;
         MeleeWeapon clonedBase = defaultMeleeWeapons.getBase().clone();
@@ -79,6 +93,8 @@ public class Combatant implements Serializable {
     private Combatant(Combatant c) {
         this(
                 c.healthCapacity,
+                c.sanityCapacity,
+                c.soulCapacity,
                 c.combatStatistics,
                 c.meleeForm,
                 c.combatantMeleeWeapons,
@@ -87,24 +103,77 @@ public class Combatant implements Serializable {
     }
 
     /**
-     * Adjust the health of this combatant.
-     * @param adjustment the amount to adjust the health value by. May be positive(healing) or negative(damage).
+     * Adjust the health/sanity/soul of this combatant.
+     * @param adjustment the amount to adjust the value by. May be positive(healing) or negative(damage).
      * @return whether this combatant is still alive.
      */
     public boolean adjustHealth(int adjustment) {
+        if (healthCapacity < 0) return true; //this Combatant has no Body and cannot die from a loss of health
         health += adjustment;
-        if (health > getHealthCapacity()) renewHealth();
+        if (health > getHealthCapacity()) health = getHealthCapacity();
         return health > 0;
     }
     public void renewHealth() {
-        health = getHealthCapacity();
+        renewHealth(1.0);
     }
-    public double getHealthPercent() {
-        return 100.0 * (double)health / (double)getHealthCapacity();
+    public void renewHealth(double pct) {
+        adjustHealth((int)((double)getHealthCapacity() * pct));
     }
-
-    public int getHealthCapacity() {
+    public boolean adjustSanity(int adjustment) {
+        if (sanityCapacity < 0) return true; //this Combatant has no Mind and cannot die from a loss of sanity
+        sanity += adjustment;
+        if (sanity > getSanityCapacity()) sanity = getSanityCapacity();
+        return sanity > 0;
+    }
+    public void renewSanity() {
+        renewSanity(1.0);
+    }
+    public void renewSanity(double pct) {
+        adjustSanity((int)((double)getSanityCapacity() * pct));
+    }
+    public boolean adjustSoul(int adjustment) {
+        if (soulCapacity < 0) return true; //this Combatant has no Soul and cannot die by sundering body from mind
+        soul += adjustment;
+        if (soul > getSoulCapacity()) soul = getSoulCapacity();
+        return soul > 0;
+    }
+    public void renewSoul() {
+        renewSoul(1.0);
+    }
+    public void renewSoul(double pct) {
+        adjustSoul((int)((double)getSoulCapacity() * pct));
+    }
+    protected int getHealthCapacity() {
         return healthCapacity;
+    }
+    protected int getSanityCapacity() {
+        return sanityCapacity;
+    }
+    protected int getSoulCapacity() {
+        return soulCapacity;
+    }
+    public GlyphString printHealth() {
+        return Format.colorCode(
+                health + "/" + getHealthCapacity(),
+                (double)health / (double)getHealthCapacity());
+    }
+    public GlyphString printSanity() {
+        if (getSanityCapacity() < 0)
+            return new GlyphString("<n/a>", Session.getColorScheme().getBackground(), Session.getColorScheme().getForeground());
+        double pct = (double)sanity / (double)getSanityCapacity();
+        return Format.colorCode(
+                Format.percent(100 * pct, 0),
+                pct
+        );
+    }
+    public GlyphString printSoul() {
+        if (getSoulCapacity() < 0)
+            return new GlyphString("<n/a>", Session.getColorScheme().getBackground(), Session.getColorScheme().getForeground());
+        double pct = (double)soul / (double)getSoulCapacity();
+        return Format.colorCode(
+                pct > 1.0 ? "Uplifted" : pct > .9 ? "Whole" : pct > .667 ? "Intact" : pct > 0.333 ? "Weak" : "Fading",
+                pct
+        );
     }
 
     public Form getMeleeForm() {
@@ -142,12 +211,14 @@ public class Combatant implements Serializable {
     public int getStatistic(int index) {
         return InputSimplifier.getValue(combatStatistics[index] + meleeForm.adjustStatistic(index));
     }
-    private void setStatistic(int index, int value) {
-        combatStatistics[index] = value;
-    }
 
     @Override
     public Combatant clone() {
         return new Combatant(this);
+    }
+
+    @Override
+    public String toString() {
+        return "H:" + health + "/" + healthCapacity + "[" + getHealthCapacity() + "] M:" + sanity + "/" + sanityCapacity + "[" + getSanityCapacity() + "] S:" + soul + "/" + soulCapacity + "[" + getSoulCapacity() + "]";
     }
 }

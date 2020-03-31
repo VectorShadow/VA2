@@ -7,7 +7,7 @@ package world.item;
  * must implement contact interactivity which requires a material, we implement that field at this level to avoid
  * problems due to lack of multiple inheritance in Java(which previous implementation approaches suffered from).
  */
-public class DegradableItem extends Item {
+public abstract class DegradableItem extends Item {
     protected final boolean DOES_DEGRADE;
     private int durability;
 
@@ -17,7 +17,7 @@ public class DegradableItem extends Item {
         durability = it.DURABILITY;
     }
     DegradableItem(DegradableItem di) {
-        this(((ItemTemplate)di.getTEMPLATE()), di.DOES_DEGRADE);
+        this(((ItemTemplate)di.getTemplate()), di.DOES_DEGRADE);
     }
 
     /**
@@ -38,7 +38,7 @@ public class DegradableItem extends Item {
     }
 
     public double getDurabilityPercent() {
-        return 100.0 * (double)durability / (double)maxDurability();
+        return (double)durability / (double)maxDurability();
     }
     /**
      * @param amount how much of this item's damage is to be repaired
@@ -48,12 +48,7 @@ public class DegradableItem extends Item {
         if (durability > maxDurability()) durability = maxDurability();
     }
     private int maxDurability() {
-        return ((ItemTemplate) getTEMPLATE()).DURABILITY;
-    }
-
-    @Override
-    public DegradableItem clone() {
-        return new DegradableItem(this);
+        return ((ItemTemplate) getTemplate()).DURABILITY;
     }
 
     @Override

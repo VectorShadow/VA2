@@ -50,7 +50,7 @@ public class ScrollingTextMode implements OperatingMode {
 
     @Override
     public void in(KeyEvent ke) {
-        if (OperatingMode.overrideHandleInput(ke) || (ke.getModifiersEx() == ALT_DOWN_MASK)) return;
+        if (OperatingMode.overrideHandleInput(this, ke) || (ke.getModifiersEx() == ALT_DOWN_MASK)) return;
         switch (ke.getKeyCode()) {
             case VK_ENTER: case VK_ESCAPE:
                 Session.getModeManager().revert();

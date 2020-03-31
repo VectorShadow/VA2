@@ -20,7 +20,7 @@ public class Armor extends ContactInteractiveItem {
         THICKNESS = t;
     }
     private Armor(Armor a) {
-        this((ItemTemplate)a.getTEMPLATE(), a.DOES_DEGRADE, a.INNATE, a.COVERAGE, a.THICKNESS);
+        this((ItemTemplate)a.getTemplate(), a.DOES_DEGRADE, a.INNATE, a.COVERAGE, a.THICKNESS);
     }
 
     private int coverageValue(int oppositionValue) {

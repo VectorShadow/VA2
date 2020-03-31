@@ -34,7 +34,10 @@ public class WeaponDamage extends Saveable {
         return DAMAGE_TYPE;
     }
 
-    public StatusType getStatusType() {
-        return Session.getRNG().nextDouble() < STATUS_PERCENT ? STATUS_TYPE : null;
+    /**
+     * Heavy Blows have an increased chance to apply status effects.
+     */
+    public StatusType getStatusType(boolean blow) {
+        return Session.getRNG().nextDouble() / (blow ? 2 : 1) < STATUS_PERCENT ? STATUS_TYPE : null;
     }
 }

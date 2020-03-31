@@ -48,7 +48,7 @@ public class Actor extends WorldObject {
     public void gainEnergy() {
         double multiplier = 1.0;
         for (StatusType st : StatusType.values()) {
-            if (st.AFFECTS[ENERGY_GAIN]) {
+            if (st.AFFECTS[ENERGY_GAIN] && checkStatus(st)) {
                 multiplier = st.SCALE;
             }
         }
@@ -84,7 +84,7 @@ public class Actor extends WorldObject {
     }
     public void plan() {
         //todo - hack! call the template's AI and use it to generate an action or set of actions
-        queueAction(((ActorTemplate) getTEMPLATE()).getAi().decide(this));
+        queueAction(((ActorTemplate) getTemplate()).getAi().decide(this));
     }
     public void queueAction(Action a) {
         queuedActions.addLast(a);
@@ -96,7 +96,8 @@ public class Actor extends WorldObject {
 
     public double getMoveEnergyMultiplier() {
         for (StatusType st : StatusType.values()) {
-            if (st.AFFECTS[MOVE_ENERGY]) {
+            if (st.AFFECTS[MOVE_ENERGY] && checkStatus(st)) {
+                System.out.println(status[st.ordinal()]);
                 return st.SCALE;
             }
         }
@@ -104,7 +105,7 @@ public class Actor extends WorldObject {
     }
     public double getAttackEnergyMultiplier() {
         for (StatusType st : StatusType.values()) {
-            if (st.AFFECTS[ATTACK_ENERGY]) {
+            if (st.AFFECTS[ATTACK_ENERGY] && checkStatus(st)) {
                 return st.SCALE;
             }
         }
@@ -113,7 +114,7 @@ public class Actor extends WorldObject {
     public int getAdjustedStatistic(int combatantStatisticIndex) {
         int combatantStatistic = combatant.getStatistic(combatantStatisticIndex);
         for (StatusType st : StatusType.values()) {
-            if (st.AFFECTS[combatantStatisticIndex]) {
+            if (st.AFFECTS[combatantStatisticIndex] && checkStatus(st)) {
                 combatantStatistic = (int)((double)combatantStatistic * st.SCALE);
             }
         }
@@ -161,5 +162,10 @@ public class Actor extends WorldObject {
     public boolean inEffect(StatusType st) {
         int index = st.ordinal();
         return st.COUNTER ? status[index] > 0 : status[index] > Session.getEngine().getGameTurn();
+    }
+
+    @Override
+    public String toString() {
+        return getTemplate().getName() + ": " + getCombatant();
     }
 }
