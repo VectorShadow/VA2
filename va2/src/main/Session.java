@@ -6,6 +6,7 @@ import io.out.DisplayStandards;
 import io.out.FloorRenderer;
 import io.out.message.MessageCenter;
 import main.modes.*;
+import main.progression.EstateProgression;
 import main.progression.Experience;
 import resources.chroma.ChromaSet;
 import util.InputSimplifier;
@@ -40,6 +41,7 @@ public class Session {
     private static Dungeon currentDungeon;
     private static Floor currentFloor;
     private static Engine engine;
+    private static EstateProgression estateProgression;
     private static FileManager fileManager;
     private static FloorRenderer floorRenderer;
     private static GUIManager guiManager;
@@ -52,6 +54,7 @@ public class Session {
         ItemDefinitions.checkOrder();
         Experience.fillXPTable();
         colorScheme = DisplayStandards.THEME_THE_DARK_GROVE;
+        estateProgression = new EstateProgression();
         fileManager = new FileManager();
         guiManager = new GUIManager();
         modeManager = new ModeManager();
@@ -71,9 +74,10 @@ public class Session {
         player.getActor().getCombatant().renewSoul();
         currentFloor.generate();
     }
-    public static void loadSavedGame(Camera c, Dungeon d, Floor f, Engine e, Player p) {
+    public static void loadSavedGame(Camera c, Dungeon d, EstateProgression ep, Floor f, Engine e, Player p) {
         camera = c;
         currentDungeon = d;
+        estateProgression = ep;
         currentFloor = f;
         engine = e;
         player = p;
@@ -98,6 +102,8 @@ public class Session {
     public static Floor getCurrentFloor() {
         return currentFloor;
     }
+
+    public static EstateProgression getEstateProgression() { return estateProgression; }
 
     public static Engine getEngine() {
         return engine;

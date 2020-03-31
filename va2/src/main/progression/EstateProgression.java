@@ -1,8 +1,9 @@
 package main.progression;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EstateProgression {
+public class EstateProgression implements Serializable {
 
     public static final int INDEX_LIBRARY = 0;
     public static final int INDEX_HALL_OF_ARMS = 1;
@@ -20,7 +21,7 @@ public class EstateProgression {
 
     private ArrayList<ArrayList<EstateProgressionNode>> estateRooms = new ArrayList<>();
 
-    private EstateProgression() {
+    public EstateProgression() {
         //todo - setup the base (locked) EstateProgression here
     }
 

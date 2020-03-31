@@ -3,21 +3,25 @@ package main.progression;
 import world.item.inventory.Inventory;
 import world.item.inventory.ItemSlot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EstateProgressionNode {
+public class EstateProgressionNode implements Serializable {
     private boolean unlocked = false;
     private ArrayList<ResourceRequirement> resourceRequirements;
     private ArrayList<NodeIndex> prerequisiteNodes;
+    private int[] resourceIndex;
 
-    public boolean canUnlock(Inventory i, EstateProgression ep) {
-        //todo - build a list of inventory indices corresponding to met resource requirements
-        // if we return true, unlock can simply use that list rather than finding them all again
-        for (ResourceRequirement rr : resourceRequirements) { //make sure all resource requirements are met
+    public boolean canUnlock(Inventory inv, EstateProgression ep) {
+        resourceIndex = new int[resourceRequirements.size()];
+        for (int i = 0; i < resourceRequirements.size(); ++i) { //make sure all resource requirements are met
             boolean met = false;
-            for (ItemSlot is : i) {
+            for (int j = 0; j < inv.size(); ++j) {
+                ResourceRequirement rr = resourceRequirements.get(i);
+                ItemSlot is = inv.get(j);
                 if (rr.isMet(is.peekItem(), is.count())) {
                     met = true;
+                    resourceIndex[i] = j;
                     break; //don't check any more slots
                 }
             }
@@ -28,8 +32,13 @@ public class EstateProgressionNode {
         }
         return true;
     }
-    public void unlock() {
-        //todo - use the list built during canUnlock.
+    public void unlock(Inventory inv) {
+        if (resourceRequirements.size() != resourceIndex.length)
+            throw new IllegalStateException("Resource index mismatch");
+        for (int i = 0; i < resourceRequirements.size(); ++i) {
+            inv.remove(resourceIndex[i], resourceRequirements.get(i).getCount());
+        }
+        unlocked = true;
     }
 
     public boolean isUnlocked() {

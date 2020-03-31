@@ -7,13 +7,14 @@ import world.item.Item;
 import world.item.ItemDefinitions;
 import world.item.StackableItem;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
  * Store a list of items.
  */
-public class Inventory implements Iterable<ItemSlot> {
+public class Inventory implements Iterable<ItemSlot>, Serializable {
     private LinkedList<ItemSlot> itemSlots;
     int capacity;
 
@@ -128,5 +129,12 @@ public class Inventory implements Iterable<ItemSlot> {
     @Override
     public Iterator<ItemSlot> iterator() {
         return itemSlots.iterator();
+    }
+
+    public int size() {
+        return itemSlots.size();
+    }
+    public ItemSlot get(int index) {
+        return itemSlots.get(index);
     }
 }
