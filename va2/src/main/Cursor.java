@@ -1,11 +1,13 @@
 package main;
 
+import resources.DualityMode;
 import resources.chroma.Chroma;
 import resources.glyph.Glyph;
 import resources.glyph.GlyphBuilder;
 import util.Coordinate;
 import util.Direction;
-import world.dungeon.floor.FloorTile;
+
+import static io.out.GUIManager.*;
 
 /**
  * Specifies the location of a cursor on the screen for player information.
@@ -47,7 +49,7 @@ public class Cursor {
     public void shift(Direction d) {
         targetList().clearTarget();
         Coordinate c = d.shift(at);
-        if (Session.getFloorRenderer().onScreen(c)) {
+        if (Session.getFloorRenderer().onScreen(c) && Session.getCurrentFloor().inFloor(c.getRow(), c.getColumn())) {
             at = c;
             targetList().setTarget(at);
         }
@@ -78,12 +80,15 @@ public class Cursor {
                                 : Chroma.BLACK
                                 : Chroma.ORANGE,
                         visible
-                        ? isPlayer
+                                ? isPlayer
                                 ? '@'
                                 : isActor
                                 ? 'X'
                                 : ' '
                                 : '?'
-                ).build();
+                )
+                .setImageRowAndColumn(
+                        GFX_ROW_ADMIN,
+                        visible ? isPlayer ? 1 : isActor ? 3 : 2 : 4).build(DualityMode.TILE);
     }
 }

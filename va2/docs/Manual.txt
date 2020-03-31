@@ -6,6 +6,16 @@
     The game begins in the distant past of the world revealed in Viridian Abyss, in the land of Ys, and the story progresses from there to the far corners of the Earth, revealing more and more of the secrets of Earth's long history, and sheds ever more light on the lurking peril which threatens all of humanity.
 [The Estate]
     -todo
+[The Dungeon]
+    <Layout>
+        Dungeons consist of multiple floors. Each floor is guarded by various enemies, which must be defeated or avoided to progress through the floor. Defeating enemies awards potential experience and items, which are critical to character progression, but combat can often be dangerous, wounding the player to an extent where he cannot continue to explore the dungeon safely.
+        Rewards improve the deeper in the dungeon you explore, but so does the difficulty of the guardians, so the player must find a balance between making his way to as deep a floor as possible in relative safety, and fighting and killing within a floor.
+        Many dungeons also have special rooms with additional item or experience rewards available, and some floors will be protected by a floor guardian, an enemy far stronger than the average for a floor. Every dungeon also has a dungeon guardian on the final floor. Defeating these guardians is always necessary to explore deeper floors or complete a dungeon.
+    <Rewards>
+        A player can claim his rewards from dungeon exploration in three ways, each related to a different stair available on each floor. The first stair is the one the player enters the dungeon from. This stair represents a quick escape from the dungeon, allowing the player to flee to safety with relative ease, but requiring him to sacrifice more than half of his accumulate rewards for the entire dungeon(not just that floor).
+        The second option for claiming rewards is to use the exit stair, found near the end of the dungeon. This stair awards full rewards for all floors completed in the dungeon so far, but it is often far from the entry stair, and if a floor guardian resides on the level, will function as a flight stair unless that guardian is defeated, causing the player to lose just as much of his reward as leaving via the entry stair.
+        The final option is the stair downward to the next floor within the dungeon. Taking this stair awards approximately 15% of the player's accumulated rewards from the dungeon so far, securing them permanently, even if he later takes a flight stair. It also progresses the character down to another brand new level, full of enemies and other opportunities to gain further rewards. If a floor guardian resides on the level, this stair may not be taken until it is defeated.
+        The final floor of each dungeon is special. It has a guaranteed floor guardian, who also serves as the final guardian of the entire dungeon, and a special completion exit, which replaces both the exit and next floor stairs. Final dungeon floors are pre-generated and usually pose a much greater challenge than ordinary floors, but also provide much greater rewards, and allow the player to move on to other, more rewarding dungeons.
 [Combat]
     <Life and Attributes>
         Life is divided into three primary components: Health, Sanity, and Soul.

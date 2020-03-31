@@ -17,7 +17,6 @@ import main.modes.OperatingMode;
 import main.progression.Experience;
 import resources.DualityContext;
 import resources.DualityMode;
-import resources.chroma.Chroma;
 import resources.chroma.ChromaSet;
 import resources.glyph.Glyph;
 import resources.glyph.GlyphString;
@@ -38,6 +37,10 @@ import java.io.IOException;
  * Primary agent for GUI Management.
  */
 public class GUIManager {
+    public static final int GFX_ROW_ADMIN = 0;
+    public static final int GFX_ROW_TERRAIN = 1;
+    public static final int GFX_ROW_ACTOR = 2;
+
     /**
      * a key listener that throttles player input, preventing handling overload
      */

@@ -27,6 +27,11 @@ public class WorldObjectTemplateFactory {
     private ArrayList<Character> symbols;
     private ArrayList<Color> backgroundColors;
     private ArrayList<Color> foregroundColors;
+    private ArrayList<Color> secondaryColors;
+    private ArrayList<Color> tertiaryColors;
+
+    private int imageRow = -1;
+    private int imageCol = -1;
 
     private boolean reflectLight = false;
 
@@ -34,6 +39,8 @@ public class WorldObjectTemplateFactory {
         symbols = new ArrayList<>();
         backgroundColors = new ArrayList<>();
         foregroundColors = new ArrayList<>();
+        secondaryColors = new ArrayList<>();
+        tertiaryColors = new ArrayList<>();
     }
 
     public static WorldObjectTemplateFactory initialize() {
@@ -90,10 +97,41 @@ public class WorldObjectTemplateFactory {
         foregroundColors = colors;
         return this;
     }
+    public WorldObjectTemplateFactory setSecondaryColors(Color c) {
+        secondaryColors.add(c);
+        return this;
+    }
+    public WorldObjectTemplateFactory setSecondaryColors(Color[] colors) {
+        for (Color c : colors) secondaryColors.add(c);
+        return this;
+    }
+    public WorldObjectTemplateFactory setSecondaryColors(ArrayList<Color> colors) {
+        secondaryColors = colors;
+        return this;
+    }
+    public WorldObjectTemplateFactory setTertiaryColors(Color c) {
+        tertiaryColors.add(c);
+        return this;
+    }
+    public WorldObjectTemplateFactory setTertiaryColors(Color[] colors) {
+        for (Color c : colors) tertiaryColors.add(c);
+        return this;
+    }
+    public WorldObjectTemplateFactory setTertiaryColors(ArrayList<Color> colors) {
+        tertiaryColors = colors;
+        return this;
+    }
+    public WorldObjectTemplateFactory setImage(int iRow, int iCol) {
+        imageRow = iRow;
+        imageCol = iCol;
+        return this;
+    }
     private void forceNonEmptyLists() {
         if (symbols.isEmpty()) symbols.add(DEFAULT_SYMBOL);
         if (backgroundColors.isEmpty()) backgroundColors.add(DEFAULT_BACKGROUND_COLOR);
         if (foregroundColors.isEmpty()) foregroundColors.add(DEFAULT_FOREGROUND_COLOR);
+        if (secondaryColors.isEmpty()) secondaryColors.add(DEFAULT_FOREGROUND_COLOR);
+        if (tertiaryColors.isEmpty()) tertiaryColors.add(DEFAULT_FOREGROUND_COLOR);
     }
     public ActorTemplate manufactureActorTemplate(
             int energyPerTurn,
@@ -115,9 +153,13 @@ public class WorldObjectTemplateFactory {
                 description,
                 name,
                 new BalancedGlyphTemplate(
-                    symbols,
-                    backgroundColors,
-                    foregroundColors
+                        symbols,
+                        backgroundColors,
+                        foregroundColors,
+                        secondaryColors,
+                        tertiaryColors,
+                        imageRow,
+                        imageCol
                 ),
                 reflectLight,
                 energyPerTurn,
@@ -135,7 +177,11 @@ public class WorldObjectTemplateFactory {
                 new BalancedGlyphTemplate(
                         symbols,
                         backgroundColors,
-                        foregroundColors
+                        foregroundColors,
+                        secondaryColors,
+                        tertiaryColors,
+                        imageRow,
+                        imageCol
                 ),
                 durability,
                 material,
@@ -150,7 +196,11 @@ public class WorldObjectTemplateFactory {
                 new BalancedGlyphTemplate(
                         symbols,
                         backgroundColors,
-                        foregroundColors
+                        foregroundColors,
+                        secondaryColors,
+                        tertiaryColors,
+                        imageRow,
+                        imageCol
                 ),
                 reflectLight,
                 permitLight,

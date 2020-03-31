@@ -18,10 +18,10 @@ public class TransitiveScrollingTextMode extends ScrollingTextMode {
         this.targetMode = targetMode;
     }
 
-    public void in(KeyEvent e) {
-        if (OperatingMode.overrideHandleInput(e) || (e.getModifiersEx() == ALT_DOWN_MASK)) return;
-        super.in(e);
-        if (e.getKeyCode() == VK_ENTER)
+    public void in(KeyEvent ke) {
+        if (OperatingMode.overrideHandleInput(this, ke) || (ke.getModifiersEx() == ALT_DOWN_MASK)) return;
+        super.in(ke);
+        if (ke.getKeyCode() == VK_ENTER)
             Session.getModeManager().transitionTo(targetMode); //transition to the target mode
     }
 }

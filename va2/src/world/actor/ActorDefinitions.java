@@ -14,8 +14,10 @@ import util.ArrayListBuilder;
 import world.ColorStandards;
 import world.WorldObjectTemplateFactory;
 import world.item.MeleeWeapon;
+import world.light.Light;
 
 import java.awt.*;
+import static io.out.GUIManager.*;
 
 /**
  * Contains the definitions for each available ActorTemplate.
@@ -26,6 +28,10 @@ public class ActorDefinitions {
                     .initialize()
                     .setName("Ysian adventurer")
                     .setSymbols('@')
+                    .setForegroundColors(Chroma.FLESH)
+                    .setSecondaryColors(Light.TORCH.getColor()) //todo - update light and armor colors on player glyph!
+                    .setTertiaryColors(ArmorDefinitions.LEATHER_VEST().getTemplate().memoryImage().getFaceColor())
+                    .setImage(GFX_ROW_ACTOR, 1)
                     .manufactureActorTemplate(
                             25,
                             new PlayerCombatant(),
@@ -42,6 +48,8 @@ public class ActorDefinitions {
                                     Chroma.BROWN,
                             }
                     )
+                    .setSecondaryColors(Chroma.RED)
+                    .setImage(GFX_ROW_ACTOR, 2)
                     .manufactureActorTemplate(
                             38,
                             new Combatant(
@@ -69,6 +77,8 @@ public class ActorDefinitions {
                                     Chroma.BEIGE
                             }
                     )
+                    .setSecondaryColors(Chroma.GREEN)
+                    .setImage(GFX_ROW_ACTOR, 2)
                     .manufactureActorTemplate(
                             37,
                             new Combatant(
@@ -98,7 +108,14 @@ public class ActorDefinitions {
                                     ColorStandards.HUNTING_SPIDER_BODY,
                                     ColorStandards.HUNTING_SPIDER_HOURGLASS
                             }
-                            )
+                    )
+                    .setSecondaryColors(
+                            new Color[] {
+                                    Color.GREEN,
+                                    Color.RED
+                            }
+                    )
+                    .setImage(GFX_ROW_ACTOR, 2)
                     .manufactureActorTemplate(
                             36,
                             new Combatant(
@@ -119,6 +136,8 @@ public class ActorDefinitions {
                     .setName("forest wolf")
                     .setSymbols('w')
                     .setForegroundColors(Chroma.BROWN)
+                    .setSecondaryColors(Chroma.BLACK)
+                    .setImage(GFX_ROW_ACTOR, 3)
                     .manufactureActorTemplate(
                             32,
                             new Combatant(
@@ -139,6 +158,8 @@ public class ActorDefinitions {
                     .setName("silver wolf")
                     .setSymbols('w')
                     .setForegroundColors(Chroma.METALLIC_SILVER)
+                    .setSecondaryColors(Chroma.TURQUOISE)
+                    .setImage(GFX_ROW_ACTOR, 3)
                     .manufactureActorTemplate(
                             30,
                             new Combatant(
@@ -166,6 +187,8 @@ public class ActorDefinitions {
                                     Chroma.BROWN,
                                     Chroma.CRIMSON
                             })
+                    .setSecondaryColors(Chroma.GREEN)
+                    .setImage(GFX_ROW_ACTOR, 3)
                     .manufactureActorTemplate(
                             33,
                             new Combatant(
@@ -186,6 +209,8 @@ public class ActorDefinitions {
                     .setName("black bear")
                     .setSymbols('b')
                     .setForegroundColors(ColorStandards.BLACK_BEAR_FUR)
+                    .setSecondaryColors(Chroma.RED)
+                    .setImage(GFX_ROW_ACTOR, 4)
                     .manufactureActorTemplate(
                             24,
                             new Combatant(
@@ -212,6 +237,8 @@ public class ActorDefinitions {
                                     ColorStandards.BLACK_BEAR_FUR
                             }
                             )
+                    .setSecondaryColors(Chroma.RED)
+                    .setImage(GFX_ROW_ACTOR, 4)
                     .manufactureActorTemplate(
                             24,
                             new Combatant(
@@ -252,6 +279,9 @@ public class ActorDefinitions {
                                     ColorStandards.HUNTING_SPIDER_HOURGLASS
                             }
                     )
+                    .setSecondaryColors(Chroma.SLIME)
+                    .setTertiaryColors(Chroma.WHITE)
+                    .setImage(GFX_ROW_ACTOR, 5)
                     .manufactureActorTemplate(
                             21,
                             new Combatant(
@@ -266,7 +296,13 @@ public class ActorDefinitions {
                                                     .initialize()
                                                     .addElement(
                                                             new Pair<>(
-                                                                    0.33,
+                                                                    0.05,
+                                                                    MeleeWeaponDefinitions.WEB_STRIKE()
+                                                            )
+                                                    )
+                                                    .addElement(
+                                                            new Pair<>(
+                                                                    0.25,
                                                                     MeleeWeaponDefinitions.ACID_STING()
                                                             )
                                                     )
@@ -293,6 +329,8 @@ public class ActorDefinitions {
                                     Chroma.VENOM_GREEN
                             }
                     )
+                    .setSecondaryColors(Chroma.CRIMSON)
+                    .setImage(GFX_ROW_ACTOR, 6)
                     .manufactureActorTemplate(
                             30,
                             new Combatant(
@@ -327,6 +365,8 @@ public class ActorDefinitions {
                                     Chroma.FLESH
                             }
                     )
+                    .setSecondaryColors(Chroma.ANTIAMBER)
+                    .setImage(GFX_ROW_ACTOR, 7)
                     .manufactureActorTemplate(
                             19,
                             new Combatant(

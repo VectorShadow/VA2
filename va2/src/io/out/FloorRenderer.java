@@ -119,7 +119,7 @@ public class FloorRenderer {
         for (StatusType st : StatusType.values()) {
             if (st.ordinal() < StatusType.FIRST_POSITIVE_STATUS) continue;
             if (Session.getPlayer().getActor().inEffect(st)) {
-                glyphMap.setGlyph(--enhancementRow, enhancementColumn, st.GLYPH);
+                glyphMap.setGlyph(--enhancementRow, enhancementColumn, st.GLYPH());
             }
         }
         glyphMap.setGlyph(0, enhancementColumn, DisplayStandards.getWardGlyph());
@@ -131,7 +131,7 @@ public class FloorRenderer {
         for (StatusType st : StatusType.values()) {
             if (st.ordinal() >= StatusType.FIRST_POSITIVE_STATUS) break;
             if (Session.getPlayer().getActor().inEffect(st)) {
-                glyphMap.setGlyph(++afflictionRow, afflictionColumn, st.GLYPH);
+                glyphMap.setGlyph(++afflictionRow, afflictionColumn, st.GLYPH());
             }
         }
         if (lastFloor != f) { //we just drew a new floor for the first time, refresh the target list now

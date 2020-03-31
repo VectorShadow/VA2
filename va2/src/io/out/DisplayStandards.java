@@ -10,6 +10,8 @@ import world.ColorStandards;
 
 import java.awt.*;
 
+import static io.out.GUIManager.*;
+
 public class DisplayStandards {
     public static Glyph getMessageWindowBorder() {
         ChromaSet cs = Session.getColorScheme();
@@ -44,6 +46,7 @@ public class DisplayStandards {
         return GlyphBuilder
                 .buildGlyph()
                 .setDefaults(cs.getBackground(), Chroma.GREEN, '+')
+                .setImageRowAndColumn(GFX_ROW_ADMIN, 6)
                 .build(DualityMode.TILE);
     }
     public static Glyph getAfflictionGlyph() {
@@ -51,6 +54,7 @@ public class DisplayStandards {
         return GlyphBuilder
                 .buildGlyph()
                 .setDefaults(cs.getBackground(), Chroma.RED, '-')
+                .setImageRowAndColumn(GFX_ROW_ADMIN, 5)
                 .build(DualityMode.TILE);
     }
     public static Glyph getWardGlyph() {
@@ -58,6 +62,7 @@ public class DisplayStandards {
         return GlyphBuilder
                 .buildGlyph()
                 .setDefaults(cs.getBackground(), Chroma.BLUE, '%')
+                .setImageRowAndColumn(GFX_ROW_ADMIN, 7)
                 .build(DualityMode.TILE);
     }
 

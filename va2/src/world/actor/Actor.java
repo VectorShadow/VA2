@@ -48,7 +48,7 @@ public class Actor extends WorldObject {
     public void gainEnergy() {
         double multiplier = 1.0;
         for (StatusType st : StatusType.values()) {
-            if (st.AFFECTS[ENERGY_GAIN]) {
+            if (st.AFFECTS[ENERGY_GAIN] && checkStatus(st)) {
                 multiplier = st.SCALE;
             }
         }
@@ -96,7 +96,8 @@ public class Actor extends WorldObject {
 
     public double getMoveEnergyMultiplier() {
         for (StatusType st : StatusType.values()) {
-            if (st.AFFECTS[MOVE_ENERGY]) {
+            if (st.AFFECTS[MOVE_ENERGY] && checkStatus(st)) {
+                System.out.println(status[st.ordinal()]);
                 return st.SCALE;
             }
         }
@@ -104,7 +105,7 @@ public class Actor extends WorldObject {
     }
     public double getAttackEnergyMultiplier() {
         for (StatusType st : StatusType.values()) {
-            if (st.AFFECTS[ATTACK_ENERGY]) {
+            if (st.AFFECTS[ATTACK_ENERGY] && checkStatus(st)) {
                 return st.SCALE;
             }
         }
@@ -113,7 +114,7 @@ public class Actor extends WorldObject {
     public int getAdjustedStatistic(int combatantStatisticIndex) {
         int combatantStatistic = combatant.getStatistic(combatantStatisticIndex);
         for (StatusType st : StatusType.values()) {
-            if (st.AFFECTS[combatantStatisticIndex]) {
+            if (st.AFFECTS[combatantStatisticIndex] && checkStatus(st)) {
                 combatantStatistic = (int)((double)combatantStatistic * st.SCALE);
             }
         }

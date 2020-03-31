@@ -4,7 +4,6 @@ import combat.melee.forms.Form;
 import main.Session;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;
-import resources.glyph.Glyph;
 import resources.glyph.GlyphString;
 import util.Format;
 import util.InputSimplifier;

@@ -28,7 +28,7 @@ public class MainGameCameraMode extends MainGameViewMode {
 
     @Override
     public void in(KeyEvent ke) {
-        if (OperatingMode.overrideHandleInput(ke)) return;
+        if (OperatingMode.overrideHandleInput(this, ke)) return;
         Camera camera = Session.getCamera();
         switch (getInput().test(ke)) {
             case CAMERA_EXIT:

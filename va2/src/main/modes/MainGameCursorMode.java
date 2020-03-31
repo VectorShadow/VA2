@@ -32,7 +32,7 @@ public class MainGameCursorMode extends MainGameViewMode {
 
     @Override
     public void in(KeyEvent ke) {
-        if (OperatingMode.overrideHandleInput(ke)) return;
+        if (OperatingMode.overrideHandleInput(this, ke)) return;
         switch (getInput().test(ke)) {
             case CURSOR_CYCLE_FAR:
                 cursor.cycle(true);

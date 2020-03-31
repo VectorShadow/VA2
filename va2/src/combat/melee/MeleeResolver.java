@@ -472,7 +472,7 @@ public class MeleeResolver extends CombatResolver {
                             PRIORITY_MAX
                     );
                     f.killFloorBoss();
-                } else if (as.getDungeonBossSet().length > 0 && as.getDungeonBossSet()[0] == defender.getTemplate()) {
+                } else if (as.getDungeonBossSet().length > 0 && as.getDungeonBossSet()[0].equals(defender.getTemplate())) {
                     updateMessage(
                             "You have defeated " + defenderName + ", the final guardian of this dungeon.",
                             MessageType.SUCCESS,

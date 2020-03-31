@@ -45,7 +45,7 @@ public class MainGameViewMode implements OperatingMode {
 
     @Override
     public void in(KeyEvent ke) {
-        if (OperatingMode.overrideHandleInput(ke)) return;
+        if (OperatingMode.overrideHandleInput(this, ke)) return;
         Action action = null;
         Coordinate here;
         TerrainTemplate tt;

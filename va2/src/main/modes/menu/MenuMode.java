@@ -21,7 +21,7 @@ public abstract class MenuMode implements OperatingMode {
 
     @Override
     public void in(KeyEvent ke) {
-        if (OperatingMode.overrideHandleInput(ke) || (ke.getModifiersEx() == ALT_DOWN_MASK)) return;
+        if (OperatingMode.overrideHandleInput(this, ke) || (ke.getModifiersEx() == ALT_DOWN_MASK)) return;
         int kc = ke.getKeyCode();
         switch (kc) {
             case VK_UP:

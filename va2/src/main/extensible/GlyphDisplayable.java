@@ -31,6 +31,7 @@ public abstract class GlyphDisplayable extends TextDisplayable {
                         Chroma.dim(BALANCED_GLYPH_TEMPLATE.getBaseForegroundColor()),
                         BALANCED_GLYPH_TEMPLATE.getBaseSymbol()
                 )
+                .setImageRowAndColumn(BALANCED_GLYPH_TEMPLATE.getImageRow(), BALANCED_GLYPH_TEMPLATE.getImageCol())
                 .build(DualityMode.TILE);
     }
     public GlyphBuilder partialVisualImage() {

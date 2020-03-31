@@ -9,6 +9,7 @@ TBD - Version [a.1.0]:
   -Added new DamageTypes Arcane, Eldritch, Lightning, Psychic, True.
   -Combatant life is now divided into Health(Body), Sanity(Mind), and Soul.
   -Information about the game in general, life, and melee combat added to the Manual.
+  -Support for graphical tiles added.
 
 27 MAR 2020 - Version [a.0.1]:
  [Bug Fix]:
