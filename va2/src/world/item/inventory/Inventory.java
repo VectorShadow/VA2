@@ -7,12 +7,13 @@ import world.item.Item;
 import world.item.ItemDefinitions;
 import world.item.StackableItem;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
  * Store a list of items.
  */
-public class Inventory {
+public class Inventory implements Iterable<ItemSlot> {
     private LinkedList<ItemSlot> itemSlots;
     int capacity;
 
@@ -122,5 +123,10 @@ public class Inventory {
             i.remove(5, 3);
             ErrorLogger.logFatalException(new IllegalStateException("IllegalArgumentException expected!"));
         } catch (IllegalArgumentException iae) {}
+    }
+
+    @Override
+    public Iterator<ItemSlot> iterator() {
+        return itemSlots.iterator();
     }
 }
