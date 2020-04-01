@@ -4,6 +4,9 @@ import io.out.message.MessageCenter;
 import io.out.message.MessageType;
 import main.Player;
 import main.Session;
+import main.modes.ModeManager;
+import main.modes.ScrollingTextMode;
+import main.modes.TransitiveScrollingTextMode;
 import main.progression.rewards.Experience;
 import main.progression.rewards.Reward;
 import world.dungeon.floor.Floor;
@@ -105,7 +108,7 @@ public class Dungeon implements Serializable {
                 experience.gainXP(r.evaluateExperience(experience.getLevel()));
                 ItemSlot itemSlot = r.rollDrop();
                 if (itemSlot != null) {
-                    accumulatedItems.add(itemSlot.peekItem(), itemSlot.count());
+                    accumulatedItems.add(itemSlot.peekItem(), Session.getRNG().nextInt(itemSlot.count()) + 1);
                 }
             }
         }
@@ -118,7 +121,7 @@ public class Dungeon implements Serializable {
     }
     private void awardAccumulatedItems() {
         //todo - reassign accumulatedItems to appropriate player inventories - remember to clone DegradableItems!
-        //todo - show the player what he received - probably use a TransitiveScrollingTextMode for this.
+        Session.getModeManager().transitionTo(new ScrollingTextMode("" + accumulatedItems));
         accumulatedItems = new Inventory(); //reset this inventory
     }
     public void killDungeonBoss() {

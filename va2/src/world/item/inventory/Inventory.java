@@ -57,7 +57,7 @@ public class Inventory implements Iterable<ItemSlot>, Serializable {
             itemSlot = itemSlots.get(index); //get the slot there
             if (i instanceof StackableItem) //if it stacks
                 if (itemSlot.peekID() == i.getID()) {//if the ID is the same
-                    addLimit = capacity < 0 ? count - 1 : Math.min(count - 1, capacity - itemSlot.count()); //respect capacity
+                    addLimit = capacity < 0 ? count : Math.min(count, capacity - itemSlot.count()); //respect capacity
                     itemSlot.addItem(addLimit); //add the full count to this slot
                     return (addLimit == count - 1);
                 } else {
@@ -91,38 +91,22 @@ public class Inventory implements Iterable<ItemSlot>, Serializable {
         int indexedID;
         while(true) {
             if (searchIndex > itemSlots.size() - 1) return itemSlots.size() - 1;
-            if (searchIndex <= 0) return -1;
             indexedID = itemSlots.get(searchIndex).peekItem().getID();
+            if (searchIndex == 0 && indexedID > itemID) return -1;
             if (indexedID > itemID) {
                 upperLimit = searchIndex;
-                searchIndex = (searchIndex + lowerLimit) / 2;
+                searchIndex = Math.min(searchIndex - 1, (searchIndex + lowerLimit) / 2);
             } else if (indexedID < itemID) {
                 lowerLimit = searchIndex;
-                searchIndex = ((searchIndex + upperLimit) / 2) + 1;
+                searchIndex = Math.max(searchIndex + 1, (searchIndex + upperLimit) / 2);
             } else break;
+            //target slot does not exist but is between the limits
+            if (upperLimit - lowerLimit < 2
+                    && itemSlots.get(lowerLimit).peekItem().getID() < itemID
+                    && itemSlots.get(upperLimit).peekItem().getID() > itemID)
+                return lowerLimit;
         }
         return searchIndex;
-    }
-
-    public static void test() {
-        Inventory i = new Inventory(55);
-        i.add(ItemDefinitions.get(MeleeWeaponDefinitions.BRONZE_SHORT_SWORD().getID()), 5);
-        i.add(ItemDefinitions.get(ArmorDefinitions.LEATHER_VEST().getID()));
-        i.add(ItemDefinitions.get(MeleeWeaponDefinitions.BRONZE_SHORT_SWORD().getID()));
-        i.add(ItemDefinitions.get(MeleeWeaponDefinitions.SPIDER_BITE().getID()));
-        i.add(ItemDefinitions.get(0xf101));
-        i.add(ItemDefinitions.get(0xf100), 99);
-        i.remove(1);
-        i.remove(0, 36);
-        i.remove(5);
-        i.setCapacity(1024);
-        System.out.println(i.add(ItemDefinitions.get(0xf102), 77));
-        for (ItemSlot is : i.itemSlots)
-            System.out.println(is.peekItem().getTemplate().getName() + " x" + is.count());
-        try {
-            i.remove(5, 3);
-            ErrorLogger.logFatalException(new IllegalStateException("IllegalArgumentException expected!"));
-        } catch (IllegalArgumentException iae) {}
     }
 
     @Override
@@ -135,5 +119,13 @@ public class Inventory implements Iterable<ItemSlot>, Serializable {
     }
     public ItemSlot get(int index) {
         return itemSlots.get(index);
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (ItemSlot is : itemSlots)
+            s += "\n" + is;
+        return s;
     }
 }

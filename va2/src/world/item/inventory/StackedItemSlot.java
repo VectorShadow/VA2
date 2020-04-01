@@ -53,6 +53,6 @@ public class StackedItemSlot extends AbstractItemSlot implements ItemSlot {
 
     @Override
     public String toString() {
-        return peekItem().getTemplate().getName();
+        return count() + "x " + peekItem().getTemplate().getName();
     }
 }
