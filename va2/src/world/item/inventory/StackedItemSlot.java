@@ -1,7 +1,7 @@
 package world.item.inventory;
 
 import world.item.Item;
-import world.item.ItemDefinitions;
+import world.item.define.ItemDefinitions;
 import world.item.StackableItem;
 
 public class StackedItemSlot extends AbstractItemSlot implements ItemSlot {

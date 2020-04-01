@@ -1,6 +1,6 @@
 package world.item.loadout;
 
-import combat.melee.weapons.MeleeWeaponDefinitions;
+import world.item.define.MeleeWeaponDefinitions;
 import main.Session;
 import world.item.MeleeWeapon;
 

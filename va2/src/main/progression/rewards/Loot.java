@@ -2,7 +2,7 @@ package main.progression.rewards;
 
 import world.dungeon.theme.ThemeDefinitions;
 import world.item.Item;
-import world.item.ItemDefinitions;
+import world.item.define.ItemDefinitions;
 import world.item.StackableItem;
 import world.item.inventory.ItemSlot;
 

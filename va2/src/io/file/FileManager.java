@@ -114,6 +114,7 @@ public class FileManager {
             fin = new FileInputStream(PROFILE_FILE.toString());
             ois = new ObjectInputStream(fin);
             LoreTree unlockedLore = (LoreTree)ois.readObject();
+            EstateProgression estateProgression = (EstateProgression)ois.readObject();
             Inventory legacyResources = (Inventory)ois.readObject();
             LoreDefinitions.setLockTree(unlockedLore);
             Session.setLegacyResources(legacyResources);
@@ -135,11 +136,10 @@ public class FileManager {
             ois = new ObjectInputStream(fin);
             Camera camera = (Camera)ois.readObject();
             Dungeon dungeon = (Dungeon)ois.readObject();
-            EstateProgression estateProgression = (EstateProgression)ois.readObject();
             Floor floor = (Floor)ois.readObject();
             Engine engine = (Engine)ois.readObject();
             Player player = (Player)ois.readObject();
-            Session.loadSavedGame(camera, dungeon, estateProgression, floor, engine, player);
+            Session.loadSavedGame(camera, dungeon, floor, engine, player);
         } catch (EOFException eofe) {
             return false; //tried to load an empty saved game - it was created but never written to
         } catch (Exception ex) {
@@ -157,6 +157,7 @@ public class FileManager {
             fout = new FileOutputStream(PROFILE_FILE.toString());
             oos = new ObjectOutputStream(fout);
             oos.writeObject(LoreDefinitions.getLockTree());
+            oos.writeObject(Session.getEstateProgression());
             oos.writeObject(Session.getLegacyResources());
         } catch (Exception e) {
             ErrorLogger.logFatalException(e);
@@ -174,7 +175,6 @@ public class FileManager {
             oos = new ObjectOutputStream(fout);
             oos.writeObject(Session.getCamera());
             oos.writeObject(Session.getCurrentDungeon());
-            oos.writeObject(Session.getEstateProgression());
             oos.writeObject(Session.getCurrentFloor());
             oos.writeObject(Session.getEngine());
             oos.writeObject(Session.getPlayer());

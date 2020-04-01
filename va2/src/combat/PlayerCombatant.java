@@ -1,8 +1,8 @@
 package combat;
 
-import combat.armor.ArmorDefinitions;
+import world.item.define.ArmorDefinitions;
 import combat.melee.forms.FormDefinitions;
-import combat.melee.weapons.MeleeWeaponDefinitions;
+import world.item.define.MeleeWeaponDefinitions;
 import main.Session;
 import util.InputSimplifier;
 

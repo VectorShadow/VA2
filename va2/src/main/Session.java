@@ -18,7 +18,7 @@ import util.Coordinate;
 import world.actor.Actor;
 import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.ThemeDefinitions;
-import world.item.ItemDefinitions;
+import world.item.define.ItemDefinitions;
 import world.item.inventory.Inventory;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
@@ -56,7 +56,7 @@ public class Session {
         estateProgression = new EstateProgression();
         fileManager = new FileManager();
         guiManager = new GUIManager();
-        legacyResources = new Inventory(50); //todo - replace with constants defined somewhere!
+        legacyResources = new Inventory(500); //todo - replace with constants defined somewhere!
         modeManager = new ModeManager();
         reset();
     }
@@ -74,10 +74,9 @@ public class Session {
         player.getActor().getCombatant().renewSoul();
         currentFloor.generate();
     }
-    public static void loadSavedGame(Camera c, Dungeon d, EstateProgression ep, Floor f, Engine e, Player p) {
+    public static void loadSavedGame(Camera c, Dungeon d, Floor f, Engine e, Player p) {
         camera = c;
         currentDungeon = d;
-        estateProgression = ep;
         currentFloor = f;
         engine = e;
         player = p;
@@ -176,6 +175,10 @@ public class Session {
     public static void setCurrentDungeon(Dungeon d) {
         currentDungeon = d;
         currentDungeon.nextFloor();
+    }
+
+    public static void setEstateProgression(EstateProgression ep) {
+        estateProgression = ep;
     }
 
     public static void setLegacyResources(Inventory lr) {

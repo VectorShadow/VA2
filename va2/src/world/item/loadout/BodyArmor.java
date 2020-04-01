@@ -1,6 +1,6 @@
 package world.item.loadout;
 
-import combat.armor.ArmorDefinitions;
+import world.item.define.ArmorDefinitions;
 import main.Session;
 import world.item.Armor;
 

@@ -4,6 +4,7 @@ import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
 import main.modes.menu.LoreMenuMode;
 import main.modes.menu.MenuDefinitions;
+import main.progression.estate.EstateProgression;
 
 public class LibraryMenuMode extends EstateRoomMenuMode {
 
@@ -25,7 +26,7 @@ public class LibraryMenuMode extends EstateRoomMenuMode {
                 //todo
                 return;
             case MenuDefinitions.LIBRARY_OPTIONS_UPGRADE:
-                //todo
+                Session.getModeManager().transitionTo(new UpgradeMenuMode(MenuDefinitions.getUpgradeOptions(EstateProgression.INDEX_LIBRARY)));
                 return;
             case MenuDefinitions.LIBRARY_OPTIONS_EXIT:
                 Session.getModeManager().revert();

@@ -1,5 +1,6 @@
 package world.item;
 
+import world.WorldObject;
 import world.item.Item;
 import world.item.ItemTemplate;
 
@@ -13,5 +14,10 @@ import world.item.ItemTemplate;
 public abstract class StackableItem extends Item {
     public StackableItem(ItemTemplate it) {
         super(it);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof StackableItem) && getTemplate().equals(((WorldObject) obj).getTemplate());
     }
 }

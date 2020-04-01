@@ -1,7 +1,6 @@
-package combat.armor;
+package world.item.define;
 
 import world.item.Armor;
-import world.item.ItemDefinitions;
 
 /**
  * Quick load Armors from ItemDefinitions.

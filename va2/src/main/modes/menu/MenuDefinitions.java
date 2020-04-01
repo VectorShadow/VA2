@@ -4,12 +4,17 @@ import contract.menu.Menu;
 import contract.menu.MenuBuilder;
 import contract.menu.MenuOption;
 import main.Session;
+import main.progression.estate.EstateProgression;
+import main.progression.estate.EstateProgressionNode;
+import main.progression.estate.EstateProgressionRoom;
 import world.lore.*;
 
 /**
  * Contains the definitions for each Menu which exists in the game.
  */
 public class MenuDefinitions {
+
+    public static final String CANCEL = "Cancel";
 
     static final int MAIN_MENU_NEW_GAME = 0;
     static final int MAIN_MENU_LOAD_GAME = 1;
@@ -90,7 +95,7 @@ public class MenuDefinitions {
         MenuOption studyTexts = new MenuOption("Study New Texts", false);
         MenuOption browseLore = new MenuOption("Browse Known Lore", true);
         MenuOption studyLanguages = new MenuOption("Study Languages", false);
-        MenuOption upgrade = new MenuOption("Upgrade Library", false);
+        MenuOption upgrade = new MenuOption("Upgrade Library", true);
         MenuOption exitLibrary = new MenuOption("Exit Library", true);
         return MenuBuilder.newMenu("Library Options")
                 .addOption(studyTexts)
@@ -246,7 +251,7 @@ public class MenuDefinitions {
     public static final int WAREHOUSE_OPTIONS_EXIT = 3;
 
     public static Menu getWarehouseOptions() {
-        MenuOption legacyStocks = new MenuOption("Review Legacy Stockpiles", false);
+        MenuOption legacyStocks = new MenuOption("Review Legacy Stockpiles", true);
         MenuOption transientStocks = new MenuOption("Review Transient Stockpiles", false);
         MenuOption upgrade = new MenuOption("Upgrade Warehouse", false);
         MenuOption exit = new MenuOption("Exit Warehouse", true);
@@ -291,5 +296,16 @@ public class MenuDefinitions {
                 .addOption(upgrade)
                 .addOption(exit)
                 .build();
+    }
+
+    public static Menu getUpgradeOptions(int estateRoomIndex) {
+        EstateProgressionRoom libraryProgression = Session.getEstateProgression().get(estateRoomIndex);
+        MenuBuilder menuBuilder = MenuBuilder.newMenu("Upgrade Options");
+        for (EstateProgressionNode epn : libraryProgression) {
+            if (!epn.isUnlocked() && epn.shouldDisplay(Session.getEstateProgression())) {
+                menuBuilder.addOption(new MenuOption("" + epn, epn.canUnlock(Session.getLegacyResources(), Session.getEstateProgression())));
+            }
+        }
+        return menuBuilder.addOption(new MenuOption(CANCEL, true)).build();
     }
 }

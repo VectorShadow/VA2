@@ -12,6 +12,9 @@ import main.progression.rewards.Reward;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.ThemeDefinitions;
+import world.item.Item;
+import world.item.Resource;
+import world.item.StackableItem;
 import world.item.inventory.Inventory;
 import world.item.inventory.ItemSlot;
 import world.lore.LockLeaf;
@@ -120,7 +123,14 @@ public class Dungeon implements Serializable {
         }
     }
     private void awardAccumulatedItems() {
-        //todo - reassign accumulatedItems to appropriate player inventories - remember to clone DegradableItems!
+        for (ItemSlot is : accumulatedItems) {
+            Item i = is.peekItem();
+            if (i instanceof Resource && ((Resource) i).isLegacy())
+                Session.getLegacyResources().add(i, is.count());
+            else {
+                //todo - reassign accumulatedItems to appropriate player inventories - remember to clone DegradableItems!
+            }
+        }
         Session.getModeManager().transitionTo(new ScrollingTextMode("" + accumulatedItems));
         accumulatedItems = new Inventory(); //reset this inventory
     }

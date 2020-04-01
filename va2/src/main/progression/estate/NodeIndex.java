@@ -1,6 +1,8 @@
 package main.progression.estate;
 
-public class NodeIndex {
+import java.io.Serializable;
+
+public class NodeIndex implements Serializable {
     final int ROOM_INDEX;
     final int UPGRADE_INDEX;
 

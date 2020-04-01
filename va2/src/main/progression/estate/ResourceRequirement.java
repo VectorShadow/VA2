@@ -14,10 +14,15 @@ public class ResourceRequirement implements Serializable {
         RESOURCE = r;
     }
     public boolean isMet(Item i, int c) {
-        return i instanceof Resource && i.equals(RESOURCE) && c >= COUNT;
+        return i instanceof Resource && i.equals(RESOURCE) && c > COUNT;
     }
 
     public int getCount() {
         return COUNT;
+    }
+
+    @Override
+    public String toString() {
+        return COUNT + "x " + RESOURCE.getTemplate().getName();
     }
 }

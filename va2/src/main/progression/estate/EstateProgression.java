@@ -1,5 +1,7 @@
 package main.progression.estate;
 
+import world.item.define.LegacyResourceDefinitions;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -19,10 +21,32 @@ public class EstateProgression implements Serializable {
 
     private static final int ROOM_COUNT = 11;
 
-    private ArrayList<ArrayList<EstateProgressionNode>> estateRooms = new ArrayList<>();
+    private ArrayList<EstateProgressionRoom> estateRooms = new ArrayList<>();
 
     public EstateProgression() {
-        //todo - setup the base (locked) EstateProgression here
+        EstateProgressionRoom epr = new EstateProgressionRoom();
+        ArrayList<ResourceRequirement> rrl = new ArrayList<>();
+        ArrayList<NodeIndex> nil = new ArrayList<>();
+        rrl.add(new ResourceRequirement(8, LegacyResourceDefinitions.LUMBER()));
+        rrl.add(new ResourceRequirement(2, LegacyResourceDefinitions.CLOTH()));
+        rrl.add(new ResourceRequirement(1, LegacyResourceDefinitions.SIMPLE_TOOLS()));
+        epr.add(new EstateProgressionNode("Study Desk", rrl, nil));
+        //todo - more library nodes
+        estateRooms.add(epr);
+        //todo - more rooms
+    }
+
+    public EstateProgressionRoom get(int roomIndex) {
+        return estateRooms.get(roomIndex);
+    }
+
+    public EstateProgressionNode get(String nodeMenuName) {
+        for (EstateProgressionRoom epr : estateRooms) {
+            for (EstateProgressionNode epn : epr) {
+                if (epn.toString().equals(nodeMenuName)) return epn;
+            }
+        }
+        throw new IllegalArgumentException("Node named " + nodeMenuName + " did not exist.");
     }
 
     EstateProgressionNode nodeAt(NodeIndex nodeIndex) {

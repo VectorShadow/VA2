@@ -1,7 +1,7 @@
 package world.item.loadout;
 
-import combat.armor.ArmorDefinitions;
-import combat.melee.weapons.MeleeWeaponDefinitions;
+import world.item.define.ArmorDefinitions;
+import world.item.define.MeleeWeaponDefinitions;
 import main.extensible.Saveable;
 
 /**

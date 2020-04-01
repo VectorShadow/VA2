@@ -1,5 +1,4 @@
-package combat.melee.weapons;
-import world.item.ItemDefinitions;
+package world.item.define;
 import world.item.MeleeWeapon;
 
 /**

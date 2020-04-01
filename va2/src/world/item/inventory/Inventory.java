@@ -1,10 +1,6 @@
 package world.item.inventory;
 
-import combat.armor.ArmorDefinitions;
-import combat.melee.weapons.MeleeWeaponDefinitions;
-import error.ErrorLogger;
 import world.item.Item;
-import world.item.ItemDefinitions;
 import world.item.StackableItem;
 
 import java.io.Serializable;
@@ -123,6 +119,7 @@ public class Inventory implements Iterable<ItemSlot>, Serializable {
 
     @Override
     public String toString() {
+        if (itemSlots.size() == 0) return "<empty>";
         String s = "";
         for (ItemSlot is : itemSlots)
             s += "\n" + is;

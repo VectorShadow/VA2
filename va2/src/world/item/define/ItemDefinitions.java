@@ -1,4 +1,4 @@
-package world.item;
+package world.item.define;
 
 import combat.DamageType;
 import combat.WeaponDamage;
@@ -9,6 +9,10 @@ import resources.continuum.Pair;
 import status.StatusType;
 import util.ArrayListBuilder;
 import world.WorldObjectTemplateFactory;
+import world.item.Armor;
+import world.item.Item;
+import world.item.MeleeWeapon;
+import world.item.Resource;
 import world.item.material.MaterialDefinitions;
 
 import java.util.Iterator;
