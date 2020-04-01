@@ -4,6 +4,7 @@ import combat.Combatant;
 import engine.action.Action;
 import engine.action.ActionDefinitions;
 import main.Session;
+import main.progression.rewards.Reward;
 import status.StatusType;
 import util.Coordinate;
 import world.WorldObject;
@@ -162,6 +163,10 @@ public class Actor extends WorldObject {
     public boolean inEffect(StatusType st) {
         int index = st.ordinal();
         return st.COUNTER ? status[index] > 0 : status[index] > Session.getEngine().getGameTurn();
+    }
+
+    public Reward finalizeReward() {
+        return ((ActorTemplate)getTemplate()).getReward().finalize(this);
     }
 
     @Override

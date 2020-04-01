@@ -1,4 +1,4 @@
-package main.progression;
+package main.progression.estate;
 
 import java.io.Serializable;
 import java.util.ArrayList;

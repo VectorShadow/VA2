@@ -2,7 +2,7 @@ package world;
 
 import ai.AI;
 import combat.Combatant;
-import main.progression.Reward;
+import main.progression.rewards.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
 import world.item.ItemTemplate;

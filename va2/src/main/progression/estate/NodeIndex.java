@@ -1,4 +1,4 @@
-package main.progression;
+package main.progression.estate;
 
 public class NodeIndex {
     final int ROOM_INDEX;

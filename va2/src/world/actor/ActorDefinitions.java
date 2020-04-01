@@ -6,7 +6,7 @@ import combat.PlayerCombatant;
 import combat.armor.ArmorDefinitions;
 import combat.melee.forms.FormDefinitions;
 import combat.melee.weapons.MeleeWeaponDefinitions;
-import main.progression.Reward;
+import main.progression.rewards.Reward;
 import resources.chroma.Chroma;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;

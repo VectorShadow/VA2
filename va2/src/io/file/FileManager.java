@@ -5,9 +5,10 @@ import error.ErrorLogger;
 import main.Camera;
 import main.Player;
 import main.Session;
-import main.progression.EstateProgression;
+import main.progression.estate.EstateProgression;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
+import world.item.inventory.Inventory;
 import world.lore.LoreDefinitions;
 import world.lore.LoreTree;
 
@@ -113,7 +114,9 @@ public class FileManager {
             fin = new FileInputStream(PROFILE_FILE.toString());
             ois = new ObjectInputStream(fin);
             LoreTree unlockedLore = (LoreTree)ois.readObject();
+            Inventory legacyResources = (Inventory)ois.readObject();
             LoreDefinitions.setLockTree(unlockedLore);
+            Session.setLegacyResources(legacyResources);
         } catch (EOFException eofe) {
             return false; //tried to load an empty profile - it was created but never written to
         } catch (Exception ex) {
@@ -154,6 +157,7 @@ public class FileManager {
             fout = new FileOutputStream(PROFILE_FILE.toString());
             oos = new ObjectOutputStream(fout);
             oos.writeObject(LoreDefinitions.getLockTree());
+            oos.writeObject(Session.getLegacyResources());
         } catch (Exception e) {
             ErrorLogger.logFatalException(e);
         } finally {

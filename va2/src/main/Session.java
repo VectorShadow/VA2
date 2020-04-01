@@ -6,10 +6,9 @@ import io.out.DisplayStandards;
 import io.out.FloorRenderer;
 import io.out.message.MessageCenter;
 import main.modes.*;
-import main.progression.EstateProgression;
-import main.progression.Experience;
+import main.progression.estate.EstateProgression;
+import main.progression.rewards.Experience;
 import resources.chroma.ChromaSet;
-import util.InputSimplifier;
 import world.actor.ActorDefinitions;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
@@ -19,11 +18,10 @@ import util.Coordinate;
 import world.actor.Actor;
 import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.ThemeDefinitions;
-import world.item.Item;
 import world.item.ItemDefinitions;
+import world.item.inventory.Inventory;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
-import world.lore.LoreTree;
 
 import java.util.Random;
 
@@ -45,6 +43,7 @@ public class Session {
     private static FileManager fileManager;
     private static FloorRenderer floorRenderer;
     private static GUIManager guiManager;
+    private static Inventory legacyResources;
     private static MessageCenter messageCenter;
     private static ModeManager modeManager;
     private static Player player;
@@ -57,6 +56,7 @@ public class Session {
         estateProgression = new EstateProgression();
         fileManager = new FileManager();
         guiManager = new GUIManager();
+        legacyResources = new Inventory(50); //todo - replace with constants defined somewhere!
         modeManager = new ModeManager();
         reset();
     }
@@ -121,6 +121,8 @@ public class Session {
         return guiManager;
     }
 
+    public static Inventory getLegacyResources() { return legacyResources; }
+
     public static MessageCenter getMessageCenter() {
         return messageCenter;
     }
@@ -174,6 +176,10 @@ public class Session {
     public static void setCurrentDungeon(Dungeon d) {
         currentDungeon = d;
         currentDungeon.nextFloor();
+    }
+
+    public static void setLegacyResources(Inventory lr) {
+        legacyResources = lr;
     }
     public static void startFloorRenderer() {
         floorRenderer = new FloorRenderer();

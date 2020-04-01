@@ -4,11 +4,13 @@ import io.out.message.MessageCenter;
 import io.out.message.MessageType;
 import main.Player;
 import main.Session;
-import main.progression.Experience;
-import main.progression.Reward;
+import main.progression.rewards.Experience;
+import main.progression.rewards.Reward;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.ThemeDefinitions;
+import world.item.inventory.Inventory;
+import world.item.inventory.ItemSlot;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 
@@ -25,6 +27,7 @@ public class Dungeon implements Serializable {
 
     private final DungeonTheme DUNGEON_THEME;
     private ArrayList<Reward> rewards = new ArrayList<>();
+    private Inventory accumulatedItems = new Inventory();
 
     private boolean dungeonBossAlive = true;
 
@@ -85,6 +88,7 @@ public class Dungeon implements Serializable {
         rewards = new ArrayList<>(); //then zero out the remaining rewards
         dungeonBossAlive = true; //and reset boss kill
         Session.setCurrentFloor(new Floor(0, ThemeDefinitions.DUNGEON_THEMES[ThemeDefinitions.YSIAN_ESTATE]));
+        awardAccumulatedItems(); //experience is added dynamically as the player gains it, but items are all awarded at once, on dungeon exit
     }
 
     public DungeonTheme getTheme() {
@@ -99,6 +103,10 @@ public class Dungeon implements Serializable {
             if (Session.getRNG().nextDouble() < threshold) {
                 i.remove();
                 experience.gainXP(r.evaluateExperience(experience.getLevel()));
+                ItemSlot itemSlot = r.rollDrop();
+                if (itemSlot != null) {
+                    accumulatedItems.add(itemSlot.peekItem(), itemSlot.count());
+                }
             }
         }
         for (int level = startLevel + 1; level <= experience.getLevel(); ++level) {
@@ -107,6 +115,11 @@ public class Dungeon implements Serializable {
                     level == experience.getLevel() ? MessageCenter.PRIORITY_MAX : MessageCenter.PRIORITY_HIGH
             );
         }
+    }
+    private void awardAccumulatedItems() {
+        //todo - reassign accumulatedItems to appropriate player inventories
+        //todo - show the player what he received - probably use a TransitiveScrollingTextMode for this.
+        accumulatedItems = new Inventory(); //reset this inventory
     }
     public void killDungeonBoss() {
         dungeonBossAlive = false;

@@ -14,7 +14,7 @@ import main.Session;
 import main.TargetList;
 import main.modes.MainGameCursorMode;
 import main.modes.OperatingMode;
-import main.progression.Experience;
+import main.progression.rewards.Experience;
 import resources.DualityContext;
 import resources.DualityMode;
 import resources.chroma.ChromaSet;

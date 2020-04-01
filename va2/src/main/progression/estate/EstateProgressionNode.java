@@ -1,4 +1,4 @@
-package main.progression;
+package main.progression.estate;
 
 import world.item.inventory.Inventory;
 import world.item.inventory.ItemSlot;

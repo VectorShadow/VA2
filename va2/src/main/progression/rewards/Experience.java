@@ -1,4 +1,4 @@
-package main.progression;
+package main.progression.rewards;
 
 import main.extensible.Saveable;
 

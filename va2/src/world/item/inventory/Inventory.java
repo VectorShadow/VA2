@@ -92,7 +92,6 @@ public class Inventory implements Iterable<ItemSlot>, Serializable {
         while(true) {
             if (searchIndex > itemSlots.size() - 1) return itemSlots.size() - 1;
             if (searchIndex <= 0) return -1;
-            System.out.println("Search index: " + searchIndex);
             indexedID = itemSlots.get(searchIndex).peekItem().getID();
             if (indexedID > itemID) {
                 upperLimit = searchIndex;

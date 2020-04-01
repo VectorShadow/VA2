@@ -485,7 +485,7 @@ public class MeleeResolver extends CombatResolver {
                             MessageType.INFO,
                             PRIORITY_HIGH
                     );
-                d.addReward(((ActorTemplate)defender.getTemplate()).getReward());
+                d.addReward(defender.finalizeReward());
             }
         } else {
             /**

@@ -13,6 +13,12 @@ public interface ItemSlot extends Comparable<Integer> {
 
 
     static ItemSlot make(Item i) {
-        return i instanceof DegradableItem ? new SingleItemSlot((DegradableItem)i) : new StackedItemSlot((StackableItem)i);
+        return make(i, 1);
+    }
+
+    static ItemSlot make(Item i, int amount) {
+        if (i instanceof DegradableItem && amount != 1)
+            throw new IllegalArgumentException("cannot make SingleItemSlot with qty != 1");
+        return i instanceof DegradableItem ? new SingleItemSlot((DegradableItem)i) : new StackedItemSlot((StackableItem)i, amount);
     }
 }

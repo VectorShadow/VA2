@@ -1,4 +1,4 @@
-package main.progression;
+package main.progression.estate;
 
 import world.item.Item;
 import world.item.Resource;

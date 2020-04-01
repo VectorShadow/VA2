@@ -3,7 +3,7 @@ package world.item.inventory;
 import world.item.DegradableItem;
 import world.item.Item;
 
-public class SingleItemSlot implements ItemSlot {
+public class SingleItemSlot extends AbstractItemSlot implements ItemSlot {
 
     private final DegradableItem item;
     private boolean inUse = true;

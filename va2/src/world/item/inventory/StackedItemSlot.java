@@ -4,7 +4,7 @@ import world.item.Item;
 import world.item.ItemDefinitions;
 import world.item.StackableItem;
 
-public class StackedItemSlot implements ItemSlot {
+public class StackedItemSlot extends AbstractItemSlot implements ItemSlot {
 
     private final int itemID;
     private int count = 0;
