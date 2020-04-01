@@ -11,6 +11,8 @@ import util.ArrayListBuilder;
 import world.WorldObjectTemplateFactory;
 import world.item.material.MaterialDefinitions;
 
+import java.util.Iterator;
+
 import static world.item.Item.*;
 import static world.dungeon.theme.ThemeDefinitions.*;
 
@@ -20,6 +22,20 @@ import static world.dungeon.theme.ThemeDefinitions.*;
  * Ordered by Family, then Theme, then Quality, then UniqueID.
  */
 public class ItemDefinitions {
+    public static class AllItemIterator implements Iterator<Item> {
+
+        int cursor = 0;
+
+        @Override
+        public boolean hasNext() {
+            return cursor < ORDERED_ITEMS.length;
+        }
+
+        @Override
+        public Item next() {
+            return ORDERED_ITEMS[cursor++];
+        }
+    }
     private static final Item[] ORDERED_ITEMS = {
             new Resource(
                     WorldObjectTemplateFactory
@@ -399,5 +415,9 @@ public class ItemDefinitions {
             if (thisID <= lastID) throw new IllegalStateException("Bad order in ItemDefinitions - Last was " + lastID + " but this was " + thisID);
             lastID = thisID;
         }
+    }
+
+    public static Iterator<Item> iterator() {
+        return new AllItemIterator();
     }
 }

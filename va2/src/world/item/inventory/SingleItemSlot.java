@@ -44,4 +44,9 @@ public class SingleItemSlot extends AbstractItemSlot implements ItemSlot {
     public int compareTo(Integer o) {
         return item.getID() - o;
     }
+
+    @Override
+    public String toString() {
+        return item.getTemplate().getName();
+    }
 }

@@ -117,7 +117,7 @@ public class Dungeon implements Serializable {
         }
     }
     private void awardAccumulatedItems() {
-        //todo - reassign accumulatedItems to appropriate player inventories
+        //todo - reassign accumulatedItems to appropriate player inventories - remember to clone DegradableItems!
         //todo - show the player what he received - probably use a TransitiveScrollingTextMode for this.
         accumulatedItems = new Inventory(); //reset this inventory
     }

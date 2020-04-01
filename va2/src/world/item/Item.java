@@ -49,6 +49,9 @@ public abstract class Item extends WorldObject {
     public static int shiftTheme(int themeIndex) {
         return themeIndex << 12;
     }
+    public static int unshiftQuality(int idQuality) {
+        return idQuality >> 8;
+    }
     public Item(ItemTemplate it) {
         super(it);
     }

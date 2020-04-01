@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class DropTable implements Serializable {
     private Continuum<ItemSlot> itemList;
     private ArrayList<Pair<ItemSlot>> probablePairs;
+    private double lastProbability = 0.0;
 
     private final double NO_DROP_CHANCE;
 
@@ -48,7 +49,8 @@ public class DropTable implements Serializable {
      * Fails if called on the second type, since probablePairs is never instantiated.
      */
     public void add(Item i, int amount, double probability) {
-        probablePairs.add(new Pair<>(probability, ItemSlot.make(i, amount)));
+        lastProbability += probability;
+        probablePairs.add(new Pair<>(lastProbability, ItemSlot.make(i, amount)));
     }
 
     /**

@@ -50,4 +50,9 @@ public class StackedItemSlot extends AbstractItemSlot implements ItemSlot {
     public int compareTo(Integer o) {
         return itemID - o;
     }
+
+    @Override
+    public String toString() {
+        return peekItem().getTemplate().getName();
+    }
 }
