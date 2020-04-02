@@ -4,15 +4,15 @@ import combat.DamageType;
 import combat.WeaponDamage;
 import combat.melee.weapons.MeleeStyle;
 import combat.melee.weapons.MeleeWeaponClass;
+import main.Session;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;
 import status.StatusType;
 import util.ArrayListBuilder;
 import world.WorldObjectTemplateFactory;
-import world.item.Armor;
-import world.item.Item;
-import world.item.MeleeWeapon;
-import world.item.Resource;
+import world.item.*;
+import world.item.inventory.ItemSlot;
+import world.item.material.Material;
 import world.item.material.MaterialDefinitions;
 
 import java.util.Iterator;
@@ -26,6 +26,9 @@ import static world.dungeon.theme.ThemeDefinitions.*;
  * Ordered by Family, then Theme, then Quality, then UniqueID.
  */
 public class ItemDefinitions {
+
+    public static final int DURABILITY_UNIT = 1_024;
+
     public static class AllItemIterator implements Iterator<Item> {
 
         int cursor = 0;
@@ -78,7 +81,32 @@ public class ItemDefinitions {
                                     FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_MUNDANE | 0x03)
             ),
             //todo - intermediate, advanced legacy resources
-            //todo - transient resources,
+            /*
+            Here we define scrap materials. Any item which is made of the same material will scrap into the corresponding
+            transient resource. Note that individual themes may offer special materials for item construction, but all
+            scrap must come from degradable. We may choose to offer junk items made of desired materials that the player
+            will only want to use for scrap, in order to facilitate repair/construction of more desireable items.
+             */
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("leather scrap")
+                            .setDescription("leather scrap")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, MaterialDefinitions.SOFT_LEATHER,
+                                    FAMILY_TRANSIENT_RESOURCE | Item.shiftTheme(YSIAN_ESTATE) | QUALITY_MUNDANE | 0x00)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("bronze scrap")
+                            .setDescription("bronze scrap")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, MaterialDefinitions.BRONZE,
+                                    FAMILY_TRANSIENT_RESOURCE | Item.shiftTheme(YSIAN_ESTATE) | QUALITY_MUNDANE | 0x01)
+            ),
+            //todo - more scrap materials
+            //todo - additional transient resources
             /*
              * Define all weapons for use in the game.
              * Note that weapons which have multiple WeaponDamage values within a continuum should place the most
@@ -274,7 +302,7 @@ public class ItemDefinitions {
                             .initialize()
                             .setName("bronze short sword")
                             .setDescription("a short straight sword made of bronze")
-                            .manufactureItemTemplate(20_000, MaterialDefinitions.BRONZE,
+                            .manufactureItemTemplate(DURABILITY_UNIT * 16, MaterialDefinitions.BRONZE,
                                     FAMILY_MELEE_WEAPON | Item.shiftTheme(YSIAN_ESTATE) | QUALITY_MUNDANE | 0x00),
                     true,
                     false,
@@ -381,7 +409,7 @@ public class ItemDefinitions {
                             .initialize()
                             .setName("leather vest")
                             .setDescription("a protective vest of supple leather")
-                            .manufactureItemTemplate(8_000, MaterialDefinitions.SOFT_LEATHER,
+                            .manufactureItemTemplate(DURABILITY_UNIT * 8, MaterialDefinitions.SOFT_LEATHER,
                                     FAMILY_ARMOR | Item.shiftTheme(YSIAN_ESTATE) | QUALITY_MUNDANE | 0x00),
                     true,
                     false,
@@ -419,6 +447,21 @@ public class ItemDefinitions {
             if (thisID <= lastID) throw new IllegalStateException("Bad order in ItemDefinitions - Last was " + lastID + " but this was " + thisID);
             lastID = thisID;
         }
+    }
+
+    /**
+     * Return an item slot carrying an amount of scrap resources corresponding to the provided item.
+     */
+    public static ItemSlot scrap(DegradableItem degradableItem) {
+        Material material = degradableItem.getMaterial();
+        int scrapValue = degradableItem.getDurability() / material.getHardness();
+        Item scrapResource = null;
+        for (AllItemIterator aii = (AllItemIterator)iterator(); aii.hasNext();) {
+            scrapResource = aii.next();
+            if (scrapResource.getItemFamily() < FAMILY_TRANSIENT_RESOURCE) continue;
+            if (scrapResource.getMaterial().equals(material)) break;
+        }
+        return ItemSlot.make(scrapResource, Session.getRNG().nextInt(scrapValue / DURABILITY_UNIT) + 1);
     }
 
     public static Iterator<Item> iterator() {

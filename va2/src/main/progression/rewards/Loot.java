@@ -24,6 +24,8 @@ public class Loot {
             if (itemFamily > ALL_FAMILIES && item.getItemFamily() != itemFamily) break;
             //continue if this item is not of the desired theme(and a specific theme is desired)
             if ((item.getThemeIndex() != theme && theme != ThemeDefinitions.ANY) ||
+                    //or if the item is from the Estate theme - this corresponds to player made items
+                    (item.getThemeIndex() == ThemeDefinitions.YSIAN_ESTATE) ||
                     //or if we come across an innate item - these may not be dropped
                     (quality == Item.QUALITY_INNATE)) continue;
             table.add(item, 1, baseChance(quality, qualityBias));

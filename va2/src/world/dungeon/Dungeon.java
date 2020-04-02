@@ -131,7 +131,7 @@ public class Dungeon implements Serializable {
                 //todo - reassign accumulatedItems to appropriate player inventories - remember to clone DegradableItems!
             }
         }
-        Session.getModeManager().transitionTo(new ScrollingTextMode("" + accumulatedItems));
+        Session.getModeManager().transitionTo(new ScrollingTextMode("You found the following items:\n\n" + accumulatedItems));
         accumulatedItems = new Inventory(); //reset this inventory
     }
     public void killDungeonBoss() {

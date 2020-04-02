@@ -117,6 +117,7 @@ public class FileManager {
             EstateProgression estateProgression = (EstateProgression)ois.readObject();
             Inventory legacyResources = (Inventory)ois.readObject();
             LoreDefinitions.setLockTree(unlockedLore);
+            Session.setEstateProgression(estateProgression);
             Session.setLegacyResources(legacyResources);
         } catch (EOFException eofe) {
             return false; //tried to load an empty profile - it was created but never written to

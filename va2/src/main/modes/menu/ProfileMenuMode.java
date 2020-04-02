@@ -2,6 +2,7 @@ package main.modes.menu;
 
 import io.out.GUIManager;
 import main.Session;
+import main.modes.ScrollingTextMode;
 
 public class ProfileMenuMode extends MenuMode {
     @Override
@@ -20,7 +21,10 @@ public class ProfileMenuMode extends MenuMode {
                 //todo
                 return;
             case MenuDefinitions.PROFILE_MENU_RESOURCES_AND_UPGRADES:
-                //todo
+                Session.getModeManager().transitionTo(
+                        new ScrollingTextMode("Legacy Resources:\n\n" + Session.getLegacyResources() +
+                                "\n\n\n" + Session.getEstateProgression())
+                );
                 return;
             case MenuDefinitions.PROFILE_MENU_EXIT:
                 Session.getModeManager().revert();

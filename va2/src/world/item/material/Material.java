@@ -105,4 +105,9 @@ public class Material extends Saveable {
         }
         return s + "}";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Material && NAME.equals(((Material) obj).NAME) && HARDNESS == ((Material) obj).HARDNESS;
+    }
 }

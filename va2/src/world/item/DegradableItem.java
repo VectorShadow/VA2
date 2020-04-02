@@ -33,21 +33,21 @@ public abstract class DegradableItem extends Item {
     /**
      * @return how damaged this item is
      */
-    public int deficit() {
-         return  maxDurability() - durability;
+    public int getDurability() {
+         return durability;
     }
 
     public double getDurabilityPercent() {
-        return (double)durability / (double)maxDurability();
+        return (double)durability / (double) getMaxDurability();
     }
     /**
      * @param amount how much of this item's damage is to be repaired
      */
     public void repair(int amount) {
         durability += amount;
-        if (durability > maxDurability()) durability = maxDurability();
+        if (durability > getMaxDurability()) durability = getMaxDurability();
     }
-    private int maxDurability() {
+    private int getMaxDurability() {
         return ((ItemTemplate) getTemplate()).DURABILITY;
     }
 

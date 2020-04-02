@@ -53,4 +53,14 @@ public class EstateProgression implements Serializable {
         return estateRooms.get(nodeIndex.ROOM_INDEX).get(nodeIndex.UPGRADE_INDEX);
     }
 
+    @Override
+    public String toString() {
+        String s = "Estate Progression:\n";
+        for (EstateProgressionRoom epr : estateRooms) {
+            for (EstateProgressionNode epn : epr) {
+                s += "\n" + (epn.isUnlocked() ? "[Unlocked] " + epn.getName() : "[Locked] " + epn);
+            }
+        }
+        return s;
+    }
 }

@@ -71,7 +71,7 @@ public class MenuDefinitions {
         MenuOption recipes = new MenuOption("Review Known Formulae & Blueprints", false);
         MenuOption kills = new MenuOption("Review Monster Kills & Info", false);
         MenuOption scores = new MenuOption("Review Game Scores & Progress", false);
-        MenuOption legacy = new MenuOption("Review Legacy Resources & Room Upgrades", false);
+        MenuOption legacy = new MenuOption("Review Legacy Resources & Room Upgrades", true);
         MenuOption lore = new MenuOption("Review Discovered Lore", true);
         MenuOption exit = new MenuOption("Exit");
         return MenuBuilder.newMenu("Player Profile Menu")
@@ -300,7 +300,7 @@ public class MenuDefinitions {
 
     public static Menu getUpgradeOptions(int estateRoomIndex) {
         EstateProgressionRoom libraryProgression = Session.getEstateProgression().get(estateRoomIndex);
-        MenuBuilder menuBuilder = MenuBuilder.newMenu("Upgrade Options");
+        MenuBuilder menuBuilder = MenuBuilder.newMenu("Available Upgrades");
         for (EstateProgressionNode epn : libraryProgression) {
             if (!epn.isUnlocked() && epn.shouldDisplay(Session.getEstateProgression())) {
                 menuBuilder.addOption(new MenuOption("" + epn, epn.canUnlock(Session.getLegacyResources(), Session.getEstateProgression())));
