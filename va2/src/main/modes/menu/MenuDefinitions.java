@@ -9,6 +9,8 @@ import main.progression.estate.EstateProgressionNode;
 import main.progression.estate.EstateProgressionRoom;
 import world.lore.*;
 
+import static main.progression.estate.EstateProgression.*;
+
 /**
  * Contains the definitions for each Menu which exists in the game.
  */
@@ -92,7 +94,8 @@ public class MenuDefinitions {
     public static final int LIBRARY_OPTIONS_EXIT = 4;
 
     public static Menu getLibraryOptions() {
-        MenuOption studyTexts = new MenuOption("Study New Texts", false);
+        MenuOption studyTexts = new MenuOption("Study New Texts",
+                Session.getEstateProgression().nodeAt(INDEX_LIBRARY, LIBRARY_OPTIONS_TEXTS).isUnlocked());
         MenuOption browseLore = new MenuOption("Browse Known Lore", true);
         MenuOption studyLanguages = new MenuOption("Study Languages", false);
         MenuOption upgrade = new MenuOption("Upgrade Library", true);

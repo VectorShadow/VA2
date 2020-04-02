@@ -20,6 +20,7 @@ public class Player implements Serializable {
     private Equipment equipment = new Equipment();
     private Experience experience = new Experience();
     private Inventory transientResources = new Inventory(255);
+    private Inventory unresearchedTexts = new Inventory();
 
 
     public Actor getActor() {
@@ -44,5 +45,9 @@ public class Player implements Serializable {
 
     public Inventory getTransientResources() {
         return transientResources;
+    }
+
+    public Inventory getUnresearchedTexts() {
+        return unresearchedTexts;
     }
 }

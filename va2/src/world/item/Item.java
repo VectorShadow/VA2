@@ -30,7 +30,7 @@ public abstract class Item extends WorldObject {
     public static final int FAMILY_TRANSIENT_RESOURCE = 0x0001_0000;
     public static final int FAMILY_MELEE_WEAPON = 0x0002_0000;
     public static final int FAMILY_ARMOR = 0x0003_0000;
-    public static final int FAMILY_LAMP = 0x0004_0000;
+    public static final int FAMILY_TEXT = 0x0004_0000;
     //todo - many more
     public static final int QUALITY_INNATE = 0x0000_0000;
     public static final int QUALITY_MUNDANE = 0x0000_0100;

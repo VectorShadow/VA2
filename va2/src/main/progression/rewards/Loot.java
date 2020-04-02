@@ -12,8 +12,8 @@ public class Loot {
 
     private static final int ALL_FAMILIES = -1;
 
-    public static final DropTable PLACEHOLDER = generateDropTable(-1, 1, -1, 0.25);
     public static final DropTable LEGACY = generateDropTable(ThemeDefinitions.ANY, Item.unshiftQuality(Item.QUALITY_MUNDANE), Item.FAMILY_LEGACY_RESOURCE, 0.33);
+    public static final DropTable DARK_GROVE_BASIC = generateDropTable(ThemeDefinitions.DARK_GROVE, Item.unshiftQuality(Item.QUALITY_MUNDANE), ALL_FAMILIES, 0.667);
 
     private static DropTable generateDropTable(int theme, int qualityBias, int itemFamily, double noDropChance) {
         DropTable table = new DropTable(noDropChance);
@@ -23,7 +23,7 @@ public class Loot {
             //if we're not accepting all families and we've moved beyond the desired family, we are done
             if (itemFamily > ALL_FAMILIES && item.getItemFamily() != itemFamily) break;
             //continue if this item is not of the desired theme(and a specific theme is desired)
-            if ((item.getThemeIndex() != theme && theme != ThemeDefinitions.ANY) ||
+            if ((item.getThemeIndex() != theme && item.getThemeIndex() != ThemeDefinitions.ANY && theme != ThemeDefinitions.ANY) ||
                     //or if the item is from the Estate theme - this corresponds to player made items
                     (item.getThemeIndex() == ThemeDefinitions.YSIAN_ESTATE) ||
                     //or if we come across an innate item - these may not be dropped

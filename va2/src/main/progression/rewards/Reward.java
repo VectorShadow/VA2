@@ -11,7 +11,7 @@ public class Reward extends Saveable {
     private final DropTable DROP_TABLE;
 
     public Reward(long xp) {
-        this(xp, Loot.LEGACY); //todo - remove this method when we have drop tables to use, so all actor definitions can be found and updated!
+        this(xp, Loot.DARK_GROVE_BASIC); //todo - remove this method when we have drop tables to use, so all actor definitions can be found and updated!
     }
 
     public Reward(long xp, DropTable typeITable) {

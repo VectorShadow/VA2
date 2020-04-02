@@ -21,6 +21,10 @@ public class EstateProgression implements Serializable {
 
     private static final int ROOM_COUNT = 11;
 
+    public static final int LIBRARY_STUDY_DESK = 0;
+    //todo - more library nodes
+    //todo - upgrade nodes for other rooms
+
     private ArrayList<EstateProgressionRoom> estateRooms = new ArrayList<>();
 
     public EstateProgression() {
@@ -47,6 +51,10 @@ public class EstateProgression implements Serializable {
             }
         }
         throw new IllegalArgumentException("Node named " + nodeMenuName + " did not exist.");
+    }
+
+    public EstateProgressionNode nodeAt(int roomIndex, int nodeIndex) {
+        return nodeAt(new NodeIndex(roomIndex, nodeIndex));
     }
 
     EstateProgressionNode nodeAt(NodeIndex nodeIndex) {
