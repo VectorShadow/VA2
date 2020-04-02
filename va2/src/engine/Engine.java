@@ -5,6 +5,7 @@ import engine.action.*;
 import io.out.message.Message;
 import io.out.message.MessageCenter;
 import main.extensible.Saveable;
+import status.StatusEffect;
 import status.StatusType;
 import world.dungeon.floor.Floor;
 import world.dungeon.floor.FloorTile;
@@ -192,14 +193,15 @@ public class Engine extends Saveable {
     private void handleStatus(Actor a) {
         boolean isPlayer = a == Session.getPlayer().getActor();
         MessageCenter mc = Session.getMessageCenter();
-        for (StatusType st : StatusType.values()) {
-            if (st.affectsEngineInterval()) {
-                if (a.checkStatus(st)) {
-                    if (isPlayer)
-                        mc.sendMessage(st.CHECK_MESSAGE, st.isPositive() ? SUCCESS : WARNING, PRIORITY_LOW);
-                    if (!a.getCombatant().adjustHealth(st.AFFECTS[DAMAGE] ? -st.FLAT : st.FLAT))
-                        Session.killActor(a);
-                }
+        StatusType st;
+        for (StatusEffect se : a.getStatusEffects()) {
+            st = se.getType();
+            if (st.affectsEngineInterval() && se.consume()) {
+                if (isPlayer)
+                    mc.sendMessage(st.CHECK_MESSAGE, st.isPositive() ? SUCCESS : WARNING, PRIORITY_LOW);
+                if (!a.getCombatant().adjustHealth(st.AFFECTS[DAMAGE] ? -st.FLAT : st.FLAT))
+                    Session.killActor(a);
+                //todo - Sanity and Soul checks.
             }
         }
     }

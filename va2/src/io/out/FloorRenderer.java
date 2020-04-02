@@ -1,6 +1,8 @@
 package io.out;
 
+import main.Player;
 import resources.continuum.Pair;
+import status.StatusEffect;
 import status.StatusType;
 import util.Coordinate;
 import world.actor.Actor;
@@ -116,11 +118,10 @@ public class FloorRenderer {
         int enhancementColumn =
                 gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_STATUS, false, false);
         glyphMap.setGlyph(enhancementRow, enhancementColumn, DisplayStandards.getEnhancementGlyph());
-        for (StatusType st : StatusType.values()) {
+        for (StatusEffect se : Session.getPlayer().getActor().getStatusEffects()) {
+            StatusType st = se.getType();
             if (st.ordinal() < StatusType.FIRST_POSITIVE_STATUS) continue;
-            if (Session.getPlayer().getActor().inEffect(st)) {
-                glyphMap.setGlyph(--enhancementRow, enhancementColumn, st.GLYPH());
-            }
+            glyphMap.setGlyph(--enhancementRow, enhancementColumn, st.GLYPH());
         }
         glyphMap.setGlyph(0, enhancementColumn, DisplayStandards.getWardGlyph());
         //todo - display ward glyphs left of this
@@ -128,11 +129,10 @@ public class FloorRenderer {
         int afflictionColumn =
                 gm.from(GUIManager.CHANNEL_GAME, GUIManager.ZONE_PLAYER_ACTIONS, false, true);
         glyphMap.setGlyph(afflictionRow, afflictionColumn, DisplayStandards.getAfflictionGlyph());
-        for (StatusType st : StatusType.values()) {
-            if (st.ordinal() >= StatusType.FIRST_POSITIVE_STATUS) break;
-            if (Session.getPlayer().getActor().inEffect(st)) {
-                glyphMap.setGlyph(++afflictionRow, afflictionColumn, st.GLYPH());
-            }
+        for (StatusEffect se : Session.getPlayer().getActor().getStatusEffects()) {
+            StatusType st = se.getType();
+            if (st.ordinal() >= StatusType.FIRST_POSITIVE_STATUS) continue;
+            glyphMap.setGlyph(++afflictionRow, afflictionColumn, st.GLYPH());
         }
         if (lastFloor != f) { //we just drew a new floor for the first time, refresh the target list now
             Session.newTargetList();
