@@ -70,7 +70,7 @@ public class Engine extends Saveable {
                 actors.remove(a);
             deadActors = new ArrayList<>();
             for (Iterator<Actor> i = actors.iterator(); i.hasNext();) {
-                if (deadActors.contains(Session.getPlayer().getActor()))
+                if (deadActors.contains(player))
                     return; //immediately terminate engine handling if the player has died.
                 actor = i.next();
                 if (gameTurn % STATUS_INTERVAL == 0) //apply all relevant status checks before the death check, in case they kill the actor.
