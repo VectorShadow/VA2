@@ -113,6 +113,8 @@ public class FileManager {
         try {
             fin = new FileInputStream(PROFILE_FILE.toString());
             ois = new ObjectInputStream(fin);
+            Session.setFullScreen((boolean)ois.readObject());
+            Session.setGraphics((boolean)ois.readObject());
             LoreTree unlockedLore = (LoreTree)ois.readObject();
             EstateProgression estateProgression = (EstateProgression)ois.readObject();
             Inventory legacyResources = (Inventory)ois.readObject();
@@ -157,6 +159,8 @@ public class FileManager {
         try {
             fout = new FileOutputStream(PROFILE_FILE.toString());
             oos = new ObjectOutputStream(fout);
+            oos.writeObject(Session.isFullScreen());
+            oos.writeObject(Session.isGraphics());
             oos.writeObject(LoreDefinitions.getLockTree());
             oos.writeObject(Session.getEstateProgression());
             oos.writeObject(Session.getLegacyResources());

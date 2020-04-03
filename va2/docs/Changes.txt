@@ -1,4 +1,9 @@
-TBD - Version [a.1.0]:
+TBD - Version [a.2.0]:
+ [Change]
+  -Text screens no longer attempt to redraw themselves unless a meaningful change has taken place.
+  -User profile now remembers last session's display settings (e.g. fullscreen and graphical modes)
+
+29 MAR 2020 - Version [a.1.0]:
  [Bug Fix]:
   -Fixed a bug that was causing far more damage in combat than intended.
   -Fixed a bug that allowed Actors to occasionally attack themselves.

@@ -9,6 +9,7 @@ import main.modes.*;
 import main.progression.estate.EstateProgression;
 import main.progression.rewards.Experience;
 import resources.chroma.ChromaSet;
+import resources.glyph.image.ImageManager;
 import world.actor.ActorDefinitions;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
@@ -34,6 +35,9 @@ public class Session {
 
     private static final Random RNG = new Random();
 
+    private static boolean fullScreen;
+    private static boolean graphics;
+
     private static Camera camera;
     private static ChromaSet colorScheme;
     private static Dungeon currentDungeon;
@@ -55,6 +59,8 @@ public class Session {
         colorScheme = DisplayStandards.THEME_THE_DARK_GROVE;
         estateProgression = new EstateProgression();
         fileManager = new FileManager();
+        fullScreen = false;
+        graphics = false;
         guiManager = new GUIManager();
         legacyResources = new Inventory(500); //todo - replace with constants defined somewhere!
         modeManager = new ModeManager();
@@ -225,5 +231,32 @@ public class Session {
     }
     public static boolean isFinalFloor() {
         return currentFloor.DEPTH == currentDungeon.getTheme().getDepth();
+    }
+
+    public static boolean isFullScreen() {
+        return fullScreen;
+    }
+
+    public static void setFullScreen(boolean fullScreen) {
+        if (Session.fullScreen != fullScreen)
+            toggleFullscreenMode();
+    }
+
+    public static void toggleFullscreenMode() {
+        guiManager.toggleFullScreenMode();
+        fullScreen = !fullScreen;
+    }
+
+    public static boolean isGraphics() {
+        return graphics;
+    }
+
+    public static void setGraphics(boolean graphics) {
+        if (Session.graphics != graphics)
+            toggleGraphicsMode();
+    }
+    public static void toggleGraphicsMode() {
+        ImageManager.toggleGraphics();
+        graphics = !graphics;
     }
 }

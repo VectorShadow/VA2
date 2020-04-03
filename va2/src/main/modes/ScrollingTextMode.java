@@ -63,6 +63,8 @@ public class ScrollingTextMode implements OperatingMode {
                 ++displayFromIndex;
                 if (displayFromIndex >= displayedText.size()) displayFromIndex = displayedText.size() - 1;
                 break;
+                default:
+                    return;
         }
         out();
     }

@@ -41,13 +41,13 @@ public interface OperatingMode {
         switch (ke.getKeyCode()) {
             case VK_ENTER:
                 if (ke.getModifiersEx() == ALT_DOWN_MASK) {
-                    Session.getGuiManager().toggleFullScreenMode();
+                    Session.toggleFullscreenMode();
                     return true;
                 }
                 break;
             case VK_G:
                 if (ke.getModifiersEx() == ALT_DOWN_MASK) {
-                    ImageManager.toggleGraphics();
+                    Session.toggleGraphicsMode();
                     om.out();
                     return true;
                 }
