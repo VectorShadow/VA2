@@ -14,11 +14,13 @@ import world.item.*;
 import world.item.inventory.ItemSlot;
 import world.item.material.Material;
 import world.item.material.MaterialDefinitions;
+import world.lore.LoreDefinitions;
 
 import java.util.Iterator;
 
 import static world.item.Item.*;
 import static world.dungeon.theme.ThemeDefinitions.*;
+import static world.lore.Language.*;
 
 /**
  * Define all items in one place.
@@ -417,6 +419,21 @@ public class ItemDefinitions {
                     5
             ),
             //todo - more player made armors!
+            new Text(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("torn notepaper")
+                            .setDescription("a piece of paper torn from a notebook")
+                            .manufactureItemTemplate(1, MaterialDefinitions.PARCHMENT,
+                                    FAMILY_TEXT | Item.shiftTheme(DARK_GROVE) | QUALITY_SCARCE | 0x01),
+                    YSIAN,
+                    0,
+                    LoreDefinitions.THEME_DARK_GROVE,
+                    LoreDefinitions.DARK_GROVE_ARRIVAL + 1,
+                    LoreDefinitions.DARK_GROVE_COMPLETION - 1
+            ),
+            //todo - more dark grove texts?
+            //todo - more texts
     };
     public static Item get(int itemID) {
         int lowerLimit = 0;

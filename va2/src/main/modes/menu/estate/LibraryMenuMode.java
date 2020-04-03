@@ -27,7 +27,7 @@ public class LibraryMenuMode extends EstateRoomMenuMode {
                 Session.getModeManager().transitionTo(new LoreMenuMode());
                 return;
             case MenuDefinitions.LIBRARY_OPTIONS_LANGUAGES:
-                //todo
+                Session.getModeManager().transitionTo(new ScrollingTextMode(Session.getLanguageKnowledge().toString()));
                 return;
             case MenuDefinitions.LIBRARY_OPTIONS_UPGRADE:
                 Session.getModeManager().transitionTo(new UpgradeMenuMode(MenuDefinitions.getUpgradeOptions(EstateProgression.INDEX_LIBRARY)));

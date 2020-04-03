@@ -9,7 +9,7 @@ public class ProfileMenuMode extends MenuMode {
     protected void handleMenuOptionIndex(int index) {
         switch (index) {
             case MenuDefinitions.PROFILE_MENU_KNOWN_LANGUAGES:
-                //todo
+                Session.getModeManager().transitionTo(new ScrollingTextMode(Session.getLanguageKnowledge().toString()));
                 return;
             case MenuDefinitions.PROFILE_MENU_KNOWN_RECIPES:
                 //todo

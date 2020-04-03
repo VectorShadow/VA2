@@ -310,6 +310,7 @@ public class ActorDefinitions {
                                     ),
                                     ArmorDefinitions.ANCIENT_ARACHNID_EXOSKELETON()
                             ),
+                            2,
                             new Reward(256),
                             AIDefinitions.CCS_AI
                     );

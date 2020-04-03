@@ -69,7 +69,7 @@ public class MenuDefinitions {
     static final int PROFILE_MENU_EXIT = 6;
 
     static Menu getProfileMenu() {
-        MenuOption languages = new MenuOption("Review Known Languages", false);
+        MenuOption languages = new MenuOption("Review Known Languages", true);
         MenuOption recipes = new MenuOption("Review Known Formulae & Blueprints", false);
         MenuOption kills = new MenuOption("Review Monster Kills & Info", false);
         MenuOption scores = new MenuOption("Review Game Scores & Progress", false);
@@ -97,7 +97,7 @@ public class MenuDefinitions {
         MenuOption studyTexts = new MenuOption("Study New Texts",
                 Session.getEstateProgression().nodeAt(INDEX_LIBRARY, LIBRARY_OPTIONS_TEXTS).isUnlocked());
         MenuOption browseLore = new MenuOption("Browse Known Lore", true);
-        MenuOption studyLanguages = new MenuOption("Study Languages", false);
+        MenuOption studyLanguages = new MenuOption("Show Language Knowledge", true);
         MenuOption upgrade = new MenuOption("Upgrade Library", true);
         MenuOption exitLibrary = new MenuOption("Exit Library", true);
         return MenuBuilder.newMenu("Library Options")

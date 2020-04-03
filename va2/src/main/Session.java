@@ -21,6 +21,8 @@ import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.ThemeDefinitions;
 import world.item.define.ItemDefinitions;
 import world.item.inventory.Inventory;
+import world.lore.Language;
+import world.lore.LanguageKnowledge;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 
@@ -48,6 +50,7 @@ public class Session {
     private static FloorRenderer floorRenderer;
     private static GUIManager guiManager;
     private static Inventory legacyResources;
+    private static LanguageKnowledge languageKnowledge;
     private static MessageCenter messageCenter;
     private static ModeManager modeManager;
     private static Player player;
@@ -62,6 +65,7 @@ public class Session {
         fullScreen = false;
         graphics = false;
         guiManager = new GUIManager();
+        languageKnowledge = new LanguageKnowledge();
         legacyResources = new Inventory(500); //todo - replace with constants defined somewhere!
         modeManager = new ModeManager();
         reset();
@@ -258,5 +262,13 @@ public class Session {
     public static void toggleGraphicsMode() {
         ImageManager.toggleGraphics();
         graphics = !graphics;
+    }
+
+    public static LanguageKnowledge getLanguageKnowledge() {
+        return languageKnowledge;
+    }
+
+    public static void setLanguageKnowledge(LanguageKnowledge languageKnowledge) {
+        Session.languageKnowledge = languageKnowledge;
     }
 }

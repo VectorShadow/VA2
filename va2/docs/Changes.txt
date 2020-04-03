@@ -3,7 +3,14 @@ TBD - Version [a.2.0]:
   -Text screens no longer attempt to redraw themselves unless a meaningful change has taken place.
   -User profile now remembers last session's display settings (e.g. fullscreen and graphical modes)
   -Player now moves before all monsters.
-  -Messages now display with the player message on top, and only attempt to display since last player action. Overflow indicates that more messages are available, which appear as before in Message Recall.
+  -Messages now display with the player message on top, and only attempt to display since last player action.
+  -Message overflow indicates that more messages are available, which appear as before in Message Recall.
+  -Floor bosses may no longer spawn on floor 1 of the Dark Grove.
+  -Improved player HP and Soul at all levels.
+ [New]
+  -Library now supports basic upgrades.
+  -Text items may now be found in the dungeon and researched in the player estate(with required upgrade).
+  -Languages added and tracked across games.
 
 29 MAR 2020 - Version [a.1.0]:
  [Bug Fix]:

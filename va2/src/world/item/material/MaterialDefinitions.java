@@ -70,4 +70,10 @@ public class MaterialDefinitions {
             damageTypeArray(-2, +1, +4, null, 0, +1, 0, null, -1, -3, null),
             ORGANIC
     );
+    public static final Material PARCHMENT = new Material(
+            "parchment",
+            1,
+            damageTypeArray(-2, +1, 0, null, -4, 0, 0, null, -1, -1, null),
+            ORGANIC
+    );
 }

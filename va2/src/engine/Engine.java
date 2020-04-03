@@ -66,19 +66,19 @@ public class Engine extends Saveable {
         Action action;
         int energyCost;
         while(true) {
-            for (Actor a : deadActors) //cleanup dead actors
+            for (Actor a : deadActors) {//cleanup dead actors
+                if (a == player) return; //if the player died between game turns, stop execution
                 actors.remove(a);
+            }
             deadActors = new ArrayList<>();
             for (Iterator<Actor> i = actors.iterator(); i.hasNext();) {
                 if (deadActors.contains(player))
-                    return; //immediately terminate engine handling if the player has died.
+                    return; //if the player has died this turn, stop execution
                 actor = i.next();
                 if (gameTurn % STATUS_INTERVAL == 0) //apply all relevant status checks before the death check, in case they kill the actor.
                     handleStatus(actor);
                 if (deadActors.contains(actor)) //ignore dead actors
                     continue;
-//                //ensure player action messages are most recent at the end of each engine cycle
-//                if (!player.hasQueuedAction()) return;
                 actor.gainEnergy(); //gain this turn's energy
                 if (!actor.hasEnoughEnergy(ActionDefinitions.MAXIMUM_ACTION_ENERGY)) //wait till we can take any action
                     continue;

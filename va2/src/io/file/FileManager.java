@@ -9,6 +9,7 @@ import main.progression.estate.EstateProgression;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
 import world.item.inventory.Inventory;
+import world.lore.LanguageKnowledge;
 import world.lore.LoreDefinitions;
 import world.lore.LoreTree;
 
@@ -115,12 +116,10 @@ public class FileManager {
             ois = new ObjectInputStream(fin);
             Session.setFullScreen((boolean)ois.readObject());
             Session.setGraphics((boolean)ois.readObject());
-            LoreTree unlockedLore = (LoreTree)ois.readObject();
-            EstateProgression estateProgression = (EstateProgression)ois.readObject();
-            Inventory legacyResources = (Inventory)ois.readObject();
-            LoreDefinitions.setLockTree(unlockedLore);
-            Session.setEstateProgression(estateProgression);
-            Session.setLegacyResources(legacyResources);
+            LoreDefinitions.setLockTree((LoreTree)ois.readObject());
+            Session.setEstateProgression((EstateProgression)ois.readObject());
+            Session.setLanguageKnowledge((LanguageKnowledge)ois.readObject());
+            Session.setLegacyResources((Inventory)ois.readObject());
         } catch (EOFException eofe) {
             return false; //tried to load an empty profile - it was created but never written to
         } catch (Exception ex) {
@@ -163,6 +162,7 @@ public class FileManager {
             oos.writeObject(Session.isGraphics());
             oos.writeObject(LoreDefinitions.getLockTree());
             oos.writeObject(Session.getEstateProgression());
+            oos.writeObject(Session.getLanguageKnowledge());
             oos.writeObject(Session.getLegacyResources());
         } catch (Exception e) {
             ErrorLogger.logFatalException(e);
