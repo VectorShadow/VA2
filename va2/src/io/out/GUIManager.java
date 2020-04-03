@@ -8,6 +8,8 @@ import error.ErrorLogger;
 import io.in.InputCommand;
 import io.in.InputCommandList;
 import io.out.message.Message;
+import io.out.message.MessageCenter;
+import io.out.message.MessageType;
 import main.MetaData;
 import main.Player;
 import main.Session;
@@ -32,6 +34,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Primary agent for GUI Management.
@@ -317,20 +320,28 @@ public class GUIManager {
     }
     public void printMessages() {
         GUI.clear(ZONE_MESSAGE_CENTER);
-        Message last = Session.getMessageCenter().getLastMessage();
-        Message onScreen = Session.getMessageCenter().getOnScreenMessages();
-        Point lastGlyph = GUI.print(
-                ZONE_MESSAGE_CENTER,
-                1,
-                1,
-                new GlyphString(last.getText(), last.getBackground(), last.getForeground())
-        );
-        GUI.print(
-                ZONE_MESSAGE_CENTER,
-                lastGlyph.y,
-                lastGlyph.x,
-                new GlyphString(onScreen.getText(), onScreen.getBackground(), onScreen.getForeground())
-        );
+        ArrayList<Message> messages = Session.getMessageCenter().getNewMessages();
+        Point lastGlyph = new Point(1, 1);
+        Point moreOrigin = new Point(messageWindowCols - 6, messageWindowRows - 3);
+        for (Message message : messages) {
+            lastGlyph = GUI.print(
+                    ZONE_MESSAGE_CENTER,
+                    lastGlyph.y,
+                    lastGlyph.x,
+                    new GlyphString(message.getText() + "  ", message.getBackground(), message.getForeground())
+            );
+            if (lastGlyph.y > messageWindowRows - 3 || lastGlyph.y == messageWindowRows - 3 && lastGlyph.x > messageWindowCols - 3) {
+                Message more = MessageCenter.MORE;
+                GUI.print(
+                        ZONE_MESSAGE_CENTER,
+                        moreOrigin.y,
+                        moreOrigin.x,
+                        new GlyphString(more.getText(), more.getBackground(), more.getForeground())
+                );
+                break;
+            }
+        }
+
     }
     public void printPlayerStatistics() {
         Player player = Session.getPlayer();

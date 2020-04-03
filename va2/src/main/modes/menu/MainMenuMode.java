@@ -33,6 +33,7 @@ public class MainMenuMode extends MenuMode {
     protected void handleMenuOptionIndex(int index) {
         switch (index) {
             case MenuDefinitions.MAIN_MENU_NEW_GAME:
+                Session.getMessageCenter().clearNewMessages();
                 Session.getMessageCenter().sendMessage("Welcome to Chronicles of the Abyss!", MessageType.GAME, MessageCenter.PRIORITY_HIGH);
                 //hardcode - player should begin the game at the Library instead of the default spawn tile
                 Session.addActor(Session.getPlayer().getActor(), new Coordinate(9, 2));
@@ -46,6 +47,7 @@ public class MainMenuMode extends MenuMode {
                     Session.getModeManager().transitionTo(targetMode);
                 return;
             case MenuDefinitions.MAIN_MENU_LOAD_GAME:
+                Session.getMessageCenter().clearNewMessages();
                 Session.getMessageCenter().sendMessage("Welcome back.", MessageType.GAME, MessageCenter.PRIORITY_HIGH);
                 Session.getModeManager().transitionTo(new MainGameViewMode());
                 return;

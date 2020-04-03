@@ -47,13 +47,7 @@ public class Message {
         return text.length();
     }
     public void append(Message m) {
-        text += "  " + m.text;
-    }
-    public void prepend(Message m) {
-        text = "  " + m.text + text;
-    }
-    public void setText(String t) {
-        text = t;
+        text += " " + m.text;
     }
     public void changeType(MessageType mt) {
         background = mt.background;

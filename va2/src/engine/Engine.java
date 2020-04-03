@@ -46,9 +46,9 @@ public class Engine extends Saveable {
     }
     public void addActor(Actor a, boolean isPlayer) {
         if (isPlayer)
-            actors.addLast(a);
-        else
             actors.addFirst(a);
+        else
+            actors.addLast(a);
     }
     public LinkedList<Actor> listActors() {
         return actors;
@@ -57,10 +57,11 @@ public class Engine extends Saveable {
         deadActors.add(a);
     }
     public void execute(Action playerAction) {
+        Session.getMessageCenter().clearNewMessages();
         Actor player = Session.getPlayer().getActor();
-        if (player != actors.getLast())
+        if (player != actors.getFirst())
             throw new IllegalStateException("Player out of order in engine actor list.");
-        actors.getLast().queueAction(playerAction);
+        actors.getFirst().queueAction(playerAction);
         Actor actor;
         Action action;
         int energyCost;
@@ -76,8 +77,8 @@ public class Engine extends Saveable {
                     handleStatus(actor);
                 if (deadActors.contains(actor)) //ignore dead actors
                     continue;
-                //ensure player action messages are most recent at the end of each engine cycle
-                if (!player.hasQueuedAction()) return;
+//                //ensure player action messages are most recent at the end of each engine cycle
+//                if (!player.hasQueuedAction()) return;
                 actor.gainEnergy(); //gain this turn's energy
                 if (!actor.hasEnoughEnergy(ActionDefinitions.MAXIMUM_ACTION_ENERGY)) //wait till we can take any action
                     continue;

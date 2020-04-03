@@ -115,6 +115,7 @@ public class MainGameViewMode implements OperatingMode {
                                 Session.getCurrentDungeon().nextFloor();
                             } else if (tt.equals(TerrainDefinitions.NEXT_FLOOR_STAIR)) {
                                 if (Session.getCurrentFloor().isFloorBossAlive()) {
+                                    mc.clearNewMessages();
                                     mc.sendMessage(
                                             "You may not enter the next floor before defeating the guardian of this floor.",
                                             MessageType.ERROR,
@@ -159,6 +160,7 @@ public class MainGameViewMode implements OperatingMode {
                     case VK_V:
                         if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
                             mc.increasePriorityThreshold();
+                            mc.clearNewMessages();
                             mc.sendMessage(
                                     "Message Center - now displaying " +
                                             (mc.getPriorityThreshold() == MessageCenter.PRIORITY_HIGH
@@ -171,6 +173,7 @@ public class MainGameViewMode implements OperatingMode {
                             );
                         } else {
                             mc.decreasePriorityThreshold();
+                            mc.clearNewMessages();
                             mc.sendMessage(
                                     "Message Center - now displaying messages of priority " +
                                             (mc.getPriorityThreshold() == MessageCenter.PRIORITY_HIGH

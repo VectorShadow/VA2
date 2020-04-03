@@ -44,12 +44,14 @@ public class Dungeon implements Serializable {
         rewards.add(r);
     }
     public void nextFloor() {
+        Session.getMessageCenter().clearNewMessages();
         Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO, MessageCenter.PRIORITY_MAX);
         Session.setCurrentFloor(new Floor(Session.getCurrentFloor().DEPTH + 1, DUNGEON_THEME));
         dispenseRewards(FLOOR_COMPLETION_REWARD); //partial reward payout for each cleared floor
     }
     public void exitDungeon(boolean fullRewards) {
         Player player = Session.getPlayer();
+        Session.getMessageCenter().clearNewMessages();
         Session.getMessageCenter().sendMessage(
                 fullRewards
                         ? Session.isFinalFloor()

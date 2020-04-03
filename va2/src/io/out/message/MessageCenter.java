@@ -1,6 +1,6 @@
 package io.out.message;
 
-import main.Session;
+import java.util.ArrayList;
 
 
 public class MessageCenter {
@@ -10,18 +10,16 @@ public class MessageCenter {
     public static final int PRIORITY_LOW = 2;
     public static final int PRIORITY_MIN = 3;
 
+    public static final Message MORE = new Message(MessageType.MORE, "[...]");
 
     private int priorityThreshold = PRIORITY_MIN;
 
     private MessageRecall messageRecall = new MessageRecall();
-    private Message onScreenMessages = new Message(MessageType.OLD);
-    private Message lastMessage = new Message();
+    private ArrayList<Message> newMessages = new ArrayList<>();
 
     public void sendMessage(Message m, int priority) {
         if (priority > priorityThreshold) return; //ignore this message
-        if (lastMessage.length() > 0) onScreenMessages.prepend(lastMessage);
-        lastMessage = trim(m);
-        trimOnScreenMessages();
+        newMessages.add(m);
         messageRecall.add(m);
     }
 
@@ -29,42 +27,23 @@ public class MessageCenter {
         Message m = new Message(type.background, type.foreground, text);
         sendMessage(m, priority);
     }
-    private Message trim(Message m) {
-        String s = m.text;
-        if (s.length() < maxLength()) return m;
-        return new Message(m.background, m.foreground, s.substring(0, maxLength() - s.length() - 3) + "...");
-    }
-    void trimOnScreenMessages() {
-        int currentLength = onScreenMessages.length();
-        int maxLength = maxLength() - lastMessage.length();
-        if (currentLength < maxLength) return;
-        onScreenMessages.setText(onScreenMessages.text.substring(0, maxLength));
-    }
-    private int maxLength() {
-        int rows = Session.getGuiManager().getMessageWindowRows();
-        int cols = Session.getGuiManager().getMessageWindowCols();
-        return rows * cols;
-    }
 
     public MessageRecall getMessageRecall() {
         return messageRecall;
     }
 
-    public Message getOnScreenMessages() {
-        return onScreenMessages;
+    public ArrayList<Message> getNewMessages() {
+        return newMessages;
     }
 
-    public Message getLastMessage() {
-        return lastMessage;
+    public void clearNewMessages() {
+        newMessages = new ArrayList<>();
     }
 
     public int getPriorityThreshold() {
         return priorityThreshold;
     }
 
-    private void setPriorityThreshold(int pt) {
-        priorityThreshold = pt;
-    }
     public void increasePriorityThreshold(){
         priorityThreshold++;
         if (priorityThreshold > PRIORITY_MIN) priorityThreshold = PRIORITY_MIN;
