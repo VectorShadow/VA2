@@ -40,6 +40,10 @@ public class MessageCenter {
         newMessages = new ArrayList<>();
     }
 
+    public void setPriorityThreshold(int pt) {
+        priorityThreshold = pt;
+    }
+
     public int getPriorityThreshold() {
         return priorityThreshold;
     }

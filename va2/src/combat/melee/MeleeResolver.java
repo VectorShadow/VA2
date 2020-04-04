@@ -12,7 +12,6 @@ import main.Session;
 import status.StatusType;
 import util.Grammar;
 import world.actor.Actor;
-import world.actor.ActorTemplate;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.ActorSet;
@@ -63,7 +62,8 @@ public class MeleeResolver extends CombatResolver {
                 attackerMeleeWeapon.resolveWeaponDamage(attackTactic == AttackTactic.BLOW);
         //counterattacks preserve any existing message - otherwise we need to reset it
         if (!(meleeAttackAction instanceof CounterAttackAction)){
-            message = (isAttackerPlayer || isDefenderPlayer)
+            message = ((isAttackerPlayer || isDefenderPlayer) &&
+                    Session.getMessageCenter().getPriorityThreshold() > PRIORITY_HIGH)
                     ? new Message(
                             MessageType.INFO,
                             Grammar.configure(
@@ -343,7 +343,7 @@ public class MeleeResolver extends CombatResolver {
                                         "your attack."
                                 ),
                                 isAttackerPlayer ? MessageType.WARNING : MessageType.INFO,
-                                PRIORITY_LOW
+                                PRIORITY_HIGH
                         );
                     }
                     return message;
@@ -373,7 +373,7 @@ public class MeleeResolver extends CombatResolver {
                                         "your attack."
                                 ),
                                 isAttackerPlayer ? MessageType.WARNING : MessageType.INFO,
-                                PRIORITY_LOW
+                                PRIORITY_HIGH
                         );
                     }
                     resolveContactInteraction(
@@ -451,7 +451,7 @@ public class MeleeResolver extends CombatResolver {
                             "damage."
                     ),
                     isAttackerPlayer ? MessageType.INFO : MessageType.ERROR,
-                    PRIORITY_HIGH
+                    PRIORITY_MAX
             );
         }
         //todo - if (damageToMind/Soul > 0 && isPlayer) updateMessage
@@ -483,7 +483,7 @@ public class MeleeResolver extends CombatResolver {
                     updateMessage(
                             "You have slain the " + defenderName + ".",
                             MessageType.INFO,
-                            PRIORITY_HIGH
+                            PRIORITY_MAX
                     );
                 d.addReward(defender.finalizeReward());
             }
@@ -535,7 +535,10 @@ public class MeleeResolver extends CombatResolver {
     }
     private static void updateMessage(String addition, MessageType type, int priority) {
         if (priority > Session.getMessageCenter().getPriorityThreshold()) return;
-        message.append(new Message(type, addition));
-        message.changeType(type);
+        if (message == null) message = new Message(type, addition);
+        else {
+            message.append(new Message(type, addition));
+            message.changeType(type);
+        }
     }
 }

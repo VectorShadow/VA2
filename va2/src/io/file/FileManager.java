@@ -120,6 +120,7 @@ public class FileManager {
             Session.setEstateProgression((EstateProgression)ois.readObject());
             Session.setLanguageKnowledge((LanguageKnowledge)ois.readObject());
             Session.setLegacyResources((Inventory)ois.readObject());
+            Session.getMessageCenter().setPriorityThreshold((int)ois.readObject());
         } catch (EOFException eofe) {
             return false; //tried to load an empty profile - it was created but never written to
         } catch (Exception ex) {
@@ -164,6 +165,7 @@ public class FileManager {
             oos.writeObject(Session.getEstateProgression());
             oos.writeObject(Session.getLanguageKnowledge());
             oos.writeObject(Session.getLegacyResources());
+            oos.writeObject(Session.getMessageCenter().getPriorityThreshold());
         } catch (Exception e) {
             ErrorLogger.logFatalException(e);
         } finally {
