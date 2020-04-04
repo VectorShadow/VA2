@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import static world.item.Item.*;
 import static world.dungeon.theme.ThemeDefinitions.*;
-import static world.lore.Language.*;
+import static world.lore.language.Language.*;
 
 /**
  * Define all items in one place.
@@ -428,7 +428,6 @@ public class ItemDefinitions {
                                     FAMILY_TEXT | Item.shiftTheme(DARK_GROVE) | QUALITY_SCARCE | 0x01),
                     YSIAN,
                     0,
-                    LoreDefinitions.THEME_DARK_GROVE,
                     LoreDefinitions.DARK_GROVE_ARRIVAL + 1,
                     LoreDefinitions.DARK_GROVE_COMPLETION - 1
             ),

@@ -391,7 +391,39 @@ public class LoreDefinitions {
                         .addLeaf(
                                 "Journal Page 1",
                                 "\t[a page torn from a journal]" +
-                                        "\n\n\t...todo"
+                                        "\n\n\t\"...ders in the deeper parts of the grove are larger than anything " +
+                                        "I've ever seen, especially compared with other common forest creatures. " +
+                                        "Presumably due to the isolation from human interference, most of these " +
+                                        "are, indeed, slightly larger then average specimens found elsewhere. But " +
+                                        "the spider have grown to truly vast proportions. Could there be some sort " +
+                                        "of malign influence emanating from the ancient gate or node, some terrible " +
+                                        "kinship with whatever elder race was responsible for...\""
+                        )
+                        .addLeaf(
+                                "Journal Page 2",
+                                "\t[a page torn from a journal]" +
+                                        "\n\n\t\"...seems to confirm my theory that the Dark Tyrants indeed made " +
+                                        "use of the network - for it seems increasingly likely that that is its " +
+                                        "true nature. Surely they were not its creators - the ritual I've " +
+                                        "discovered which enables its opening is indeed powered by dark magics " +
+                                        "which are far more ancient than the land of Ys... or even humanity itself. " +
+                                        "The ancient book in which I found the ritual included a painstaking hand " +
+                                        "copy of the Tyrants' source - and the Glyphs thus transcribed bore a " +
+                                        "terrifying resemblance to that black tongue known as Typh...\""
+                        )
+                        .addLeaf(
+                                "Journal Page 3",
+                                "\t[a page torn from a journal]" +
+                                        "\n\n\t\"...it is almost time to begin. Despite the gibbous moonlight, " +
+                                        "this partial clearing deep in the grove is overhung by trees and vines " +
+                                        "so large and ancient that almost complete darkness reigns here. My " +
+                                        "torchlight glimmers as it reflects off vast webs in the upper branches, " +
+                                        "webs no doubt spun by the largest of the monster spiders I've observed " +
+                                        "here. Yet they are, after all, natural creatures, and I ought to have " +
+                                        "little to fear from them - at least until I've completed the ritual. " +
+                                        "If I succeed in opening this long-sealed door, who knows what I will " +
+                                        "discover beyond it? " +
+                                        "\n\tEnough speculation. The time is nigh.\""
                         )
                         .addLeaf(
                                 "Dark Grove Completion",
@@ -527,8 +559,11 @@ public class LoreDefinitions {
         }
         return false;
     }
+    public static int themeIndex(int dungeonThemeIndex) {
+        return dungeonThemeIndex - 1; //UNIVERSAL/YSIAN_ESTATE both equate to GENERAL, here.
+    }
     public static int themeIndex(DungeonTheme dt) {
-        return ThemeDefinitions.getIndex(dt) - 1; //UNIVERSAL/YSIAN_ESTATE both equate to GENERAL, here.
+        return themeIndex(ThemeDefinitions.getIndex(dt));
     }
 
     /**

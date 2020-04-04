@@ -1,4 +1,4 @@
-package world.lore;
+package world.lore.language;
 
 import util.Format;
 

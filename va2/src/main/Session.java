@@ -21,8 +21,7 @@ import world.dungeon.floor.FloorTile;
 import world.dungeon.theme.ThemeDefinitions;
 import world.item.define.ItemDefinitions;
 import world.item.inventory.Inventory;
-import world.lore.Language;
-import world.lore.LanguageKnowledge;
+import world.lore.language.LanguageKnowledge;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 

@@ -4,9 +4,9 @@ import contract.menu.Menu;
 import contract.menu.MenuBuilder;
 import contract.menu.MenuOption;
 import main.Session;
-import main.progression.estate.EstateProgression;
 import main.progression.estate.EstateProgressionNode;
 import main.progression.estate.EstateProgressionRoom;
+import world.item.inventory.ItemSlot;
 import world.lore.*;
 
 import static main.progression.estate.EstateProgression.*;
@@ -107,6 +107,14 @@ public class MenuDefinitions {
                 .addOption(upgrade)
                 .addOption(exitLibrary)
                 .build();
+    }
+
+    public static Menu getTextResearchOptions() {
+        MenuBuilder mb = MenuBuilder.newMenu("Available Texts: ");
+        for (ItemSlot itemSlot : Session.getPlayer().getUnresearchedTexts()) {
+            mb.addOption(new MenuOption(itemSlot.peekItem().getTemplate().getName(), true));
+        }
+        return mb.addOption(new MenuOption(CANCEL, true)).build();
     }
 
     public static final int HALL_OF_ARMS_OPTIONS_TRAIN = 0;

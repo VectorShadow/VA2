@@ -9,7 +9,7 @@ import main.progression.estate.EstateProgression;
 import world.dungeon.Dungeon;
 import world.dungeon.floor.Floor;
 import world.item.inventory.Inventory;
-import world.lore.LanguageKnowledge;
+import world.lore.language.LanguageKnowledge;
 import world.lore.LoreDefinitions;
 import world.lore.LoreTree;
 

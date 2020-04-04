@@ -1,4 +1,4 @@
-TBD - Version [a.2.0]:
+4 APR 2020 - Version [a.2.0]:
  [Change]
   -Text screens no longer attempt to redraw themselves unless a meaningful change has taken place.
   -User profile now remembers last session's display settings (e.g. fullscreen and graphical modes)

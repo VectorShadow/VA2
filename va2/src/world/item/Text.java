@@ -3,9 +3,8 @@ package world.item;
 import io.out.message.MessageCenter;
 import io.out.message.MessageType;
 import main.Session;
-import world.dungeon.theme.ThemeDefinitions;
-import world.lore.Language;
-import world.lore.LanguageKnowledge;
+import world.lore.language.Language;
+import world.lore.language.LanguageKnowledge;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 
@@ -19,37 +18,34 @@ public class Text extends StackableItem {
 
     final int GRIMOIRE_ID;
 
-    final int LORE_THEME;
-
     final int LORE_INDEX_MINIMUM;
     final int LORE_INDEX_MAXIMUM;
 
 
 
-    public Text(ItemTemplate it, Language l, int lp, int lt, int lMin, int lMax) {
-        this(it, l, lp, -1, lt, lMin, lMax);
+    public Text(ItemTemplate it, Language l, int lp, int lMin, int lMax) {
+        this(it, l, lp, -1, lMin, lMax);
     }
 
-    public Text(ItemTemplate it, Language l, int lp, int g, int lt, int lMin, int lMax) {
-        this(it, l, null, lp, g, lt, lMin, lMax);
+    public Text(ItemTemplate it, Language l, int lp, int g, int lMin, int lMax) {
+        this(it, l, null, lp, g, lMin, lMax);
     }
 
-    public Text(ItemTemplate it, Language p, Language s, int lp, int lt, int lMin, int lMax) {
-        this(it, p, s, lp, -1, lt, lMin, lMax);
+    public Text(ItemTemplate it, Language p, Language s, int lp, int lMin, int lMax) {
+        this(it, p, s, lp, -1, lMin, lMax);
     }
 
-    public Text(ItemTemplate it, Language p, Language s, int lp, int g, int lt, int lMin, int lMax) {
+    public Text(ItemTemplate it, Language p, Language s, int lp, int g, int lMin, int lMax) {
         super(it);
         PRIMARY = p;
         SECONDARY = s;
         LEARNING_POWER = lp;
         GRIMOIRE_ID = g;
-        LORE_THEME = lt;
         LORE_INDEX_MINIMUM = lMin;
         LORE_INDEX_MAXIMUM = lMax;
     }
     private Text(Text t) {
-        this((ItemTemplate)t.getTemplate(), t.PRIMARY, t.SECONDARY, t.LEARNING_POWER, t.LORE_THEME, t.LORE_INDEX_MINIMUM, t.LORE_INDEX_MAXIMUM);
+        this((ItemTemplate)t.getTemplate(), t.PRIMARY, t.SECONDARY, t.LEARNING_POWER, t.LORE_INDEX_MINIMUM, t.LORE_INDEX_MAXIMUM);
     }
 
     @Override
@@ -128,11 +124,23 @@ public class Text extends StackableItem {
                 );
             }
         }
+        int loreTheme = LoreDefinitions.themeIndex(getThemeIndex());
         //todo - if Lore theme == Ysian Estate, this is a recipe or blueprint. We'll define these somewhere.
-        if (LORE_THEME > ThemeDefinitions.YSIAN_ESTATE) {
+        if (loreTheme > LoreDefinitions.THEME_GENERAL) {
             int leafIndex = rng.nextInt((LORE_INDEX_MAXIMUM - LORE_INDEX_MINIMUM) + 1) + LORE_INDEX_MINIMUM;
-            if (((LockLeaf) (LoreDefinitions.getLockTree().getBranch(LORE_THEME).get(leafIndex))).isLocked()) {
-                Session.unlockLore(LORE_THEME, leafIndex, null);
+            if (((LockLeaf) (LoreDefinitions.getLockTree().getBranch(loreTheme).get(leafIndex))).isLocked()) {
+                Session.unlockLore(loreTheme, leafIndex, null);
+                mc.sendMessage(
+                        "You learn something new.",
+                        MessageType.INFO,
+                        MessageCenter.PRIORITY_MAX
+                );
+            } else {
+                mc.sendMessage(
+                        "You are unable to glean any especially interesting information from this text.",
+                        MessageType.INFO,
+                        MessageCenter.PRIORITY_MAX
+                );
             }
         }
         return true;
