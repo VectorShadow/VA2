@@ -1,4 +1,4 @@
-4 APR 2020 - Version [a.2.1]:
+??? - Version [a.3.0]:
  [Change]
   -Message verbosity settings persist between play sessions.
   -Combat message priorities adjusted as follows:
@@ -6,6 +6,8 @@
    >Successful evasion and deflection messages increased to HIGH from LOW.
    >Hits resulting in damage increased to MAX from HIGH.
    >Non-boss kill messages increased to MAX from HIGH(boss kill messages remain at MAX).
+ [New]
+  -Attacking an enemy in melee now designates that enemy as your current target.
 
 4 APR 2020 - Version [a.2.0]:
  [Change]

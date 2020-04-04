@@ -38,6 +38,8 @@ public class MeleeResolver extends CombatResolver {
         boolean isDefenderPlayer = defender == Session.getPlayer().getActor();
         if (!isAttackerPlayer && !isDefenderPlayer || attacker == defender)
             throw new IllegalStateException("Non-player or self combat: " + attacker + " attacking " + defender);
+        if (isAttackerPlayer)
+            Session.getTargetList().setTarget(defender.getLocation());
         String attackerName = attacker.getTemplate().getName();
         String defenderName = defender.getTemplate().getName();
         Combatant attackerCombatant = attacker.getCombatant();
