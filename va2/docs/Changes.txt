@@ -1,3 +1,12 @@
+4 APR 2020 - Version [a.2.1]:
+ [Change]
+  -Message verbosity settings persist between play sessions.
+  -Combat message priorities adjusted as follows:
+   >Initial attack and defend messages reduced to LOW from MAX.
+   >Successful evasion and deflection messages increased to HIGH from LOW.
+   >Hits resulting in damage increased to MAX from HIGH.
+   >Non-boss kill messages increased to MAX from HIGH(boss kill messages remain at MAX).
+
 4 APR 2020 - Version [a.2.0]:
  [Change]
   -Text screens no longer attempt to redraw themselves unless a meaningful change has taken place.
