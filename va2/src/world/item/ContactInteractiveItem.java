@@ -15,10 +15,6 @@ public abstract class ContactInteractiveItem extends EquipableItem implements Co
         super(it, doesDegrade, es);
         INNATE = innate;
     }
-    ContactInteractiveItem(ContactInteractiveItem cii) {
-        this(((ItemTemplate)cii.getTemplate()), cii.DOES_DEGRADE, cii.getEquipmentSlot(), cii.INNATE);
-    }
-
 
     /**
      * Innate items damage their actors, not themselves. Since items must have far more durability than an actor

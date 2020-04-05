@@ -14,10 +14,7 @@ import main.progression.rewards.Reward;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.DungeonTheme;
 import world.dungeon.theme.ThemeDefinitions;
-import world.item.Item;
-import world.item.Resource;
-import world.item.StackableItem;
-import world.item.Text;
+import world.item.*;
 import world.item.inventory.Inventory;
 import world.item.inventory.ItemSlot;
 import world.lore.LockLeaf;
@@ -159,6 +156,8 @@ public class Dungeon implements Serializable {
                     player.getTransientResources().add(i, is.count());
             } else if (i instanceof Text) {
                 player.getUnresearchedTexts().add(i, is.count());
+            } else if (i instanceof EquipableItem) {
+                player.getArmoryEquipment().add(i.clone());
             } else {
                 //todo - reassign accumulatedItems to appropriate player inventories - remember to clone DegradableItems!
             }

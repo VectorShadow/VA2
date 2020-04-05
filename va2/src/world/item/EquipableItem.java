@@ -15,12 +15,9 @@ public abstract class EquipableItem extends DegradableItem {
         super(it, doesDegrade);
         EQUIPMENT_SLOT = es;
     }
-    EquipableItem(EquipableItem ei) {
-        this (((ItemTemplate)ei.getTemplate()), ei.DOES_DEGRADE, ei.getEquipmentSlot());
-    }
-
 
     public EquipmentSlot getEquipmentSlot() {
         return EQUIPMENT_SLOT;
     }
+
 }

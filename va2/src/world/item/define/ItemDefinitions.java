@@ -510,6 +510,45 @@ public class ItemDefinitions {
                     )
             ),
             //todo - more player made melee weapons!
+            new MeleeWeapon(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("ancient stone spear")
+                            .setDescription("a crude ancient spear with a stone head")
+                            .manufactureItemTemplate(DURABILITY_UNIT * 12, MaterialDefinitions.COMMON_STONE,
+                                    FAMILY_MELEE_WEAPON | Item.shiftTheme(DARK_GROVE) | QUALITY_MUNDANE | 0x00),
+                    true,
+                    false,
+                    36,
+                    12,
+                    .25,
+                    new int[] {1, 0, 0},
+                    MeleeStyle.TWO_HAND,
+                    MeleeWeaponClass.POLE,
+                    new Continuum<>(
+                            new WeaponDamage("stab", 1.0, DamageType.PUNCTURE)
+                    )
+            ),
+            new MeleeWeapon(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("ancient bronze hatchet")
+                            .setDescription("an ancient bronze cutting tool")
+                            .manufactureItemTemplate(DURABILITY_UNIT * 12, MaterialDefinitions.BRONZE,
+                                    FAMILY_MELEE_WEAPON | Item.shiftTheme(DARK_GROVE) | QUALITY_COMMON | 0x1),
+                    true,
+                    false,
+                    42,
+                    12,
+                    .42,
+                    new int[] {0, 1, 0},
+                    MeleeStyle.ONE_HAND,
+                    MeleeWeaponClass.AXE,
+                    new Continuum<>(
+                            new WeaponDamage("hack$", 1.0, DamageType.REND)
+                    )
+            ),
+            //todo - more theme weapon drops
             new Armor(
                     WorldObjectTemplateFactory
                             .initialize()
@@ -608,6 +647,19 @@ public class ItemDefinitions {
                     5
             ),
             //todo - more player made armors!
+            new Armor(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("ancient bronze cuirass")
+                            .setDescription("light armor of ancient bronze")
+                            .manufactureItemTemplate(DURABILITY_UNIT * 6, MaterialDefinitions.BRONZE,
+                                    FAMILY_ARMOR | Item.shiftTheme(DARK_GROVE) | QUALITY_COMMON | 0x00),
+                    true,
+                    false,
+                    0.55,
+                    7
+            ),
+            //todo - more theme drop armors!
             new Text(
                     WorldObjectTemplateFactory
                             .initialize()
