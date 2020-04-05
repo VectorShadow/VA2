@@ -8,6 +8,7 @@ import io.out.message.MessageCenter;
 import main.modes.*;
 import main.progression.estate.EstateProgression;
 import main.progression.rewards.Experience;
+import main.progression.rewards.Reward;
 import resources.chroma.ChromaSet;
 import resources.glyph.image.ImageManager;
 import world.actor.ActorDefinitions;
@@ -76,7 +77,7 @@ public class Session {
         engine = new Engine();
         messageCenter = new MessageCenter();
         player = new Player();
-        player.setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
+        player.setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE, new Reward(0, 0, null)));
         player.getEquipment().setStartingItems();
         player.getActor().getCombatant().renewHealth();
         player.getActor().getCombatant().renewSanity();

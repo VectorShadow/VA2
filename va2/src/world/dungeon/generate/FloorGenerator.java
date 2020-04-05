@@ -134,7 +134,7 @@ public abstract class FloorGenerator implements Serializable {
             FloorTile ft = floor.tileAt(c.getRow(), c.getColumn());
             if (ft.getActor() == null && ((TerrainTemplate)ft.getTerrain().getTemplate()).permitsMovement()) {
                 --enemyPotential;
-                Session.addActor(new Actor(floor.THEME.getActorSet().randomizeEnemy(floor.DEPTH)), c);
+                Session.addActor(floor.THEME.generateRandomActor(floor.DEPTH), c);
             }
         }
     }
@@ -150,9 +150,9 @@ public abstract class FloorGenerator implements Serializable {
     }
     protected void placeEndStairs(Coordinate c) {
         floor.tileAt(c.getRow(), c.getColumn()).setTerrain(new Terrain(TerrainDefinitions.NEXT_FLOOR_STAIR));
-        ActorTemplate floorBossTemplate = floor.THEME.getActorSet().randomizeFloorBoss(floor.DEPTH);
-        if (floorBossTemplate != null) {
-            Session.addActor(new Actor(floorBossTemplate), c);
+        Actor floorBoss = floor.THEME.randomizeFloorBoss(floor.DEPTH);
+        if (floorBoss != null) {
+            Session.addActor(floorBoss, c);
             floor.spawnFloorBoss();
         }
         Coordinate c1 = Direction.random(false).shift(c);

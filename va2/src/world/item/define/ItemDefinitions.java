@@ -82,7 +82,196 @@ public class ItemDefinitions {
                             .manufactureItemTemplate(1, null,
                                     FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_MUNDANE | 0x03)
             ),
-            //todo - intermediate, advanced legacy resources
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Tile")
+                            .setDescription("tile")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x00)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Parchment")
+                            .setDescription("parchment")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x01)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Metalwork")
+                            .setDescription("miscellaneous metal fixtures")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x02)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Glass")
+                            .setDescription("blown glass")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x03)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Limestone")
+                            .setDescription("limestone blocks")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x04)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Linen")
+                            .setDescription("woven linen cloth")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x05)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Ink")
+                            .setDescription("common black ink")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x06)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Common dyes")
+                            .setDescription("dyes in common colors")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x07)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Specialized tools")
+                            .setDescription("tools customized for specific uses")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_SCARCE | 0x08)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Gemstones")
+                            .setDescription("miscellaneous precious and semi-precious gems")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x00)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Gilding")
+                            .setDescription("finely worked golden trim")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x01)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Rare metals")
+                            .setDescription("rare metals with special properties")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x02)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Crystal")
+                            .setDescription("fine crystalline glass")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x03)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Incense")
+                            .setDescription("rare and pungent incense")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x04)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Marble")
+                            .setDescription("lustrous, richly veined marble blocks")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x05)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Silk")
+                            .setDescription("a bolt of shimmering silken cloth")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x06)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Vellum")
+                            .setDescription("specially fabricated paper of the highest quality")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x07)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Calligraphic ink")
+                            .setDescription("specially formulated inks of the highest quality")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x08)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Rare dyes")
+                            .setDescription("special dyes in rich colors")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x09)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Rare wood")
+                            .setDescription("aromatic wood with special properties")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x0a)
+            ),
+            new Resource(
+                    WorldObjectTemplateFactory
+                            .initialize()
+                            .setName("Mastercraft tools")
+                            .setDescription("tools masterfully crafted for very specific purposes")
+                            .setSymbols('~')
+                            .manufactureItemTemplate(1, null,
+                                    FAMILY_LEGACY_RESOURCE | Item.shiftTheme(ANY) | QUALITY_RARE | 0x0b)
+            ),
+            //todo - additional legacy resources?
             /*
             Here we define scrap materials. Any item which is made of the same material will scrap into the corresponding
             transient resource. Note that individual themes may offer special materials for item construction, but all

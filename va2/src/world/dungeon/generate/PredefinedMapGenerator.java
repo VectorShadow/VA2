@@ -34,51 +34,12 @@ public class PredefinedMapGenerator extends FloorGenerator {
     }
     private void copyActors() {
         String[] s = floor.THEME.getFinalFloorActors();
-        char c;
-        ActorTemplate[] dbs = floor.THEME.getActorSet().getDungeonBossSet();
-        ActorTemplate at;
+        Actor a;
         for (int i = 0; i < floor.ROWS; ++i) {
             for (int j = 0; j < floor.COLS; ++j) {
-                c = s[i].charAt(j);
-                switch (c) {
-                    case ' ':
-                        at = null;
-                        break;
-                    case '0':
-                        at = dbs[0];
-                        break;
-                    case '1':
-                        at = dbs[1];
-                        break;
-                    case '2':
-                        at = dbs[2];
-                        break;
-                    case '3':
-                        at = dbs[3];
-                        break;
-                    case '4':
-                        at = dbs[4];
-                        break;
-                    case '5':
-                        at = dbs[5];
-                        break;
-                    case '6':
-                        at = dbs[6];
-                        break;
-                    case '7':
-                        at = dbs[7];
-                        break;
-                    case '8':
-                        at = dbs[8];
-                        break;
-                    case '9':
-                        at = dbs[9];
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unexpected symbol " + c);
-                }
-                if (at != null)
-                    Session.addActor(new Actor(at), new Coordinate(i, j));
+                a = floor.THEME.generateBossFloor(s[i].charAt(j));
+                if (a != null)
+                    Session.addActor(a, new Coordinate(i, j));
             }
         }
     }

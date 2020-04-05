@@ -6,8 +6,11 @@
    >Successful evasion and deflection messages increased to HIGH from LOW.
    >Hits resulting in damage increased to MAX from HIGH.
    >Non-boss kill messages increased to MAX from HIGH(boss kill messages remain at MAX).
+  -Rewards overhauled. They are now generated dynamically by theme, and scale in experience, drop count,
+  drop rarity, and all other variable metrics based on enemy tier in the theme's actor set.
  [New]
   -Attacking an enemy in melee now designates that enemy as your current target.
+  -Added rarer Legacy resource items.
 
 4 APR 2020 - Version [a.2.0]:
  [Change]

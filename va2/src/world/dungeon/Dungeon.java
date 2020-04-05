@@ -7,7 +7,9 @@ import main.Session;
 import main.modes.ModeManager;
 import main.modes.ScrollingTextMode;
 import main.modes.TransitiveScrollingTextMode;
+import main.progression.rewards.DropTable;
 import main.progression.rewards.Experience;
+import main.progression.rewards.Loot;
 import main.progression.rewards.Reward;
 import world.dungeon.floor.Floor;
 import world.dungeon.theme.DungeonTheme;
@@ -45,10 +47,27 @@ public class Dungeon implements Serializable {
         rewards.add(r);
     }
     public void nextFloor() {
+        int depth = Session.getCurrentFloor().DEPTH;
         Session.getMessageCenter().clearNewMessages();
         Session.getMessageCenter().sendMessage("You make your way deeper into the dungeon.", MessageType.INFO, MessageCenter.PRIORITY_MAX);
-        Session.setCurrentFloor(new Floor(Session.getCurrentFloor().DEPTH + 1, DUNGEON_THEME));
+        Session.setCurrentFloor(new Floor(depth + 1, DUNGEON_THEME));
         dispenseRewards(FLOOR_COMPLETION_REWARD); //partial reward payout for each cleared floor
+        //now add bonus rewards with quality dependant on depth
+        DropTable dt  = Loot.generateDropTable(
+                ThemeDefinitions.getIndex(getTheme()),
+                depth > 8
+                        ? Item.QUALITY_RARE
+                        : depth > 4
+                        ? Item.QUALITY_EXOTIC
+                        : depth > 2
+                        ? Item.QUALITY_SCARCE
+                        : depth > 1
+                        ? Item.QUALITY_COMMON
+                        : Item.QUALITY_MUNDANE,
+                Loot.ALL_FAMILIES,
+                0.0
+        );
+        addReward(new Reward(0, (int)Math.sqrt(depth), dt));
     }
     public void exitDungeon(boolean fullRewards) {
         Player player = Session.getPlayer();
@@ -86,7 +105,11 @@ public class Dungeon implements Serializable {
                 Session.killActor(Session.getPlayer().getActor(), true);
             }
         }
-        dispenseRewards(fullRewards ? 1.0 : EARLY_EXIT_PENALTY); //full reward payout, with or without exit penalty
+        //pay out rewards - full completion awards all rewards.
+        //exiting early on normal floors awards only the early exit penalty,
+        // while exiting early on the final floor is even more severe
+        // - it's only intended to be lucrative when completed.
+        dispenseRewards(fullRewards ? 1.0 : Session.isFinalFloor() ? FLOOR_COMPLETION_REWARD : EARLY_EXIT_PENALTY);
         //player recuperates at their estate until they reach full health.
         player.getActor().getCombatant().renewHealth();
         //player recovers 5% sanity for each completed floor this dungeon.
@@ -112,8 +135,8 @@ public class Dungeon implements Serializable {
             if (Session.getRNG().nextDouble() < threshold) {
                 i.remove();
                 experience.gainXP(r.evaluateExperience(experience.getLevel()));
-                ItemSlot itemSlot = r.rollDrop();
-                if (itemSlot != null) {
+                Inventory drops = r.rollDrop();
+                for (ItemSlot itemSlot : drops) {
                     accumulatedItems.add(itemSlot.peekItem(), Session.getRNG().nextInt(itemSlot.count()) + 1);
                 }
             }

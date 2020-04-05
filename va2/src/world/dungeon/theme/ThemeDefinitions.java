@@ -62,7 +62,7 @@ public class ThemeDefinitions {
                             null,
                             new ArrayList<>()
                     ),
-                    new ActorSet(null, null, null, null, null, null, new ActorTemplate[]{}),
+                    new ActorSet(new Continuum[]{null, null, null, null, null, null}, new ActorTemplate[]{}),
                     new TerrainSet(null, null, null, null, null)
             ),
             new DungeonTheme(
@@ -130,12 +130,13 @@ public class ThemeDefinitions {
                             new ArrayList<>()
                     ),
                     new ActorSet(
+                            new Continuum[]{
                             null,
                             null,
                             null,
                             null,
                             null,
-                            null,
+                            null},
                             new ActorTemplate[]{}
                     ),
                     new TerrainSet(
@@ -254,41 +255,43 @@ public class ThemeDefinitions {
                             new ArrayList<>()
                     ),
                     new ActorSet(
-                            new Continuum<>(
+                            new Continuum[]{
+                                    new Continuum<>(
                                     ActorDefinitions.WOODLAND_SPIDER,
                                     ArrayListBuilder
                                             .initialize()
                                             .addElement(new Pair<>(0.15, ActorDefinitions.LARGE_HUNTING_SPIDER))
                                             .addElement(new Pair<>(0.025, ActorDefinitions.GIANT_HUNTING_SPIDER))
                                             .build()
-                            ),
-                            new Continuum<>(
+                                    ),
+                                    new Continuum<>(
                                     ActorDefinitions.FOREST_WOLF_TEMPLATE,
                                     ArrayListBuilder
                                             .initialize()
                                             .addElement(new Pair<>(0.075, ActorDefinitions.RABID_WOLF_TEMPLATE))
                                             .addElement(new Pair<>(0.25, ActorDefinitions.SILVER_WOLF_TEMPLATE))
                                             .build()
-                            ),
-                            new Continuum<>(
+                                    ),
+                                    new Continuum<>(
                                     ActorDefinitions.BLACK_BEAR_TEMPLATE,
                                     new ArrayList<>()
-                            ),
-                            new Continuum<>(
+                                    ),
+                                    new Continuum<>(
                                     ActorDefinitions.CAVE_BEAR_TEMPLATE,
                                     new ArrayList<>()
-                            ),
-                            new Continuum<>(
+                                    ),
+                                    new Continuum<>(
                                     ActorDefinitions.GIANT_WATER_MOCCASIN,
                                     new ArrayList<>()
-                            ),
-                            new Continuum<>(
+                                    ),
+                                    new Continuum<>(
                                     null,
                                     ArrayListBuilder
                                             .initialize()
                                             .addElement(new Pair<>(0.15, ActorDefinitions.ANCIENT_WEB_CRAWLER_TEMPLATE))
                                             .build()
-                            ),
+                                    )
+                            },
                             new ActorTemplate[]{
                                     ActorDefinitions.SILK_MUMMY_TEMPLATE,
                                     ActorDefinitions.GIANT_HUNTING_SPIDER,
