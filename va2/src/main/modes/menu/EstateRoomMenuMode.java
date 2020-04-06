@@ -4,6 +4,7 @@ import io.in.InputCommandList;
 import io.out.GUIManager;
 import main.Session;
 import main.modes.menu.estate.*;
+import main.modes.menu.estate.armory.ArmoryMenuMode;
 import main.modes.menu.estate.library.LibraryMenuMode;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;

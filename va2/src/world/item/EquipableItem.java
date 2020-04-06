@@ -20,4 +20,6 @@ public abstract class EquipableItem extends DegradableItem {
         return EQUIPMENT_SLOT;
     }
 
+    public abstract String informativeDisplay();
+
 }

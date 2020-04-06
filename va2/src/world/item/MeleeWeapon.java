@@ -5,6 +5,8 @@ import combat.melee.weapons.MeleeStyle;
 import combat.melee.weapons.MeleeWeaponClass;
 import main.Session;
 import resources.continuum.Continuum;
+import resources.continuum.Pair;
+import util.Format;
 import world.item.loadout.EquipmentSlot;
 
 public class MeleeWeapon extends ContactInteractiveItem {
@@ -100,5 +102,31 @@ public class MeleeWeapon extends ContactInteractiveItem {
     @Override
     public MeleeWeapon clone() {
         return new MeleeWeapon(this);
+    }
+
+    @Override
+    public String informativeDisplay() {
+        String id =  getTemplate().getName() + "(" + (DAMAGE_LIMIT - DAMAGE_VARIANCE) + "-" + DAMAGE_LIMIT +
+                " @" + Format.percent(STRENGTH_INFLUENCE * 100, 1) + " Strength)";
+        if (STAT_MODIFIERS[0] != 0 || STAT_MODIFIERS[1] != 0 || STAT_MODIFIERS[2] != 0) {
+            id += "{";
+            for (int i = 0; i < STAT_MODIFIERS.length; ++i) {
+                int statMod = STAT_MODIFIERS[i];
+                if (statMod != 0) {
+                    id += (statMod < 0 ? "-" : "+") + statMod + " " +
+                            (i == 0 ? "Accuracy" : i == 1 ? "Precision" : "Damage");
+                    if (i < STAT_MODIFIERS.length - 1 && STAT_MODIFIERS[i + 1] != 0)
+                        id += "/";
+                }
+            }
+            id +="}";
+        }
+        id += "[" + MELEE_WEAPON_CLASS.shortDescribe() + "/" +  MELEE_STYLE.shortDescribe() + "]";
+        id += "<" + WEAPON_DAMAGE_CONTINUUM.getBase().damageType().getName();
+        if (WEAPON_DAMAGE_CONTINUUM.getPairList().size() > 0) {
+            for (Pair<WeaponDamage> wdp : WEAPON_DAMAGE_CONTINUUM.getPairList())
+                id += "/" + wdp.element.damageType().getName();
+        }
+        return id += ">";
     }
 }

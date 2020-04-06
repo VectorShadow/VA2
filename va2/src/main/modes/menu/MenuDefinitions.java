@@ -6,6 +6,7 @@ import contract.menu.MenuOption;
 import main.Session;
 import main.progression.estate.EstateProgressionNode;
 import main.progression.estate.EstateProgressionRoom;
+import world.item.EquipableItem;
 import world.item.inventory.ItemSlot;
 import world.lore.*;
 
@@ -281,7 +282,7 @@ public class MenuDefinitions {
     public static final int ARMORY_OPTIONS_EXIT = 4;
 
     public static Menu getArmoryOptions() {
-        MenuOption equip = new MenuOption("Outfit Equipment", false);
+        MenuOption equip = new MenuOption("Outfit Equipment", true);
         MenuOption pack = new MenuOption("Pack Supplies", false);
         MenuOption scrap = new MenuOption("Scrap For Resources", false);
         MenuOption upgrade = new MenuOption("Upgrade Armory", false);
@@ -294,6 +295,15 @@ public class MenuDefinitions {
                 .addOption(exit)
                 .build();
     }
+
+    public static Menu getArmoryEquipOptions() {
+        MenuBuilder mb = MenuBuilder.newMenu("Available Equipment: ");
+        for (ItemSlot itemSlot : Session.getPlayer().getArmoryEquipment()) {
+            mb.addOption(new MenuOption(((EquipableItem)itemSlot.peekItem()).informativeDisplay(), true));
+        }
+        return mb.addOption(new MenuOption(CANCEL, true)).build();
+    }
+
     public static final int RITUAL_CHAMBER_OPTIONS_PERFORM_RITUAL = 0;
     public static final int RITUAL_CHAMBER_OPTIONS_UPGRADE = 1;
     public static final int RITUAL_CHAMBER_OPTIONS_EXIT = 2;

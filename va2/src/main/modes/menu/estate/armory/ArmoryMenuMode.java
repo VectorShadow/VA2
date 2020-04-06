@@ -1,4 +1,4 @@
-package main.modes.menu.estate;
+package main.modes.menu.estate.armory;
 
 import main.Session;
 import main.modes.menu.EstateRoomMenuMode;
@@ -14,7 +14,7 @@ public class ArmoryMenuMode extends EstateRoomMenuMode {
     protected void handleMenuOptionIndex(int index) {
         switch (index) {
             case MenuDefinitions.ARMORY_OPTIONS_EQUIP:
-                //todo
+                Session.getModeManager().transitionTo(new EquipMenuMode());
                 return;
             case MenuDefinitions.ARMORY_OPTIONS_PACK:
                 //todo

@@ -16,5 +16,18 @@ public enum MeleeWeaponClass {
     BLUNTED,
     CHAIN,
     POLE,
-    AXE
+    AXE;
+
+    public String shortDescribe() {
+        switch (this) {
+            case FIST_CLAW: return "Fist/Claw";
+            case SHORT_BLADES: return "Short Blade";
+            case SWORDS: return "Sword";
+            case BLUNTED: return "Blunt";
+            case CHAIN: return "Chain";
+            case POLE: return "Pole";
+            case AXE: return "Axe";
+            default: throw new IllegalArgumentException();
+        }
+    }
 }
