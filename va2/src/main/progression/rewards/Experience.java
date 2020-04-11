@@ -64,7 +64,6 @@ public class Experience extends Saveable {
         XP_TABLE[1] = LEVEL_ONE;
         for (int i = 2; i < XP_TABLE.length; ++i) {
             XP_TABLE[i] = (long)((double)XP_TABLE[i-1] * slidingScale(i));
-            System.out.println(i + ": " + XP_TABLE[i]);
         }
     }
     public static long calculateXP(int level) {

@@ -7,10 +7,7 @@ import main.Session;
 import main.modes.ConfirmDeleteGameMode;
 import main.modes.MainGameViewMode;
 import main.modes.OperatingMode;
-import main.modes.TransitiveScrollingTextMode;
 import util.Coordinate;
-import world.actor.Actor;
-import world.actor.ActorDefinitions;
 import world.lore.LockLeaf;
 import world.lore.LoreDefinitions;
 

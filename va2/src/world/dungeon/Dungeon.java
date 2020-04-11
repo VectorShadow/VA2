@@ -4,9 +4,7 @@ import io.out.message.MessageCenter;
 import io.out.message.MessageType;
 import main.Player;
 import main.Session;
-import main.modes.ModeManager;
-import main.modes.ScrollingTextMode;
-import main.modes.TransitiveScrollingTextMode;
+import main.modes.ScrollableTextMode;
 import main.progression.rewards.DropTable;
 import main.progression.rewards.Experience;
 import main.progression.rewards.Loot;
@@ -162,7 +160,7 @@ public class Dungeon implements Serializable {
                 //todo - reassign accumulatedItems to appropriate player inventories - remember to clone DegradableItems!
             }
         }
-        Session.getModeManager().transitionTo(new ScrollingTextMode("You found the following items:\n\n" + accumulatedItems));
+        Session.getModeManager().transitionTo(new ScrollableTextMode("You found the following items:\n\n" + accumulatedItems));
         accumulatedItems = new Inventory(); //reset this inventory
     }
     public void killDungeonBoss() {

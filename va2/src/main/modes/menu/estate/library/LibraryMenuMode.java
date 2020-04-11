@@ -1,7 +1,7 @@
 package main.modes.menu.estate.library;
 
 import main.Session;
-import main.modes.ScrollingTextMode;
+import main.modes.ScrollableTextMode;
 import main.modes.menu.EstateRoomMenuMode;
 import main.modes.menu.LoreMenuMode;
 import main.modes.menu.MenuDefinitions;
@@ -25,7 +25,7 @@ public class LibraryMenuMode extends EstateRoomMenuMode {
                 Session.getModeManager().transitionTo(new LoreMenuMode());
                 return;
             case MenuDefinitions.LIBRARY_OPTIONS_LANGUAGES:
-                Session.getModeManager().transitionTo(new ScrollingTextMode(Session.getLanguageKnowledge().toString()));
+                Session.getModeManager().transitionTo(new ScrollableTextMode(Session.getLanguageKnowledge().toString()));
                 return;
             case MenuDefinitions.LIBRARY_OPTIONS_UPGRADE:
                 Session.getModeManager().transitionTo(new UpgradeMenuMode(MenuDefinitions.getUpgradeOptions(EstateProgression.INDEX_LIBRARY)));
