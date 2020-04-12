@@ -27,7 +27,7 @@ public class ScrollableItemSelectionMode extends MenuMode {
 
     @Override
     public void from(){
-        EXECUTOR.run();
+        EXECUTOR.handleSelection();
     }
 
     @Override
