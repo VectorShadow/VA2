@@ -21,6 +21,10 @@ public abstract class ItemSelectionExecutor {
         selectedIndex = index;
     }
 
+    public Inventory getInventory() {
+        return INVENTORY;
+    }
+
     /**
      *
      */

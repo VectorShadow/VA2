@@ -2,7 +2,11 @@ package main.modes.menu.estate;
 
 import io.out.GUIManager;
 import main.Session;
+import main.modes.menu.MenuDefinitions;
 import main.modes.menu.MenuMode;
+import resources.glyph.GlyphString;
+
+import java.awt.*;
 
 public class ScrollableItemSelectionMode extends MenuMode {
 
@@ -14,12 +18,15 @@ public class ScrollableItemSelectionMode extends MenuMode {
 
     @Override
     protected void handleMenuOptionIndex(int index) {
-        EXECUTOR.select(index);
+        if (index == EXECUTOR.INVENTORY.size())
+            Session.getModeManager().revert();
+        else
+            EXECUTOR.select(index);
     }
 
     @Override
     public void to() {
-        //todo - generate a menu from the INVENTORY - was: setMenu(MenuDefinitions.getMainMenu());
+        setMenu(MenuDefinitions.generateInventoryMenu(EXECUTOR.getInventory()));
         GUIManager gm = Session.getGuiManager();
         gm.changeChannelToFullscreenText();
         out();
@@ -34,8 +41,27 @@ public class ScrollableItemSelectionMode extends MenuMode {
     public void out() {
         GUIManager gm = Session.getGuiManager();
         gm.clearScreen();
-        //todo - display the selection title, then the inventory starting from the selected index -
-        // show items in rarity colors - if menu and highlighted, invert background/foreground
-        // was: gm.printMenu(0.35, menu);
+        Point lastLineEnd = gm.printCenteredLine(0.2, "Select an Item:");
+        int listLineRow = lastLineEnd.y + 2;
+        for (int i = menu.getSelectedOptionIndex(); i < menu.size() - 1; ++i) {
+            GlyphString coloredName = EXECUTOR.getInventory().get(i).peekItem().getQualityColoredName(i);
+            if (i == menu.getSelectedOptionIndex())
+                coloredName = new GlyphString(
+                        new GlyphString("> ",
+                                Session.getColorScheme().getBackground(),
+                                Session.getColorScheme().getForeground()),
+                        coloredName
+                );
+            gm.printGlyphString(listLineRow++, 4, coloredName);
+        }
+        gm.printGlyphString(
+                listLineRow,
+                4,
+                new GlyphString(
+                        "Exit",
+                        Session.getColorScheme().getBackground(),
+                        Session.getColorScheme().getForeground()
+                )
+        );
     }
 }

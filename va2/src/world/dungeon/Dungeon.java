@@ -62,7 +62,7 @@ public class Dungeon implements Serializable {
                 Loot.ALL_FAMILIES,
                 0.0
         );
-        addReward(new Reward(0, (int)Math.sqrt(depth), dt));
+        addReward(new Reward(0, (int)Math.sqrt(depth), dt.initializeOn(null)));
     }
     public void exitDungeon(boolean fullRewards) {
         Player player = Session.getPlayer();

@@ -7,6 +7,7 @@ import main.Session;
 import main.progression.estate.EstateProgressionNode;
 import main.progression.estate.EstateProgressionRoom;
 import world.item.EquipableItem;
+import world.item.inventory.Inventory;
 import world.item.inventory.ItemSlot;
 import world.lore.*;
 
@@ -88,6 +89,14 @@ public class MenuDefinitions {
                 .build();
     }
 
+    public static Menu generateInventoryMenu(Inventory inventory) {
+        MenuBuilder mb = MenuBuilder.newMenu("Select an Item:");
+        for (ItemSlot itemSlot : inventory) {
+            mb.addOption(new MenuOption(itemSlot.peekItem().getTemplate().getName(), true));
+        }
+        return mb.addOption(new MenuOption(CANCEL, true)).build();
+    }
+
     public static final int LIBRARY_OPTIONS_TEXTS = 0;
     public static final int LIBRARY_OPTIONS_LORE = 1;
     public static final int LIBRARY_OPTIONS_LANGUAGES = 2;
@@ -110,13 +119,6 @@ public class MenuDefinitions {
                 .build();
     }
 
-    public static Menu getTextResearchOptions() {
-        MenuBuilder mb = MenuBuilder.newMenu("Available Texts: ");
-        for (ItemSlot itemSlot : Session.getPlayer().getUnresearchedTexts()) {
-            mb.addOption(new MenuOption(itemSlot.peekItem().getTemplate().getName(), true));
-        }
-        return mb.addOption(new MenuOption(CANCEL, true)).build();
-    }
 
     public static final int HALL_OF_ARMS_OPTIONS_TRAIN = 0;
     public static final int HALL_OF_ARMS_OPTIONS_FORMS = 1;
