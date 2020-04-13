@@ -13,17 +13,13 @@ public class ResearchTextsSelectionExecutor extends ItemSelectionExecutor {
 
     @Override
     public void handleSelection() {
-        System.out.println("Handling selection " + selectedIndex);
         Inventory texts = Session.getPlayer().getUnresearchedTexts();
         ItemSlot itemSlot;
         Text text;
-        if (selectedIndex >= 0 && selectedIndex < texts.size()) {
-            Session.getModeManager().revert();
-            itemSlot = texts.get(selectedIndex);
-            text = (Text)itemSlot.peekItem();
-            if (text.study()) {
-                texts.remove(selectedIndex, 1);
-            }
+        itemSlot = texts.get(selectedIndex);
+        text = (Text)itemSlot.peekItem();
+        if (text.study()) {
+            texts.remove(selectedIndex, 1);
         }
     }
 }

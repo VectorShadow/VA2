@@ -18,10 +18,8 @@ public class ScrollableItemSelectionMode extends MenuMode {
 
     @Override
     protected void handleMenuOptionIndex(int index) {
-        if (index == EXECUTOR.INVENTORY.size())
-            Session.getModeManager().revert();
-        else
-            EXECUTOR.select(index);
+        EXECUTOR.select(index);
+        Session.getModeManager().revert();
     }
 
     @Override
@@ -34,7 +32,11 @@ public class ScrollableItemSelectionMode extends MenuMode {
 
     @Override
     public void from(){
-        EXECUTOR.handleSelection();
+        Session.getModeManager().revert();
+        int index = EXECUTOR.getSelectedIndex();
+        if (index >= 0 && index < EXECUTOR.INVENTORY.size()) {
+            EXECUTOR.handleSelection();
+        }
     }
 
     @Override
