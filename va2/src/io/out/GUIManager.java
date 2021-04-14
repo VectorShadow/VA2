@@ -9,7 +9,6 @@ import io.in.InputCommand;
 import io.in.InputCommandList;
 import io.out.message.Message;
 import io.out.message.MessageCenter;
-import io.out.message.MessageType;
 import main.MetaData;
 import main.Player;
 import main.Session;
@@ -118,7 +117,7 @@ public class GUIManager {
     }
 
     public GUIManager() {
-        GUI.setFullScreen(false);
+        GUI.setFullScreenMode(false);
         try {
             ImageManager.loadGraphics(DualityContext.TILE_FULLSCREEN, FULLSCREEN_GFX_FILE);
             ImageManager.loadGraphics(DualityContext.TILE_WINDOWED, WINDOWED_GFX_FILE);
