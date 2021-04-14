@@ -273,29 +273,29 @@ public class GUIManager {
                     text[i]
             );
     }
-    public void printCenteredLine(double percentFromTop, String text) {
-        printCenteredLine(
+    public Point printCenteredLine(double percentFromTop, String text) {
+        return printCenteredLine(
                 percentFromTop,
                 text,
                 Session.getColorScheme()
         );
     }
-    public void printCenteredLine(double percentFromTop, String text, ChromaSet cs) {
-        printCenteredLine(
+    public Point printCenteredLine(double percentFromTop, String text, ChromaSet cs) {
+        return printCenteredLine(
                 GUI.rowAtPercent(percentFromTop),
                 text,
                 cs
         );
     }
-    public void printCenteredLine(int row, String text) {
-        printCenteredLine(
+    public Point printCenteredLine(int row, String text) {
+        return printCenteredLine(
                 row,
                 text,
                 Session.getColorScheme()
         );
     }
-    public void printCenteredLine(int row, String text, ChromaSet cs) {
-        GUI.printCentered(
+    public Point printCenteredLine(int row, String text, ChromaSet cs) {
+        return GUI.printCentered(
                 row,
                 new GlyphString(text,
                         cs.getBackground(),
@@ -303,8 +303,8 @@ public class GUIManager {
                 )
         );
     }
-    public void printHighlightedCenteredLine(int row, String text, ChromaSet cs) {
-        GUI.printCentered(
+    public Point printHighlightedCenteredLine(int row, String text, ChromaSet cs) {
+        return GUI.printCentered(
                 row,
                 new GlyphString(text,
                         cs.getBackground(),

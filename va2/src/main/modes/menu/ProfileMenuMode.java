@@ -2,14 +2,14 @@ package main.modes.menu;
 
 import io.out.GUIManager;
 import main.Session;
-import main.modes.ScrollingTextMode;
+import main.modes.ScrollableTextMode;
 
 public class ProfileMenuMode extends MenuMode {
     @Override
     protected void handleMenuOptionIndex(int index) {
         switch (index) {
             case MenuDefinitions.PROFILE_MENU_KNOWN_LANGUAGES:
-                Session.getModeManager().transitionTo(new ScrollingTextMode(Session.getLanguageKnowledge().toString()));
+                Session.getModeManager().transitionTo(new ScrollableTextMode(Session.getLanguageKnowledge().toString()));
                 return;
             case MenuDefinitions.PROFILE_MENU_KNOWN_RECIPES:
                 //todo
@@ -22,7 +22,7 @@ public class ProfileMenuMode extends MenuMode {
                 return;
             case MenuDefinitions.PROFILE_MENU_RESOURCES_AND_UPGRADES:
                 Session.getModeManager().transitionTo(
-                        new ScrollingTextMode("Legacy Resources:\n\n" + Session.getLegacyResources() +
+                        new ScrollableTextMode("Legacy Resources:\n\n" + Session.getLegacyResources() +
                                 "\n\n\n" + Session.getEstateProgression())
                 );
                 return;

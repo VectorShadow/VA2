@@ -2,7 +2,7 @@ package world.actor;
 
 import ai.AI;
 import combat.Combatant;
-import main.progression.rewards.Reward;
+import main.progression.rewards.Loot;
 import resources.glyph.BalancedGlyphTemplate;
 import world.WorldObjectTemplate;
 
@@ -14,7 +14,8 @@ public class ActorTemplate extends WorldObjectTemplate {
     private final int ENERGY_GAIN_PER_TURN;
     private final Combatant COMBATANT;
     private final int MINIMUM_DEPTH;
-    private final Reward REWARD;
+    private final int REWARD_EXPERIENCE;
+    private final int REWARD_ITEM_FAMILY;
     private final AI AI;
 
     public ActorTemplate(
@@ -23,15 +24,17 @@ public class ActorTemplate extends WorldObjectTemplate {
             BalancedGlyphTemplate bgt,
             boolean reflect,
             int e,
-            Combatant c,
             int md,
-            Reward REWARD,
+            Combatant c,
+            int rxp,
+            int rif,
             AI AI) {
         super(d, n, bgt, reflect);
         ENERGY_GAIN_PER_TURN = e;
-        COMBATANT = c;
         MINIMUM_DEPTH = md;
-        this.REWARD = REWARD;
+        COMBATANT = c;
+        REWARD_EXPERIENCE = rxp;
+        REWARD_ITEM_FAMILY = rif;
         this.AI = AI;
     }
     private ActorTemplate(ActorTemplate at) {
@@ -41,9 +44,10 @@ public class ActorTemplate extends WorldObjectTemplate {
                 at.BALANCED_GLYPH_TEMPLATE.clone(),
                 at.reflectsLight(),
                 at.ENERGY_GAIN_PER_TURN,
-                at.COMBATANT.clone(),
                 at.MINIMUM_DEPTH,
-                at.REWARD,
+                at.COMBATANT.clone(),
+                at.REWARD_EXPERIENCE,
+                at.REWARD_ITEM_FAMILY,
                 at.AI);
     }
 
@@ -60,8 +64,12 @@ public class ActorTemplate extends WorldObjectTemplate {
         return MINIMUM_DEPTH;
     }
 
-    public Reward getReward() {
-        return REWARD;
+    public int getRewardExperience() {
+        return REWARD_EXPERIENCE;
+    }
+
+    public int getRewardItemFamily() {
+        return REWARD_ITEM_FAMILY;
     }
 
     public AI getAi() {

@@ -10,5 +10,15 @@ public enum MeleeStyle {
     ONE_HAND,
     TWO_HAND,
     DUAL_WEAPON,
-    SHIELD
+    SHIELD;
+
+    public String shortDescribe() {
+        switch (this) {
+            case ONE_HAND: return "1H";
+            case TWO_HAND: return "2H";
+            case DUAL_WEAPON: return "2X";
+            case SHIELD: return "&S";
+            default: throw new IllegalArgumentException();
+        }
+    }
 }

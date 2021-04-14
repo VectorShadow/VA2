@@ -8,6 +8,7 @@ import io.out.message.MessageCenter;
 import main.modes.*;
 import main.progression.estate.EstateProgression;
 import main.progression.rewards.Experience;
+import main.progression.rewards.Reward;
 import resources.chroma.ChromaSet;
 import resources.glyph.image.ImageManager;
 import world.actor.ActorDefinitions;
@@ -76,7 +77,7 @@ public class Session {
         engine = new Engine();
         messageCenter = new MessageCenter();
         player = new Player();
-        player.setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE));
+        player.setActor(new Actor(ActorDefinitions.PLAYER_TEMPLATE, new Reward(0, 0, null)));
         player.getEquipment().setStartingItems();
         player.getActor().getCombatant().renewHealth();
         player.getActor().getCombatant().renewSanity();
@@ -142,10 +143,10 @@ public class Session {
         ((LockLeaf)LoreDefinitions.getLockTree().get(themeIndex, loreIndex)).unlock();
         if (targetMode == null)
             modeManager.transitionTo(
-                    new ScrollingTextMode(LoreDefinitions.loreAt(themeIndex, loreIndex)));
+                    new ScrollableTextMode(LoreDefinitions.loreAt(themeIndex, loreIndex)));
         else
             modeManager.transitionTo(
-                    new TransitiveScrollingTextMode(LoreDefinitions.loreAt(themeIndex, loreIndex), targetMode)
+                    new TransitiveScrollableTextMode(LoreDefinitions.loreAt(themeIndex, loreIndex), targetMode)
         );
     }
     public static Player getPlayer() {
@@ -218,7 +219,7 @@ public class Session {
             reset();
             getModeManager().revert();
             getModeManager().transitionTo(
-                    new ScrollingTextMode(
+                    new ScrollableTextMode(
                             win
                                     ? "Congratulations! You have completed this version of Chronicles of the Abyss! " +
                                     "The story will continue in future releases."

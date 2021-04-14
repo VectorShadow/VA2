@@ -137,7 +137,7 @@ public class MainGameViewMode implements OperatingMode {
                         return;
                     case VK_SLASH:
                         if (ke.getModifiersEx() == SHIFT_DOWN_MASK) {
-                            Session.getModeManager().transitionTo(new ScrollingTextMode(MetaData.inGameHelp()));
+                            Session.getModeManager().transitionTo(new ScrollableTextMode(MetaData.inGameHelp()));
                         }
                         return;
                     case VK_Q:

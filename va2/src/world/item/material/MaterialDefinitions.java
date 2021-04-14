@@ -76,4 +76,9 @@ public class MaterialDefinitions {
             damageTypeArray(-2, +1, 0, null, -4, 0, 0, null, -1, -1, null),
             ORGANIC
     );
+    public static final Material COMMON_STONE = new Material(
+            "common stone",
+            16,
+            damageTypeArray(+1, 0, 0, null, 0, -1, +3, null, +2, +2, null)
+    );
 }

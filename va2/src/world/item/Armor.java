@@ -111,4 +111,9 @@ public class Armor extends ContactInteractiveItem {
     public Armor clone() {
         return new Armor(this);
     }
+
+    @Override
+    public String informativeDisplay() {
+        return "todo";
+    }
 }

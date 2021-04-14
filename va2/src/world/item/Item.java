@@ -1,5 +1,6 @@
 package world.item;
 
+import core.DualityGUI;
 import main.Session;
 import resources.chroma.Chroma;
 import resources.glyph.BalancedGlyphTemplate;
@@ -80,8 +81,8 @@ public abstract class Item extends WorldObject {
     public int getItemQuality() {
         return getID() & ITEM_QUALITY;
     }
-    protected GlyphString getQualityColoredName() {
-        return new GlyphString(getTemplate().getName(), getQualityColor(getItemQuality()));
+    public GlyphString getQualityColoredName(int menuIndex) {
+        return new GlyphString(DualityGUI.printMenuHotkey(menuIndex) + getTemplate().getName(), getQualityColor(getItemQuality()));
     }
     private BalancedGlyphTemplate getQualityColor(int qualityLevel) {
         ArrayList<Color> foregrounds = new ArrayList<>();

@@ -4,6 +4,7 @@ import combat.Combatant;
 import engine.action.Action;
 import engine.action.ActionDefinitions;
 import main.Session;
+import main.progression.rewards.Loot;
 import main.progression.rewards.Reward;
 import status.StatusEffect;
 import status.StatusType;
@@ -28,13 +29,19 @@ public class Actor extends WorldObject {
     private int energyGainPerTurn;
     private LinkedList<Action> queuedActions = new LinkedList<>();
     private ArrayList<StatusEffect> statusEffects;
+    private final Reward REWARD;
 
 
-    public Actor(ActorTemplate t) {
+    public Actor(ActorTemplate t, Reward r) {
         super(t);
         combatant = t.getCombatant().clone();
         energyGainPerTurn = t.getEnergyGainPerTurn();
         statusEffects = new ArrayList<>();
+        REWARD = r;
+//        new Reward(
+//                t.getRewardExperience(),
+//                Loot.generateDropTable(dungeonTheme, rewardQuality, t.getRewardItemFamily(), noDropChance)
+//        );
     }
     public void clearQueuedActions() {
         queuedActions = new LinkedList<>();
@@ -143,7 +150,7 @@ public class Actor extends WorldObject {
     }
 
     public Reward finalizeReward() {
-        return ((ActorTemplate)getTemplate()).getReward().finalize(this);
+        return REWARD.finalize(this);
     }
 
     @Override

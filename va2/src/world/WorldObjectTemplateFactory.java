@@ -2,6 +2,7 @@ package world;
 
 import ai.AI;
 import combat.Combatant;
+import main.progression.rewards.Loot;
 import main.progression.rewards.Reward;
 import resources.glyph.BalancedGlyphTemplate;
 import world.actor.ActorTemplate;
@@ -136,16 +137,35 @@ public class WorldObjectTemplateFactory {
     public ActorTemplate manufactureActorTemplate(
             int energyPerTurn,
             Combatant combatant,
-            Reward reward,
+            int rewardExperience,
             AI ai
     ) {
-        return manufactureActorTemplate(energyPerTurn, combatant, 1, reward, ai);
+        return manufactureActorTemplate(energyPerTurn, 1, combatant,  rewardExperience, Loot.ALL_FAMILIES, ai);
+    }
+    public ActorTemplate manufactureActorTemplate(
+            int energyPerTurn,
+            int minimumDepth,
+            Combatant combatant,
+            int rewardExperience,
+            AI ai
+    ) {
+        return manufactureActorTemplate(energyPerTurn, minimumDepth, combatant, rewardExperience, Loot.ALL_FAMILIES, ai);
     }
     public ActorTemplate manufactureActorTemplate(
             int energyPerTurn,
             Combatant combatant,
+            int rewardExperience,
+            int rewardItemFamily,
+            AI ai
+    ) {
+        return manufactureActorTemplate(energyPerTurn, 1, combatant, rewardExperience, rewardItemFamily, ai);
+    }
+    public ActorTemplate manufactureActorTemplate(
+            int energyPerTurn,
             int minimumDepth,
-            Reward reward,
+            Combatant combatant,
+            int rewardExperience,
+            int rewardItemFamily,
             AI ai
     ) {
         forceNonEmptyLists();
@@ -163,9 +183,10 @@ public class WorldObjectTemplateFactory {
                 ),
                 reflectLight,
                 energyPerTurn,
-                combatant.clone(),
                 minimumDepth,
-                reward,
+                combatant.clone(),
+                rewardExperience,
+                rewardItemFamily,
                 ai
         );
     }

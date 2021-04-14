@@ -2,7 +2,7 @@ package main.modes.menu;
 
 import io.out.GUIManager;
 import main.Session;
-import main.modes.ScrollingTextMode;
+import main.modes.ScrollableTextMode;
 import world.lore.LoreDefinitions;
 
 /**
@@ -31,7 +31,7 @@ public class LoreMenuMode extends MenuMode {
         } else if (THEME == TOP_LEVEL) { //top level menu
             Session.getModeManager().transitionTo(new LoreMenuMode(index));
         } else { //theme menus
-            Session.getModeManager().transitionTo( new ScrollingTextMode(LoreDefinitions.loreAt(THEME, index)));
+            Session.getModeManager().transitionTo( new ScrollableTextMode(LoreDefinitions.loreAt(THEME, index)));
         }
     }
 

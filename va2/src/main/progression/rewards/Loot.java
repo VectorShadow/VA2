@@ -10,13 +10,13 @@ import java.util.Iterator;
 
 public class Loot {
 
-    private static final int ALL_FAMILIES = -1;
+    public static final int ALL_FAMILIES = -1;
 
-    public static final DropTable LEGACY = generateDropTable(ThemeDefinitions.ANY, Item.unshiftQuality(Item.QUALITY_MUNDANE), Item.FAMILY_LEGACY_RESOURCE, 0.33);
-    public static final DropTable DARK_GROVE_BASIC = generateDropTable(ThemeDefinitions.DARK_GROVE, Item.unshiftQuality(Item.QUALITY_MUNDANE), ALL_FAMILIES, 0.667);
+    public static final DropTable LEGACY = generateDropTable(ThemeDefinitions.ANY, Item.QUALITY_MUNDANE, Item.FAMILY_LEGACY_RESOURCE, 0.33);
 
-    private static DropTable generateDropTable(int theme, int qualityBias, int itemFamily, double noDropChance) {
+    public static DropTable generateDropTable(int theme, int shiftedQualityBias, int itemFamily, double noDropChance) {
         DropTable table = new DropTable(noDropChance);
+        int qualityBias = Item.unshiftQuality(shiftedQualityBias);
         for (Iterator<Item> itemIterator = ItemDefinitions.iterator(); itemIterator.hasNext();) {
             Item item = itemIterator.next();
             int quality = Item.unshiftQuality(item.getItemQuality());
@@ -52,10 +52,10 @@ public class Loot {
     }
 
     public static void test() {
-        Reward r = new Reward(0, LEGACY);
+        Reward r = new Reward(0, 1, LEGACY);
         ItemSlot is;
         for (int i = 0; i < 32; ++i) {
-            is = r.finalize(null).rollDrop();
+            is = r.finalize(null).rollDrop().get(0);
             System.out.println("Drop: " + (is == null ? " nothing " : is.count() + "x " + is.peekItem().getTemplate().getName()));
         }
     }

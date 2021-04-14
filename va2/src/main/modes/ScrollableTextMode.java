@@ -14,7 +14,7 @@ import static java.awt.event.KeyEvent.*;
 /**
  * A mode for displaying text that may exceed the size of a single screen.
  */
-public class ScrollingTextMode implements OperatingMode {
+public class ScrollableTextMode implements OperatingMode {
 
     private final String text;
 
@@ -22,7 +22,7 @@ public class ScrollingTextMode implements OperatingMode {
 
     private int displayFromIndex = 0;
 
-    public ScrollingTextMode(String text){
+    public ScrollableTextMode(String text){
         this.text = text;
         ArrayList<String> breakByNewLine = new ArrayList<>();
         while (text.contains("\n")){

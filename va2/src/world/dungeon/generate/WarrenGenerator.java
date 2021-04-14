@@ -87,7 +87,7 @@ public class WarrenGenerator extends FloorGenerator{
                         Session.getRNG().nextDouble() < CLEARING_SPAWN_CHANCE
                 ) {
                     --enemyPotential;
-                    Session.addActor(new Actor(as.randomizeEnemy(floor.DEPTH)), at);
+                    Session.addActor(floor.THEME.generateRandomActor(floor.DEPTH), at);
                 }
             }
         }
@@ -115,7 +115,7 @@ public class WarrenGenerator extends FloorGenerator{
                     Session.getRNG().nextDouble() < PATH_SPAWN_CHANCE
             ) {
                 --enemyPotential;
-                Session.addActor(new Actor(dt.getActorSet().randomizeEnemy(floor.DEPTH)), at);
+                Session.addActor(floor.THEME.generateRandomActor(floor.DEPTH), at);
             }
         } while (!at.equals(c2));
     }

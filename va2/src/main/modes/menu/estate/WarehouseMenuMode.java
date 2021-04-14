@@ -1,7 +1,7 @@
 package main.modes.menu.estate;
 
 import main.Session;
-import main.modes.ScrollingTextMode;
+import main.modes.ScrollableTextMode;
 import main.modes.menu.EstateRoomMenuMode;
 import main.modes.menu.MenuDefinitions;
 
@@ -15,7 +15,7 @@ public class WarehouseMenuMode extends EstateRoomMenuMode {
     protected void handleMenuOptionIndex(int index) {
         switch (index) {
             case MenuDefinitions.WAREHOUSE_OPTIONS_LEGACY_STOCKPILES:
-                Session.getModeManager().transitionTo(new ScrollingTextMode("" + Session.getLegacyResources()));
+                Session.getModeManager().transitionTo(new ScrollableTextMode("" + Session.getLegacyResources()));
                 return;
             case MenuDefinitions.WAREHOUSE_OPTIONS_TRANSIENT_STOCKPILES:
                 //todo

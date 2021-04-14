@@ -6,7 +6,6 @@ import combat.PlayerCombatant;
 import world.item.define.ArmorDefinitions;
 import combat.melee.forms.FormDefinitions;
 import world.item.define.MeleeWeaponDefinitions;
-import main.progression.rewards.Reward;
 import resources.chroma.Chroma;
 import resources.continuum.Continuum;
 import resources.continuum.Pair;
@@ -35,7 +34,7 @@ public class ActorDefinitions {
                     .manufactureActorTemplate(
                             25,
                             new PlayerCombatant(),
-                            new Reward(0),
+                            0,
                             AIDefinitions.PLAYER_AI
                     );
     public static final ActorTemplate WOODLAND_SPIDER =
@@ -61,7 +60,7 @@ public class ActorDefinitions {
                                     MeleeWeaponDefinitions.SPIDER_BITE(),
                                     ArmorDefinitions.ARACHNID_EXOSKELETON()
                             ),
-                            new Reward(4),
+                            5,
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate LARGE_HUNTING_SPIDER =
@@ -90,7 +89,7 @@ public class ActorDefinitions {
                                     MeleeWeaponDefinitions.SPIDER_BITE(),
                                     ArmorDefinitions.ARACHNID_EXOSKELETON()
                             ),
-                            new Reward(8),
+                            10,
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate GIANT_HUNTING_SPIDER =
@@ -118,6 +117,7 @@ public class ActorDefinitions {
                     .setImage(GFX_ROW_ACTOR, 2)
                     .manufactureActorTemplate(
                             36,
+                            2,
                             new Combatant(
                                     48,
                                     -1,
@@ -127,7 +127,7 @@ public class ActorDefinitions {
                                     MeleeWeaponDefinitions.SPIDER_BITE(),
                                     ArmorDefinitions.ARACHNID_EXOSKELETON()
                             ),
-                            new Reward(16),
+                            18,
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate FOREST_WOLF_TEMPLATE =
@@ -149,7 +149,7 @@ public class ActorDefinitions {
                                     MeleeWeaponDefinitions.WOLF_BITE(),
                                     ArmorDefinitions.WOLF_HIDE()
                             ),
-                            new Reward(20),
+                            20,
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate SILVER_WOLF_TEMPLATE =
@@ -162,6 +162,7 @@ public class ActorDefinitions {
                     .setImage(GFX_ROW_ACTOR, 3)
                     .manufactureActorTemplate(
                             30,
+                            2,
                             new Combatant(
                                     196,
                                     32,
@@ -171,7 +172,7 @@ public class ActorDefinitions {
                                     MeleeWeaponDefinitions.WOLF_BITE(),
                                     ArmorDefinitions.WOLF_HIDE()
                             ),
-                            new Reward(32),
+                            28,
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate RABID_WOLF_TEMPLATE =
@@ -191,6 +192,7 @@ public class ActorDefinitions {
                     .setImage(GFX_ROW_ACTOR, 3)
                     .manufactureActorTemplate(
                             33,
+                            2,
                             new Combatant(
                                     116,
                                     32,
@@ -200,7 +202,7 @@ public class ActorDefinitions {
                                     MeleeWeaponDefinitions.RABID_WOLF_BITE(),
                                     ArmorDefinitions.WOLF_HIDE()
                             ),
-                            new Reward(28),
+                            24,
                             AIDefinitions.CC_RABID_AI
                     );
     public static final ActorTemplate BLACK_BEAR_TEMPLATE =
@@ -213,6 +215,7 @@ public class ActorDefinitions {
                     .setImage(GFX_ROW_ACTOR, 4)
                     .manufactureActorTemplate(
                             24,
+                            2,
                             new Combatant(
                                     400,
                                     32,
@@ -222,7 +225,7 @@ public class ActorDefinitions {
                                     MeleeWeaponDefinitions.BEAR_BITE(),
                                     ArmorDefinitions.BEAR_HIDE()
                             ),
-                            new Reward(48),
+                            36,
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate CAVE_BEAR_TEMPLATE =
@@ -241,6 +244,7 @@ public class ActorDefinitions {
                     .setImage(GFX_ROW_ACTOR, 4)
                     .manufactureActorTemplate(
                             24,
+                            3,
                             new Combatant(
                                     555,
                                     32,
@@ -261,7 +265,7 @@ public class ActorDefinitions {
                                             ),
                                     ArmorDefinitions.BEAR_HIDE()
                             ),
-                            new Reward(72),
+                            48,
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate ANCIENT_WEB_CRAWLER_TEMPLATE =
@@ -284,6 +288,7 @@ public class ActorDefinitions {
                     .setImage(GFX_ROW_ACTOR, 5)
                     .manufactureActorTemplate(
                             21,
+                            3,
                             new Combatant(
                                     650,
                                     425,
@@ -310,8 +315,7 @@ public class ActorDefinitions {
                                     ),
                                     ArmorDefinitions.ANCIENT_ARACHNID_EXOSKELETON()
                             ),
-                            2,
-                            new Reward(256),
+                            128,
                             AIDefinitions.CCS_AI
                     );
     public static final ActorTemplate GIANT_WATER_MOCCASIN =
@@ -334,6 +338,7 @@ public class ActorDefinitions {
                     .setImage(GFX_ROW_ACTOR, 6)
                     .manufactureActorTemplate(
                             30,
+                            2,
                             new Combatant(
                                     325,
                                     24,
@@ -343,7 +348,7 @@ public class ActorDefinitions {
                                     MeleeWeaponDefinitions.MOCCASIN_FANG(),
                                     ArmorDefinitions.SNAKESKIN_SCALE_ARMOR()
                             ),
-                            new Reward(196),
+                            72,
                             AIDefinitions.CCW_AI
                     );
     public static final ActorTemplate SILK_MUMMY_TEMPLATE =
@@ -390,7 +395,7 @@ public class ActorDefinitions {
                                     ),
                                     ArmorDefinitions.SPIDER_SILK_COCOON()
                             ),
-                            new Reward(1_024),
+                            256,
                             AIDefinitions.CCS_AI
                     );
 }
