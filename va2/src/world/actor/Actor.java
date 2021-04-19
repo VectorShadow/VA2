@@ -23,13 +23,13 @@ import static status.StatusType.*;
  */
 public class Actor extends WorldObject {
 
-    private Coordinate location;
-    private Combatant combatant;
-    private int currentEnergy = 0;
-    private int energyGainPerTurn;
-    private LinkedList<Action> queuedActions = new LinkedList<>();
-    private ArrayList<StatusEffect> statusEffects;
-    private final Reward REWARD;
+    private Coordinate location; // #REFACTOR - as is
+    private Combatant combatant; // #REFACTOR - TODO - deprecate Combatant, pull combat stats from REFACTORED ActorTemplate
+    private int currentEnergy = 0; // #REFACTOR - as is
+    private int energyGainPerTurn; // #REFACTOR - TODO - get this from REFACTORED ActorTemplate
+    private LinkedList<Action> queuedActions = new LinkedList<>(); // #REFACTOR - as is
+    private ArrayList<StatusEffect> statusEffects; // #REFACTOR - TODO - REFACTOR status effects and re-assess
+    private final Reward REWARD; // #REFACTOR - TODO - deprecate Reward, pull experience and drop table from REFACTORED ActorTemplate
 
 
     public Actor(ActorTemplate t, Reward r) {

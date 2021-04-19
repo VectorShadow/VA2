@@ -4,6 +4,7 @@ import combat.melee.MeleeResolver;
 import engine.action.*;
 import io.out.message.Message;
 import io.out.message.MessageCenter;
+import io.out.message.MessageType;
 import main.extensible.Saveable;
 import status.StatusEffect;
 import status.StatusType;
@@ -166,7 +167,9 @@ public class Engine extends Saveable {
             destRow = destination.getRow();
             destCol = destination.getColumn();
             defender = f.tileAt(destRow, destCol).getActor();
-            Message playerMessage = MeleeResolver.resolve(actor, aaa, defender);
+            // todo - refactor combat
+            //Message playerMessage = MeleeResolver.resolve(actor, aaa, defender);
+            Message playerMessage = new Message(WARNING,"Melee combat has been disabled pending refactor.");
             if (playerMessage != null)
                 Session.getMessageCenter().sendMessage(playerMessage, MessageCenter.PRIORITY_MAX);
         }
