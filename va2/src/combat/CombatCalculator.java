@@ -20,8 +20,8 @@ public class CombatCalculator {
         return sumTable[ordinal];
     }
 
-    public static double baseHitChance(Actor attacker, Actor target) {
-        int range = (int)Math.ceil(attacker.getLocation().distanceTo(target.getLocation()));
+    public static double baseHitChance(double atRange) {
+        int range = (int)Math.ceil(atRange);
         double missChance = sum(range);
         return Math.min(100.0 - missChance, 0.0);
     }
